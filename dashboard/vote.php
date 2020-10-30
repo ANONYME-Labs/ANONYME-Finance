@@ -182,12 +182,12 @@
             </footer>
             <span></span>
         </div>
-        <script src="js/runtime~polyfills.09b6cd69.js"></script>
+        <!--script src="js/runtime~polyfills.09b6cd69.js"></script>
         <script src="js/vendors~dapp~landing~polyfills.e9e68e69.chunk.js"></script>
         <script src="js/vendors~polyfills.3570ab06.chunk.js"></script>
         <script src="js/polyfills.9fb97b9c.chunk.js"></script>
         <script src="js/runtime~dapp.b18be7fc.js"></script>
         <script src="js/vendors~dapp~landing.2efa2a68.chunk.js"></script>
-        <script src="js/dapp.b2fea9d0.chunk.js"></script>
+        <script src="js/dapp.b2fea9d0.chunk.js"></script-->
     </body>
 </html>

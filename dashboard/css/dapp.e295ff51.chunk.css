@@ -673,12 +673,12 @@
 
 .brand {
   display: inline-block;
-  background-image: url(../images/compound-logo.svg);
+  background-image: url(../images/logo.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-color: transparent;
   width: 121px;
-  height: 27px; }
+  height: 40px; }
 
 .mark {
   display: inline-block;
@@ -1238,12 +1238,12 @@ header {
   header.dark-2 {
     background-color: #141E27; }
   header .brand {
-    background-image: url(../images/compound-logo.svg);
+    background-image: url(../images/logo.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-color: transparent;
     width: 127px;
-    height: 27px; }
+    height: 40px; }
   header .text-center a {
     margin: 0 0.665rem;
     color: #FFFFFF;

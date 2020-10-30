@@ -1,66 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="x-ua-compatible" content="ie=edge" />
-        <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height" />
-        <meta property="og:title" content="Compound" />
-        <meta property="og:description" content="Compound is an algorithmic, autonomous interest rate protocol built for developers, to unlock a universe of open financial applications." />
-        <meta property="og:image" content="https://compound.finance/images/meta-tag.png" />
-        <meta property="og:url" content="https://compound.finance" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="apple-touch-icon" sizes="192x192" href="images/compound-192.png" />
-        <link rel="apple-touch-icon" sizes="512x512" href="images/compound-512.png" />
-        <link rel="manifest" href="js/manifest.json" />
-        <link rel="shortcut icon" href="images/favicon.ico" />
-        <title>Compound</title>
-        <meta name="description" content="Compound is an algorithmic, autonomous interest rate protocol built for developers, to unlock a universe of open financial applications." />
-        <link href="css/landing.e295ff51.chunk.css" rel="stylesheet" />
-    </head>
-    <body>
-        <noscript>You need to enable JavaScript to run this app. Compound is a web application. This app requires JavaScript to run.</noscript>
-        <div id="main">
-            <header id="header" class="landing">
-                <div class="container-large">
-                    <div class="row align-middle">
-                        <div class="col-sm-3 col-xs-10 logo"><a href="/" class="brand"></a></div>
-                        <div class="mobile-hide col-xs-6 text-center links">
-                            <a class="" href="/markets">Markets</a>
-                            <a class="" href="/governance">Governance</a>
-                            <a class="" href="/developers">Developers</a>
-                            <a class="" href="/prices">Prices</a>
-                            <a class="" href="http://localhost/anonyme/app/#/swap">Uniswap</a>
-                        </div>
-                        <div class="mobile-hide col-xs-3 text-right"><a class="dapp button hollow" rel="external1" href="dashboard">App</a></div>
-                        <div class="mobile-only col-xs-2 hamburger"><span></span><span></span><span></span></div>
-                    </div>
-                </div>
-                <div class="mobile-header">
-                    <div class="links">
-                        <ul>
-                            <a href="/">
-                                <li><p>Home</p></li>
-                            </a>
-                            <a href="/markets">
-                                <li><p>Markets</p></li>
-                            </a>
-                            <a href="/governance">
-                                <li><p>Governance</p></li>
-                            </a>
-                            <a href="/developers">
-                                <li><p>Developers</p></li>
-                            </a>
-                            <a href="/prices">
-                                <li><p>Prices</p></li>
-                            </a>
-                            <a href="http://localhost/anonyme/app/#/swap">
-                                <li><p>Uniswap</p></li>
-                            </a>
-                        </ul>
-                    </div>
-                    <a class="dapp button hollow" rel="external" href="dashboard">App</a>
-                </div>
-            </header>
+<?php include('header.php'); ?>
+
             <div>
                 <section id="landing-overview">
                     <div id="dot-grid"></div>
@@ -77,7 +16,7 @@
                                                 </h1>
                                             </div>
                                         </div>
-                                        <div><img src="https://package.elm-lang.org/assets/favicon.ico" style="display: none;" /></div>
+                                        <div><img src="/assets/favicon.ico" style="display: none;" /></div>
                                     </div>
                                     <div class="carousel-indicator">
                                         <p class="small current-index">01</p>
@@ -327,7 +266,7 @@
                                             <div class="carousel-item">
                                                 <div class="projects__carousel__slide">
                                                     <div class="row">
-                                                        <a class="col-sm-4 col-xs-12" target="_blank" rel="external" href="https://app.compound.finance/">
+                                                        <a class="col-sm-4 col-xs-12" target="_blank" rel="external" href="/dashboard">
                                                             <div class="panel">
                                                                 <span class="icon icon--compound"></span>
                                                                 <div class="project-card-header"><h4>Compound Dashboard</h4></div>
@@ -570,45 +509,5 @@
                     </div>
                 </section>
             </div>
-            <footer id="footer" class="landing">
-                <div class="container-large">
-                    <div class="row top">
-                        <div class="col-sm-2 logo mobile-hide"><a href="/" class="mark"></a></div>
-                        <div class="col-xs-12 logo mobile-only"><a href="/" class="brand"></a></div>
-                        <div class="col-sm-8 col-xs-12 row links-holder">
-                            <div class="col-sm-3 col-xs-6 links">
-                                <p>Protocol</p>
-                                <a href="/markets">Markets</a><a href="/prices">Prices</a><a href="/developers">Developers</a><a href="/docs">Docs</a>
-                            </div>
-                            <div class="col-sm-3 col-xs-6 links">
-                                <p>Governance</p>
-                                <a href="/governance">Overview</a><a href="/governance/comp">COMP</a><a href="/governance/leaderboard">Leaderboard</a><a rel="external" href="https://www.comp.xyz/">Forums</a>
-                            </div>
-                            <div class="col-sm-3 col-xs-6 links">
-                                <p>Company</p>
-                                <a href="/about">About</a><a href="/about#jobs">Careers</a>
-                            </div>
-                        </div>
-                        <div class="mobile-hide col-xs-2 text-right"><a class="dapp button" rel="external" href="dashboard">App</a></div>
-                    </div>
-                    <div class="bottom">
-                        <label class="small">© 2020 Compound Labs, Inc.</label>
-                        <div class="social">
-                            <a class="icn discord" target="_blank" rel="external" href="https://compound.finance/discord"></a>
-                            <a class="icn github" target="_blank" rel="external" href="https://github.com/compound-finance/compound-protocol"></a>
-                            <a class="icn medium" target="_blank" rel="external" href="https://medium.com/compound-finance"></a><a class="icn twitter" target="_blank" rel="external" href="https://twitter.com/compoundfinance"></a>
-                            <div class="dropdown dropdown--network">
-                                <span class="dropdown__selected dropdown__selected--dark2"><span class="dot-indicator green"></span><label class="small">Mainnet</label></span>
-                                <div class="dropdown__options dropdown__options--network dropdown__selected--dark2"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-        <script src="js/runtime_landing.20510066.js"></script>
-        <script src="js/vendors_dapp_landing_polyfills.e9e68e69.chunk.js"></script>
-        <script src="js/vendors_dapp_landing.2efa2a68.chunk.js"></script>
-        <script src="js/landing.595ccd2e.chunk.js"></script>
-    </body>
-</html>
+   
+<?php include('footer.php'); ?>

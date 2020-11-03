@@ -29,7 +29,7 @@
                         <div class="row align-middle">
                             <div class="col-xs-3"><a class="brand" rel="external" href="https://compound.finance"></a></div>
                             <div class="col-xs-6 mobile-hide text-center links"><a class="active" href="/">Dashboard</a><a class="" href="vote.php">Vote</a></div>
-                           <div class="col-xs-9 col-sm-3 text-right actions"><div class="comp-balance">0.0000<img src="images/comp-icn.svg"></div><a id="account" class="mobile-hide"><span class=""></span>0x89...DDD5</a></div>
+                           <div class="col-xs-9 col-sm-3 text-right actions"><a id="connect-wallet" class="dapp button hollow mobile-hide">Connect Wallet</a>
                             <div class="col-xs-9 mobile-links"><a class="dapp button hollow mobile-links__link" href="vote.php">Vote</a></div>
                         </div>
                     </div>

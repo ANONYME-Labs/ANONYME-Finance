@@ -6,7 +6,7 @@
                                 <div class="row align-middle mobile-hide">
                                     <div class="col-xs-5 text-center">
                                         <label class="supply">Supply Balance</label>
-                                        <div class="headline headline--loading"></div>
+                                        <div class="headline headline--loading">$0</div>
                                     </div>
                                     <div class="col-xs-2">
                                         <div class="net-apy-wrapper">
@@ -18,13 +18,13 @@
                                             </div>
                                             <div class="net-apy-description">
                                                 <label>Net APY</label>
-                                                <div class="headline headline--loading"></div>
+                                                <div class="headline headline--loading">0%</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-5 text-center">
                                         <label class="borrow">Borrow Balance</label>
-                                        <div class="headline headline--loading"></div>
+                                        <div class="headline headline--loading">$0</div>
                                     </div>
                                 </div>
                                 <div class="row align-middle mobile-only">
@@ -38,7 +38,7 @@
                                             </div>
                                             <div class="net-apy-description">
                                                 <label>Net APY</label>
-                                                <div class="headline headline--loading"></div>
+                                                <div class="headline headline--loading">$0</div>
                                             </div>
                                         </div>
                                     </div>

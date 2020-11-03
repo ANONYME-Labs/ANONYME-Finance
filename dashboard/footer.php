@@ -43,11 +43,13 @@
 
 window.addEventListener('load', async () => {
 $(document).ready(function(){
-console.log(window.web3);
+
 
   $("#connect-wallet").click(async function(){
       
-	  $('.actions').html('<div class="comp-balance">0.0000<img src="images/comp-icn.svg"></div><a id="account" class="mobile-hide"><span class=""></span>0x89...DDD5</a></div>');
+	 
+	  
+	   $('.asset-list').show();
       // Modern dapp browsers...
     if (window.ethereum) {
         window.web3 = new Web3(ethereum);
@@ -59,12 +61,13 @@ console.log(window.web3);
           if(!error && typeof(result[0]) !== 'undefined')
               {
               var metaMaskAddress=""+result[0];
-			  console.log(window.web3);
+			  console.log(metaMaskAddress);
+			   $('.actions').html('<div class="comp-balance">0.0000<img src="images/comp-icn.svg"></div><a id="account" class="mobile-hide"><span class=""></span>'+metaMaskAddress+'</a></div>');
               var now = new Date();
               now.setTime(now.getTime() + 1 * 3600 * 1000);
               document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
               
-              location.reload();
+             // location.reload();
             }
           });
         } catch (error) {
@@ -83,7 +86,7 @@ console.log(window.web3);
           now.setTime(now.getTime() + 1 * 3600 * 1000);
           document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
           
-          location.reload();
+         // location.reload();
         }
       });
         
@@ -93,6 +96,8 @@ console.log(window.web3);
 
         console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
     }
+	
+	
   });
 
   $("#manualEntryButton").click(function(){

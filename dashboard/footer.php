@@ -171,7 +171,7 @@ $(document).ready(function(){
 window.addEventListener('load', async () => {
 $(document).ready(function(){
 
-$("#regUserButton").click(async function(){
+
 
 
 // Modern dapp browsers...
@@ -180,7 +180,7 @@ $("#regUserButton").click(async function(){
         window.web3 = new Web3(ethereum);
         try {
             // Request account access if needed
-            await ethereum.enable();
+           // await ethereum.enable();
             // Acccounts now exposed
             web3.eth.getAccounts(async function(error, result) {
           if(!error && typeof(result[0]) !== 'undefined')
@@ -191,7 +191,7 @@ $("#regUserButton").click(async function(){
 
 var arrayABI = <?=$mainContractABI; ?>;
 var mainContractAddress = "<?=$mainContractAddress; ?>";
-var referrerID = document.getElementById("regReferralID").value;
+//var referrerID = document.getElementById("regReferralID").value;
 
 
 
@@ -199,24 +199,10 @@ var myContract = new web3.eth.Contract(arrayABI, mainContractAddress, {
   from: myAccountAddress, // default from address
   });
 
+var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress});;
+console.log(balance);
 
-var priceOfLevel1 = await myContract.methods.priceOfLevel(1).call({from: myAccountAddress});
 
-var data = myContract.methods.regUser(referrerID).encodeABI();
-          web3.eth.sendTransaction({
-          from: myAccountAddress,
-          to: mainContractAddress,
-          gasLimit: 900000,
-          value: priceOfLevel1,
-          data: data, // deploying a contracrt
-          }).on('transactionHash', function(hash){
-            alertify.alert("Transacton Recorded","Thanks for joining . You can check the status at <a href='="+hash+"' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
-
-          }).on('receipt', function(receipt){
-        console.log(receipt)
-       
-
-        });
 
 
 
@@ -246,7 +232,7 @@ var data = myContract.methods.regUser(referrerID).encodeABI();
 
 
 
-});
+
 })
 });
 </script>

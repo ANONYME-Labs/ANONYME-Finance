@@ -254,7 +254,7 @@ $blockNumber = hexdec($blockNumber);
         $amount = hexdec('0x'.substr($data,128,66));
       
         $query = "INSERT INTO `transfer` (from, to, amount)";
-        $query .= " VALUES ('".$from."','".$to."','".$amount."');";
+        $query .= " VALUES ('".$from."','".$to."','".$amount."')";
         print $query."<br/>";
         mysqli_query( $conn, $query );
 

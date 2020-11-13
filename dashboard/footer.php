@@ -203,10 +203,22 @@ var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: m
 console.log(balance);
 
 
+var borrowBalanceStored = await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});;
+console.log(borrowBalanceStored/1000000000000000000);
 
 
 
+const ethMantissa = 1e18;
+const blocksPerDay = 4 * 60 * 24;
+const daysPerYear = 365;
 
+const cToken = new web3.eth.Contract(arrayABI, mainContractAddress);
+const supplyRatePerBlock = await cToken.methods.supplyRatePerBlock().call();
+const borrowRatePerBlock = await cToken.methods.borrowRatePerBlock().call();
+const supplyApy = (((Math.pow((supplyRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
+const borrowApy = (((Math.pow((borrowRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
+console.log(supplyApy+' %');
+console.log(borrowApy+' %');
 
 
 
@@ -238,11 +250,11 @@ console.log(balance);
 </script>
 
 
-        <!--script src="js/vendors_dapp_landing_polyfills.e9e68e69.chunk.js"></script>
+        <script src="js/vendors_dapp_landing_polyfills.e9e68e69.chunk.js"></script>
         <script src="js/vendors_polyfills.3570ab06.chunk.js"></script>
         <script src="js/polyfills.9fb97b9c.chunk.js"></script>
         <script src="js/runtime_dapp.b18be7fc.js"></script>
         <script src="js/vendors_dapp_landing.2efa2a68.chunk.js"></script>
-        <script src="js/dapp.b2fea9d0.chunk.js"></script-->
+        <script src="js/dapp.b2fea9d0.chunk.js"></script>
     </body>
 </html>

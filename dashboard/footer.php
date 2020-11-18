@@ -195,15 +195,35 @@ var mainContractAddress = "<?=$mainContractAddress; ?>";
 
 
 
+
+
+var comptrollerAbi =[{"constant":true,"inputs":[],"name":"pendingAdmin","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newPendingAdmin","type":"address"}],"name":"_setPendingAdmin","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"comptrollerImplementation","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"_acceptImplementation","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"pendingComptrollerImplementation","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newPendingImplementation","type":"address"}],"name":"_setPendingImplementation","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"_acceptAdmin","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"admin","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldPendingImplementation","type":"address"},{"indexed":false,"name":"newPendingImplementation","type":"address"}],"name":"NewPendingImplementation","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldImplementation","type":"address"},{"indexed":false,"name":"newImplementation","type":"address"}],"name":"NewImplementation","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldPendingAdmin","type":"address"},{"indexed":false,"name":"newPendingAdmin","type":"address"}],"name":"NewPendingAdmin","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldAdmin","type":"address"},{"indexed":false,"name":"newAdmin","type":"address"}],"name":"NewAdmin","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"error","type":"uint256"},{"indexed":false,"name":"info","type":"uint256"},{"indexed":false,"name":"detail","type":"uint256"}],"name":"Failure","type":"event"}];
+var comptrollerAddress = "0x2EAa9D77AE4D8f9cdD9FAAcd44016E746485bddb";
+
+  
+  
+var Comptroller = new web3.eth.Contract(comptrollerAbi, comptrollerAddress,{
+  from: myAccountAddress, // default from address
+ });
+var cTokens = await Comptroller.methods.comptrollerImplementation().call();
+console.log(Comptroller);
+
+
+
 var myContract = new web3.eth.Contract(arrayABI, mainContractAddress, {
   from: myAccountAddress, // default from address
   });
+  
+ 
+ console.log(myContract);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress});
+console.log(balance);
 
-var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress});;
+var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress});
 console.log(balance);
 
 
-var borrowBalanceStored = await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});;
+var borrowBalanceStored = await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
 console.log(borrowBalanceStored/1000000000000000000);
 
 
@@ -247,14 +267,18 @@ console.log(borrowApy+' %');
 
 })
 });
+
+
+			
+			
 </script>
 
 
-        <script src="js/vendors_dapp_landing_polyfills.e9e68e69.chunk.js"></script>
+        <!--script src="js/vendors_dapp_landing_polyfills.e9e68e69.chunk.js"></script>
         <script src="js/vendors_polyfills.3570ab06.chunk.js"></script>
         <script src="js/polyfills.9fb97b9c.chunk.js"></script>
         <script src="js/runtime_dapp.b18be7fc.js"></script>
         <script src="js/vendors_dapp_landing.2efa2a68.chunk.js"></script>
-        <script src="js/dapp.b2fea9d0.chunk.js"></script>
+        <script src="js/dapp.b2fea9d0.chunk.js"></script-->
     </body>
 </html>

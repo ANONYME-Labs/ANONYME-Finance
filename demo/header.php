@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
@@ -30,7 +31,14 @@
   border-radius: 30px;
 }
 
-
+.dark-mode .content-wrapper {
+    background-color: #2b2d3c;
+    color: #fff;
+}
+.dark-mode .card {
+    color: #fff;
+    background: #383d51;
+}
 .PoolSelectButton.jsx-3197832361 {
     background: rgb(241, 241, 243);
 }

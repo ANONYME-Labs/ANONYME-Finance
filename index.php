@@ -28,16 +28,13 @@
         <meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport" />
         <meta content="#FFF" name="theme-color" />
         <link href="/manifest.json" rel="manifest" />
-        <link href="/favicon32.ico" rel="shortcut icon" sizes="32x32" />
-        <link href="/favicon.png" rel="apple-touch-icon" sizes="16x16" />
-        <link href="/favicon32.png" rel="apple-touch-icon" sizes="32x32" />
-        <link href="/favicon64.png" rel="apple-touch-icon" sizes="64x64" />
+       <link rel="icon" href="home/image/favicon.png" type="image/png" sizes="16x16">
         <meta content="Aave – Open Source DeFi Protocol" property="og:title" />
         <meta content="Aave – Open Source DeFi Protocol" property="twitter:title" />
         <meta content="Aave is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." name="description" />
         <meta content="Aave is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." property="og:description" />
         <meta content="Aave is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." property="twitter:description" />
-        <meta content="https://aave.com/favicon64.png" property="og:image" />
+        <!-- <meta content="https://aave.com/favicon64.png" property="og:image" /> -->
         <title>Aave – Open Source DeFi Protocol</title>
         <link href="home/css/2.cc26684e.chunk.css" rel="stylesheet" />
         <link href="home/css/main.ce61f322.chunk.css" rel="stylesheet" />
@@ -46,6 +43,11 @@
         <meta content="Aave – Open Source DeFi Protocol" property="twitter:title" data-react-helmet="true" />
         <link href="https://fonts.gstatic.com" rel="preconnect" />
         <link href="https://protocol-api.aave.com" rel="preconnect" />
+        <style type="text/css">
+            body{
+                background: rgb(43, 45, 60);
+            }
+        </style>
     </head>
 
     <body data-new-gr-c-s-check-loaded="14.984.0" data-gr-ext-installed="">
@@ -56,7 +58,7 @@
                 <div class="PageLayout">
                     <div class="Header">
                         <div class="Header__logo-inner">
-                            <a aria-current="page" class="active" href="/"><img src="home/image/whiteLogo.d156e83e.svg" alt="Aave" /></a>
+                            <a aria-current="page" class="active" href="/"><img src="images/logo.png" alt="Aave" /></a>
                         </div>
                         <div class="Header__navigation-inner">
                             <div class="Header__menu Header__desktop-menu">
@@ -66,10 +68,10 @@
                                             <a class="Link Link__white" href=""><span>About</span></a>
                                         </li>
                                         <li>
-                                            <a class="Link Link__white" href="" target="_blank"><span>Aave Protocol</span></a>
+                                            <a class="Link Link__white" href="" target="_blank"><span>Swap</span></a>
                                         </li>
                                         <li>
-                                            <a class="Link Link__white" href="" target="_blank"><span>FAQ</span></a>
+                                            <a class="Link Link__white" href="" target="_blank"><span>Loan</span></a>
                                         </li>
                                         <li>
                                             <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank"><span>Documentation</span></a>
@@ -78,7 +80,7 @@
                                             <a class="Link Link__white" href=""><span>Security</span></a>
                                         </li>
                                     </ul>
-                                    <button class="DesktopMenu__open-button" type="button"><span></span><span></span><span></span></button>
+                                    <!-- <button class="DesktopMenu__open-button" type="button"><span></span><span></span><span></span></button> -->
                                     <div class="DesktopMenu__full">
                                         <div class="DesktopMenu__full-top">
                                             <p>Menu</p>
@@ -283,8 +285,8 @@
                     </div>
                     <main class="PageLayout__content">
                         <section class="MainPage__firstSection">
-                            <img class="MainPage__firstSection-desktop--bg" src="home/image/bg.4e320bbf.svg" alt="" /><img class="MainPage__firstSection-tablet--bg" src="home/image/tabletBg.93016e25.svg" alt="" />
-                            <img class="MainPage__firstSection-mobile--bg" src="home/image/mobileBg.5df8b1e7.svg" alt="" />
+                            <!-- <img class="MainPage__firstSection-desktop--bg" src="home/image/bg.4e320bbf.svg" alt="" /><img class="MainPage__firstSection-tablet--bg" src="home/image/tabletBg.93016e25.svg" alt="" />
+                            <img class="MainPage__firstSection-mobile--bg" src="home/image/mobileBg.5df8b1e7.svg" alt="" /> -->
                             <div class="container">
                                 <div class="MainPage__firstSection-text">
                                     <h1>The liquidity market protocol</h1>

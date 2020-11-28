@@ -29,20 +29,20 @@
         <meta content="#FFF" name="theme-color" />
         <link href="/manifest.json" rel="manifest" />
        <link rel="icon" href="home/image/favicon.png" type="image/png" sizes="16x16">
-        <meta content="Aave – Open Source DeFi Protocol" property="og:title" />
-        <meta content="Aave – Open Source DeFi Protocol" property="twitter:title" />
-        <meta content="Aave is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." name="description" />
-        <meta content="Aave is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." property="og:description" />
-        <meta content="Aave is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." property="twitter:description" />
-        <!-- <meta content="https://aave.com/favicon64.png" property="og:image" /> -->
-        <title>Aave – Open Source DeFi Protocol</title>
+        <meta content="Anonyme – Open Source DeFi Protocol" property="og:title" />
+        <meta content="Anonyme – Open Source DeFi Protocol" property="twitter:title" />
+        <meta content="Anonyme is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." name="description" />
+        <meta content="Anonyme is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." property="og:description" />
+        <meta content="Anonyme is an Open Source and Non-Custodial protocol to earn interest on deposits and borrow assets. The protocol features Flash Loans, the first uncollateralized loan in DeFi." property="twitter:description" />
+        <!-- <meta content="https://Anonyme.com/favicon64.png" property="og:image" /> -->
+        <title>Anonyme – Lend, Borrow And Swap</title>
         <link href="home/css/2.cc26684e.chunk.css" rel="stylesheet" />
         <link href="home/css/main.ce61f322.chunk.css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com" rel="preconnect" />
-        <meta content="Aave – Open Source DeFi Protocol" property="og:title" data-react-helmet="true" />
-        <meta content="Aave – Open Source DeFi Protocol" property="twitter:title" data-react-helmet="true" />
+        <meta content="Anonyme – Open Source DeFi Protocol" property="og:title" data-react-helmet="true" />
+        <meta content="Anonyme – Open Source DeFi Protocol" property="twitter:title" data-react-helmet="true" />
         <link href="https://fonts.gstatic.com" rel="preconnect" />
-        <link href="https://protocol-api.aave.com" rel="preconnect" />
+        <link href="https://protocol-api.Anonyme.com" rel="preconnect" />
         <style type="text/css">
             body{
                 background: rgb(43, 45, 60);
@@ -58,7 +58,7 @@
                 <div class="PageLayout">
                     <div class="Header">
                         <div class="Header__logo-inner">
-                            <a aria-current="page" class="active" href="/"><img src="images/logo.png" alt="Aave" /></a>
+                            <a aria-current="page" class="active" href="/"><img src="images/logo.png" alt="A" /></a>
                         </div>
                         <div class="Header__navigation-inner">
                             <div class="Header__menu Header__desktop-menu">
@@ -159,7 +159,7 @@
                                     <button class="MobileMenu__open" type="button"><span></span><span></span><span></span></button>
                                     <div class="MobileMenu__inner">
                                         <div class="MobileMenu__top-line">
-                                            <a aria-current="page" class="active" href="/"><img class="MobileMenu__logo" src="home/image/whiteLogo.d156e83e.svg" alt="Aave" /></a><button class="MobileMenu__close" type="button"></button>
+                                            <a aria-current="page" class="active" href="/"><img class="MobileMenu__logo" src="home/image/whiteLogo.d156e83e.svg" alt="Anonyme" /></a><button class="MobileMenu__close" type="button"></button>
                                         </div>
                                         <div class="MobileMenu__links">
                                             <ul class="MobileMenu__links-inner">
@@ -167,7 +167,7 @@
                                                     <a class="Link Link__white" href=""><span>About</span></a>
                                                 </li>
                                                 <li class="MobileMenu__link">
-                                                    <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank"><span>Aave Protocol</span></a>
+                                                    <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank"><span>Anonyme Protocol</span></a>
                                                 </li>
                                                 <li class="MobileMenu__link">
                                                     <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank"><span>FAQ</span></a>
@@ -198,7 +198,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="MobileMenu__link">
-                                                    <a class="Link Link__white" href=""><span>Aavenomics</span></a>
+                                                    <a class="Link Link__white" href=""><span>Anonymenomics</span></a>
                                                 </li>
                                                 <li class="MobileMenu__link">
                                                     <a class="Link Link__white" href=""><span>Ecosystem</span></a>
@@ -290,10 +290,10 @@
                             <div class="container">
                                 <div class="MainPage__firstSection-text">
                                     <h1>The liquidity market protocol</h1>
-                                    <p>Aave is an open source and non-custodial protocol enabling the creation of liquidity markets. Users can earn interest on deposits and borrow assets.</p>
+                                    <p>Anonyme is an open source and non-custodial protocol enabling the creation of liquidity markets. Users can earn interest on deposits and borrow assets.</p>
                                 </div>
                                 <div class="MainPage__firstSection__migration-info">
-                                    <p>Total <strong>LEND</strong> migrated to <strong>AAVE</strong><span>91.25%</span></p>
+                                    <p>Total <strong>LEND</strong> migrated to <strong>Anonyme</strong><span>91.25%</span></p>
                                     <div class="MainPage__firstSection__migration-bar"><div class="MainPage__firstSection__migration-line" style="width: 91.2505%;"></div></div>
                                 </div>
                                 <div class="MainPage__firstSection-enterInner">
@@ -306,7 +306,7 @@
                                 <div class="ProtocolOverview__caption">
                                     <p>Protocol Market Size</p>
                                     <h3><span>$ 1,876,424,377.83</span></h3>
-                                    <h4>Aave Market<span>$ 1,876,246,053.16</span></h4>
+                                    <h4>Anonyme Market<span>$ 1,876,246,053.16</span></h4>
                                 </div>
                                 <div class="ProtocolOverview__filters">
                                     <div class="ProtocolOverview__switcher">
@@ -325,7 +325,7 @@
                                         </button>
                                         <div class="PoolSelect__pools">
                                             <button class="PoolSelect__pool PoolSelect__poolActive" type="button" disabled="">
-                                                <img src="home/image/aave.0f518c18.svg" alt="Aave" />
+                                                <img src="home/image/aave.0f518c18.svg" alt="Anonyme" />
                                                 <p class="PoolSelect__marketText">market</p>
                                             </button>
                                             <button class="PoolSelect__pool" type="button">
@@ -926,8 +926,8 @@
                                                 <div class="TableItem__wrapper">
                                                     <div class="TableItem__column">
                                                         <div class="TokenIcon TableItem__token">
-                                                            <img src="home/image/aave.aadf289d.svg" alt="AAVE" height="40" width="40" />
-                                                            <p>Aave <span>(AAVE)</span></p>
+                                                            <img src="home/image/aave.aadf289d.svg" alt="Anonyme" height="40" width="40" />
+                                                            <p>Anonyme <span>(Anonyme)</span></p>
                                                         </div>
                                                     </div>
                                                     <div class="TableItem__column">
@@ -1905,14 +1905,14 @@
                         </section>
                         <div class="SubscriptionForm">
                             <div class="SubscriptionForm__top-inner">
-                                <div class="animated" style="animation-duration: 1s; opacity: 0;"><img src="home/image/ghostGradient.c5edd697.svg" alt="Aave" /></div>
+                                <div class="animated" style="animation-duration: 1s; opacity: 0;"><img src="home/image/ghostGradient.c5edd697.svg" alt="Anonyme" /></div>
                                 <p class="SubscriptionForm__title">Stay in Touch!</p>
                             </div>
                             <form class="DefaultForm SubscriptionForm__form">
                                 <div class="DefaultForm__field-inner SubscriptionForm__fields">
                                     <input class="DefaultField SubscriptionField" type="email" name="EMAIL" id="EMAIL" placeholder="Enter e-mail address" required="" />
                                     <button class="DefaultButton DefaultButton__medium DefaultButton__gradient" type="submit">
-                                        <span class="DefaultButton__text">Submit</span><img src="home/image/whiteArrow.76b35eab.svg" alt="Aave" />
+                                        <span class="DefaultButton__text">Submit</span><img src="home/image/whiteArrow.76b35eab.svg" alt="Anonyme" />
                                     </button>
                                 </div>
                             </form>
@@ -1996,7 +1996,7 @@
                                                 <a class="Link Link__white" href="#"><span>About</span></a>
                                             </li>
                                             <li class="Footer__link">
-                                                <a class="Link Link__white" href="#" rel="noopener noreferrer" target="_blank"><span>Aave Protocol</span></a>
+                                                <a class="Link Link__white" href="#" rel="noopener noreferrer" target="_blank"><span>Anonyme Protocol</span></a>
                                             </li>
                                             <li class="Footer__link">
                                                 <a class="Link Link__white" href="#" rel="noopener noreferrer" target="_blank"><span>Documentation</span></a>
@@ -2026,7 +2026,7 @@
                                                 </a>
                                             </li>
                                             <li class="Footer__link">
-                                                <a class="Link Link__white" href="#"><span>Aavenomics</span></a>
+                                                <a class="Link Link__white" href="#"><span>Anonymenomics</span></a>
                                             </li>
                                             <li class="Footer__link">
                                                 <a class="Link Link__white" href="#"><span>Ecosystem</span></a>
@@ -2053,7 +2053,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="Footer__bottom-line"><p>Copyright © 2020 Aave</p></div>
+                                <div class="Footer__bottom-line"><p>Copyright © 2020 Anonyme</p></div>
                             </div>
                         </div>
                     </footer>

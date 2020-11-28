@@ -74,7 +74,7 @@
             <div class="governance-panel__header align-between">
                <h4>Supply</h4>
             </div>
-            <section class="collateral" style="display:none" >
+            <section class="Supply_collateral" style="display:none" >
                <div class="governance-panel__labels">
                   <div class="col-xs-4 col-sm-4"><label>Asset</label></div>
                   <div class="col-xs-0 col-sm-3 text-right mobile-hide"><label>APY / Earned</label></div>
@@ -178,6 +178,33 @@
                         </div>
                      </div>
                   </a>
+				  <a class="asset">
+					<div class="col-xs-4 col-sm-4 identity">
+						<span class="icon ETH"></span>
+						<div class="balance">
+							<div>Ether</div>
+							<span class="subtitle mobile-only">21.83%</span>
+						</div>
+						</div>
+						<div class="col-xs-0 col-sm-3 text-right mobile-hide">
+							<div class="balance">
+							<div>21.83%</div>
+							</div>
+											</div>
+					   <div class="col-xs-4 col-sm-3 text-right">
+						  <div class="balance">
+							 <div>0.7958 ETH</div>
+						  </div>
+					   </div>
+					   <div class="col-xs-4 col-sm-2 text-right">
+						  <div class="mdc-switch mdc-switch--checked">
+							 <div class="mdc-switch__track"></div>
+							 <div class="mdc-switch__thumb-underlay">
+								<div class="mdc-switch__thumb"><input id="basic-switch" class="mdc-switch__native-control" type="checkbox" role="checkbox"></div>
+							 </div>
+						  </div>
+					   </div>
+					</a>
                   <a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon USDC"></span>
@@ -288,7 +315,7 @@
             <div class="governance-panel__header align-between">
                <h4>Borrowing</h4>
             </div>
-            <section class="collateral" style="display:none" >
+            <section class="borrow_collateral" style="display:none" >
                <div class="governance-panel__labels">
                   <div class="col-xs-4 col-sm-4"><label>Asset</label></div>
                   <div class="col-xs-0 col-sm-3 text-right mobile-hide"><label>APY / Accrued</label></div>
@@ -386,6 +413,30 @@
                         </div>
                      </div>
                   </a>
+				 <a class="asset">
+				   <div class="col-xs-4 col-sm-4 identity">
+					  <span class="icon ETH"></span>
+					  <div class="balance">
+						 <div>Ether</div>
+						 <span class="subtitle mobile-only">21.98%</span>
+					  </div>
+				   </div>
+				   <div class="col-xs-0 col-sm-3 text-right mobile-hide">
+					  <div class="balance">
+						 <div>21.98%</div>
+					  </div>
+				   </div>
+				   <div class="col-xs-4 col-sm-3 text-right">
+					  <div class="balance">
+						 <div>0.7958 ETH</div>
+					  </div>
+				   </div>
+				   <div class="col-xs-4 col-sm-2 text-right">
+					  <div class="balance">
+						 <div>$55k</div>
+					  </div>
+				   </div>
+				</a>
                   <a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon USDC"></span>

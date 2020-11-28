@@ -45,10 +45,59 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="dashboard.php" class="nav-link">
+              <i class="nav-icon fa fa-retweet"></i>
+              <p>
+                Swap
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="dashboard.php" class="nav-link">
+              <i class="nav-icon fa fa-users"></i>
+              <p>
+                Pool
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="dashboard.php" class="nav-link">
+              <i class="nav-icon fa fa-line-chart"></i>
+              <p>
+                Chart
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="deposit.php" class="nav-link">
               <i class="nav-icon fas fa-wallet"></i>
               <p>
                 Deposit
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="dashboard.php" class="nav-link">
+              <i class="nav-icon fa fa-money"></i>
+              <p>
+                Loan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="dashboard.php" class="nav-link">
+              <i class="nav-icon fa fa-user"></i>
+              <p>
+                Staking
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="dashboard.php" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Vote
               </p>
             </a>
           </li>

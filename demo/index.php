@@ -7,6 +7,7 @@
     <meta name="author" content="Anonyme – Lend, Borrow And Swap">
     <meta name="generator" content="Jekyll v4.1.1">
     <title>Anonyme – Lend, Borrow And Swap</title>
+    <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
 	<link rel="stylesheet" href="bootstrap-4.5.3-dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style type="text/css">
@@ -92,7 +93,7 @@
 		<div class="container">
 			<div class="row mb-4">
 				<div class="col-sm-12 text-center">
-					<h1 class="text-white">Welcome to Aave</h1>
+					<h1 class="text-white">Welcome to Anonyme</h1>
 					<p class="text-white">Connect your wallet and jump into DeFi</p>
 				</div>
 			</div>	

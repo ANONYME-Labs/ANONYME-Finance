@@ -284,65 +284,12 @@
                         </div>
                     </div>
                     <main class="PageLayout__content">
-                        <section class="MainPage__firstSection">
-                            <!-- <img class="MainPage__firstSection-desktop--bg" src="home/image/bg.4e320bbf.svg" alt="" /><img class="MainPage__firstSection-tablet--bg" src="home/image/tabletBg.93016e25.svg" alt="" />
-                            <img class="MainPage__firstSection-mobile--bg" src="home/image/mobileBg.5df8b1e7.svg" alt="" /> -->
-                            <div class="container">
-                                <div class="MainPage__firstSection-text">
-                                    <h1>The liquidity market protocol</h1>
-                                    <p>Anonyme is an open source and non-custodial protocol enabling the creation of liquidity markets. Users can earn interest on deposits and borrow assets.</p>
-                                </div>
-                                <div class="MainPage__firstSection__migration-info">
-                                    <p>Total <strong>LEND</strong> migrated to <strong>Anonyme</strong><span>91.25%</span></p>
-                                    <div class="MainPage__firstSection__migration-bar"><div class="MainPage__firstSection__migration-line" style="width: 91.2505%;"></div></div>
-                                </div>
-                                <div class="MainPage__firstSection-enterInner">
-                                    <a class="Link Link__primary MainPage__firstSection-enterButton ButtonLink" href="demo" rel="noopener noreferrer" target="_blank"><strong class="GradientText">Enter</strong></a>
-                                </div>
-                            </div>
-                        </section>
                         <section class="ProtocolOverview">
                             <div class="container ProtocolOverview__container">
                                 <div class="ProtocolOverview__caption">
                                     <p>Protocol Market Size</p>
-                                    <h3><span>$ 1,876,424,377.83</span></h3>
+                                    <h3 style="color: white;"><span>$ 1,876,424,377.83</span></h3>
                                     <h4>Anonyme Market<span>$ 1,876,246,053.16</span></h4>
-                                </div>
-                                <div class="ProtocolOverview__filters">
-                                    <div class="ProtocolOverview__switcher">
-                                        <div class="LabeledSwitch">
-                                            <div class="LabeledSwitch__inner">
-                                                <div class="LabeledSwitch__pointer"><span></span></div>
-                                                <button type="button">USD</button><button type="button">Native</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="PoolSelect">
-                                        <h4 class="PoolSelect__title">Change market</h4>
-                                        <button class="PoolSelect__button" type="button">
-                                            <img src="home/image/aave.0f518c18.svg" alt="Aave" />
-                                            <p class="PoolSelect__marketText">market</p>
-                                        </button>
-                                        <div class="PoolSelect__pools">
-                                            <button class="PoolSelect__pool PoolSelect__poolActive" type="button" disabled="">
-                                                <img src="home/image/aave.0f518c18.svg" alt="Anonyme" />
-                                                <p class="PoolSelect__marketText">market</p>
-                                            </button>
-                                            <button class="PoolSelect__pool" type="button">
-                                                <img src="home/image/uniswap.f061e96e.svg" alt="Uniswap" />
-                                                <p class="PoolSelect__marketText">market</p>
-                                            </button>
-                                            <button class="PoolSelect__pool PoolSelect__poolComingSoon" type="button" disabled="">
-                                                <img src="home/image/set.15d09c36.svg" alt="Set" />
-                                                <img
-                                                    class="PoolSelect__comingSoon"
-                                                    src="data:home/image/png;base64,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"
-                                                    alt=""
-                                                />
-                                                <p class="PoolSelect__marketText">market</p>
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="container ProtocolOverview__container">
@@ -837,105 +784,6 @@
                                                             <p class="APRValue APRValue__undefined">3.97 <span>%</span></p>
                                                         </div>
                                                     </div>
-                                                    <div class="TableItem__column">
-                                                        <a
-                                                            class="Link Link__primary ButtonLink"
-                                                            href=""
-                                                            rel="noopener noreferrer"
-                                                            target="_blank"
-                                                        >
-                                                            <button class="DefaultButton DefaultButton__small DefaultButton__transparent TableItem__button TableItem__button-first" type="button">
-                                                                <span class="DefaultButton__text">Deposit</span>
-                                                            </button>
-                                                        </a>
-                                                        <a
-                                                            class="Link Link__primary ButtonLink"
-                                                            href=""
-                                                            rel="noopener noreferrer"
-                                                            target="_blank"
-                                                        >
-                                                            <button class="DefaultButton DefaultButton__small DefaultButton__transparent TableItem__button" type="button"><span class="DefaultButton__text">Borrow</span></button>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="TableItem__mobile-buttons">
-                                                    <a
-                                                        class="Link Link__primary ButtonLink"
-                                                        href=""
-                                                        rel="noopener noreferrer"
-                                                        target="_blank"
-                                                    >
-                                                        <button class="DefaultButton DefaultButton__small DefaultButton__transparent TableItem__button TableItem__button-first" type="button">
-                                                            <span class="DefaultButton__text">Deposit</span>
-                                                        </button>
-                                                    </a>
-                                                    <a
-                                                        class="Link Link__primary ButtonLink"
-                                                        href=""
-                                                        rel="noopener noreferrer"
-                                                        target="_blank"
-                                                    >
-                                                        <button class="DefaultButton DefaultButton__small DefaultButton__transparent TableItem__button" type="button"><span class="DefaultButton__text">Borrow</span></button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="TableItem TableItemDisabled">
-                                                <div class="TableItem__wrapper">
-                                                    <div class="TableItem__column">
-                                                        <div class="TokenIcon TableItem__token">
-                                                            <img src="home/image/lend.597ed6f8.svg" alt="LEND" height="40" width="40" />
-                                                            <p>ETHLend <span>(LEND)</span></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="TableItem__column">
-                                                        <div class="Value TableItem__value"><p>$ 6.04M</p></div>
-                                                    </div>
-                                                    <div class="TableItem__column"><span class="TableItem__noData">—</span></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div class="TableItem__freezed-inner">
-                                                        <p>
-                                                            Deposit and borrow of ETHLend (LEND) is disabled due to the ongoing migration. You can still repay and withdraw to migrate your token
-                                                            <a class="Link Link__secondary" href="" rel="noopener noreferrer" target="_blank"><span>here</span></a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="TableItem__mobile-buttons">
-                                                    <a
-                                                        class="Link Link__primary ButtonLink"
-                                                        href=""
-                                                        rel="noopener noreferrer"
-                                                        target="_blank"
-                                                    >
-                                                        <button class="DefaultButton DefaultButton__small DefaultButton__transparent TableItem__button TableItem__button-first" type="button">
-                                                            <span class="DefaultButton__text">Deposit</span>
-                                                        </button>
-                                                    </a>
-                                                    <a
-                                                        class="Link Link__primary ButtonLink"
-                                                        href=""
-                                                        rel="noopener noreferrer"
-                                                        target="_blank"
-                                                    >
-                                                        <button class="DefaultButton DefaultButton__small DefaultButton__transparent TableItem__button" type="button"><span class="DefaultButton__text">Borrow</span></button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="TableItem">
-                                                <div class="TableItem__wrapper">
-                                                    <div class="TableItem__column">
-                                                        <div class="TokenIcon TableItem__token">
-                                                            <img src="home/image/aave.aadf289d.svg" alt="Anonyme" height="40" width="40" />
-                                                            <p>Anonyme <span>(Anonyme)</span></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="TableItem__column">
-                                                        <div class="Value TableItem__value"><p>$ 220.25M</p></div>
-                                                    </div>
-                                                    <div class="TableItem__column"><span class="TableItem__noData">—</span></div>
-                                                    <div class="TableItem__column"><span class="TableItem__noData">—</span></div>
-                                                    <div class="TableItem__column TableItem__big-column"><span class="TableItem__noData">—</span><span class="TableItem__noData">—</span></div>
                                                     <div class="TableItem__column">
                                                         <a
                                                             class="Link Link__primary ButtonLink"
@@ -1630,51 +1478,6 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="TableItem TableItemDisabled">
-                                                <div class="TableItem__wrapper">
-                                                    <div class="TableItem__column">
-                                                        <div class="TokenIcon TableItem__token">
-                                                            <img src="home/image/rep.1791e143.svg" alt="REP" height="40" width="40" />
-                                                            <p>Augur <span>(REP)</span></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="TableItem__column">
-                                                        <div class="Value TableItem__value"><p>$ 56.8K</p></div>
-                                                    </div>
-                                                    <div class="TableItem__column">
-                                                        <div class="Value TableItem__value"><p>$ 376.09</p></div>
-                                                    </div>
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div class="TableItem__freezed-inner">
-                                                        <p>
-                                                            Deposit and borrow of Augur (REP) is disabled due to the ongoing migration. You can still repay and withdraw to migrate your token
-                                                            <a class="Link Link__secondary" href="" rel="noopener noreferrer" target="_blank"><span>here</span></a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="TableItem__mobile-buttons">
-                                                    <a
-                                                        class="Link Link__primary ButtonLink"
-                                                        href=""
-                                                        rel="noopener noreferrer"
-                                                        target="_blank"
-                                                    >
-                                                        <button class="DefaultButton DefaultButton__small DefaultButton__transparent TableItem__button TableItem__button-first" type="button">
-                                                            <span class="DefaultButton__text">Deposit</span>
-                                                        </button>
-                                                    </a>
-                                                    <a
-                                                        class="Link Link__primary ButtonLink"
-                                                        href=""
-                                                        rel="noopener noreferrer"
-                                                        target="_blank"
-                                                    >
-                                                        <button class="DefaultButton DefaultButton__small DefaultButton__transparent TableItem__button" type="button"><span class="DefaultButton__text">Borrow</span></button>
-                                                    </a>
-                                                </div>
-                                            </div>
                                             <div class="TableItem">
                                                 <div class="TableItem__wrapper">
                                                     <div class="TableItem__column">
@@ -1903,62 +1706,6 @@
                                 </div>
                             </div>
                         </section>
-                        <div class="SubscriptionForm">
-                            <div class="SubscriptionForm__top-inner">
-                                <div class="animated" style="animation-duration: 1s; opacity: 0;"><img src="home/image/ghostGradient.c5edd697.svg" alt="Anonyme" /></div>
-                                <p class="SubscriptionForm__title">Stay in Touch!</p>
-                            </div>
-                            <form class="DefaultForm SubscriptionForm__form">
-                                <div class="DefaultForm__field-inner SubscriptionForm__fields">
-                                    <input class="DefaultField SubscriptionField" type="email" name="EMAIL" id="EMAIL" placeholder="Enter e-mail address" required="" />
-                                    <button class="DefaultButton DefaultButton__medium DefaultButton__gradient" type="submit">
-                                        <span class="DefaultButton__text">Submit</span><img src="home/image/whiteArrow.76b35eab.svg" alt="Anonyme" />
-                                    </button>
-                                </div>
-                            </form>
-                            <div>
-                                <div>
-                                    <div
-                                        class="grecaptcha-badge"
-                                        data-style="bottomright"
-                                        style="
-                                            width: 256px;
-                                            height: 60px;
-                                            position: fixed;
-                                            visibility: hidden;
-                                            display: block;
-                                            transition: right 0.3s ease 0s;
-                                            bottom: 14px;
-                                            right: -186px;
-                                            box-shadow: gray 0px 0px 5px;
-                                            border-radius: 2px;
-                                            overflow: hidden;
-                                        "
-                                    >
-                                        <div class="grecaptcha-logo">
-                                            <iframe
-                                                src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Ld2ynAUAAAAADKCqQrGIFniYHrhG88eSWDY1yEq&amp;co=aHR0cHM6Ly9hYXZlLmNvbTo0NDM.&amp;hl=en&amp;v=UFwvoDBMjc8LiYc1DKXiAomK&amp;size=invisible&amp;badge=bottomright&amp;cb=ce0x2925xqxm"
-                                                width="256"
-                                                height="60"
-                                                role="presentation"
-                                                name="a-c7luawdo3pix"
-                                                frameborder="0"
-                                                scrolling="no"
-                                                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"
-                                            ></iframe>
-                                        </div>
-                                        <div class="grecaptcha-error"></div>
-                                        <textarea
-                                            id="g-recaptcha-response"
-                                            name="g-recaptcha-response"
-                                            class="g-recaptcha-response"
-                                            style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"
-                                        ></textarea>
-                                    </div>
-                                    <iframe style="display: none;"></iframe>
-                                </div>
-                            </div>
-                        </div>
                     </main>
                     <footer class="Footer__wrapper">
                         <img src="home/image/topBg.5f0ad11c.svg" alt="" class="Footer__top-background" />

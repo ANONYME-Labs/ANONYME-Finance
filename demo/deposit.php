@@ -61,14 +61,7 @@
                   <p>Select a different market to find different assets</p>
 
                 </div>
-                <div class="col-sm-12 text-center mb-3">
-                  <button type="button" class="btn btn-primary btn-lg switch-market">
-                    <span class="jsx-3197832361 PoolSelectButton__inner"><img src="https://app.aave.com/static/media/aave.0f518c18.svg" alt="" class="jsx-3197832361"><p class="m-0 jsx-2732488750 jsx-3652043408 GradientText"><span class="jsx-2732488750 jsx-3652043408 PoolSelectButton__marketText">market</span></p></span>
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-lg switch-market">
-                    <span class="jsx-3197832361 PoolSelectButton__inner"><img src="https://app.aave.com/static/media/uniswap.f061e96e.svg" alt="" class="jsx-3197832361"><p class="m-0 jsx-2732488750 jsx-3652043408 GradientText"><span class="jsx-2732488750 jsx-3652043408 PoolSelectButton__marketText">market</span></p></span>
-                  </button>
-                </div>
+                
               </div>
             </div>
             <!-- /.card -->

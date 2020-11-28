@@ -7,9 +7,9 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
+        <div class="info" style="width: 100%;">
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgba(255,255,255,.1);">
               0x8919...49DDD5
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -28,7 +28,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="index.php" class="nav-link active">
+            <a href="index.php" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Home

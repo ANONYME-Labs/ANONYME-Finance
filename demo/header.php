@@ -24,6 +24,10 @@
     font-weight: 700;
 }
 
+[class*=sidebar-dark-] {
+    background-color: rgb(56, 61, 81);
+}
+
 .card-min-height{
   min-height: 280px;
 }

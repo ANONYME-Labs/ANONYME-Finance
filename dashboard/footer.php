@@ -38,6 +38,7 @@
 		 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.js"></script>
 		 <script  src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 		 <script>
+		 
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -54,6 +55,11 @@ function getCookie(cname) {
   return "";
 }
 
+
+
+
+//------------------------------- connecting with smart contract ---------------------------------------------------
+
 window.addEventListener('load', async () => {
 $(document).ready(function(){
 	
@@ -69,10 +75,6 @@ $(document).ready(function(){
 
 
   $("#connect-wallet").click(async function(){
-      
-	 
-	  
-	  
       // Modern dapp browsers...
     if (window.ethereum) {
         window.web3 = new Web3(ethereum);
@@ -127,17 +129,10 @@ $(document).ready(function(){
 	
   });
 
-
-
-
-
-
-
 });
 });
 
-
-
+//------------------------------- connecting with smart contract ---------------------------------------------------
 
 
 window.addEventListener('load', async () => {
@@ -160,7 +155,9 @@ $(document).ready(function(){
               var myAccountAddress=""+result[0];
 
       
-
+var bal = await web3.eth.getBalance(myAccountAddress);
+var accbal = ( bal / 1000000000000000000 );
+console.log('accbal '+accbal);
 var arrayABI = <?=$mainContractABI; ?>;
 var mainContractAddress = "<?=$mainContractAddress; ?>";
 //var referrerID = document.getElementById("regReferralID").value;
@@ -181,25 +178,9 @@ var marketcontract = new web3.eth.Contract(marketAbi, comptrollerAddress,{
   from: myAccountAddress, // default from address
  });
  
- console.log(marketcontract);
- var arrayMrk=[myAccountAddress];
-var markets = await marketcontract.methods.enterMarkets(arrayMrk).send({from: myAccountAddress}).on('transactionHash', function(hash){
-   console.log(hash);
-})
-.on('confirmation', function(confirmationNumber, receipt){
-    console.log(confirmationNumber);
-})
-.on('receipt', function(receipt){
-    // receipt example
-    console.log(receipt);
-   
-})
-.on('error', console.error); // If there's an out of gas error the second parameter is the receipt.;
-console.log(myAccountAddress);
-console.log(markets);  
-
-
-var checkMembership = await marketcontract.methods.checkMembership(myAccountAddress,mainContractAddress).call({from: myAccountAddress})
+ 
+ 
+ var checkMembership = await marketcontract.methods.checkMembership(myAccountAddress,mainContractAddress).call({from: myAccountAddress})
 console.log(checkMembership); 
 //await web3.eth.sendTransaction({
     //from: myAccountAddress,
@@ -236,20 +217,53 @@ const supplyRatePerBlock = await cToken.methods.supplyRatePerBlock().call();
 const borrowRatePerBlock = await cToken.methods.borrowRatePerBlock().call();
 const supplyApy = (((Math.pow((supplyRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
 const borrowApy = (((Math.pow((borrowRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
-console.log(supplyApy+' %');
-console.log(borrowApy+' %');
 
 
-var userWallet=getCookie('userWallet');
-	
-	alert(userWallet);
-if(userWallet!=""){
-		$('.actions').html('<div class="comp-balance">0.0000<img src="images/comp-icn.svg"></div><a id="account" class="mobile-hide"><span class=""></span>'+userWallet+'</a></div>');
-		 $('.asset-list').show();
-	}
+$('#supply_percentage').html(supplyApy.toFixed(2)+' %');
+$('#supply_percentage_mo').html(supplyApy.toFixed(2)+' %');
+
+$('#borrow_percentage').html(supplyApy.toFixed(2)+' %');
+$('#borrow_percentage_mo').html(supplyApy.toFixed(2)+' %');
+
+$('#supply_blalnce').html(accbal.toFixed(3)+' ETH');
+$('#borrow_blalnce').html(accbal.toFixed(3)+' ETH');
+ 
+ console.log('accbal '+accbal);
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ console.log(marketcontract);
+ var arrayMrk=[myAccountAddress];
+ 
+
+
+ 
+ $('#ether-basic-switch').click( async function(){
+	 
+if($(this).prop('checked')==true){
+		 
+var markets = await marketcontract.methods.enterMarkets(arrayMrk).send({from: myAccountAddress});
+console.log(myAccountAddress);
+console.log(markets);  
 
 
 
+
+ }else{
+	 
+	 var markets = await marketcontract.methods.exitMarket(myAccountAddress).send({from: myAccountAddress});
+console.log(myAccountAddress);
+console.log(markets); 
+
+
+	 
+ }
+
+ });
             }
           });
         } catch (error) {
@@ -269,7 +283,7 @@ if(userWallet!=""){
 
 
 
-})
+});
 });
 
 

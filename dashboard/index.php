@@ -124,7 +124,7 @@
                   <div class="col-xs-4 col-sm-2 text-right"><label>Collateral</label></div>
                </div>
                <div class="assets">
-                  <a class="asset">
+                  <!--a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon BAT"></span>
                         <div class="balance">
@@ -177,35 +177,32 @@
                            </div>
                         </div>
                      </div>
-                  </a>
+                  </a-->
 				  <a class="asset">
 					<div class="col-xs-4 col-sm-4 identity">
 						<span class="icon ETH"></span>
 						<div class="balance">
 							<div>Ether</div>
-							<span class="subtitle mobile-only">21.83%</span>
+							<span id="supply_percentage_mo" class="subtitle mobile-only">0%</span>
 						</div>
 						</div>
 						<div class="col-xs-0 col-sm-3 text-right mobile-hide">
 							<div class="balance">
-							<div>21.83%</div>
+							<div id="supply_percentage" >0%</div>
 							</div>
 											</div>
 					   <div class="col-xs-4 col-sm-3 text-right">
 						  <div class="balance">
-							 <div>0.7958 ETH</div>
+							 <div id="supply_blalnce" >0 ETH</div>
 						  </div>
 					   </div>
 					   <div class="col-xs-4 col-sm-2 text-right">
-						  <div class="mdc-switch mdc-switch--checked">
-							 <div class="mdc-switch__track"></div>
-							 <div class="mdc-switch__thumb-underlay">
-								<div class="mdc-switch__thumb"><input id="basic-switch" class="mdc-switch__native-control" type="checkbox" role="checkbox"></div>
+						  
+								<input id="ether-basic-switch" class="" type="checkbox" role="checkbox">
 							 </div>
-						  </div>
-					   </div>
+						  
 					</a>
-                  <a class="asset">
+                  <!--a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon USDC"></span>
                         <div class="balance">
@@ -305,7 +302,7 @@
                            </div>
                         </div>
                      </div>
-                  </a>
+                  </a-->
                </div>
             </div>
          </section>
@@ -365,7 +362,7 @@
                   <div class="col-xs-4 col-sm-2 text-right"><label>Liquidity</label></div>
                </div>
                <div class="assets">
-                  <a class="asset">
+                  <!--a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon BAT"></span>
                         <div class="balance">
@@ -412,32 +409,32 @@
                            <div>$3.48M</div>
                         </div>
                      </div>
-                  </a>
+                  </a-->
 				 <a class="asset">
 				   <div class="col-xs-4 col-sm-4 identity">
 					  <span class="icon ETH"></span>
 					  <div class="balance">
 						 <div>Ether</div>
-						 <span class="subtitle mobile-only">21.98%</span>
+						 <span id="borrow_percentage_mo" class="subtitle mobile-only">21.98%</span>
 					  </div>
 				   </div>
 				   <div class="col-xs-0 col-sm-3 text-right mobile-hide">
 					  <div class="balance">
-						 <div>21.98%</div>
+						 <div id="borrow_percentage" >0%</div>
 					  </div>
 				   </div>
 				   <div class="col-xs-4 col-sm-3 text-right">
 					  <div class="balance">
-						 <div>0.7958 ETH</div>
+						 <div id="borrow_blalnce" >0 ETH</div>
 					  </div>
 				   </div>
 				   <div class="col-xs-4 col-sm-2 text-right">
 					  <div class="balance">
-						 <div>$55k</div>
+						 <div id="totalborrowbalance" >$0</div>
 					  </div>
 				   </div>
 				</a>
-                  <a class="asset">
+                  <!--a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon USDC"></span>
                         <div class="balance">
@@ -532,7 +529,7 @@
                            <div>$19.03M</div>
                         </div>
                      </div>
-                  </a>
+                  </a-->
                </div>
             </div>
          </section>

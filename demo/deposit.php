@@ -55,12 +55,6 @@
                    
                     </tbody>
                   </table>
-                <div class="col-sm-12 text-center py-3">
-                  <p class="text-info">Can’t find the asset you’re looking for?</p>
-
-                  <p>Select a different market to find different assets</p>
-
-                </div>
                 
               </div>
             </div>

@@ -25,8 +25,8 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default">Deposit</button>
-                  <button type="button" class="btn btn-default">Borrowing</button>
+                  <button type="radio" class="btn btn-default">Deposit</button>
+                  <button type="radio" class="btn btn-default">Borrowing</button>
                 </div>
               </div>
               <div class="card-body py-5">

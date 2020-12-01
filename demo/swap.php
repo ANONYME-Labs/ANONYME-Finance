@@ -22,7 +22,7 @@
           <div class="col-lg-5">
             <!-- /.card -->
 
-            <div class="card p-3">
+            <div class="card px-3 py-4">
               <div class="col-sm-12">
                 <div class="input-group">
                     <input type="text" class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">

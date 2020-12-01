@@ -23,4 +23,5 @@
 
 #swap .form-control {
     height: calc(2.25rem + 20px);
+    font-size: 36px;
 }

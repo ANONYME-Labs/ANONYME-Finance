@@ -12,6 +12,7 @@
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="dist/css/style.css">
@@ -63,6 +64,36 @@
   background: white;
   color: #686565;
 }
+
+
+
+.card-header1 .btn-group { 
+  border-radius: 30px!important;
+  background-color: var(--gray-dark);
+  padding: 6px;
+
+}
+
+.card-header1,.btn-group .btn{
+  transition: all 0.4s ease 0s;
+    padding: 6px 15px 6px 15px;
+    width: 140px;
+
+
+    
+}
+/*.card {
+  margin-top: 1em;
+}*/
+
+.card-header1 .form-control {
+  border: none;
+}
+
+.control-label {
+  margin: .5em 1em 0;
+}
+
 </style>
 
 </head>

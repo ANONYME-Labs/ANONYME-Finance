@@ -29,7 +29,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <a href="index.php" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-home"></i>
               <p>
                 Home
                 <!-- <i class="right fas fa-angle-left"></i> -->
@@ -38,7 +38,7 @@
           </li>
           <li class="nav-item">
             <a href="dashboard.php" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>

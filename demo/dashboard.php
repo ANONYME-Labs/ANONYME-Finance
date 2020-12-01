@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard v3</h1>
+            <h1 class="m-0">Dashboard</h1>
           </div>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -23,11 +23,21 @@
             <!-- /.card -->
 
             <div class="card">
-              <div class="card-header border-0">
-                <div class="btn-group">
+              <div class="card-header1 border-0">
+                <!-- <div class="btn-group">
                   <button type="radio" class="btn btn-default">Deposit</button>
                   <button type="radio" class="btn btn-default">Borrowing</button>
                 </div>
+                 -->
+
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn active" role="button">
+                      <input type="radio" name="options" value="1" required>DEPOSIT
+                    </label>
+                    <label class="btn" role="button">
+                      <input type="radio" name="options" value="0">BORROWINGS
+                    </label>
+                  </div>
               </div>
               <div class="card-body py-5">
                 <div class="row justify-content-md-center">

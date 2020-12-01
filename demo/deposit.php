@@ -23,11 +23,21 @@
             <!-- /.card -->
 
             <div class="card">
-              <div class="card-header border-0">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default">All</button>
-                  <button type="button" class="btn btn-default">Stable coins</button>
+              <div class="card-header1 border-0">
+                <!-- <div class="btn-group">
+                  <button type="radio" class="btn btn-default">Deposit</button>
+                  <button type="radio" class="btn btn-default">Borrowing</button>
                 </div>
+                 -->
+
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn active" role="button">
+                      <input type="radio" name="options" value="1" required>All
+                    </label>
+                    <label class="btn" role="button">
+                      <input type="radio" name="options" value="0">Stable Coins
+                    </label>
+                  </div>
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">

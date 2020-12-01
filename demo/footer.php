@@ -155,7 +155,73 @@ Once you are happy with the rate click supply to review.</div>
       </div>
       <div class="modal-body">
         <div class="col-sm-12 mb-3">
-        	<input class="form-control form-control-lg" type="text" placeholder="Search">
+        	<input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
+        </div>
+        <div class="col-sm-12">
+        	<div class="row py-2">
+        		<div class="col-lg-6 col-md-6 col-sm-6"> 
+        			<span>Token Name</span>
+        		</div>
+        		<div class="col-lg-6 col-md-6 col-sm-6 text-right"> 
+        			<i class="fa fa-arrow-down" aria-hidden="true"></i>
+        		</div>
+        	</div>
+        	<div class="row py-2 hover-select-token">
+        		<div class="col-sm-12">
+        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+        		</div>
+        	</div>
+        	<div class="row py-2 hover-select-token">
+        		<div class="col-sm-12">
+        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+        		</div>
+        	</div>
+        	<div class="row py-2 hover-select-token">
+        		<div class="col-sm-12">
+        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+        		</div>
+        	</div>
+        	<div class="row py-2 hover-select-token">
+        		<div class="col-sm-12">
+        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+        		</div>
+        	</div>
+        	<div class="row py-2 hover-select-token">
+        		<div class="col-sm-12">
+        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+        		</div>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0">
+      	<div class="row" style="width: 100%;">
+    		<div class="col-lg-6 col-md-6 col-sm-12">
+		        <span>Uniswap Default List</span>
+		    </div>
+		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+		    	<a href="#">Change</a>
+		    </div>
+		</div>		    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="Connect_wallet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-sm-12 mb-3">
+        	<input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
         </div>
         <div class="col-sm-12">
         	<div class="row py-2">
@@ -232,6 +298,23 @@ Once you are happy with the rate click supply to review.</div>
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard3.js"></script>
+<script src="dist/js/jquery.twbs-toggle-buttons.min.js"></script>
+<script>
+$(".btn-group-toggle").twbsToggleButtons();
+</script>
+<script type="text/javascript">
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 
 </body></html>	

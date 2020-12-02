@@ -1717,24 +1717,24 @@
                                         <p class="Footer__column-title">Social Media</p>
                                         <ul class="SocialIcons Footer__socialIcons">
                                             <li class="SocialIcon">
-                                                <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank"><img src="home/image/discord.a7c1242f.svg" alt="Discord" /><span>Discord</span></a>
+                                                <a class="Link Link__white" href="https://discord.gg/Df2p7w9" rel="noopener noreferrer" target="_blank"><img src="home/image/discord.a7c1242f.svg" alt="Discord" /><span>Discord</span></a>
                                             </li>
                                             <li class="SocialIcon">
-                                                <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank">
+                                                <a class="Link Link__white" href="https://github.com/anonyme-labs" rel="noopener noreferrer" target="_blank">
                                                     <img src="home/image/github.d85c3199.svg" alt="GitHub" /><span>GitHub</span>
                                                 </a>
                                             </li>
                                             <li class="SocialIcon">
-                                                <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank"><img src="home/image/twitter.b90d2908.svg" alt="Twitter" /><span>Twitter</span></a>
+                                                <a class="Link Link__white" href="https://twitter.com/Anonyme_Finance" rel="noopener noreferrer" target="_blank"><img src="home/image/twitter.b90d2908.svg" alt="Twitter" /><span>Twitter</span></a>
                                             </li>
                                             <li class="SocialIcon">
-                                                <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank"><img src="home/image/telegram.e5f1ec0c.svg" alt="Telegram" /><span>Telegram</span></a>
+                                                <a class="Link Link__white" href="https://t.me/anonymecommunity" rel="noopener noreferrer" target="_blank"><img src="home/image/telegram.e5f1ec0c.svg" alt="Telegram" /><span>Telegram</span></a>
                                             </li>
-                                            <li class="SocialIcon">
+                                            <!-- <li class="SocialIcon">
                                                 <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank">
                                                     <img src="home/image/instagram.b85c80dd.svg" alt="Instagram" /><span>Instagram</span>
                                                 </a>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </div>
                                     <div class="Footer__column Footer__links-column">

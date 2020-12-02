@@ -58,7 +58,7 @@
                   <p class="jsx-37586846 mb-0"><strong class="jsx-37586846">Anonyme</strong> Staked</p>
                   <div>
                     <strong>0</strong>
-                    <img src="images/favicon.png" alt="AAVE" height="18" width="18" class="jsx-3021772746 jsx-3361468758">
+                    <img src="images/favicon.png" alt="Anonyme" height="18" width="18" class="jsx-3021772746 jsx-3361468758">
                   </div>
                 </div>
                 <div class="col-lg-6 text-right">
@@ -83,7 +83,7 @@
                   <p class="jsx-37586846 mb-0"><strong class="jsx-37586846">Anonyme</strong> Staked</p>
                   <div>
                     <strong>0</strong>
-                    <img src="images/favicon.png" alt="AAVE" height="18" width="18" class="jsx-3021772746 jsx-3361468758">
+                    <img src="images/favicon.png" alt="Anonyme" height="18" width="18" class="jsx-3021772746 jsx-3361468758">
                   </div>
                 </div>
                 <div class="col-lg-6 text-right">

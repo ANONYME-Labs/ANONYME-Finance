@@ -106,9 +106,6 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="Link Link__white" href=""><span>Aavenomics</span></a>
-                                                </li>
-                                                <li>
                                                     <a class="Link Link__white" href=""><span>Ecosystem</span></a>
                                                 </li>
                                                 <li>

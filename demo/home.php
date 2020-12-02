@@ -58,7 +58,7 @@
                   <tbody>
                   <tr>
                     <td>
-                      <img src="https://app.aave.com/static/media/dai.59d423e0.svg" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      <img src="images/dai.59d423e0.svg" alt="Product 1" class="img-circle img-size-32 mr-2">
                       DAI
                     </td>
                     <td><span>$13 USD</span></td>

@@ -299,6 +299,7 @@ Once you are happy with the rate click supply to review.</div>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard3.js"></script>
 <script src="dist/js/jquery.twbs-toggle-buttons.min.js"></script>
+
 <script>
 $(".btn-group-toggle").twbsToggleButtons();
 </script>

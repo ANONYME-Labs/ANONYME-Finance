@@ -26,6 +26,13 @@
     -webkit-text-fill-color: transparent;
     font-weight: 700;
 }
+a {
+    color: #ffffff;
+
+}
+.badge {
+  font-size: 100%;
+}
 
 [class*=sidebar-dark-] {
     background-color: rgb(56, 61, 81);

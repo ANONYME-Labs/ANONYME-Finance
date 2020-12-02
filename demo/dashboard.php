@@ -72,7 +72,7 @@
                         <p class="mb-5">
                           Please switch to one of the available markets: proto,<a href="#">uniswapin</a> the bottom right.
                         </p>
-                        <img src="https://app.aave.com/static/media/markets.6d5e9392.svg" alt="" class="jsx-3778513761" style="width: 100px;">
+                        <img src="images/logo.png" alt="" class="jsx-3778513761" style="width: 100px;">
                       </div>
                       <!-- /.card-body -->
                     </div>

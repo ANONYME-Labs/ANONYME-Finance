@@ -82,24 +82,24 @@
                   <div class="col-xs-4 col-sm-2 text-right"><label>Collateral</label></div>
                </div>
                <div class="assets">
-                  <a class="asset">
+                  <a class="asset" id="supplying" >
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="ctoken ctoken--cETH ctoken--cETH"></span>
                         <div class="balance">
                            <div>Ether</div>
-                           <span class="subtitle mobile-only">21.97%</span>
+                           <span class="subtitle mobile-only supply_percentage">0%</span>
                         </div>
                      </div>
                      <div class="col-xs-0 col-sm-3 text-right mobile-hide">
                         <div class="balance">
-                           <div>21.97%</div>
+                           <div>0%</div>
                            <span class="subtitle">TBD</span>
                         </div>
                      </div>
                      <div class="col-xs-4 col-sm-3 text-right">
                         <div class="balance">
-                           <div>$25.71</div>
-                           <span class="subtitle">0.1002 ETH</span>
+                           <div>$0</div>
+                           <span class="subtitle" id="totsupply" >0 ETH</span>
                         </div>
                      </div>
                      <div class="col-xs-4 col-sm-2 text-right">
@@ -124,7 +124,7 @@
                   <div class="col-xs-4 col-sm-2 text-right"><label>Collateral</label></div>
                </div>
                <div class="assets">
-                  <!--a class="asset">
+                  <a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon BAT"></span>
                         <div class="balance">
@@ -177,8 +177,8 @@
                            </div>
                         </div>
                      </div>
-                  </a-->
-				  <a class="asset">
+                  </a>
+				  <a class="asset" id="eth_supply_market" >
 					<div class="col-xs-4 col-sm-4 identity">
 						<span class="icon ETH"></span>
 						<div class="balance">
@@ -188,7 +188,7 @@
 						</div>
 						<div class="col-xs-0 col-sm-3 text-right mobile-hide">
 							<div class="balance">
-							<div id="supply_percentage" >0%</div>
+							<div class="supply_percentage" >0%</div>
 							</div>
 											</div>
 					   <div class="col-xs-4 col-sm-3 text-right">
@@ -202,7 +202,7 @@
 							 </div>
 						  
 					</a>
-                  <!--a class="asset">
+                  <a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon USDC"></span>
                         <div class="balance">
@@ -302,7 +302,7 @@
                            </div>
                         </div>
                      </div>
-                  </a-->
+                  </a>
                </div>
             </div>
          </section>
@@ -320,24 +320,24 @@
                   <div class="col-xs-4 col-sm-2 text-right"><label>% Of Limit</label></div>
                </div>
                <div class="assets">
-                  <a class="asset">
+                  <a class="asset" id="Borrowing" >
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon ETH"></span>
                         <div class="balance">
                            <div>Ether</div>
-                           <span class="subtitle mobile-only">22.05%</span>
+                           <span class="subtitle mobile-only borrow_percentage">0%</span>
                         </div>
                      </div>
                      <div class="col-xs-0 col-sm-3 text-right mobile-hide">
                         <div class="balance">
-                           <div>22.05%</div>
+                           <div class="borrow_percentage" >0%</div>
                            <span class="subtitle">TBD</span>
                         </div>
                      </div>
                      <div class="col-xs-4 col-sm-3 text-right">
                         <div class="balance">
-                           <div>$0.25</div>
-                           <span class="subtitle">0.001 ETH</span>
+                           <div>$0</div>
+                           <span class="subtitle" id="totborrow">0 ETH</span>
                         </div>
                      </div>
                      <div class="col-xs-4 col-sm-2 text-right">
@@ -345,7 +345,7 @@
                            <div class="progress">
                               <div role="progressbar" aria-value-now="1.2500723072261841" aria-valuemin="0" aria-valuemax="100" style="width: 1.25007%;" class="progress-bar"></div>
                            </div>
-                           <span>1%</span>
+                           <span>0%</span>
                         </div>
                      </div>
                   </a>
@@ -362,7 +362,7 @@
                   <div class="col-xs-4 col-sm-2 text-right"><label>Liquidity</label></div>
                </div>
                <div class="assets">
-                  <!--a class="asset">
+                  <a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon BAT"></span>
                         <div class="balance">
@@ -409,8 +409,8 @@
                            <div>$3.48M</div>
                         </div>
                      </div>
-                  </a-->
-				 <a class="asset">
+                  </a>
+				 <a class="asset" id="eth_borrow_market">
 				   <div class="col-xs-4 col-sm-4 identity">
 					  <span class="icon ETH"></span>
 					  <div class="balance">
@@ -420,7 +420,7 @@
 				   </div>
 				   <div class="col-xs-0 col-sm-3 text-right mobile-hide">
 					  <div class="balance">
-						 <div id="borrow_percentage" >0%</div>
+						 <div class="borrow_percentage" >0%</div>
 					  </div>
 				   </div>
 				   <div class="col-xs-4 col-sm-3 text-right">
@@ -434,7 +434,7 @@
 					  </div>
 				   </div>
 				</a>
-                  <!--a class="asset">
+                  <a class="asset">
                      <div class="col-xs-4 col-sm-4 identity">
                         <span class="icon USDC"></span>
                         <div class="balance">
@@ -529,7 +529,7 @@
                            <div>$19.03M</div>
                         </div>
                      </div>
-                  </a-->
+                  </a>
                </div>
             </div>
          </section>

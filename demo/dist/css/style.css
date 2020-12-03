@@ -25,3 +25,36 @@
     height: calc(2.25rem + 20px);
     font-size: 36px;
 }
+
+.jsx-3000040840.jsx-3038562261.ReserveInformation__reserveSize {
+    font-size: 14px;
+    margin-bottom: 5px;
+    align-self: flex-start;
+}
+
+.ReserveInformation__reserveSize.jsx-3038562261 {
+    background: rgb(241, 241, 243);
+    border: 1px solid rgb(241, 241, 243);
+}
+.ReserveInformation__reserveSize.jsx-3038562261 p.jsx-3038562261 {
+    color: rgb(75, 80, 98);
+}
+
+.ReserveInformation__reserveSize.jsx-3000040840 p.jsx-3000040840 {
+    margin-right: 35px;
+}
+
+.ReserveInformation__reserveSize.jsx-3038562261 strong.jsx-3038562261 {
+    color: rgb(75, 80, 98);
+}
+
+.ReserveInformation__reserveSize.jsx-3000040840 {
+    padding: 7px 15px;
+    border-radius: 25px;
+    align-self: center;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 35px;
+}

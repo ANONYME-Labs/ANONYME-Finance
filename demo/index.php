@@ -86,6 +86,12 @@
 				margin-bottom: 15px;
 			}
 		}
+
+		@media (max-width: 425px){
+		    .h1, h1 {
+		        font-size: 1.5rem;
+		    }
+		}
 	</style>
 </head>
 <body>

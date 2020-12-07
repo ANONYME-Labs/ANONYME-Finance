@@ -58,3 +58,12 @@
     font-size: 18px;
     margin-bottom: 35px;
 }
+
+
+
+/*@media (min-width: 1300px){
+    .modal-dialog {
+        max-width: 500px;
+        margin: 1.75rem 1.75rem 1.75rem 40rem;
+    }
+} */

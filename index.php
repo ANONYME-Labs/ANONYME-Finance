@@ -47,6 +47,12 @@
             body{
                 background: rgb(43, 45, 60);
             }
+
+            @media(max-width: 425px){
+                .h1, h1 {
+                    font-size: 1.5rem;
+                }
+            }
         </style>
     </head>
 

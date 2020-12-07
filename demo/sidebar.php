@@ -2,7 +2,7 @@
     <!-- Sidebar -->
     <a href="#" class="brand-link">
       <img src="images/logo-d.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">ANONYME</span>
+      <span class="brand-text font-weight-light" style="font-weight: 800!important;">ANONYME</span>
     </a>
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->

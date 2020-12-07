@@ -30,10 +30,10 @@
         </div>
         <div class="col-sm-12">
         	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6"> 
+        		<div class="col-lg-6 col-md-6 col-sm-6">
         			<span>Token Name</span>
         		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right"> 
+        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
         			<i class="fa fa-arrow-down" aria-hidden="true"></i>
         		</div>
         	</div>
@@ -72,7 +72,7 @@
 		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
 		    	<a href="#">Change</a>
 		    </div>
-		</div>		    
+		</div>
       </div>
     </div>
   </div>
@@ -99,10 +99,10 @@ Once you are happy with the rate click supply to review.</div>
         </div>
         <div class="col-sm-12">
         	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6"> 
+        		<div class="col-lg-6 col-md-6 col-sm-6">
         			<span>Token Name</span>
         		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right"> 
+        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
         			<i class="fa fa-arrow-down" aria-hidden="true"></i>
         		</div>
         	</div>
@@ -137,7 +137,7 @@ Once you are happy with the rate click supply to review.</div>
 		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
 		    	<a href="#">Change</a>
 		    </div>
-		</div>		    
+		</div>
       </div>
     </div>
   </div>
@@ -159,10 +159,10 @@ Once you are happy with the rate click supply to review.</div>
         </div>
         <div class="col-sm-12">
         	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6"> 
+        		<div class="col-lg-6 col-md-6 col-sm-6">
         			<span>Token Name</span>
         		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right"> 
+        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
         			<i class="fa fa-arrow-down" aria-hidden="true"></i>
         		</div>
         	</div>
@@ -201,7 +201,7 @@ Once you are happy with the rate click supply to review.</div>
 		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
 		    	<a href="#">Change</a>
 		    </div>
-		</div>		    
+		</div>
       </div>
     </div>
   </div>
@@ -225,10 +225,10 @@ Once you are happy with the rate click supply to review.</div>
         </div>
         <div class="col-sm-12">
         	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6"> 
+        		<div class="col-lg-6 col-md-6 col-sm-6">
         			<span>Token Name</span>
         		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right"> 
+        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
         			<i class="fa fa-arrow-down" aria-hidden="true"></i>
         		</div>
         	</div>
@@ -267,14 +267,14 @@ Once you are happy with the rate click supply to review.</div>
 		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
 		    	<a href="#">Change</a>
 		    </div>
-		</div>		    
+		</div>
       </div>
     </div>
   </div>
 </div>
 
  <footer class="main-footer">
-    <strong>Copyright © 2020</strong> 
+    <strong>Copyright © 2020</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.1.0-rc
@@ -303,6 +303,7 @@ Once you are happy with the rate click supply to review.</div>
 <script>
 $(".btn-group-toggle").twbsToggleButtons();
 </script>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.js"></script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -315,7 +316,90 @@ $(".btn-group-toggle").twbsToggleButtons();
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+  window.addEventListener('load', async () => {
+  $(document).ready(function(){
 
+
+  	var userWallet=getCookie('userWallet');
+
+  	//alert(userWallet);
+
+  	if(userWallet!=""){
+       var vWallet=userWallet.substring(0, 6) + '...' + userWallet.substring(userWallet.length - 6, userWallet.length);
+       $(".btnwalletaddress").html(vWallet);
+  	}
+
+
+    $("#connect-wallet").click(async function(){
+        // Modern dapp browsers...
+      if (window.ethereum) {
+          window.web3 = new Web3(ethereum);
+          try {
+              // Request account access if needed
+              await ethereum.enable();
+              // Acccounts now exposed
+              web3.eth.getAccounts(function(error, result) {
+            if(!error && typeof(result[0]) !== 'undefined')
+                {
+                var metaMaskAddress=""+result[0];
+  			           console.log(metaMaskAddress);
+
+
+
+                var now = new Date();
+                now.setTime(now.getTime() + 1 * 3600 * 1000);
+                document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
+
+               // location.reload();
+              }
+            });
+          } catch (error) {
+              // User denied account access...
+          }
+      }
+      // Legacy dapp browsers...
+      else if (window.web3) {
+          window.web3 = new Web3(web3.currentProvider);
+          // Acccounts always exposed
+          web3.eth.getAccounts(function(error, result) {
+            if(!error && typeof(result[0]) !== 'undefined')
+            {
+            var metaMaskAddress=""+result[0];
+            var now = new Date();
+            now.setTime(now.getTime() + 1 * 3600 * 1000);
+            document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
+
+           // location.reload();
+          }
+        });
+
+      }
+      // Non-dapp browsers...
+      else {
+
+          console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+      }
+
+
+    });
+
+  });
+  });
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 </script>
 
-</body></html>	
+</body></html>

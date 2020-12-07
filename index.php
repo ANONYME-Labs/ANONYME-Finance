@@ -68,10 +68,10 @@
                                             <a class="Link Link__white" href=""><span>About</span></a>
                                         </li>
                                         <li>
-                                            <a class="Link Link__white" href="" target="_blank"><span>Swap</span></a>
+                                            <a class="Link Link__white" href="demo/" target=""><span>Swap</span></a>
                                         </li>
                                         <li>
-                                            <a class="Link Link__white" href="" target="_blank"><span>Loan</span></a>
+                                            <a class="Link Link__white" href="demo/" target=""><span>Loan</span></a>
                                         </li>
                                         <li>
                                             <a class="Link Link__white" href="" rel="noopener noreferrer" target="_blank"><span>Documentation</span></a>

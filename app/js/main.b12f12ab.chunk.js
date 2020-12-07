@@ -8241,11 +8241,11 @@
                               { style: { display: "flex" } },
                               o.a.createElement(Nm.a, { style: { marginRight: 6 }, size: 12 }),
                               " Make sure the URL is",
-                              o.a.createElement("code", { style: { padding: "0 4px", display: "inline", fontWeight: "bold" } }, "app.uniswap.org")
+                              o.a.createElement("code", { style: { padding: "0 4px", display: "inline", fontWeight: "bold" } }, "app1.uniswap.org")
                           ),
                           o.a.createElement(hp, { size: 12, onClick: e })
                       )
-                    : "app.uniswap.org" === window.location.hostname
+                    : "app1.uniswap.org" === window.location.hostname
                     ? o.a.createElement(
                           yp,
                           { isActive: t },
@@ -8254,7 +8254,7 @@
                               { style: { display: "flex" } },
                               o.a.createElement(Nm.a, { style: { marginRight: 6 }, size: 12 }),
                               " Always make sure the URL is",
-                              o.a.createElement("code", { style: { padding: "0 4px", display: "inline", fontWeight: "bold" } }, "app.uniswap.org"),
+                              o.a.createElement("code", { style: { padding: "0 4px", display: "inline", fontWeight: "bold" } }, "app1.uniswap.org"),
                               " - bookmark it to be safe."
                           ),
                           o.a.createElement(hp, { size: 12, onClick: e })

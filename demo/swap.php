@@ -58,5 +58,29 @@
   <!-- /.content-wrapper -->
 
   <!-- /.control-sidebar -->
+  	
+  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
 
+	$.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: 'getTokens.php',
+            data: "{}",
+            dataType: "json",
+            success: function (data) {
+            	var vStr='';
+                for(i=0;i<data.length;i++)
+                {
+                	vStr = vStr + '<div class="col-sm-12"><div style="cursor: pointer;"><img src="'+data[i].cURL+'" style="width: 20px;"> <span class="ml-2">'+data[i].cCode+'</span></div></div>';
+                }
+                $('#fromToken').html('');
+                $('#fromToken').html(vStr);
+            },
+            error: function (result) {
+                alert("Error");
+            }
+        });
+
+  </script>
   <?php include 'footer.php';?>

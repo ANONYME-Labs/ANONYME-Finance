@@ -108,7 +108,7 @@
                 	
                 	vStr =vStr + '<tr>';
                     vStr = vStr + '<td>';
-                    vStr = vStr + ' <img src="'+data[i].cURL+'" alt="Product 1" class="img-circle img-size-32 mr-2">';
+                    vStr = vStr + ' <img src="'+data[i].cURL+'" alt="" class="img-circle img-size-32 mr-2">';
                     vStr = vStr + data[i].cCode ;
                     vStr = vStr + '</td>';
                     vStr = vStr + '<td><span>$13 USD</span></td>';

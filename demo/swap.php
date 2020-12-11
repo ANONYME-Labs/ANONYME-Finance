@@ -74,8 +74,8 @@
                 {
                 	vStr = vStr + '<div class="col-sm-12"><div style="cursor: pointer;"><img src="'+data[i].cURL+'" style="width: 20px;"> <span class="ml-2">'+data[i].cCode+'</span></div></div>';
                 }
-                $('#fromToken').html('');
-                $('#fromToken').html(vStr);
+                $('#displayTokenCoin1').html('');
+                $('#displayTokenCoin1').html(vStr);
             },
             error: function (result) {
                 alert("Error");

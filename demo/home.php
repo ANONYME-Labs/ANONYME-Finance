@@ -55,8 +55,8 @@
                     </th>
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
+                  <tbody id="showtokenlist">
+                  <!-- <tr>
                     <td>
                       <img src="images/dai.59d423e0.svg" alt="Product 1" class="img-circle img-size-32 mr-2">
                       DAI
@@ -74,7 +74,7 @@
                     <td>
                       <span>20.60%</span>
                     </td>
-                  </tr>
+                  </tr> -->
                  
                   </tbody>
                 </table>
@@ -92,6 +92,49 @@
   <!-- /.content-wrapper -->
 
   <!-- /.control-sidebar -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
 
+	$.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: 'getTokens.php',
+            data: "{}",
+            dataType: "json",
+            success: function (data) {
+            	var vStr='';
+                for(i=0;i<data.length;i++)
+                {
+                	
+                	vStr =vStr + '<tr>';
+                    vStr = vStr + '<td>';
+                    vStr = vStr + ' <img src="'+data[i].cURL+'" alt="Product 1" class="img-circle img-size-32 mr-2">';
+                    vStr = vStr + data[i].cCode ;
+                    vStr = vStr + '</td>';
+                    vStr = vStr + '<td><span>$13 USD</span></td>';
+                    vStr = vStr + '<td><span>$13 USD</span></td>';
+                    vStr = vStr + '<td><span>$13 USD</span></td>';
+                   vStr = vStr + ' <td>';
+                    vStr = vStr + '  <small class="text-success mr-1">';
+                    vStr = vStr + '    <i class="fas fa-arrow-up"></i>';
+                    vStr = vStr + '    12%';
+                    vStr = vStr + '  </small>';
+                    vStr = vStr + '  12,000 Sold';
+                   vStr = vStr + ' </td>';
+                    vStr = vStr + '<td>';
+                    vStr = vStr + '  <span>20.60%</span>';
+                    vStr = vStr + '</td>';
+                  vStr = vStr + '</tr>';
+
+                }
+                $('#showtokenlist').html('');
+                $('#showtokenlist').html(vStr);
+            },
+            error: function (result) {
+                alert("Error");
+            }
+        });
+
+  </script>
   <!-- Main Footer -->
  <?php include 'footer.php';?>

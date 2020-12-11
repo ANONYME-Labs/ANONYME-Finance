@@ -37,31 +37,10 @@
         			<i class="fa fa-arrow-down" aria-hidden="true"></i>
         		</div>
         	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
+        	<div id="displayTokenCoin3" class="row py-2 hover-select-token">
+        		 
         	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
+        	
         </div>
       </div>
       <div class="modal-footer border-top-0">
@@ -166,7 +145,7 @@ Once you are happy with the rate click supply to review.</div>
         			<i class="fa fa-arrow-down" aria-hidden="true"></i>
         		</div>
         	</div>
-        	<div id="fromToken" class="row py-2 hover-select-token">
+        	<div id="displayTokenCoin1" class="row py-2 hover-select-token">
         		<!-- <div class="col-sm-12">
         			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
         		</div> -->

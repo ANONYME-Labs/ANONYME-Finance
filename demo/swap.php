@@ -25,9 +25,9 @@
             <div class="card px-3 py-4">
               <div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                    <input type="text" id="txtFromToken" class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="modal" data-target="#coin_option1"><img src="images/eth.png" style="width: 20px;margin-right: 10px;">ETH</button>
+                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="btnFromToken" data-toggle="modal" data-target="#from_token_pop"><img src="images/eth.png" id="imgFromToken" style="width: 20px;margin-right: 10px;"><span id="spnFromToken">ETH</span></button>
                     </div>
                   </div>
               </div>
@@ -36,9 +36,9 @@
               </div>
               <div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                    <input type="text" id="txtToToken"  class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="modal" data-target="#coin_option1"><img src="images/eth.png" style="width: 20px;margin-right: 10px;">ETH</button>
+                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnToToken" type="button" data-toggle="modal" data-target="#to_token_pop"><img src="images/eth.png" id="imgToToken" style="width: 20px;margin-right: 10px;"><span id="spnToToken">ETH</span></button>
                     </div>
                   </div>
               </div>
@@ -62,6 +62,8 @@
   	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 
+	 
+$(document).ready(function(){
 	$.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -72,15 +74,33 @@
             	var vStr='';
                 for(i=0;i<data.length;i++)
                 {
-                	vStr = vStr + '<div class="col-sm-12"><div style="cursor: pointer;"><img src="'+data[i].cURL+'" style="width: 20px;"> <span class="ml-2">'+data[i].cCode+'</span></div></div>';
+                	vStr = vStr + '<div class="col-sm-12"><div class="clstok" style="cursor: pointer;"><img src="'+data[i].cURL+'" style="width: 20px;"> <span class="ml-2">'+data[i].cCode+'</span></div></div>';
                 }
-                $('#displayTokenCoin1').html('');
-                $('#displayTokenCoin1').html(vStr);
+                $('#displayTokenFrom').html('');
+                $('#displayTokenFrom').html(vStr);
+                $("#displayTokenFrom .clstok").click(function(){
+			  		var vSelectedToken = $(this).find(".ml-2").text();
+			  		var vSelectedTokenImg = $(this).find("img").prop('src');
+			  		$('#spnFromToken').text(vSelectedToken);
+			  		$('#imgFromToken').attr('src',vSelectedTokenImg);
+			  		$('#from_token_pop').modal('hide');
+			  	});
+			  	// To Token
+
+			  	$('#displayTokenTo').html('');
+                $('#displayTokenTo').html(vStr);
+                $("#displayTokenTo .clstok").click(function(){
+			  		var vSelectedToToken = $(this).find(".ml-2").text();
+			  		var vSelectedToTokenImg = $(this).find("img").prop('src');
+			  		$('#spnToToken').text(vSelectedToToken);
+			  		$('#imgToToken').attr('src',vSelectedToTokenImg);
+			  		$('#to_token_pop').modal('hide');
+			  	});
             },
             error: function (result) {
                 alert("Error");
             }
         });
-
+ });
   </script>
   <?php include 'footer.php';?>

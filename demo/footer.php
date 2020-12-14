@@ -88,9 +88,9 @@ Once you are happy with the rate click supply to review.</div>
         	<div class="row py-2 hover-select-token">
         		<div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                    <input type="text" class="form-control" id="txtPoolFromToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="modal" data-target="#coin_option3"><img src="images/eth.png" style="width: 20px;margin-right: 10px;">ETH</button>
+                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolFromToken" type="button" data-toggle="modal" data-target="#from_token_pop"><img src="images/eth.png" id="imgPoolFromToken" style="width: 20px;margin-right: 10px;"><span id="spnPoolFromToken">ETH</span></button>
                     </div>
                   </div>
               </div>
@@ -99,9 +99,9 @@ Once you are happy with the rate click supply to review.</div>
               </div>
               <div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                    <input type="text" class="form-control" id="txtPoolToToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="modal" data-target="#from_token_pop"><img src="images/eth.png" style="width: 20px;margin-right: 10px;">ETH</button>
+                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolToToken" type="button" data-toggle="modal" data-target="#to_token_pop"><img src="images/eth.png" id="imgPoolToToken" style="width: 20px;margin-right: 10px;"><span id="spnPoolToToken">ETH</span></button>
                     </div>
                   </div>
               </div>
@@ -301,7 +301,7 @@ Once you are happy with the rate click supply to review.</div>
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard3.js"></script>
-<script src="dist/js/jquery.twbs-toggle-buttons.min.js"></script>
+<script src="dist/js/jquery.twbs-toggle-buttons.min.js?v=121"></script>
 
 <script>
 $(".btn-group-toggle").twbsToggleButtons();
@@ -314,6 +314,11 @@ $(".btn-group-toggle").twbsToggleButtons();
   _gaq.push(['_setDomainName', 'jqueryscript.net']);
   _gaq.push(['_trackPageview']);
 
+
+$(document).ready(function(){
+  
+});
+
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -322,9 +327,7 @@ $(".btn-group-toggle").twbsToggleButtons();
   window.addEventListener('load', async () => {
   $(document).ready(function(){
 
-
   	var userWallet=getCookie('userWallet');
-
   	//alert(userWallet);
 
   	if(userWallet!=""){
@@ -345,10 +348,7 @@ $(".btn-group-toggle").twbsToggleButtons();
             if(!error && typeof(result[0]) !== 'undefined')
                 {
                 var metaMaskAddress=""+result[0];
-  			           console.log(metaMaskAddress);
-
-
-
+  			    console.log(metaMaskAddress);
                 var now = new Date();
                 now.setTime(now.getTime() + 1 * 3600 * 1000);
                 document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";

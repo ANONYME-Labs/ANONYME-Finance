@@ -665,7 +665,7 @@
                     appName: "Uniswap",
                     appLogoUrl: "https://mpng.pngfly.com/20181202/bex/kisspng-emoji-domain-unicorn-pin-badges-sticker-unicorn-tumblr-emoji-unicorn-iphoneemoji-5c046729264a77.5671679315437924251569.jpg",
                 }),
-                ee = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+                ee = "0x7f6238bd5846d5e113509d9c1e7ebfeea1abbdf6",
                 te = "0x0000000000000000000000000000000000000000",
                 ne = new v.l(v.a.MAINNET, "0x6B175474E89094C44Da98b954EedeAC495271d0F", 18, "DAI", "Dai Stablecoin"),
                 ae = new v.l(v.a.MAINNET, "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", 6, "USDC", "USD//C"),
@@ -3636,7 +3636,7 @@
                         console.debug('Failed to parse input amount: "'.concat(e, '"'), a);
                     }
             }
-            var sc = ["0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", "0xf164fC0Ec4E93095b804a4795bBe1e041497b92a", "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"];
+            var sc = ["0x330f676795fc0eaece92276db1605f3e2fb4a8c0", "0xd3d7abdfddda3ccd79cce76ceb985cef0fb15cc1", "0x7f6238bd5846d5e113509d9c1e7ebfeea1abbdf6"];
             function dc(e, t) {
                 return (
                     e.route.path.some(function (e) {

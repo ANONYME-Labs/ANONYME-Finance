@@ -75,7 +75,7 @@
                       <span>20.60%</span>
                     </td>
                   </tr> -->
-                 
+
                   </tbody>
                 </table>
               </div>
@@ -105,10 +105,10 @@
             	var vStr='';
                 for(i=0;i<data.length;i++)
                 {
-                	
-                	vStr =vStr + '<tr>';
+
+                	vStr =vStr + '<tr data-address="'+data[i].tokenaddress+'" class="tokenrow" >';
                     vStr = vStr + '<td>';
-                    vStr = vStr + ' <img src="'+data[i].cURL+'" alt="" class="img-circle img-size-32 mr-2">';
+                    vStr = vStr + ' <img  src="'+data[i].cURL+'" alt=""  class="img-circle img-size-32 mr-2 ">';
                     vStr = vStr + data[i].cCode ;
                     vStr = vStr + '</td>';
                     vStr = vStr + '<td><span>$13 USD</span></td>';
@@ -129,6 +129,11 @@
                 }
                 $('#showtokenlist').html('');
                 $('#showtokenlist').html(vStr);
+                $(".tokenrow").click(function(){
+                  var vadd= $(this).attr('data-address');
+                  location.href='overview.php?address='+vadd;
+
+                });
             },
             error: function (result) {
                 alert("Error");

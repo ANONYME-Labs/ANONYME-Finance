@@ -20,7 +20,7 @@ if($x['ethbull_forsage_last_sync'] != null){
 $siteNetworkId = $x['siteNetworkId'];
 */
 
-$mainContractAddress = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
+$mainContractAddress = '0x7f6238bd5846d5e113509d9c1e7ebfeea1abbdf6';
 
 $lastBlock = 0;
 $contract = $mainContractAddress; // 23062020 // Main Contract Address
@@ -42,7 +42,7 @@ if($output->status == '1') {
     $blockNumber = hexdec($blockNumber);
 
     if ($blockNumber > $lastBlock) {
-    
+
         $result = $output->result;
 
         foreach ($result as $key => $value) {
@@ -55,7 +55,7 @@ if($output->status == '1') {
 
             /* 1) Event */
             if($value->topics[0] == $Registration){
-    
+
                 //$userWallet = $value->topics[0];
                 //$userWallet = '0x'.substr($userWallet,26);
 
@@ -68,19 +68,19 @@ if($output->status == '1') {
                 $referrer = '0x'.substr($referrer,26);
 
                 $userId = hexdec($value->topics[3]);
-        
+
                 $referrerId = hexdec('0x'.substr($data,0,66));
-                
+
                 $query = "INSERT INTO `forsage_event_reglevel` (userID, userWallet, referrerID, referrerWallet, originalReferrer)";
                 $query .= " VALUES ('".$userId."','".$user."', '".$referrerId."', '".$referrer."', '".$referrerId."');";
 
                 $query = "INSERT INTO `forsage_event_reglevel` (userID, userWallet, referrerID, referrerWallet, originalReferrer)";
                 $query .= " VALUES ('".$userId."','".$user."', '".$referrerId."', '".$referrer."', '".$referrerId."');";
-                
+
                 echo 'forsage_event_reglevel<br/>';
                 print $query."<br/>";
                 echo '<br/>===========================<br/>';
-                
+
                 mysqli_query($conn, $query);
 
             }
@@ -96,7 +96,7 @@ $url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_
 // Set the url
 curl_setopt($handle, CURLOPT_URL, $url);
 // Set the result output to be a string.
-curl_setopt($handle, CURLOPT_RETURNTRANSFER, true); 
+curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 $output = curl_exec($handle);
 $output = json_decode($output, true);
 //var_dump($output);
@@ -113,7 +113,7 @@ $url = "https://ethgasstation.info/json/ethgasAPI.json";
 // Set the url
 curl_setopt($handle, CURLOPT_URL, $url);
 // Set the result output to be a string.
-curl_setopt($handle, CURLOPT_RETURNTRANSFER, true); 
+curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 $output = curl_exec($handle);
 curl_close($handle);
 $gasPriceAverage = json_decode($output)->average / 10;

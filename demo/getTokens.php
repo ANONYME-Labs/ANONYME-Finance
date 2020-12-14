@@ -21,22 +21,23 @@ $arrToken = array();
 $i=1;
   foreach($arr['tokens'] as $tok)
   {
+    if($tok['chainId']==1){
+    	if (isset($tok['logoURI']))
+    	{
+    		$cURL =$tok['logoURI'];
+    	}
+    	else
+    	{
+    		$cURL ='';
+    	}
 
-  	if (isset($tok['logoURI']))
-	{
-		$cURL =$tok['logoURI'];
-	}
-	else
-	{
-		$cURL ='';
-	}
-
-	$arrToken[] = array("cCode" => $tok['symbol'],
-                     "cURL" => $cURL
-                  );
-	
+  	$arrToken[] = array("cCode" => $tok['symbol'],
+                       "cURL" => $cURL,
+                       "tokenaddress" => $tok['address']
+                    );
+      }
   	//$cURL = "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/".$tok['address']. "/logo.png";
-  
+
   	//$i++;
   }
 
@@ -55,5 +56,3 @@ echo  json_encode($uniqueTokensArray);
 
 
 ?>
-
-

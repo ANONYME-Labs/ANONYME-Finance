@@ -315,10 +315,6 @@ $(".btn-group-toggle").twbsToggleButtons();
   _gaq.push(['_trackPageview']);
 
 
-$(document).ready(function(){
-  
-});
-
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -336,7 +332,7 @@ $(document).ready(function(){
   	}
 
 
-    $("#connect-wallet").click(async function(){
+    $(".connect-wallet").click(async function(){
         // Modern dapp browsers...
       if (window.ethereum) {
           window.web3 = new Web3(ethereum);

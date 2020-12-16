@@ -1,6 +1,11 @@
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
 
+
+<?php
+
+
+?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="min-height: 1363.2px;">
     <!-- Content Header (Page header) -->
@@ -43,7 +48,7 @@
                   </div>
               </div>
               <div class="col-sm-12 py-3 text-center">
-                <button class="btn btn-info btn-block btn-lg">Connect Wallet</button>
+                <button id="btnAmount" class="btn btn-info btn-block btn-lg">Enter an Amount</button>
               </div>
             </div>
             <!-- /.card -->
@@ -53,17 +58,50 @@
       </div>
       <!-- /.container-fluid -->
     </div>
+     
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
   <!-- /.control-sidebar -->
+
+
   	
   	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 
 	 
 $(document).ready(function(){
+
+	$("#btnAmount").prop('disabled', false);
+	$("#btnAmount").text("Enter an Amount");
+
+	$("#btnAmount").click( async function(){
+		
+		var vFromAmount = $('#txtFromToken').val();
+  		window.web3 = new Web3(ethereum);
+  		 web3.eth.getAccounts(async function(error, result) {
+            if(!error && typeof(result[0]) !== 'undefined')
+                {
+                 metaMaskAddress=""+result[0];
+                var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
+                var vAvailableETH =parseFloat( vCurrentBalance /  1e18);
+                if(parseFloat(vFromAmount) > parseFloat(vAvailableETH ))
+                {
+                	$("#btnAmount").text("Insuficient liquidity");
+                	$("#btnAmount").prop('disabled', true); 
+                }
+
+                
+               // location.reload();
+              }
+            });
+  		//var bal = await web3.eth.getBalance('0x3F87A32Bfd9cf18B63290B752EAb5A54653B45C5');
+  		//alert(" current balance ="+bal);
+  	});
+
+
+	//========== Get Tokens =============
 	$.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -98,7 +136,7 @@ $(document).ready(function(){
 			  	});
             },
             error: function (result) {
-                alert("Error");
+                //alert("Error");
             }
         });
  });

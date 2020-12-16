@@ -109,7 +109,7 @@ $(document).ready(function(){
                 //$('#displayTokenCoin3').html(vStr);
             },
             error: function (result) {
-                alert("Error");
+               // alert("Error");
             }
         });
 });

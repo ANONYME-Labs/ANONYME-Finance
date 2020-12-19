@@ -269,6 +269,161 @@ Once you are happy with the rate click supply to review.</div>
   </div>
 </div>
 
+
+<!-- modal -->
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplyWithdraw">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="supplyWithdraw" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ether</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="max-value">
+          <div class="input-group mb-3">
+              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">MAX</button>
+            </div>
+        </div>
+        <div class="tabs-form">
+          
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Supply</a>
+              <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Withdraw</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
+                </div>
+              </div>  
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.01%</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.07%</span>
+                </div>
+              </div>
+              <div class="row mb-3 ">
+                <div class="col-sm-12">
+                  <a href="">Borrow Limit</a>
+                </div>
+              </div>  
+              <div class="row border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.01%</span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span>$547.21k</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit Used</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0%</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block">NO FUNDS AVAILABLE</button>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-sm-12">
+                  <span>Wallet Balance</span>
+                  <span style="float: right;">0ETH</span>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
+                </div>
+              </div>  
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.01%</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.07%</span>
+                </div>
+              </div>
+              <div class="row mb-3 ">
+                <div class="col-sm-12">
+                  <a href="">Borrow Limit</a>
+                </div>
+              </div>  
+              <div class="row border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.01%</span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span>$547.21k</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit Used</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0%</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block">NO BALANCE TO WITHDRAW</button>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-sm-12">
+                  <span>Currenctly Supplying</span>
+                  <span style="float: right;">0ETH</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+
  <footer class="main-footer">
     <strong>Copyright © 2020</strong>
     All rights reserved.

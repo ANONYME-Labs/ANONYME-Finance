@@ -5,6 +5,8 @@
 
 <!-- Modal 3 -->
 
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+
 <div class="modal fade" id="coin_option3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
     <div class="modal-content">
@@ -133,9 +135,7 @@ Once you are happy with the rate click supply to review.</div>
         </button>
       </div>
       <div class="modal-body">
-        <div class="col-sm-12 mb-3">
-        	<input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
-        </div>
+        
         <div class="col-sm-12">
         	<div class="row py-2">
         		<div class="col-lg-6 col-md-6 col-sm-6">
@@ -145,22 +145,15 @@ Once you are happy with the rate click supply to review.</div>
         			<i class="fa fa-arrow-down" aria-hidden="true"></i>
         		</div>
         	</div>
-        	<div id="displayTokenFrom" class="row py-2 hover-select-token">
-        		<!-- <div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div> -->
-        	</div>
+          <select name="displayTokenFrom" id="displayTokenFrom" class="form-control form-control-lg" style="border-radius: 20px;width: 100%;">
+            <option value='0' selected='true'> Select Token </option>
+          </select>
         </div>
       </div>
       <div class="modal-footer border-top-0">
       	<div class="row" style="width: 100%;">
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-		        <span>Uniswap Default List</span>
+    		
 		    </div>
-		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-		    	<a href="#">Change</a>
-		    </div>
-		</div>
       </div>
     </div>
   </div>

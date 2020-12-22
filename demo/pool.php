@@ -369,3 +369,185 @@ function formatState (opt) {
 
 </script>
 
+
+
+
+<!-- Modal 2 -->
+<div class="modal fade" id="coin_option2" tabindex="-1" aria-labelledby="coin_option2Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="coin_option2Label">Create a pair<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-sm-12 mb-3">
+          <div class="alert alert-danger">
+            You are the first liquidity provider.<br>
+            The ratio of tokens you add will set the price of this pool.<br>
+            Once you are happy with the rate click supply to review.
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="row py-2">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span>Token Name</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+              <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="pairWalletFromBalance">0.00</span> &nbsp;
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="txtPoolFromToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolFromToken" type="button" data-toggle="modal" data-target="#from_token_pop">
+                        <img src="images/eth.png" id="imgPoolFromToken" style="width: 20px;margin-right: 10px;display: none;"><span id="spnPoolFromToken">Select Token</span></button>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-sm-12 py-3 text-center">
+                <p class="m-0"><i class="fa fa-plus" aria-hidden="true"></i></p>
+              </div>
+              <div class="col-sm-12">
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      test
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="pairWalletToBalance">0.00</span> &nbsp;
+                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="txtPoolToToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolToToken" type="button" data-toggle="modal" data-target="#to_token_pop">
+                        <img src="images/eth.png" id="imgPoolToToken" style="width: 20px;margin-right: 10px;display: none;"><span id="spnPoolToToken">Select Token</span></button>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0">
+
+        <div class="row" style="width: 100%;">
+          <div class="sc-gqjmRU sc-fMiknA sc-dVhcbM iwiYPV">
+            <div class="sc-gqjmRU sc-jTzLTM sc-fjdhpX bdIUOu">
+              <div class="sc-kkGfuU hyvXgi css-1aekuku">
+                Initial prices and pool share
+              </div>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;">
+              <div class="col-md-4">
+                  <div class="firstTokenRate">-</div>
+                  <div class="startTwoTokens">
+                    <span id="first1"></span> per <span id="first2"></span>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="secondTokenRate">-</div>
+                  <div class="endTwoTokens">
+                    <span id="second1"></span> per <span id="second2"></span>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="sc-kkGfuU kuSmHG css-1kt4f20">100%</div>
+                  <div class="css-1m402ei">Share of Pool</div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+        <div class="row" style="width: 100%;">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <button disabled="" class="btn btn-primary btn-large">
+              <div class="css-10ob8xa">Invalid pair</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="from_token_pop" tabindex="-1" aria-labelledby="from_token_popLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="from_token_popLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-sm-12 mb-3">
+          <input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
+        </div>
+        <div class="col-sm-12">
+          <div class="row py-2">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <button class="btn btn-primary" id="pairETHButtonFrom">ETH</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+              <i class="fa fa-arrow-down" aria-hidden="true"></i>
+            </div>
+          </div>
+          <select name="displayTokenFrom" id="displayTokenFrom" class="form-control form-control-lg" style="border-radius: 20px;width: 100%;">
+            <option value='0' selected='true'> Select Token </option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0">
+        <div class="row" style="width: 100%;">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <span>Uniswap Default List</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+          <a href="#">Change</a>
+        </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="to_token_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="to_token_popLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-sm-12">
+          <div class="row py-2">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <button class="btn btn-primary" id="pairETHButtonTo">ETH</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+              <i class="fa fa-arrow-down" aria-hidden="true"></i>
+            </div>
+          </div>
+          <select name="displayTokenTo" id="displayTokenTo" class="form-control form-control-lg" style="border-radius: 20px;width: 100%;">
+            <option value='0' selected='true'> Select Token </option>
+          </select>         
+        </div>
+      </div>
+  
+    </div>
+  </div>
+</div>

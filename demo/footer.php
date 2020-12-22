@@ -5,274 +5,278 @@
 
 <!-- Modal 3 -->
 
-<div class="modal fade" id="coin_option3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+
+<div class="modal fade" id="coin_option3" tabindex="-1" aria-labelledby="coin_option3Label" aria-hidden="true">
+
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header border-bottom-0">
-        <h5 class="modal-title" id="exampleModalLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
+        <h5 class="modal-title" id="coin_option3Label">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="col-sm-12 mb-3">
-        	<input class="form-control form-control-lg" type="text" placeholder="Search">
+          <input class="form-control form-control-lg" type="text" placeholder="Search">
         </div>
         <div class="col-sm-12 mb-3">
-        	<h5>Common bases</h5>
+          <h5>Common bases</h5>
         </div>
         <div class="col-sm-12 mb-3">
-        	<button type="button" class="btn btn-light"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">ETH</button>
-        	<button type="button" class="btn btn-light ml-2"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">BTC</button>
-        	<button type="button" class="btn btn-light ml-2"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">WETH</button>
-        	<button type="button" class="btn btn-light ml-2"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">BCH</button>
-        	<button type="button" class="btn btn-light ml-2"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">TRX</button>
+          <button type="button" class="btn btn-light"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">ETH</button>
+          <button type="button" class="btn btn-light ml-2"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">BTC</button>
+          <button type="button" class="btn btn-light ml-2"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">WETH</button>
+          <button type="button" class="btn btn-light ml-2"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">BCH</button>
+          <button type="button" class="btn btn-light ml-2"><img src="images/eth.png" style="width: 20px; margin-right: 5px;">TRX</button>
         </div>
         <div class="col-sm-12">
-        	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6">
-        			<span>Token Name</span>
-        		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
-        			<i class="fa fa-arrow-down" aria-hidden="true"></i>
-        		</div>
-        	</div>
-        	<div id="displayTokenCoin3" class="row py-2 hover-select-token">
-        		 
-        	</div>
-        	
+          <div class="row py-2">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span>Token Name</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+              <i class="fa fa-arrow-down" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div id="displayTokenCoin3" class="row py-2 hover-select-token">
+             
+          </div>
+          
         </div>
       </div>
       <div class="modal-footer border-top-0">
-      	<div class="row" style="width: 100%;">
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-		        <span>Uniswap Default List</span>
-		    </div>
-		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-		    	<a href="#">Change</a>
-		    </div>
-		</div>
+        <div class="row" style="width: 100%;">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <span>Uniswap Default List</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+          <a href="#">Change</a>
+        </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="Connect_wallet" tabindex="-1" aria-labelledby="Connect_walletLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="Connect_walletLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-sm-12 mb-3">
+          <input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
+        </div>
+        <div class="col-sm-12">
+          <div class="row py-2">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span>Token Name</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+              <i class="fa fa-arrow-down" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12">
+              <div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+            </div>
+          </div>
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12">
+              <div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+            </div>
+          </div>
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12">
+              <div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+            </div>
+          </div>
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12">
+              <div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+            </div>
+          </div>
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12">
+              <div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0">
+        <div class="row" style="width: 100%;">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <span>Uniswap Default List</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+          <a href="#">Change</a>
+        </div>
+    </div>
       </div>
     </div>
   </div>
 </div>
 
 
+<!-- modal -->
 
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplyWithdraw">
+  Launch demo modal
+</button> -->
 
-<!-- Modal 2 -->
-<div class="modal fade" id="coin_option2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+<!-- Modal -->
+<div class="modal fade" id="supplyWithdraw" tabindex="-1" aria-labelledby="supplyWithdrawLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <h5 class="modal-title" id="exampleModalLabel">Create a pair<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header">
+        <h5 class="modal-title" id="supplyWithdrawLabel">Ether</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="col-sm-12 mb-3">
-        	<div class="alert alert-danger">You are the first liquidity provider.<br>
-The ratio of tokens you add will set the price of this pool.<br>
-Once you are happy with the rate click supply to review.</div>
+        <div class="max-value">
+          <div class="input-group mb-3">
+              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">MAX</button>
+            </div>
         </div>
-        <div class="col-sm-12">
-        	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6">
-        			<span>Token Name</span>
-        		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
-        			<i class="fa fa-arrow-down" aria-hidden="true"></i>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="txtPoolFromToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolFromToken" type="button" data-toggle="modal" data-target="#from_token_pop"><img src="images/eth.png" id="imgPoolFromToken" style="width: 20px;margin-right: 10px;"><span id="spnPoolFromToken">ETH</span></button>
-                    </div>
-                  </div>
+        <div class="tabs-form">
+          
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Supply</a>
+              <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Withdraw</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
+                </div>
+              </div>  
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.01%</span>
+                </div>
               </div>
-              <div class="col-sm-12 py-3 text-center">
-                <p class="m-0"><i class="fa fa-plus" aria-hidden="true"></i></p>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.07%</span>
+                </div>
               </div>
-              <div class="col-sm-12">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="txtPoolToToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolToToken" type="button" data-toggle="modal" data-target="#to_token_pop"><img src="images/eth.png" id="imgPoolToToken" style="width: 20px;margin-right: 10px;"><span id="spnPoolToToken">ETH</span></button>
-                    </div>
-                  </div>
+              <div class="row mb-3 ">
+                <div class="col-sm-12">
+                  <a href="">Borrow Limit</a>
+                </div>
+              </div>  
+              <div class="row border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.01%</span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span>$547.21k</span>
+                </div>
               </div>
-        	</div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit Used</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0%</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block">NO FUNDS AVAILABLE</button>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-sm-12">
+                  <span>Wallet Balance</span>
+                  <span style="float: right;">0ETH</span>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
+                </div>
+              </div>  
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.01%</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.07%</span>
+                </div>
+              </div>
+              <div class="row mb-3 ">
+                <div class="col-sm-12">
+                  <a href="">Borrow Limit</a>
+                </div>
+              </div>  
+              <div class="row border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0.01%</span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span>$547.21k</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit Used</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>0%</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block">NO BALANCE TO WITHDRAW</button>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-sm-12">
+                  <span>Currenctly Supplying</span>
+                  <span style="float: right;">0ETH</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="modal-footer border-top-0">
-      	<div class="row" style="width: 100%;">
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-		        <span>Uniswap Default List</span>
-		    </div>
-		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-		    	<a href="#">Change</a>
-		    </div>
-		</div>
-      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
     </div>
   </div>
 </div>
 
-
-<div class="modal fade" id="from_token_pop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <h5 class="modal-title" id="exampleModalLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="col-sm-12 mb-3">
-        	<input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
-        </div>
-        <div class="col-sm-12">
-        	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6">
-        			<span>Token Name</span>
-        		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
-        			<i class="fa fa-arrow-down" aria-hidden="true"></i>
-        		</div>
-        	</div>
-        	<select name="displayTokenFrom" id="displayTokenFrom" class="form-control form-control-lg" style="border-radius: 20px;width: 100%;">
-            <option value='0' selected='true'> Select Token </option>
-          </select>
-        </div>
-      </div>
-      <div class="modal-footer border-top-0">
-      	<div class="row" style="width: 100%;">
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-		        <span>Uniswap Default List</span>
-		    </div>
-		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-		    	<a href="#">Change</a>
-		    </div>
-		</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="to_token_pop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <h5 class="modal-title" id="exampleModalLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="col-sm-12 mb-3">
-        	<input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
-        </div>
-        <div class="col-sm-12">
-        	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6">
-        			<span>Token Name</span>
-        		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
-        			<i class="fa fa-arrow-down" aria-hidden="true"></i>
-        		</div>
-        	</div>
-        	<div id="displayTokenTo" class="row py-2 hover-select-token">
-        		<!-- <div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div> -->
-        	</div>
-        </div>
-      </div>
-      <div class="modal-footer border-top-0">
-      	<div class="row" style="width: 100%;">
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-		        <span>Uniswap Default List</span>
-		    </div>
-		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-		    	<a href="#">Change</a>
-		    </div>
-		</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<div class="modal fade" id="Connect_wallet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <h5 class="modal-title" id="exampleModalLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="col-sm-12 mb-3">
-        	<input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
-        </div>
-        <div class="col-sm-12">
-        	<div class="row py-2">
-        		<div class="col-lg-6 col-md-6 col-sm-6">
-        			<span>Token Name</span>
-        		</div>
-        		<div class="col-lg-6 col-md-6 col-sm-6 text-right">
-        			<i class="fa fa-arrow-down" aria-hidden="true"></i>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
-        	<div class="row py-2 hover-select-token">
-        		<div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div>
-        	</div>
-        </div>
-      </div>
-      <div class="modal-footer border-top-0">
-      	<div class="row" style="width: 100%;">
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-		        <span>Uniswap Default List</span>
-		    </div>
-		    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-		    	<a href="#">Change</a>
-		    </div>
-		</div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- modal -->
 
  <footer class="main-footer">
     <strong>Copyright © 2020</strong>
@@ -327,9 +331,9 @@ $(".btn-group-toggle").twbsToggleButtons();
 // web3  
   window.addEventListener('load', async () => {
   $(document).ready(async function(){
-	
-	
-	 if (window.ethereum) {
+  
+  
+   if (window.ethereum) {
         window.web3 = new Web3(ethereum);
         try {
             // Request account access if needed
@@ -339,12 +343,12 @@ $(".btn-group-toggle").twbsToggleButtons();
           if(!error && typeof(result[0]) !== 'undefined')
               {
               var metaMaskAddress=""+result[0];
-			  console.log(metaMaskAddress);
-			 
-			    $('.asset-list').show();
-				
-				
-				
+        console.log(metaMaskAddress);
+       
+          $('.asset-list').show();
+        
+        
+        
               var now = new Date();
               now.setTime(now.getTime() + 1 * 3600 * 1000);
               document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
@@ -378,17 +382,17 @@ $(".btn-group-toggle").twbsToggleButtons();
 
         console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
     }
-	
-	var userWallet=getCookie('userWallet');
-  	//alert(userWallet);
+  
+  var userWallet=getCookie('userWallet');
+    //alert(userWallet);
 
-  	if(userWallet!=""){
+    if(userWallet!=""){
        var vWallet=userWallet.substring(0, 6) + '...' + userWallet.substring(userWallet.length - 6, userWallet.length);
        $(".btnwalletaddress").html(vWallet);
-  	}
+    }
 
-	
-	
+  
+  
 
 
 });
@@ -414,25 +418,25 @@ $(document).ready(async function(){
             web3.eth.getAccounts(async function(error, result) {
           if(!error && typeof(result[0]) !== 'undefined')
               {
-				var myAccountAddress=""+result[0];
+        var myAccountAddress=""+result[0];
 
       
-				var bal = await web3.eth.getBalance(myAccountAddress);
-				var accbal = ( bal / 1000000000000000000 );
-				console.log('accbal '+accbal);
+        var bal = await web3.eth.getBalance(myAccountAddress);
+        var accbal = ( bal / 1000000000000000000 );
+        console.log('accbal '+accbal);
         var arrayABI = '';
         <?php if($mainContractABI != ''){ ?>
-				  arrayABI = <?php echo $mainContractABI; ?>;
+          arrayABI = <?php echo $mainContractABI; ?>;
         <?php } ?>
-				var mainContractAddress = "<?=$mainContractAddress; ?>";
-				//var referrerID = document.getElementById("regReferralID").value;
+        var mainContractAddress = "<?=$mainContractAddress; ?>";
+        //var referrerID = document.getElementById("regReferralID").value;
 
 
-				var userWallet=getCookie('userWallet');
-				if(userWallet!=""){
-					var vWallet=userWallet.substring(0, 6) + '...' + userWallet.substring(userWallet.length - 6, userWallet.length);
-					$(".btnwalletaddress").html(vWallet);
-				}
+        var userWallet=getCookie('userWallet');
+        if(userWallet!=""){
+          var vWallet=userWallet.substring(0, 6) + '...' + userWallet.substring(userWallet.length - 6, userWallet.length);
+          $(".btnwalletaddress").html(vWallet);
+        }
 
 
 var comptrollerAbi =[{"constant":true,"inputs":[],"name":"pendingAdmin","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newPendingAdmin","type":"address"}],"name":"_setPendingAdmin","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"comptrollerImplementation","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"_acceptImplementation","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"pendingComptrollerImplementation","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newPendingImplementation","type":"address"}],"name":"_setPendingImplementation","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"_acceptAdmin","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"admin","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldPendingImplementation","type":"address"},{"indexed":false,"name":"newPendingImplementation","type":"address"}],"name":"NewPendingImplementation","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldImplementation","type":"address"},{"indexed":false,"name":"newImplementation","type":"address"}],"name":"NewImplementation","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldPendingAdmin","type":"address"},{"indexed":false,"name":"newPendingAdmin","type":"address"}],"name":"NewPendingAdmin","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldAdmin","type":"address"},{"indexed":false,"name":"newAdmin","type":"address"}],"name":"NewAdmin","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"error","type":"uint256"},{"indexed":false,"name":"info","type":"uint256"},{"indexed":false,"name":"detail","type":"uint256"}],"name":"Failure","type":"event"}];
@@ -568,43 +572,43 @@ const balanceOfUnderlying = web3.utils.toBN(await myContract.methods
 
   console.log("ETH supplied to the Compound Protocol:", balanceOfUnderlying, '\n');
   
-  if(balanceOfUnderlying > 0){	
+  if(balanceOfUnderlying > 0){  
   
-	  $('.Supply_collateral').show();
-	  $('.borrow_collateral').show();
-	  $('#eth_supply_market').hide();
-	  $('#eth_borrow_market').hide();
-	  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* 586.44;
-	  const borrow_limit=(supplybalanceUSD*80)/100;
+    $('.Supply_collateral').show();
+    $('.borrow_collateral').show();
+    $('#eth_supply_market').hide();
+    $('#eth_borrow_market').hide();
+    const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* 586.44;
+    const borrow_limit=(supplybalanceUSD*80)/100;
      
-	  $('#supplybalanceUSD').html('$ '+supplybalanceUSD.toFixed(2));
-	  $('.borrow_limit').html('$ '+borrow_limit.toFixed(2));
-	  
-	  $('#totsupply').html(balanceOfUnderlying.toFixed(4));
-	  
+    $('#supplybalanceUSD').html('$ '+supplybalanceUSD.toFixed(2));
+    $('.borrow_limit').html('$ '+borrow_limit.toFixed(2));
+    
+    $('#totsupply').html(balanceOfUnderlying.toFixed(4));
+    
   }else{
-	   $('.Supply_collateral').hide();
-	   $('.borrow_collateral').hide();
-	   $('#eth_supply_market').show();
-	   $('#eth_borrow_market').show();
+     $('.Supply_collateral').hide();
+     $('.borrow_collateral').hide();
+     $('#eth_supply_market').show();
+     $('#eth_borrow_market').show();
   }
   const borrowBalanceStored= await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
   const borrowBalance=borrowBalanceStored/1000000000000000000;
-  if(borrowBalance > 0){	
+  if(borrowBalance > 0){  
   
   
   
-	  $('.borrow_percentage').html(borrowApy.toFixed(2)+' %');
-	  
-	  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* 586.44;
-	  const borrow_limit=(supplybalanceUSD*80)/100;
-	  const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* 586.44;
-	  const borrow_limit_used=(borrowbalanceUSD*100)/ borrow_limit;
+    $('.borrow_percentage').html(borrowApy.toFixed(2)+' %');
+    
+    const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* 586.44;
+    const borrow_limit=(supplybalanceUSD*80)/100;
+    const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* 586.44;
+    const borrow_limit_used=(borrowbalanceUSD*100)/ borrow_limit;
 
-	    $('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance of <?php echo $_COOKIE['currency'];?> is <span id="totborrow">'+accbal.toFixed(3)+' ETH</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info" id="Borrowing" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
-	  $('#borrowbalanceUSD').html('$ '+borrowbalanceUSD.toFixed(2));
-	  $('.borrow_limit_used').html(borrow_limit_used.toFixed(2)+' %');
-	  $('#totborrow').html(borrowBalance.toFixed(4));
+      $('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance of <?php echo $_COOKIE['currency'];?> is <span id="totborrow">'+accbal.toFixed(3)+' ETH</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info" id="Borrowing" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
+    $('#borrowbalanceUSD').html('$ '+borrowbalanceUSD.toFixed(2));
+    $('.borrow_limit_used').html(borrow_limit_used.toFixed(2)+' %');
+    $('#totborrow').html(borrowBalance.toFixed(4));
   }
   
   let exchangeRateCurrent = await myContract.methods.exchangeRateCurrent().call();
@@ -636,9 +640,9 @@ console.log('1 cBAT can be redeemed for', oneCTokenInUnderlying, 'BAT');
   // market enter or exit
  
  $('#ether-basic-switch').click( async function(){
-	
+  
 if($(this).prop('checked')==true){
-		 
+     
 var markets = await marketcontract.methods.enterMarkets(arrayMrk).send({from: myAccountAddress});
 console.log(myAccountAddress);
 console.log(markets);  
@@ -649,13 +653,13 @@ console.log(markets);
 
 
  }else{
-	 
-	 var markets = await marketcontract.methods.exitMarket(myAccountAddress).send({from: myAccountAddress});
+   
+   var markets = await marketcontract.methods.exitMarket(myAccountAddress).send({from: myAccountAddress});
 console.log(myAccountAddress);
 console.log(markets); 
 
 
-	 
+   
  }
 
  });
@@ -664,7 +668,7 @@ console.log(markets);
 
  
  $('#supplying').click( async function(){
-	 
+   
 
 await logBalances();
 
@@ -687,7 +691,7 @@ await logBalances();
  });
  
   $('#Borrowing').click( async function(){
-	 
+   
 
   console.log('Calculating your liquid assets in the protocol...');
   let { 1:liquidity } = await marketcontract.methods.getAccountLiquidity(myAccountAddress).call();
@@ -784,8 +788,8 @@ await logBalances();
   }
   
    $('#go-back').click(function(){
-	     
-	      location.href='home.php';
+       
+        location.href='home.php';
        });
 </script>
 

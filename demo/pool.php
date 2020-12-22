@@ -1,6 +1,19 @@
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
 
+
+<style type="text/css">
+  .selectCImage{
+      max-width: 25px;
+      margin-right: 5px;
+  }
+
+  .select2.select2-container{ width: 100% !important; }
+  .select2-container--default .select2-selection--single{
+    height: 40px;
+  }
+</style>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="min-height: 1363.2px;">
     <!-- Content Header (Page header) -->
@@ -71,6 +84,30 @@ $(document).ready(function(){
   $("#btnPoolToToken").click(function(){
   		//$('#coin_option2').modal('hide');
 	});
+
+  $.ajax({
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    url: 'getTokens.php',
+    data: "{}",
+    dataType: "json",
+    success: function (data) {
+      var vStr='';
+      for(i=0;i<data.length;i++) {
+
+          vStr = vStr + '<option dataimage="'+data[i].cURL+'" value='+data[i].cCode+'>'+data[i].cCode+'</option>';
+      }
+      $('#displayTokenFrom').html('');
+      $('#displayTokenFrom').html(vStr);
+      
+      $('#displayTokenTo').html('');
+      $('#displayTokenTo').html(vStr);
+
+    },
+    error: function (result) {
+       // alert("Error");
+    }
+  });  
        
 });
 
@@ -91,11 +128,8 @@ function formatState (opt) {
 </script>
 
 
-
-
-  <?php include 'footer.php';?>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
+<?php include 'footer.php';?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 <script type="text/javascript">
   
   $(document).ready(function(){

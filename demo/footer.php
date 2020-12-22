@@ -192,11 +192,9 @@
         			<i class="fa fa-arrow-down" aria-hidden="true"></i>
         		</div>
         	</div>
-        	<div id="displayTokenFrom" class="row py-2 hover-select-token">
-        		<!-- <div class="col-sm-12">
-        			<div style="cursor: pointer;"><img src="images/eth.png" style="width: 20px;"> <span class="ml-2">ETH</span></div>
-        		</div> -->
-        	</div>
+        	<select name="displayTokenFrom" id="displayTokenFrom" class="form-control form-control-lg" style="border-radius: 20px;width: 100%;">
+            <option value='0' selected='true'> Select Token </option>
+          </select>
         </div>
       </div>
       <div class="modal-footer border-top-0">
@@ -606,7 +604,10 @@ $(document).ready(async function(){
 				var bal = await web3.eth.getBalance(myAccountAddress);
 				var accbal = ( bal / 1000000000000000000 );
 				console.log('accbal '+accbal);
-				var arrayABI = <?=$mainContractABI; ?>;
+        var arrayABI = '';
+        <?php if($mainContractABI != ''){ ?>
+				  arrayABI = <?php echo $mainContractABI; ?>;
+        <?php } ?>
 				var mainContractAddress = "<?=$mainContractAddress; ?>";
 				//var referrerID = document.getElementById("regReferralID").value;
 

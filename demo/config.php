@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 //system default localhost server
 define('DB_HOST','localhost');
 define('DB_USER','root');
-define('DB_PASS','');
+define('DB_PASS','root');
 define('DB_NAME','compound');
 
 
@@ -74,14 +74,14 @@ if($network==0){
     
 }
 
-$query2 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'  ";
+/*$query2 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'  ";
 $result2 = mysqli_query($conn,$query2);
 $row = mysqli_fetch_array($result2);
 if($row != NULL){
 	
 	 $mainContractAddress = $row['contractAddress'];
 	 $mainContractABI = $row['contractABI'];
-}
+}*/
 
  function clean($string) {
    $string = str_replace(' ', '', $string); // Remove all spaces.

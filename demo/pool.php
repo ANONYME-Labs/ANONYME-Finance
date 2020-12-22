@@ -74,16 +74,16 @@
   <!-- /.control-sidebar -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-	 
+   
 $(document).ready(function(){
-	
-	$("#btnPoolFromToken").click(function(){
-  		//$('#coin_option2').modal('hide');
+  
+  $("#btnPoolFromToken").click(function(){
+      //$('#coin_option2').modal('hide');
   });
 
   $("#btnPoolToToken").click(function(){
-  		//$('#coin_option2').modal('hide');
-	});
+      //$('#coin_option2').modal('hide');
+  });
 
   $.ajax({
     type: "POST",

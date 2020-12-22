@@ -1,16 +1,6 @@
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
 
-<style type="text/css">
-  .selectCImage{
-      max-width: 25px;
-      margin-right: 5px;
-  }
-  .select2-container--default .select2-selection--single{
-    height: 40px;
-  }
-</style>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="min-height: 1363.2px;">
     <!-- Content Header (Page header) -->
@@ -57,10 +47,6 @@
                 <p>Don't see a pool you joined?<a href=""> Import it.</a></p>
               </div>
             </div>
-
-
-            
-
             <!-- /.card -->
           </div>
         </div>
@@ -77,7 +63,6 @@
 <script>
 	 
 $(document).ready(function(){
-
 	
 	$("#btnPoolFromToken").click(function(){
   		//$('#coin_option2').modal('hide');
@@ -86,46 +71,7 @@ $(document).ready(function(){
   $("#btnPoolToToken").click(function(){
   		//$('#coin_option2').modal('hide');
 	});
-
-  $.ajax({
-    type: "POST",
-    contentType: "application/json; charset=utf-8",
-    url: 'getTokens.php',
-    data: "{}",
-    dataType: "json",
-    success: function (data) {
-      var vStr='';
-      for(i=0;i<data.length;i++) {
-
-        	vStr = vStr + '<option dataimage="'+data[i].cURL+'" value='+data[i].cCode+'>'+data[i].cCode+'</option>';
-      }
-      $('#displayTokenFrom').html('');
-      $('#displayTokenFrom').html(vStr);
-      $("#displayTokenFrom .clstok").click(function(){
-	  		var vSelectedToken = $(this).find(".ml-2").text();
-	  		var vSelectedTokenImg = $(this).find("img").prop('src');
-	  		$('#spnPoolFromToken').text(vSelectedToken);
-	  		$('#imgPoolFromToken').attr('src',vSelectedTokenImg);
-	  		$('#from_token_pop').modal('hide');
-	  	});
-
-      $('#displayTokenTo').html('');
-      $('#displayTokenTo').html(vStr);
-      $("#displayTokenTo .clstok").click(function(){
-	  		var vSelectedToToken = $(this).find(".ml-2").text();
-	  		var vSelectedToTokenImg = $(this).find("img").prop('src');
-	  		$('#spnPoolToToken').text(vSelectedToToken);
-	  		$('#imgPoolToToken').attr('src',vSelectedToTokenImg);
-	  		$('#to_token_pop').modal('hide');
-	  	});
-
-      //$('#displayTokenCoin3').html('');
-      //$('#displayTokenCoin3').html(vStr);
-    },
-    error: function (result) {
-       // alert("Error");
-    }
-  });          
+       
 });
 
 function formatState (opt) {
@@ -388,3 +334,4 @@ function formatState (opt) {
 
 
 </script>
+

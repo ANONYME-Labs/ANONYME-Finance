@@ -53,6 +53,7 @@
                       <span>Stable</span>
                       <p>Borrow APR</p>
                     </th>
+					 <th>Action</th>
                   </tr>
                   </thead>
                   <tbody id="showtokenlist">
@@ -102,6 +103,9 @@
             data: "{}",
             dataType: "json",
             success: function (data) {
+				
+				console.log(data);
+				
             	var vStr='';
                 for(i=0;i<data.length;i++)
                 {
@@ -124,21 +128,34 @@
                     vStr = vStr + '<td>';
                     vStr = vStr + '  <span>20.60%</span>';
                     vStr = vStr + '</td>';
+					 vStr = vStr + '<td>';
+                    vStr = vStr + '  <span><button class="btn btn-info"  onclick="deposit(\''+data[i].cCode+'\');" >Deposit</button> &nbsp;&nbsp;<button class="btn btn-info" onclick="borrow(\''+data[i].cCode+'\');" >Borrow</button></span>';
+                    vStr = vStr + '</td>';
                   vStr = vStr + '</tr>';
 
                 }
                 $('#showtokenlist').html('');
                 $('#showtokenlist').html(vStr);
-                $(".tokenrow").click(function(){
+               /* $(".tokenrow").click(function(){
                   var vadd= $(this).attr('data-address');
                   location.href='overview.php?address='+vadd;
 
-                });
+                });*/
             },
             error: function (result) {
                 alert("Error");
             }
         });
+		
+		function deposit(currency){
+	      document.cookie = "currency="+currency+"; expires=''; path=/";
+	      location.href='deposit.php';
+       }
+	   
+	   function borrow(currency){
+	      document.cookie = "currency="+currency+"; expires=''; path=/";
+	      location.href='borrow.php';
+       }
 
   </script>
   <!-- Main Footer -->

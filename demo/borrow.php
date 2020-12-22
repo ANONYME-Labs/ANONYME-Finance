@@ -1,4 +1,4 @@
-<?php include('config.php'); ?>
+<?php include('connection.php'); ?>
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
 
@@ -172,6 +172,7 @@
   <!-- /.content-wrapper -->
 
   <!-- /.control-sidebar -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<?php include('config.php'); ?>
 	
  <?php include 'footer.php';?>

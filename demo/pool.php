@@ -1,16 +1,6 @@
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
 
-<style type="text/css">
-  .selectCImage{
-      max-width: 25px;
-      margin-right: 5px;
-  }
-  .select2-container--default .select2-selection--single{
-    height: 40px;
-  }
-</style>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="min-height: 1363.2px;">
     <!-- Content Header (Page header) -->
@@ -57,10 +47,6 @@
                 <p>Don't see a pool you joined?<a href=""> Import it.</a></p>
               </div>
             </div>
-
-
-            
-
             <!-- /.card -->
           </div>
         </div>
@@ -87,7 +73,7 @@ $(document).ready(function(){
   		//$('#coin_option2').modal('hide');
   	});
 
-          $.ajax({
+	$.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
             url: 'getTokens.php',
@@ -97,104 +83,36 @@ $(document).ready(function(){
             	var vStr='';
                 for(i=0;i<data.length;i++)
                 {
-                	vStr = vStr + '<option dataimage="'+data[i].cURL+'" value='+data[i].cCode+'>'+data[i].cCode+'</option>';
+                	vStr = vStr + '<div class="col-sm-12"><div class="clstok" style="cursor: pointer;"><img src="'+data[i].cURL+'" style="width: 20px;"> <span class="ml-2">'+data[i].cCode+'</span></div></div>';
                 }
                 $('#displayTokenFrom').html('');
                 $('#displayTokenFrom').html(vStr);
                 $("#displayTokenFrom .clstok").click(function(){
-      			  		var vSelectedToken = $(this).find(".ml-2").text();
-      			  		var vSelectedTokenImg = $(this).find("img").prop('src');
-      			  		$('#spnPoolFromToken').text(vSelectedToken);
-      			  		$('#imgPoolFromToken').attr('src',vSelectedTokenImg);
-      			  		$('#from_token_pop').modal('hide');
-      			  	});
+			  		var vSelectedToken = $(this).find(".ml-2").text();
+			  		var vSelectedTokenImg = $(this).find("img").prop('src');
+			  		$('#spnPoolFromToken').text(vSelectedToken);
+			  		$('#imgPoolFromToken').attr('src',vSelectedTokenImg);
+			  		$('#from_token_pop').modal('hide');
+			  	});
 
                 $('#displayTokenTo').html('');
                 $('#displayTokenTo').html(vStr);
                 $("#displayTokenTo .clstok").click(function(){
-      			  		var vSelectedToToken = $(this).find(".ml-2").text();
-      			  		var vSelectedToTokenImg = $(this).find("img").prop('src');
-      			  		$('#spnPoolToToken').text(vSelectedToToken);
-      			  		$('#imgPoolToToken').attr('src',vSelectedToTokenImg);
-      			  		$('#to_token_pop').modal('hide');
-      			  	});
+			  		var vSelectedToToken = $(this).find(".ml-2").text();
+			  		var vSelectedToTokenImg = $(this).find("img").prop('src');
+			  		$('#spnPoolToToken').text(vSelectedToToken);
+			  		$('#imgPoolToToken').attr('src',vSelectedToTokenImg);
+			  		$('#to_token_pop').modal('hide');
+			  	});
 
                 //$('#displayTokenCoin3').html('');
                 //$('#displayTokenCoin3').html(vStr);
             },
             error: function (result) {
-               // alert("Error");
+                alert("Error");
             }
-          });
-
-          
+        });
 });
-
-          function formatState (opt) {
-              if (!opt.id) {
-                return opt.text;
-              }               
-              var optimage = $(opt.element).attr('dataimage'); 
-              if(!optimage){
-                return opt.text;
-              } else {
-                var $opt = $(
-                '<span class="selectCSpan"><img src="' + optimage + '" class="selectCImage" /> ' + $(opt.element).text() + '</span>'
-                );
-                return $opt;
-              }
-          }
   </script>
 
-
-
-
   <?php include 'footer.php';?>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
-<script type="text/javascript">
-  
-  $(document).ready(function(){
-
-    $("#displayTokenFrom").select2({
-
-        templateResult: formatState,
-        templateSelection: formatState
-
-    });
-
-
-    $(document.body).on("change","#displayTokenFrom",function(){
-
-        /*var tt = $("#displayTokenFrom").select2().find(":selected");
-        console.log(tt);*/
-
-        $("#from_token_pop").modal('hide');
-        $("#spnPoolFromToken").html(this.value);
-
-        $("#displayTokenFrom").select2({
-          templateResult: formatState,
-          templateSelection: formatState
-        });
-
-    });
-
-    $(document.body).on("change","#displayTokenTo",function(){
-
-        /*var tt = $("#displayTokenFrom").select2().find(":selected");
-        console.log(tt);*/
-
-        $("#from_token_pop").modal('hide');
-        $("#spnPoolFromToken").html(this.value);
-
-        $("#displayTokenFrom").select2({
-          templateResult: formatState,
-          templateSelection: formatState
-        });
-
-    });
-
-
-  });
-
-</script>

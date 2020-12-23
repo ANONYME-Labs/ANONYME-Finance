@@ -72,63 +72,43 @@
   <!-- /.content-wrapper -->
 
   <!-- /.control-sidebar -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-   
-$(document).ready(function(){
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script type="text/javascript">
   
-  $("#btnPoolFromToken").click(function(){
-      //$('#coin_option2').modal('hide');
-  });
+  $(document).ready(function(){
 
-  $("#btnPoolToToken").click(function(){
-      //$('#coin_option2').modal('hide');
-  });
+    $.ajax({
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: 'getTokens.php',
+      data: "{}",
+      dataType: "json",
+      success: function (data) {
+        var vStr='';
+        for(i=0;i<data.length;i++) {
 
-  $.ajax({
-    type: "POST",
-    contentType: "application/json; charset=utf-8",
-    url: 'getTokens.php',
-    data: "{}",
-    dataType: "json",
-    success: function (data) {
-      var vStr='';
-      for(i=0;i<data.length;i++) {
+            vStr = vStr + '<option dataimage="'+data[i].cURL+'" value='+data[i].cCode+'>'+data[i].cCode+'</option>';
+        }
+        $('#displayTokenFrom').html('');
+        $('#displayTokenFrom').html(vStr);
+        
+        $('#displayTokenTo').html('');
+        $('#displayTokenTo').html(vStr);
 
-          vStr = vStr + '<option dataimage="'+data[i].cURL+'" value='+data[i].cCode+'>'+data[i].cCode+'</option>';
+      },
+      error: function (result) {
+         /* alert("Error"); */
       }
-      $('#displayTokenFrom').html('');
-      $('#displayTokenFrom').html(vStr);
-      
-      $('#displayTokenTo').html('');
-      $('#displayTokenTo').html(vStr);
+    });
 
-    },
-    error: function (result) {
-       // alert("Error");
-    }
-  });  
-       
-});
+  });
 
-function formatState (opt) {
-    if (!opt.id) {
-      return opt.text;
-    }               
-    var optimage = $(opt.element).attr('dataimage'); 
-    if(!optimage){
-      return opt.text;
-    } else {
-      var $opt = $(
-      '<span class="selectCSpan"><img src="' + optimage + '" class="selectCImage" /> ' + $(opt.element).text() + '</span>'
-      );
-      return $opt;
-    }
-}
 </script>
 
-
 <?php include 'footer.php';?>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 <script type="text/javascript">
   
@@ -185,9 +165,13 @@ function formatState (opt) {
           $("#pairWalletFromBalance").html(0.00);          
         }
 
+        changeFromToken();
+
     });
 
     $(document.body).on("change","#displayTokenTo",function(){
+      
+        $("#pairWalletToBalance").html('');
 
         $("#to_token_pop").modal('hide');
         $("#spnPoolToToken").html(this.value);
@@ -208,6 +192,24 @@ function formatState (opt) {
         }
 
         /* button action */
+
+        if(this.value == 'ETH'){
+          window.web3 = new Web3(ethereum);
+          web3.eth.getAccounts(async function(error, result) {
+            if(!error && typeof(result[0]) !== 'undefined') {
+              metaMaskAddress=""+result[0];
+              var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
+              var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
+
+              $("#pairWalletToBalance").html(vAvailableETH);
+
+            }
+          });
+        } else {
+          $("#pairWalletToBalance").html(0.00);          
+        }
+
+        changeFromToken();
 
     });
 
@@ -233,6 +235,8 @@ function formatState (opt) {
               templateResult: formatState,
               templateSelection: formatState
             });
+
+            changeFromToken();
 
           }
         });
@@ -260,6 +264,8 @@ function formatState (opt) {
               templateResult: formatState,
               templateSelection: formatState
             });
+
+            changeFromToken();
 
           }
         });
@@ -290,8 +296,9 @@ function formatState (opt) {
         // integer part controlled with the int_num_allow variable
         // float (or decimal) part controlled with the float_num_allow variable
 
+        /*
         var int_num_allow = 15;
-        var float_num_allow = 1;
+        var float_num_allow = 6;
 
         var iof = $(this).val().indexOf(".");
 
@@ -314,6 +321,7 @@ function formatState (opt) {
 
             $(this).val($(this).val().substring(0, int_num_allow));
         }
+        */
 
         changeFromToken();
 
@@ -321,51 +329,65 @@ function formatState (opt) {
 
     });
 
-    /*$('#txtPoolFromToken, #txtPoolToToken').keypress(function(event) {
+  });
+
+  
+  function changeFromToken(){
+
+    var spnPoolFromToken = $("#spnPoolFromToken").html();
+    var spnPoolToToken = $("#spnPoolToToken").html();
+
+    if( (spnPoolFromToken != '' && spnPoolToToken != '') && (spnPoolFromToken != 'Select Token' && spnPoolToToken != 'Select Token')){
+
+      var txtPoolFromToken = $("#txtPoolFromToken").val();
+      var txtPoolToToken = $("#txtPoolToToken").val();
       
-      console.log(event.which);
+      if(txtPoolFromToken != '' && txtPoolToToken != ''){
 
-      if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
-        event.preventDefault();
-      } else {
-        changeFromToken();
-      }
-    });*/
-
-
-    function changeFromToken(){
-
-      var spnPoolFromToken = $("#spnPoolFromToken").html();
-      if(spnPoolFromToken != ''){
-
-        var txtPoolFromToken = $("#txtPoolFromToken").val();
         $(".firstTokenRate").html(txtPoolFromToken);
-
-        var txtPoolToToken = $("#txtPoolToToken").val();
         $(".secondTokenRate").html(txtPoolToToken);
 
-      } else {
+        $(".startTwoTokens #first1").html(spnPoolFromToken);
+        $(".startTwoTokens #first2").html(spnPoolToToken);
+        $(".endTwoTokens #second1").html(spnPoolToToken);
+        $(".endTwoTokens #second2").html(spnPoolFromToken);
 
+      } else {
         $(".firstTokenRate").html('-');
         $(".secondTokenRate").html('-');
 
-      }
-      var spnPoolToToken = $("#spnPoolToToken").html();
-
-
-      if(spnPoolFromToken != '' && spnPoolToToken != '' ){
-
-        $(".startTwoTokens #first1").html('first1');
-        $(".startTwoTokens #first2").html('first2');
-        $(".endTwoTokens #second1").html('second1');
-        $(".endTwoTokens #second2").html('second2');
+        $(".startTwoTokens #first1").html("");
+        $(".startTwoTokens #first2").html("");
+        $(".endTwoTokens #second1").html("");
+        $(".endTwoTokens #second2").html("");
       }
       
+
+    } else {
+
+      $(".firstTokenRate").html('-');
+      $(".secondTokenRate").html('-');
+
+    }
+   
+  }
+
+
+  function formatState (opt) {
+    if (!opt.id) {
+      return opt.text;
     }
 
-  });
-
-
+    var optimage = $(opt.element).attr('dataimage'); 
+    if(!optimage){
+      return opt.text;
+    } else {
+      var $opt = $(
+      '<span class="selectCSpan"><img src="' + optimage + '" class="selectCImage" /> ' + $(opt.element).text() + '</span>'
+      );
+      return $opt;
+    }
+  }
 
 </script>
 

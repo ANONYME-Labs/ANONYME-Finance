@@ -605,7 +605,7 @@ const balanceOfUnderlying = web3.utils.toBN(await myContract.methods
     const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* 586.44;
     const borrow_limit_used=(borrowbalanceUSD*100)/ borrow_limit;
 
-      $('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance of <?php echo $_COOKIE['currency'];?> is <span id="totborrow">'+accbal.toFixed(3)+' ETH</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info" id="Borrowing" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
+      $('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance of  is <span id="totborrow">'+accbal.toFixed(3)+' ETH</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info" id="Borrowing" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
     $('#borrowbalanceUSD').html('$ '+borrowbalanceUSD.toFixed(2));
     $('.borrow_limit_used').html(borrow_limit_used.toFixed(2)+' %');
     $('#totborrow').html(borrowBalance.toFixed(4));

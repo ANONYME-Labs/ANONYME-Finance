@@ -1,3 +1,5 @@
+<?php include 'config.php';?>
+
 <!DOCTYPE html>
 <html lang="en" style="height: auto;" class=""><head>
   <meta charset="utf-8">

@@ -50,7 +50,7 @@
                   </div>
               </div>
               <div class="col-sm-12 py-3 text-center">
-                <button class="btn btn-info btn-block btn-lg">Connect Wallet</button>
+                <button id="btnAmount" class="btn btn-info btn-block btn-lg">Connect Wallet</button>
               </div>
             </div>
             <!-- /.card -->
@@ -76,14 +76,11 @@
 
 
 <script>
-
 	 
 $(document).ready(function(){
 
-
 	jQuery.noConflict();
 	
-
 	$("select").msDropdown({roundedBorder:false});
 
 	$("#btnAmount").prop('disabled', false);
@@ -104,7 +101,8 @@ $(document).ready(function(){
 		  					from: metaMaskAddress, // default from address
 		  				});
 
-              		var vCurrencyType = $('#spnFromToken').text();
+              		//var vCurrencyType = $('#spnFromToken').text();
+              		var vCurrencyType = $('#drpFromToken option:selected').text();
               		var vAvailableBalance =0;
               		// this gives BAT amount
               		var vCurrentBATbalance =await batContract.methods.balanceOf(metaMaskAddress).call();
@@ -176,15 +174,15 @@ $(document).ready(function(){
 			  	// });
 			  	// To Token
 
-			  	$('#displayTokenTo').html('');
-                $('#displayTokenTo').html(vStr);
-                $("#displayTokenTo .clstok").click(function(){
-			  		var vSelectedToToken = $(this).find(".ml-2").text();
-			  		var vSelectedToTokenImg = $(this).find("img").prop('src');
-			  		$('#spnToToken').text(vSelectedToToken);
-			  		$('#imgToToken').attr('src',vSelectedToTokenImg);
-			  		$('#to_token_pop').modal('hide');
-			  	});
+			  	// $('#displayTokenTo').html('');
+      //           $('#displayTokenTo').html(vStr);
+      //           $("#displayTokenTo .clstok").click(function(){
+			  	// 	var vSelectedToToken = $(this).find(".ml-2").text();
+			  	// 	var vSelectedToTokenImg = $(this).find("img").prop('src');
+			  	// 	$('#spnToToken').text(vSelectedToToken);
+			  	// 	$('#imgToToken').attr('src',vSelectedToTokenImg);
+			  	// 	$('#to_token_pop').modal('hide');
+			  	// });
             },
             error: function (result) {
                 alert("Error");

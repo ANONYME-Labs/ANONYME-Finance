@@ -66,9 +66,9 @@
 
   <!-- /.control-sidebar -->
 
-<?php include 'footer.php';?>
 
-<!-- <script src="js/jquery-1.9.0.min.js"></script> -->
+
+<script src="js/jquery-1.9.0.min.js"></script>
 <!-- <msdropdown> -->
 <link rel="stylesheet" type="text/css" href="css/dd.css" />
 <script src="js/jquery.dd.js"></script>
@@ -192,4 +192,4 @@ $(document).ready(function(){
         });
  });
   </script>
-  
+  <?php include 'footer.php';?>

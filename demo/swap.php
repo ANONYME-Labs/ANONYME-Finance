@@ -87,7 +87,17 @@ $(document).ready(function(){
 	$("#btnAmount").text("Enter an Amount");
 
 	$("#txtFromToken").change(function(){
-		var vFromAmount = $('#txtFromToken').val();
+		CheckCurrentBalance();
+  	});
+
+	$("#drpFromToken").change(function(){
+		CheckCurrentBalance();
+  	});
+
+
+  	function CheckCurrentBalance()
+  	{
+  		var vFromAmount = $('#txtFromToken').val();
   		window.web3 = new Web3(ethereum);
   		 web3.eth.getAccounts(async function(error, result) {
             if(!error && typeof(result[0]) !== 'undefined')
@@ -137,7 +147,7 @@ $(document).ready(function(){
               	alert("Please connect with your wallet.")
               }
             });
-  	});
+  	}
 
 	//========== Get Tokens =============
 

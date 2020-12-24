@@ -344,8 +344,23 @@
       
       if(txtPoolFromToken != '' && txtPoolToToken != ''){
 
-        $(".firstTokenRate").html(txtPoolFromToken);
-        $(".secondTokenRate").html(txtPoolToToken);
+        var forFirst = 0;
+        var forSecond = 0;
+
+        forFirst = (txtPoolToToken / txtPoolFromToken).toFixed(6); //.replace(/\.0+$/,'');
+        forSecond = (txtPoolFromToken / txtPoolToToken).toFixed(6); //.replace(/\.0+$/,'');
+        
+        if(isFinite(forFirst)){
+          $(".firstTokenRate").html(parseFloat(forFirst));
+        } else {
+          $(".firstTokenRate").html(0);
+        }
+
+        if(isFinite(forSecond)){
+          $(".secondTokenRate").html(parseFloat(forSecond));
+        } else {
+          $(".secondTokenRate").html(0);
+        }
 
         $(".startTwoTokens #first1").html(spnPoolFromToken);
         $(".startTwoTokens #first2").html(spnPoolToToken);
@@ -494,9 +509,16 @@
 
         <div class="row" style="width: 100%;">
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <button disabled="" class="btn btn-primary btn-large">
+            <button disabled="" class="btn btn-primary w-100 mb-3">
               <div class="css-10ob8xa">Invalid pair</div>
             </button>
+
+            <button disabled="" class="btn btn-primary w-100 mb-3">
+              Insufficient ETH balance
+            </button>
+
+            <button class="btn btn-primary w-100 mb-3">Approve BAT</button>
+
           </div>
         </div>
       </div>
@@ -514,9 +536,6 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="col-sm-12 mb-3">
-          <input class="form-control form-control-lg" type="text" placeholder="Search" style="border-radius: 20px;">
-        </div>
         <div class="col-sm-12">
           <div class="row py-2">
             <div class="col-lg-6 col-md-6 col-sm-6">

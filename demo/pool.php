@@ -72,7 +72,8 @@
   <!-- /.content-wrapper -->
 
   <!-- /.control-sidebar -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<?php include 'footer.php';?>
 
 <script type="text/javascript">
   
@@ -106,7 +107,7 @@
 
 </script>
 
-<?php include 'footer.php';?>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>

@@ -29,7 +29,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content" id="swap">
+    <div class="content" id="poolpage">
       <div class="container-fluid">
         <div class="row justify-content-md-center">
           <div class="col-lg-6">
@@ -73,11 +73,19 @@
 
   <!-- /.control-sidebar -->
 
-<?php include 'footer.php';?>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <msdropdown> -->
+<link rel="stylesheet" type="text/css" href="css/dd.css" />
+<script src="js/jquery.dd.js"></script>
+<!-- </msdropdown> -->
 
 <script type="text/javascript">
-  
+  /*
   $(document).ready(function(){
+
+    jQuery.noConflict();
+
+    $("select").msDropdown({roundedBorder:false});
 
     $.ajax({
       type: "POST",
@@ -99,102 +107,83 @@
 
       },
       error: function (result) {
-         /* alert("Error"); */
+         
       }
     });
 
   });
-
+  */
 </script>
 
+<?php include 'footer.php';?>
 
-
+<link rel="stylesheet" type="text/css" href="css/dd.css" />
+<script src="js/jquery.dd.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 <script type="text/javascript">
   
   $(document).ready(function(){
 
-    $("#displayTokenFrom").select2({
-        templateResult: formatState,
-        templateSelection: formatState
-    });
+    jQuery.noConflict();
 
-    $("#displayTokenTo").select2({
-        templateResult: formatState,
-        templateSelection: formatState
-    });
+    $("select").msDropdown({roundedBorder:false});
 
+    $.ajax({
 
-    $(document.body).on("change","#displayTokenFrom",function(){
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: 'getTokens.php',
+      data: "{}",
+      dataType: "json",
+      success: function (data) {
 
-        $("#pairWalletFromBalance").html('');
+        var vStr = '';
+        var arr = {'text': [],'image':[],'value':[],'description':[]};
+        
+        for(i=0; i < data.length; i++) {
+        
+            var oDD = $('#poolFromToken').msDropDown().data("dd");
+            oDD.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
 
-        $("#from_token_pop").modal('hide');
-        $("#spnPoolFromToken").html(this.value);
-
-        $("#displayTokenFrom").select2({
-          templateResult: formatState,
-          templateSelection: formatState
-        });
-
-        $('#btnPoolFromToken img').show();
-        var img = $("#select2-displayTokenFrom-container .selectCImage").attr('src');
-        $('#btnPoolFromToken img').attr('src', img);
-
-        var selectedTo = $("#spnPoolToToken").html();
-        if(selectedTo == this.value){
-          $("#spnPoolToToken").html("Select Token");
-          $('#btnPoolToToken img').hide();
+            var oDD1 = $('#poolToToken').msDropDown().data("dd");
+            oDD1.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
         }
 
-        /* button action */
+      },
+      error: function (result) {
+          alert("Error");
+      }
 
-        if(this.value == 'ETH'){
-          window.web3 = new Web3(ethereum);
-          web3.eth.getAccounts(async function(error, result) {
-            if(!error && typeof(result[0]) !== 'undefined') {
-              metaMaskAddress=""+result[0];
-              var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
-              var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
+    });
 
-              $("#pairWalletFromBalance").html(vAvailableETH);
+    
+    $(document.body).on("change","#poolFromToken",function(){
 
-            }
-          });
-        } else {
-          $("#pairWalletFromBalance").html(0.00);          
-        }
+        var poolFromToken = $('#poolFromToken option:selected').val();
+
+        console.log(poolFromToken);
+        getSelectedWalletBalance(poolFromToken, 'fromwallet');
 
         changeFromToken();
 
     });
 
-    $(document.body).on("change","#displayTokenTo",function(){
-      
+    $(document.body).on("change","#poolToToken",function(){
+        
+        var poolToToken = $('#poolToToken option:selected').val();
+
+        console.log(poolToToken);
+        getSelectedWalletBalance(poolToToken, 'towallet');
+
+        changeFromToken();
+
+        /*
         $("#pairWalletToBalance").html('');
 
-        $("#to_token_pop").modal('hide');
-        $("#spnPoolToToken").html(this.value);
+        var poolToToken = $('#poolFromToken option:selected').val();
 
-        $("#displayTokenTo").select2({
-          templateResult: formatState,
-          templateSelection: formatState
-        });
-
-        $('#btnPoolToToken img').show();
-        var img = $("#select2-displayTokenTo-container .selectCImage").attr('src');
-        $('#btnPoolToToken img').attr('src', img);
-
-        var selectedFrom = $("#spnPoolFromToken").html();
-        if(selectedFrom == this.value){
-          $("#spnPoolFromToken").html("Select Token");
-          $('#btnPoolFromToken img').hide();
-        }
-
-        /* button action */
-
-        if(this.value == 'ETH'){
+        if(poolToToken == 'ETH'){
           window.web3 = new Web3(ethereum);
           web3.eth.getAccounts(async function(error, result) {
             if(!error && typeof(result[0]) !== 'undefined') {
@@ -209,12 +198,12 @@
         } else {
           $("#pairWalletToBalance").html(0.00);          
         }
+        */
 
-        changeFromToken();
 
     });
-
-
+    
+    /*
     $("#pairETHButtonFrom").click( async function(){
 
         $('#btnPoolFromToken img').show();
@@ -242,8 +231,9 @@
           }
         });
     });
+    */
 
-
+    /*
     $("#pairETHButtonTo").click( async function(){
 
         $('#btnPoolToToken img').show();
@@ -271,7 +261,8 @@
           }
         });
     });
-
+    */
+    
     $('#txtPoolFromToken, #txtPoolToToken').on('keyup paste input', function () {
 
         // allows 123. or .123 which are fine for entering on a MySQL decimal() or float() field
@@ -297,98 +288,219 @@
         // integer part controlled with the int_num_allow variable
         // float (or decimal) part controlled with the float_num_allow variable
 
-        /*
-        var int_num_allow = 15;
-        var float_num_allow = 6;
+        // var int_num_allow = 15;
+        // var float_num_allow = 6;
 
-        var iof = $(this).val().indexOf(".");
+        // var iof = $(this).val().indexOf(".");
 
-        if ( iof != -1 ) {
+        // if ( iof != -1 ) {
 
-            // this case is a mouse paste (probably also other events) with more numbers before the dot than is allowed
-            // the number can't be "sanitized" because we can't "cut" the integer part, so we just empty the element and optionally change the placeholder attribute to something meaningful
+        //     // this case is a mouse paste (probably also other events) with more numbers before the dot than is allowed
+        //     // the number can't be "sanitized" because we can't "cut" the integer part, so we just empty the element and optionally change the placeholder attribute to something meaningful
 
-            if ( $(this).val().substring(0, iof).length > int_num_allow ) {
-                $(this).val('');
-                // you can remove the placeholder modification if you like
-                $(this).attr('placeholder', 'invalid number');
-            }
+        //     if ( $(this).val().substring(0, iof).length > int_num_allow ) {
+        //         $(this).val('');
+        //         // you can remove the placeholder modification if you like
+        //         $(this).attr('placeholder', 'invalid number');
+        //     }
 
-            // cut the decimal part
+        //     // cut the decimal part
 
-            $(this).val($(this).val().substring(0, iof + float_num_allow + 1));
+        //     $(this).val($(this).val().substring(0, iof + float_num_allow + 1));
 
-        } else {
+        // } else {
 
-            $(this).val($(this).val().substring(0, int_num_allow));
-        }
-        */
+        //     $(this).val($(this).val().substring(0, int_num_allow));
+        // }
 
         changeFromToken();
 
         return true;
 
     });
-
+    
   });
 
-  
+  function getSelectedWalletBalance(tokenname, walletLocation){
+
+      var loader = '<img src="images/loader.gif" class="balanceloader" />';
+
+      if(walletLocation == 'fromwallet'){
+        $("#pairWalletFromBalance").html(loader);
+      } else {
+        $("#pairWalletToBalance").html(loader);
+      }
+      if(tokenname == 'ETH'){
+
+        window.web3 = new Web3(ethereum);
+        web3.eth.getAccounts(async function(error, result) {
+          if(!error && typeof(result[0]) !== 'undefined') {
+
+            metaMaskAddress=""+result[0];
+
+            var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
+            var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
+
+            if(walletLocation == 'fromwallet'){
+              $("#pairWalletFromBalance").html(vAvailableETH);
+            } else {
+              $("#pairWalletToBalance").html(vAvailableETH);
+            }
+
+          }
+        });
+      } else {
+
+        if(walletLocation == 'fromwallet'){
+          $("#pairWalletFromBalance").html(0.00);
+        } else {
+          $("#pairWalletToBalance").html(0.00);
+        }
+
+      }
+
+    
+  }
+
   function changeFromToken(){
 
     var spnPoolFromToken = $("#spnPoolFromToken").html();
     var spnPoolToToken = $("#spnPoolToToken").html();
 
-    if( (spnPoolFromToken != '' && spnPoolToToken != '') && (spnPoolFromToken != 'Select Token' && spnPoolToToken != 'Select Token')){
+    web3.eth.getAccounts(async function(error, result) {
 
-      var txtPoolFromToken = $("#txtPoolFromToken").val();
-      var txtPoolToToken = $("#txtPoolToToken").val();
-      
-      if(txtPoolFromToken != '' && txtPoolToToken != ''){
+      if( (spnPoolFromToken != '' && spnPoolToToken != '') && (spnPoolFromToken != 'Select Token' && spnPoolToToken != 'Select Token')){
 
-        var forFirst = 0;
-        var forSecond = 0;
-
-        forFirst = (txtPoolToToken / txtPoolFromToken).toFixed(6); //.replace(/\.0+$/,'');
-        forSecond = (txtPoolFromToken / txtPoolToToken).toFixed(6); //.replace(/\.0+$/,'');
+        var txtPoolFromToken = $("#txtPoolFromToken").val();
+        var txtPoolToToken = $("#txtPoolToToken").val();
         
-        if(isFinite(forFirst)){
-          $(".firstTokenRate").html(parseFloat(forFirst));
-        } else {
-          $(".firstTokenRate").html(0);
-        }
+        if(txtPoolFromToken != '' && txtPoolToToken != ''){
 
-        if(isFinite(forSecond)){
-          $(".secondTokenRate").html(parseFloat(forSecond));
-        } else {
-          $(".secondTokenRate").html(0);
-        }
+          var forFirst = 0;
+          var forSecond = 0;
 
-        $(".startTwoTokens #first1").html(spnPoolFromToken);
-        $(".startTwoTokens #first2").html(spnPoolToToken);
-        $(".endTwoTokens #second1").html(spnPoolToToken);
-        $(".endTwoTokens #second2").html(spnPoolFromToken);
+          forFirst = (txtPoolToToken / txtPoolFromToken).toFixed(6); //.replace(/\.0+$/,'');
+          forSecond = (txtPoolFromToken / txtPoolToToken).toFixed(6); //.replace(/\.0+$/,'');
+          
+          if(isFinite(forFirst)){
+            $(".firstTokenRate").html(parseFloat(forFirst));
+          } else {
+            $(".firstTokenRate").html(0);
+          }
+
+          if(isFinite(forSecond)){
+            $(".secondTokenRate").html(parseFloat(forSecond));
+          } else {
+            $(".secondTokenRate").html(0);
+          }
+
+          $(".startTwoTokens #first1").html(spnPoolFromToken);
+          $(".startTwoTokens #first2").html(spnPoolToToken);
+          $(".endTwoTokens #second1").html(spnPoolToToken);
+          $(".endTwoTokens #second2").html(spnPoolFromToken);
+
+          if(!error && typeof(result[0]) !== 'undefined'){
+            
+            metaMaskAddress = "" + result[0];
+
+            var batContractAddress = "0xbf7a7169562078c96f0ec1a8afd6ae50f12e5a99";
+            var batABI = [{"constant":true,"inputs":[],"name":"batFundDeposit","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"batFund","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokenExchangeRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"finalize","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"refund","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokenCreationCap","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"isFinalized","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"fundingEndBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"ethFundDeposit","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"createTokens","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"tokenCreationMin","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"fundingStartBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_ethFundDeposit","type":"address"},{"name":"_batFundDeposit","type":"address"},{"name":"_fundingStartBlock","type":"uint256"},{"name":"_fundingEndBlock","type":"uint256"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"LogRefund","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"CreateBAT","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}];
+
+              var batContract = new web3.eth.Contract(batABI, batContractAddress, {
+                from: metaMaskAddress, // default from address
+              });
+
+              //var vCurrencyType = $('#spnFromToken').text();
+              var vCurrencyType = $('#drpFromToken option:selected').text();
+              var vAvailableBalance =0;
+              // this gives BAT amount
+              var vCurrentBATbalance = await batContract.methods.balanceOf(metaMaskAddress).call();
+
+              // this gives ETH amount
+              var vCurrentETHBalance = await web3.eth.getBalance(metaMaskAddress);
+
+              if(vCurrencyType == "BAT") {
+
+                vAvailableBalance = parseFloat( vCurrentBATbalance /  1e18);
+
+              } else if(vCurrencyType == "ETH") {
+
+                vAvailableBalance = parseFloat( vCurrentETHBalance /  1e18);
+
+              }
+
+              var txtPoolFromToken = $("#txtPoolFromToken").val();
+
+              if(parseFloat(txtPoolFromToken) > parseFloat(vAvailableBalance )) {
+
+                $("#btnAmount").text("Insuficient liquidity");
+                $("#btnAmount").prop('disabled', true);
+
+              } else {
+
+                $("#btnAmount").prop('disabled', false);
+                $("#btnAmount").text("Enter an Amount");
+
+              }
+            
+            } else {
+
+              $('#txtFromToken').val('');
+              $('#txtToToken').val('');
+              alert("Please connect with your wallet.");
+
+            }
+
+          } else {
+
+            $(".firstTokenRate").html('-');
+            $(".secondTokenRate").html('-');
+
+            $(".startTwoTokens #first1").html("");
+            $(".startTwoTokens #first2").html("");
+            $(".endTwoTokens #second1").html("");
+            $(".endTwoTokens #second2").html("");
+          }
+        
 
       } else {
+
         $(".firstTokenRate").html('-');
         $(".secondTokenRate").html('-');
 
-        $(".startTwoTokens #first1").html("");
-        $(".startTwoTokens #first2").html("");
-        $(".endTwoTokens #second1").html("");
-        $(".endTwoTokens #second2").html("");
       }
-      
 
-    } else {
-
-      $(".firstTokenRate").html('-');
-      $(".secondTokenRate").html('-');
-
-    }
+    });
    
   }
 
+  function getWalletBalance(){
 
+
+      if(poolFromToken == 'ETH'){
+
+        window.web3 = new Web3(ethereum);
+        web3.eth.getAccounts(async function(error, result) {
+          if(!error && typeof(result[0]) !== 'undefined') {
+            metaMaskAddress=""+result[0];
+            var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
+            var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
+
+            $("#pairWalletFromBalance").html(vAvailableETH);
+
+          }
+        });
+      } else if(poolFromToken == 'ETH'){
+
+      } else {
+        $("#pairWalletFromBalance").html(0.00);          
+      }
+
+
+  }
+
+
+  /*
   function formatState (opt) {
     if (!opt.id) {
       return opt.text;
@@ -404,15 +516,13 @@
       return $opt;
     }
   }
-
+  */
 </script>
-
-
 
 
 <!-- Modal 2 -->
 <div class="modal fade" id="coin_option2" tabindex="-1" aria-labelledby="coin_option2Label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg1">
     <div class="modal-content">
       <div class="modal-header border-bottom-0">
         <h5 class="modal-title" id="coin_option2Label">Create a pair<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
@@ -429,9 +539,9 @@
           </div>
         </div>
         <div class="col-sm-12">
-          <div class="row py-2">
+          <div class="row py-2 hover-select-token">
             <div class="col-lg-6 col-md-6 col-sm-6">
-              <span>Token Name</span>
+              <span>Input</span>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 text-right">
               <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="pairWalletFromBalance">0.00</span> &nbsp;
@@ -439,88 +549,104 @@
               </div>
             </div>
           </div>
+
           <div class="row py-2 hover-select-token">
             <div class="col-sm-12">
                 <div class="input-group">
                     <input type="text" class="form-control" id="txtPoolFromToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolFromToken" type="button" data-toggle="modal" data-target="#from_token_pop">
-                        <img src="images/eth.png" id="imgPoolFromToken" style="width: 20px;margin-right: 10px;display: none;"><span id="spnPoolFromToken">Select Token</span></button>
+                      
+                      <select  name="drpFromToken" id="poolFromToken" style="width:100px;">
+                        <option value="" data-image="">Select Token</option>
+                        <option value="ETH" data-image="images/eth.png">ETH</option>
+                      </select>
+                      
+                      <!-- <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolFromToken" type="button" data-toggle="modal" data-target="#from_token_pop">
+                        <img src="images/eth.png" id="imgPoolFromToken" style="width: 20px;margin-right: 10px;display: none;"><span id="spnPoolFromToken">Select Token</span></button> -->
                     </div>
                   </div>
-              </div>
-              <div class="col-sm-12 py-3 text-center">
-                <p class="m-0"><i class="fa fa-plus" aria-hidden="true"></i></p>
-              </div>
-              <div class="col-sm-12">
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      test
-                    </div>
-                    <div class="col-md-6 text-right">
-                      <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="pairWalletToBalance">0.00</span> &nbsp;
-                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="txtPoolToToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolToToken" type="button" data-toggle="modal" data-target="#to_token_pop">
-                        <img src="images/eth.png" id="imgPoolToToken" style="width: 20px;margin-right: 10px;display: none;"><span id="spnPoolToToken">Select Token</span></button>
-                    </div>
-                  </div>
-              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="modal-footer border-top-0">
 
-        <div class="row" style="width: 100%;">
-          <div class="sc-gqjmRU sc-fMiknA sc-dVhcbM iwiYPV">
-            <div class="sc-gqjmRU sc-jTzLTM sc-fjdhpX bdIUOu">
-              <div class="sc-kkGfuU hyvXgi css-1aekuku">
-                Initial prices and pool share
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12 text-center">
+              <p class="m-0"><i class="fa fa-plus" aria-hidden="true"></i></p>
+            </div>
+          </div>
+
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <span>Input</span>
+                </div>
+                <div class="col-md-6 text-right">
+                  <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="pairWalletToBalance">0.00</span> &nbsp;
+                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group">
+                <input type="text" class="form-control" id="txtPoolToToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                <div class="input-group-append">
+
+                  <select  name="poolToToken" id="poolToToken" style="width:100px;">
+                    <option value="" data-image="">Select Token</option>
+                    <option value="ETH" data-image="images/eth.png">ETH</option>
+                  </select>
+
+                  <!-- <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolToToken" type="button" data-toggle="modal" data-target="#to_token_pop">
+                    <img src="images/eth.png" id="imgPoolToToken" style="width: 20px;margin-right: 10px;display: none;"><span id="spnPoolToToken">Select Token</span></button> -->
+                </div>
               </div>
             </div>
           </div>
-          <div class="row" style="width: 100%;">
-              <div class="col-md-4">
-                  <div class="firstTokenRate">-</div>
-                  <div class="startTwoTokens">
-                    <span id="first1"></span> per <span id="first2"></span>
+
+          <div class="row py-2 hover-select-token">
+            <div class="col-sm-12">
+              <div class="sc-gqjmRU sc-fMiknA sc-dVhcbM iwiYPV">
+                <div class="sc-gqjmRU sc-jTzLTM sc-fjdhpX bdIUOu">
+                  <div class="sc-kkGfuU hyvXgi css-1aekuku">
+                    Initial prices and pool share
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="width: 100%;">
+                  <div class="col-md-4">
+                      <div class="firstTokenRate">-</div>
+                      <div class="startTwoTokens">
+                        <span id="first1"></span> per <span id="first2"></span>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="secondTokenRate">-</div>
+                      <div class="endTwoTokens">
+                        <span id="second1"></span> per <span id="second2"></span>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="sc-kkGfuU kuSmHG css-1kt4f20">100%</div>
+                      <div class="css-1m402ei">Share of Pool</div>
                   </div>
               </div>
-              <div class="col-md-4">
-                  <div class="secondTokenRate">-</div>
-                  <div class="endTwoTokens">
-                    <span id="second1"></span> per <span id="second2"></span>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <div class="sc-kkGfuU kuSmHG css-1kt4f20">100%</div>
-                  <div class="css-1m402ei">Share of Pool</div>
-              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
+          <div class="row py-4 hover-select-token">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <button disabled="" class="btn btn-primary w-100 mb-3" id="btnAmount">
+                <div class="css-10ob8xa">Invalid pair</div>
+              </button>
 
-        <div class="row" style="width: 100%;">
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <button disabled="" class="btn btn-primary w-100 mb-3">
-              <div class="css-10ob8xa">Invalid pair</div>
-            </button>
+              <!-- <button disabled="" class="btn btn-primary w-100 mb-3">
+                Insufficient ETH balance
+              </button>
 
-            <button disabled="" class="btn btn-primary w-100 mb-3">
-              Insufficient ETH balance
-            </button>
+              <button class="btn btn-primary w-100 mb-3">Approve BAT</button> -->
 
-            <button class="btn btn-primary w-100 mb-3">Approve BAT</button>
-
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -553,13 +679,13 @@
       </div>
       <div class="modal-footer border-top-0">
         <div class="row" style="width: 100%;">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <span>Uniswap Default List</span>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <span>Uniswap Default List</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+              <a href="#">Change</a>
+            </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-          <a href="#">Change</a>
-        </div>
-    </div>
       </div>
     </div>
   </div>

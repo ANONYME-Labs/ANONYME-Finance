@@ -59,7 +59,18 @@
     margin-bottom: 35px;
 }
 
+#coin_option2 .form-control {
+    height: calc(2.25rem + 12px);
+    font-size: 24px;
+}
 
+li.enabled._msddli_ {
+    text-align: left;
+}
+
+.balanceloader {
+    max-height: 20px;
+}
 
 /*@media (min-width: 1300px){
     .modal-dialog {

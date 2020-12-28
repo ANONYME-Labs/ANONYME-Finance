@@ -136,32 +136,40 @@ $(document).ready(function(){
 					if($('#txt_mc_'+vCurrencyType).val()!=undefined)
 					{
 	              		vContractAddress = $('#txt_mc_'+vCurrencyType).val().toString(); // main contract address
-	              		vContractABI = $('#txt_abi_'+vCurrencyType).val().toString();
-	              		vContractABI = JSON.parse(vContractABI);
-	              		vContract = new web3.eth.Contract(vContractABI, vContractAddress, {
-			  					from: metaMaskAddress, // default from address
-			  				});
-	              		// this gives BAT amount
-	              		vCurrentbalance =await vContract.methods.balanceOf(metaMaskAddress).call();
-	              	}
-
-	              	if(parseInt(vCurrentbalance==0))
-	              	{
-	              		$("#btnAmount").prop('disabled', false);
-						$("#btnAmount").text("Enter an Amount");
+	              		if($('#txt_abi_'+vCurrencyType).val()!="")
+	              		{
+		              		vContractABI = $('#txt_abi_'+vCurrencyType).val().toString();
+		              		vContractABI = JSON.parse(vContractABI);
+		              		vContract = new web3.eth.Contract(vContractABI, vContractAddress, {
+				  					from: metaMaskAddress, // default from address
+				  				});
+		              		// this gives BAT amount
+		              		vCurrentbalance =await vContract.methods.balanceOf(metaMaskAddress).call();
+		              	}
 	              	}
               		
               		if(vCurrencyType=="ETH")
               		{
               			// this gives ETH amount
-                		var vCurrentETHBalance = await web3.eth.getBalance(metaMaskAddress);
-              			vAvailableBalance =parseFloat( vCurrentETHBalance /  1e18);
-              		}
-              		else{
+                		vCurrentbalance = await web3.eth.getBalance(metaMaskAddress);
               			vAvailableBalance =parseFloat( vCurrentbalance /  1e18);
               		}
+              		else
+              		{
+              			if(vCurrentbalance!="0")
+		              	{
+	              			vAvailableBalance =parseFloat( vCurrentbalance /  1e18);
+	              		}
+              		}
 
-                	if(parseFloat(vFromAmount) > parseFloat(vAvailableBalance ))
+              		if(parseInt(vCurrentbalance)==0)
+	              	{
+	              		alert("There is 0 balance found for "+vCurrencyType);
+	              		$("#txtFromToken").val('');
+	              		$("#btnAmount").prop('disabled', false);
+						$("#btnAmount").text("Enter an Amount");
+	              	}
+                	else if(parseFloat(vFromAmount) > parseFloat(vAvailableBalance ))
                 	{
                 		$("#btnAmount").text("Insuficient liquidity");
                 		$("#btnAmount").prop('disabled', true); 

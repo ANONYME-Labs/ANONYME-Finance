@@ -1,19 +1,6 @@
 <?php 
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','root');
-define('DB_NAME','compound');
-
-$conn = mysqli_connect(DB_HOST,DB_USER, DB_PASS,DB_NAME);
-// Check connection
-if (mysqli_connect_errno()){
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
 
 //getting admin setting data
 $query = "SELECT * FROM adminsetting  ";
@@ -22,7 +9,7 @@ $row = mysqli_fetch_array($result);
 
 if($row != NULL){
     
-    $mainContractABI = $row['mainContractABI'];
+    $mainContractABI1 = $row['mainContractABI'];
     $gasPriceAverage = $row['gasPriceAverage'];
     $gasPriceFast = $row['gasPriceFast'];
     $siteName=$row['siteName'];
@@ -42,7 +29,7 @@ if($row != NULL){
 // 0 = rinkeby testnet and 1 = mainnet
 if($network==0){
 
-    $mainContractAddress = $row['testnetContractAddress'];  
+    $mainContractAddress1 = $row['testnetContractAddress'];  
 
     $etherscanAddress = $row['etherscanAddressTestnet'];
    
@@ -57,7 +44,7 @@ if($network==0){
     
 }else {
         
-    $mainContractAddress = $row['mainContractAddress'];
+    $mainContractAddress1 = $row['mainContractAddress'];
 
     $etherscanAddress = $row['etherscanAddressMain'];
     
@@ -78,13 +65,17 @@ if(isset($_COOKIE['currency'])){
     	
     	 $mainContractAddress = $row['contractAddress'];
     	 $mainContractABI = $row['contractABI'];
-    }
+    }else {
+		 $mainContractAddress = $mainContractAddress1;
+    	 $mainContractABI = $mainContractABI1;
+	}
+}else{
+	
+    	
+    	 $mainContractAddress = $mainContractAddress1;
+    	 $mainContractABI = $mainContractABI1;
+
 }
 
- function clean($string) {
-   $string = str_replace(' ', '', $string); // Remove all spaces.
-
-   return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
-}
-
+ 
 

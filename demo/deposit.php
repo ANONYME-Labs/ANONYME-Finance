@@ -1,4 +1,3 @@
-<?php include('connection.php'); ?>
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
 
@@ -55,35 +54,44 @@
 					 <th>Collateral</th>
                   </tr>
                   </thead>
-                  <tbody id="productlist">
+                   <tbody id="productlist">
 						<?php
 							$query2 = "SELECT * FROM currency where (name!='".$_COOKIE['currency']."' and contractABI!='') ";
 							$result2 = mysqli_query($conn,$query2);
 							$vStr="";
+							$i=0;
+							
 							if($result2){
 							while($row = mysqli_fetch_array($result2)){
 							
 								
 								$name = $row['name'];
 								$ContractAddress = $row['contractAddress'];
-								$ContractABI = $row['contractABI'];
+								$ContractABI= $row['contractABI'];
 								
-								$vStr = $vStr.'<tr data-address="'.$mainContractAddress.'" class="tokenrow" >';
-								$vStr = $vStr.'<td>';
-								$vStr = $vStr . ' <img  src="" alt=""  class="img-circle img-size-32 mr-2 ">';
+								$arrayABI[$i]=$row['name'];
+								
+								$vStr = $vStr."<tr data-address='".$ContractAddress."' class='tokenrow' >";
+								$vStr = $vStr."<td>";
+								$vStr = $vStr . " <img  src='' alt=''  class='img-circle img-size-32 mr-2 '>";
 								$vStr = $vStr . $name;
-								$vStr = $vStr . '</td>';
+								$vStr = $vStr . "</td>";
 								$vStr = $vStr . '<td>';
-								$vStr = $vStr . '  <span>20.60%</span>';
-								$vStr = $vStr . '</td>';
-								$vStr = $vStr . '<td><span>13 '.$name.'</span></td>';  
+								$vStr = $vStr . "  <span class='supply_percentage".$name."'>0%</span>";
+								$vStr = $vStr . "</td>";
+								$vStr = $vStr . "<td><span id='CurrentAssetsBAL".$name."' ></span></td>";  
 								$vStr = $vStr . '<td>';
-								$vStr = $vStr . '  <a href="#" class="nav-link"> <span class="badge"><input id="'.$name.'-ether-basic-switch" class="" type="checkbox" role="checkbox"></span></a>';
-								$vStr = $vStr . '</td>';					
-								$vStr = $vStr . '</tr>';
+								$vStr = $vStr . "  <a href='#' class='nav-link'> <span class='badge'><input id='".$name."-ether-basic-switch' class='' type='checkbox' role='checkbox' ></span></a><input type='hidden' name='contractABI".$name."' id='contractABI".$name."' value='".$ContractABI."' /><input type='hidden' name='ContractAddress".$name."' id='ContractAddress".$name."' value='".$ContractAddress."' />";
+								$vStr = $vStr . "</td>";					
+								$vStr = $vStr . "</tr>";
+								
+								$i++;
 							}
 							
 							echo $vStr;
+							
+							echo "<input type='hidden' name='arrayABI' id='arrayABI' value='".implode(',',$arrayABI)."' />";
+							
 							}else{ echo 'No result found!'; }
 						?>
                      </tbody>
@@ -185,5 +193,5 @@
 
   <!-- /.control-sidebar -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<?php include('config.php'); ?>
+
  <?php include 'footer.php';?>

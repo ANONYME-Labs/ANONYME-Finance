@@ -54,7 +54,7 @@
                         <p>
                           There will be a list of all the assets you deposited and you are earning on. For now it’s empty until you start to deposit.
                         </p>
-                        <button type="button" class="btn btn-info">Deposit Now</button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#supplyWithdraw"  >Deposit Now</button>
                       </div>
                       <!-- /.card-body -->
                     </div>

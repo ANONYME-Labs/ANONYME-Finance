@@ -1,3 +1,4 @@
+
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
   <!-- Content Wrapper. Contains page content -->
@@ -159,4 +160,5 @@
 
   </script>
   <!-- Main Footer -->
+  <?php include('config.php'); ?>
  <?php include 'footer.php';?>

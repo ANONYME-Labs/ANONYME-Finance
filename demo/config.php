@@ -8,8 +8,14 @@ $result = mysqli_query($conn,$query);
 $row = mysqli_fetch_array($result);
 
 if($row != NULL){
-    
+	
+    $comptrollerAddress = $row['comptrollerAddress'];
+    $marketAddress = $row['marketAddress'];
     $mainContractABI1 = $row['mainContractABI'];
+    $comptrollerABI = $row['comptrollerABI'];
+    $marketABI = $row['marketABI'];
+   
+   
     $gasPriceAverage = $row['gasPriceAverage'];
     $gasPriceFast = $row['gasPriceFast'];
     $siteName=$row['siteName'];

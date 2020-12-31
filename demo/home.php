@@ -110,7 +110,7 @@
             	var vStr='';
                 for(i=0;i<data.length;i++)
                 {
-
+					if(data[i].cCode=='BAT' || data[i].cCode=='DAI' || data[i].cCode=='cETH'){
                 	vStr =vStr + '<tr data-address="'+data[i].tokenaddress+'" class="tokenrow" >';
                     vStr = vStr + '<td>';
                     vStr = vStr + ' <img  src="'+data[i].cURL+'" alt=""  class="img-circle img-size-32 mr-2 ">';
@@ -133,6 +133,7 @@
                     vStr = vStr + '  <span><button class="btn btn-info"  onclick="deposit(\''+data[i].cCode+'\');" >Deposit</button> &nbsp;&nbsp;<button class="btn btn-info" onclick="borrow(\''+data[i].cCode+'\');" >Borrow</button></span>';
                     vStr = vStr + '</td>';
                   vStr = vStr + '</tr>';
+				}
 
                 }
                 $('#showtokenlist').html('');

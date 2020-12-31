@@ -38,13 +38,13 @@
              <div class="row justify-content-center">
                <div class="col-md-7 col-sm-12">
                  <h3 class="text-center text-info">Your balance is <span id="supplybalanceUSD"> $ 0</span></h3>
-                 <p class="text-center">Your balance of <?php echo $_COOKIE['currency'];?> is <span class="supply_blalnce"> 0 ETH</span>. Transfer ETH to your wallet to be able to deposit</p>
+                 <p class="text-center">Your balance is <span class="supply_blalnce"> 0 <?php echo $_COOKIE['currency'];?></span>. Transfer <?php echo $_COOKIE['currency'];?> to your wallet not to be able to deposit</p>
                  <div class="go-back text-center my-3">
 					<button class="btn btn-info" id="supplying" >Supply</button>
                     <div class="text-center"><a href="home.php">Go back</a></div>
                  </div>
                 </div> 
-				 <div class="card-body table-responsive p-0">
+				 <!--div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
@@ -55,8 +55,8 @@
                   </tr>
                   </thead>
                    <tbody id="productlist">
-						<?php
-							$query2 = "SELECT * FROM currency where (name!='".$_COOKIE['currency']."' and contractABI!='') ";
+						<!--?php
+							echo $query2 = "SELECT * FROM currency where (name!='".$_COOKIE['currency']."' and contractABI!='') and (name='BAT' or name='DAI') ";
 							$result2 = mysqli_query($conn,$query2);
 							$vStr="";
 							$i=0;
@@ -66,20 +66,24 @@
 							
 								
 								$name = $row['name'];
+								$image_url = $row['image_url'];
 								$ContractAddress = $row['contractAddress'];
 								$ContractABI= $row['contractABI'];
 								
 								$arrayABI[$i]=$row['name'];
 								
-								$vStr = $vStr."<tr data-address='".$ContractAddress."' class='tokenrow' >";
+								$vStr = $vStr."<tr class='tokenrow' >";
 								$vStr = $vStr."<td>";
-								$vStr = $vStr . " <img  src='' alt=''  class='img-circle img-size-32 mr-2 '>";
+								$vStr = $vStr . " <a
+      onClick=\"document.cookie='currency=".$name."; path=/';location.reload();\" role='menuitem'><img src='".$image_url ."' alt='' class='img-circle img-size-32 mr-2 '>";
 								$vStr = $vStr . $name;
-								$vStr = $vStr . "</td>";
+								$vStr = $vStr . "</a></td>";
 								$vStr = $vStr . '<td>';
-								$vStr = $vStr . "  <span class='supply_percentage".$name."'>0%</span>";
+								$vStr = $vStr . "<a
+      onClick=\"document.cookie='currency=".$name."; path=/';location.reload();\" role='menuitem'><span class='supply_percentage".$name."'>0%</span></a>";
 								$vStr = $vStr . "</td>";
-								$vStr = $vStr . "<td><span id='CurrentAssetsBAL".$name."' ></span></td>";  
+								$vStr = $vStr . "<td><a
+      onClick=\"document.cookie='currency=".$name."; path=/';location.reload();\" role='menuitem'><span id='CurrentAssetsBAL".$name."' ></span></a></td>";  
 								$vStr = $vStr . '<td>';
 								$vStr = $vStr . "  <a href='#' class='nav-link'> <span class='badge'><input id='".$name."-ether-basic-switch' class='' type='checkbox' role='checkbox' ></span></a><input type='hidden' name='contractABI".$name."' id='contractABI".$name."' value='".$ContractABI."' /><input type='hidden' name='ContractAddress".$name."' id='ContractAddress".$name."' value='".$ContractAddress."' />";
 								$vStr = $vStr . "</td>";					
@@ -96,7 +100,7 @@
 						?>
                      </tbody>
                 </table>
-                 </div> 
+                 </div--> 
 				 <!--div class="or text-center">
                    <span>Or</span>
                  </div>

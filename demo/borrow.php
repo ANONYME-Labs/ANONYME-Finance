@@ -50,7 +50,7 @@
                  </div>
                  <div class="text-center"><a href="home.php">Go back</a></div>
                </div>
-			    <div class="card-body table-responsive p-0">
+			    <!--div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
@@ -61,8 +61,8 @@
                   </tr>
                   </thead>
                   <tbody id="productlist">
-						<?php
-							$query2 = "SELECT * FROM currency where (name!='".$_COOKIE['currency']."' and contractABI!='') ";
+						<!--?php
+							$query2 = "SELECT * FROM currency where (name!='".$_COOKIE['currency']."' and contractABI!='') and (name='BAT' or name='DAI') ";
 							$result2 = mysqli_query($conn,$query2);
 							$vStr="";
 							if($result2){
@@ -70,12 +70,13 @@
 							
 								
 								$name = $row['name'];
+								$image_url = $row['image_url'];
 								$mainContractAddress = $row['contractAddress'];
 								$mainContractABI = $row['contractABI'];
 								
 								$vStr = $vStr.'<tr data-address="'.$mainContractAddress.'" class="tokenrow" >';
 								$vStr = $vStr.'<td>';
-								$vStr = $vStr . ' <img  src="" alt=""  class="img-circle img-size-32 mr-2 ">';
+								$vStr = $vStr . ' <img  src="'.$image_url .'" alt=""  class="img-circle img-size-32 mr-2 ">';
 								$vStr = $vStr . $name;
 								$vStr = $vStr . '</td>';
 								$vStr = $vStr . '<td>';
@@ -93,7 +94,7 @@
                  </div> 
              </div>
             </div>
-          </div>
+          </div-->
           <div class="col-lg-4 col-md-4 col-sm-12 col-12">
             <div class="card card-widget widget-user-2 shadow-sm">
             <!-- Add the bg color to the header using any of the bg-* classes -->

@@ -17,22 +17,22 @@ $conn = mysqli_connect(DB_HOST,DB_USER, DB_PASS,DB_NAME);
 if (mysqli_connect_errno()){
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
  }
-							
-							$query3 = "SELECT * FROM currency where (name!='".$_COOKIE['currency']."' and contractABI!='') ";
+						
+							$query3 = "SELECT * FROM currency where name='".$_GET['asset']."'";
 							$result3 = mysqli_query($conn,$query3);							
 							
 							if($result3){
 								while($row = mysqli_fetch_array($result3)){
 								
 									
-									$name = $row['name'];
-									$ContractAddress = $row['contractAddress'];
-									$ContractABI= $row['contractABI'];
+								
 									
-									$assetArray[]=$row['name'];
+									$assetArray['ContractAddress']=$row['contractAddress'];
+									$assetArray['ContractABI']=$row['contractABI'];
 								}
 	
 	}
+	
 	sort($assetArray);
 	echo  json_encode($assetArray);
 ?>

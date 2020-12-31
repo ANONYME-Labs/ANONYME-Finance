@@ -64,23 +64,46 @@ if($network==0){
 }
 
 if(isset($_COOKIE['currency'])){
-    $query2 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'  ";
+    $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'  ";
     $result2 = mysqli_query($conn,$query2);
     $row = mysqli_fetch_array($result2);
     if($row != NULL){
     	
     	 $mainContractAddress = $row['contractAddress'];
     	 $mainContractABI = $row['contractABI'];
+		 if($_COOKIE['currency']!='ETH'){
+		 $query3 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'";
+		 
+							$result3 = mysqli_query($conn,$query3);							
+							
+							if($result3){
+								while($row = mysqli_fetch_array($result3)){
+									
+									$assetsContractAddress=$row['contractAddress'];
+									$assetsContractABI=$row['contractABI'];
+									
+								}
+							}else{
+								$assetsContractAddress='';
+									$assetsContractABI='';
+							}
+		 }else{
+								$assetsContractAddress='';
+								$assetsContractABI='';
+		}
     }else {
 		 $mainContractAddress = $mainContractAddress1;
     	 $mainContractABI = $mainContractABI1;
+		 $assetsContractAddress='';
+		 $assetsContractABI='';
 	}
 }else{
 	
     	
     	 $mainContractAddress = $mainContractAddress1;
     	 $mainContractABI = $mainContractABI1;
-
+		 $assetsContractAddress='';
+		 $assetsContractABI='';
 }
 
  

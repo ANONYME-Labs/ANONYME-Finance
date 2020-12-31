@@ -421,7 +421,7 @@ $(document).ready(async function(){
               {
 				var myAccountAddress=""+result[0];
 
-      
+				var asset='<?=$_COOKIE['currency']?>';
 				var bal = await web3.eth.getBalance(myAccountAddress);
 				var accbal = ( bal / 1000000000000000000 );
 				
@@ -435,45 +435,16 @@ $(document).ready(async function(){
 					$(".btnwalletaddress").html(vWallet);
 				}
 				
-				const underlying="";
-				var asset='<?php echo ltrim($_COOKIE['currency'], 'c');?>';
 				
-				if(asset!="" && asset!='ETH'){
-					$.ajax({
-						type: "get",
-						contentType: "application/json; charset=utf-8",
-						url: 'getassets.php?asset='+asset,					
-						
-						success: function (data) {
-							
-							alert(data);
-							
-							 // Assets underlying
-							const underlyingContractAddress = data['ContractAddress'];
-							const erc20AbiJson =data['ContractABI'];
-							
-							const underlying = new web3.eth.Contract(erc20AbiJson, underlyingContractAddress);
-							
-							var TokenContract = new web3.eth.Contract(erc20AbiJson, underlyingContractAddress);
-
-
-							
-							
-						},    
-						error: function (result) {
-							alert("Error");
-						}
-					});
-					
-					
-				}
+				
+				
 				//main contract
 				var arrayABI = <?=$mainContractABI; ?>;
 				var mainContractAddress = "<?=$mainContractAddress; ?>";
 				var myContract = new web3.eth.Contract(arrayABI, mainContractAddress, {
 					from: myAccountAddress, // default from address
 				});
-				console.log(myContract);
+				console.log(mainContractAddress);
 				
 				//comptroller contract
 				var comptrollerAbi =<?=$comptrollerABI; ?>;
@@ -483,7 +454,11 @@ $(document).ready(async function(){
 				var marketAbi =<?=$marketABI; ?>;
 				var marketAddress = "<?=$marketAddress; ?>";
 				
-				
+				//Assets contract
+				if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+				var underlyingContractAddress ='<?=$assetsContractAddress; ?>';
+				var erc20AbiJson = <?=$assetsContractABI; ?>;
+				}
 				
 
 				//price contract
@@ -590,10 +565,14 @@ for (var i=0;i<totassets;i++){
  
 */
  
-    
-var daibalance = await TokenContract.methods.balanceOf(myAccountAddress).call() ;
+if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+console.log('erc20AbiJson '+erc20AbiJson);
+console.log('underlyingContractAddress '+underlyingContractAddress);
+var underlying = new web3.eth.Contract(erc20AbiJson, underlyingContractAddress);  
+console.log('underlying '+underlying); 
+var daibalance = await underlying.methods.balanceOf(myAccountAddress).call() ;
 							console.log('Dai '+daibalance);
-
+}
  
 const assetName = '<?php echo $_COOKIE['currency'];?>'; // for the log output lines
 const underlyingDecimals = 18; // Number of decimals defined in this ERC20 token's contract
@@ -602,19 +581,21 @@ const logBalances = () => {
   return new Promise(async (resolve, reject) => {
     let myWalletEthBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
     let myWalletCEthBalance = await myContract.methods.balanceOf(myAccountAddress).call() / 1e8;
-    let myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, 8); // if you supply in compound otherwise it show you 0.
-
+	if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+	let myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, 8); // if you supply in compound otherwise it show you 0.
+	console.log("My Wallet's  ${"+assetName+"} Balance:", myWalletUnderlyingBalance);
+	}
     console.log("My Wallet's  ETH Balance:", myWalletEthBalance);
     console.log("My Wallet's cETH Balance:", myWalletCEthBalance);
-    console.log("My Wallet's  ${"+assetName+"} Balance:", myWalletUnderlyingBalance);
+    
 
     resolve();
   });
 }; 
  
  
-  var checkallowance = await myContract.methods.allowance(myAccountAddress,batContractAddress).call();
-  console.log('checkallowance'+checkallowance);
+  //var checkallowance = await myContract.methods.allowance(myAccountAddress,batContractAddress).call();
+  //console.log('checkallowance'+checkallowance);
  
  await logBalances();
  

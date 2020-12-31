@@ -27,10 +27,11 @@ if (mysqli_connect_errno()){
 									
 								
 									
-									$assetArray['ContractAddress']=$row['contractAddress'];
-									$assetArray['ContractABI']=$row['contractABI'];
+									$ContractAddress=$row['contractAddress'];
+									$ContractABI=$row['contractABI'];
 								}
-	
+								
+			$assetArray=array("contractAddress"=>$ContractAddress,"ContractABI"=>$ContractABI);
 	}
 	
 	sort($assetArray);

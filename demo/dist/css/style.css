@@ -78,3 +78,15 @@ li.enabled._msddli_ {
         margin: 1.75rem 1.75rem 1.75rem 40rem;
     }
 } */
+
+body.dark-mode .alertify .ajs-dialog {
+    background-color: #6c757d !important;
+}
+
+body.dark-mode .alertify .ajs-header{
+    background-color: #6c757d !important;
+}
+
+body.dark-mode .alertify .ajs-footer{
+    background-color: #6c757d !important;
+}

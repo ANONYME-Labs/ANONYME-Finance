@@ -61,7 +61,7 @@ $i=1;
 			$rowcount=mysqli_num_rows($result);
 	  }	
       if($rowcount == 0){ 	 
-			mysqli_query($conn,'INSERT INTO `currency` (`name` ,`image_url`, `contractAddress`) VALUES ( "'.$tok['symbol'].'","'.$cURL.'","'.$tok['address'].'")');
+			mysqli_query($conn,'INSERT INTO `currency` (`name` ,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['desimals'].'")');
 	  }
 	  
   	//$cURL = "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/".$tok['address']. "/logo.png";

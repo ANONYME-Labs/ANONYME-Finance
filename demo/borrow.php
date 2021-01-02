@@ -91,10 +91,10 @@
 						?>
                      </tbody>
                 </table>
-                 </div> 
+                 </div--> 
              </div>
             </div>
-          </div-->
+          </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-12">
             <div class="card card-widget widget-user-2 shadow-sm">
             <!-- Add the bg color to the header using any of the bg-* classes -->

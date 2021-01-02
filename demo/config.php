@@ -62,16 +62,20 @@ if($network==0){
     
     
 }
-
+echo $_COOKIE['currency'];
 if(isset($_COOKIE['currency'])){
-    $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'  ";
+    $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";
     $result2 = mysqli_query($conn,$query2);
     $row = mysqli_fetch_array($result2);
     if($row != NULL){
     	
     	 $mainContractAddress = $row['contractAddress'];
     	 $mainContractABI = $row['contractABI'];
-		 if($_COOKIE['currency']!='ETH'){
+    	 $ctokendesimal = $row['desimals'];
+    	 //echo 'test'.$usd_value  = $row['usdvalue'];
+		 
+		 
+		 if($_COOKIE['currency']!='ETH' or $_COOKIE['currency']!='cETH'){
 		 $query3 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'";
 		 
 							$result3 = mysqli_query($conn,$query3);							
@@ -81,29 +85,34 @@ if(isset($_COOKIE['currency'])){
 									
 									$assetsContractAddress=$row['contractAddress'];
 									$assetsContractABI=$row['contractABI'];
+									$underlaying_desimal = $row['desimals'];
 									
 								}
 							}else{
-								$assetsContractAddress='';
-									$assetsContractABI='';
+								$assetsContractAddress='null';
+									$assetsContractABI='null';
+									$underlaying_desimal =18;
 							}
 		 }else{
-								$assetsContractAddress='';
-								$assetsContractABI='';
+								$assetsContractAddress='null';
+								$assetsContractABI='null';
+								$underlaying_desimal =18;
 		}
     }else {
+		 $ctokendesimal = 8;
 		 $mainContractAddress = $mainContractAddress1;
     	 $mainContractABI = $mainContractABI1;
-		 $assetsContractAddress='';
-		 $assetsContractABI='';
+		 $assetsContractAddress='null';
+		 $assetsContractABI='null';
+		 $underlaying_desimal =18;
 	}
 }else{
 	
     	
     	 $mainContractAddress = $mainContractAddress1;
     	 $mainContractABI = $mainContractABI1;
-		 $assetsContractAddress='';
-		 $assetsContractABI='';
+		 $assetsContractAddress='null';
+		 $assetsContractABI='null';
 }
 
  

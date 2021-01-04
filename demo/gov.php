@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Staking</h1>
+            <h1 class="m-0">Governance</h1>
           </div>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -19,95 +19,129 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                <p>Available voting balance<br><span class="jsx-785870136" style="opacity: 0.2;">AAVE + stkAAVE</span></p>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                <span>0</span>
+              </div>
+              <hr>
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                <p>Active Proposals</p>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                <p>00</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                <p>Validating Proposals</p>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                <p>00</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                <p>Executed Proposals</p>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                <p>00</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                <p>Expired Proposals</p>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                <p>00</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-12 col-12">
             <!-- /.card -->
-
-            <div class="card">
-              <div class="col-sm-12 py-5">
-                <div class="row justify-content-md-center">
-                 <div class="col-md-6">
-                    <p class="card-inner-text-pink">How much would you like to stake?</p>
-                    <p class="text-center">Staking Anonyme in the Safety Module helps to secure the protocol in exchange for protocol incentives.</p>
-                      <span>Anonyme Balance</span>
-                      <span style="float: right;">0</span>
-                    <div class="input-group mb-5">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-btc" aria-hidden="true"></i></span>
-                      </div>
-                      <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="Amount">
-                      <div class="input-group-append">
-                        <span class="input-group-text">MAX</span>
-                      </div>
+            <div class="col-sm-12 mb-3">
+              <div class="dropdown">
+                <span>Filter:</span>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  All
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Voting</a>
+                  <a class="dropdown-item" href="#">Validating</a>
+                  <a class="dropdown-item" href="#">Executed</a>
+                  <a class="dropdown-item" href="#">Failed</a>
+                </div>
+              </div>
+            </div>
+            <div class="card p-3 card-1">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                  <div>
+                    <p class="mb-0">Activation Of Aave Protocol</p>
+                    <p class="mb-0">Governance V2</p>
+                    <button class="btn btn-info btn-sm">Excuted</button>
+                  </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12">
+                  <div class="py-4">
+                    <div class="progress rounded-pill">
+                      <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-danger" role="progressbar" style="width: 3%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <div class="text-center mb-3">
-                      <button type="button" class="btn btn-info" style="width: 200px;">Stake</button>
+                    <span>Threshold</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card p-3 card-1">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                  <div>
+                    <p class="mb-0">LEND/AAVE migration and activation of the Safety Module</p>
+                    <button class="btn btn-info btn-sm">Excuted</button>
+                  </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12">
+                  <div class="py-4">
+                    <div class="progress rounded-pill">
+                      <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-danger" role="progressbar" style="width: 3%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <div class="text-center">
-                      <a href="#">Go back</a>
+                    <span>Threshold</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card p-3 card-1">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                  <div>
+                    <p class="mb-0">V1 upgrades for seamless transition to AAVE v2</p>
+                    <button class="btn btn-info btn-sm">Excuted</button>
+                  </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12">
+                  <div class="py-4">
+                    <div class="progress rounded-pill">
+                      <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-danger" role="progressbar" style="width: 3%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                 </div>
+                    <span>Threshold</span>
+                  </div>
                 </div>
               </div>
             </div>
             <!-- /.card -->
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-            <div class="card pt-5 pb-4 px-3">
-              <div class="row px-3">
-                <div class="col-lg-6 mb-3">
-                  <p class="jsx-37586846 mb-0"><strong class="jsx-37586846">Anonyme</strong> Staked</p>
-                  <div>
-                    <strong>0</strong>
-                    <img src="images/favicon.png" alt="Anonyme" height="18" width="18" class="jsx-3021772746 jsx-3361468758">
-                  </div>
-                </div>
-                <div class="col-lg-6 text-right">
-                  <button type="button" class="btn btn-default font-size-12" disabled>Activated Cooldown</button>
-                </div>
-              </div>
-              <div class="row px-3 mb-3">
-                <div class="col-lg-6">
-                  <p class="jsx-37586846 mb-0">Cooldown</p>
-                </div>
-                <div class="col-lg-6 text-right">
-                  <strong>10 Days</strong>
-                </div>
-              </div>
-              <div class="row px-3 mb-3">
-                <div class="col-sm-12 text-center">
-                  <span>How to unstake?</span>
-                </div>
-              </div>
-              <div class="row px-3 py-3 bg-dark">
-                <div class="col-lg-6">
-                  <p class="jsx-37586846 mb-0"><strong class="jsx-37586846">Anonyme</strong> Staked</p>
-                  <div>
-                    <strong>0</strong>
-                    <img src="images/favicon.png" alt="Anonyme" height="18" width="18" class="jsx-3021772746 jsx-3361468758">
-                  </div>
-                </div>
-                <div class="col-lg-6 text-right">
-                  <button type="button" class="btn btn-default font-size-12" disabled>Chain</button>
-                </div>
-              </div>
-              <div class="row px-3 my-3">
-                <div class="col-lg-6">
-                  <p class="jsx-37586846 mb-0">Anonyme per week</p>
-                </div>
-                <div class="col-lg-6 text-right">
-                  <strong>0 Anonyme</strong>
-                </div>
-              </div>
-              <div class="row px-3">
-                <div class="col-lg-6">
-                  <p class="jsx-37586846 mb-0">Anonyme per month</p>
-                </div>
-                <div class="col-lg-6 text-right">
-                  <strong>0 Anonyme</strong>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
         <!-- /.row -->
       </div>

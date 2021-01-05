@@ -100,10 +100,6 @@
 
     });
 
-    loadSelectOptions();
-    /*jQuery.noConflict();*/
-    getCurrieenciesData();
-
     function resetAllFields(){
 
       $("#txtPoolFromToken").val("");
@@ -127,43 +123,40 @@
       $("#poolToToken_title img").remove();
 
     }
-    function getCurrieenciesData(){
-      $.ajax({
 
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        url: 'ajax/getAllTokens.php',
-        data: "{}",
-        dataType: "json",
-        success: function (data) {
+    loadSelectOptions();
+    /*jQuery.noConflict();*/
 
-          if(data != ''){
+    $.ajax({
 
-            for(i=0; i < data.length; i++) {
-            
-                var oDD = $('#poolFromToken').msDropDown().data("dd");
-                oDD.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: 'ajax/getAllTokens.php',
+      data: "{}",
+      dataType: "json",
+      success: function (data) {
 
-                var oDD1 = $('#poolToToken').msDropDown().data("dd");
-                oDD1.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
-            }
+        var vStr = '';
+        var arr = {'text': [],'image':[],'value':[],'description':[]};
+        
+        for(i=0; i < data.length; i++) {
+        
+            var oDD = $('#poolFromToken').msDropDown().data("dd");
+            oDD.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
 
-          } else {
-            getCurrieenciesData();
-          }
-
-        },
-        error: function (result) {
-            alert("Error");
+            var oDD1 = $('#poolToToken').msDropDown().data("dd");
+            oDD1.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
         }
-      });
-    }
+
+      },
+      error: function (result) {
+          alert("Error");
+      }
+    });
 
     function loadSelectOptions(){
 
       $("select").msDropdown({roundedBorder:false});
-
-      //$("select").msDropdown().data("dd").refresh();
 
       if($(".enabled._msddli_").hasClass("selected")){
         $(".enabled._msddli_").removeClass("selected");
@@ -312,19 +305,15 @@
                   }
 
                   contractABI = JSON.parse(contractABI);
-                  /*console.log(contractABI);
-                  console.log(contractAddress);*/
+                  console.log(contractABI);
+                  console.log(contractAddress);
 
                   var tknContract = new web3.eth.Contract(contractABI, contractAddress);  
 
                   var balance = await tknContract.methods.balanceOf(myAccountAddress).call() ;
                   console.log(balance);
-                  balance = (balance /  1e18);
-                  console.log(balance);
-                  var vAvailable = parseFloat(balance);
-                  console.log(vAvailable);
-                  vAvailable = vAvailable.toFixed(4);
-                  console.log(vAvailable);
+
+                  var vAvailable = parseFloat( balance /  1e18).toFixed(4);
 
                   if(walletLocation == 'fromwallet'){
                     $("#pairWalletFromBalance").html(vAvailable);
@@ -392,34 +381,29 @@
           $(".endTwoTokens #second2").html(spnPoolFromToken);
 
           $("#create_pair_btn").prop('disabled', false);
-
-          /*
-          $(".firstTokenRate").html('-');
+        }
+          /*$(".firstTokenRate").html('-');
           $(".secondTokenRate").html('-');
 
           $(".startTwoTokens #first1").html("");
           $(".startTwoTokens #first2").html("");
           $(".endTwoTokens #second1").html("");
-          $(".endTwoTokens #second2").html("");
-          */
-
-        } else {
-
-          $("#create_pair_btn").prop('disabled', true);
-
-        }        
+          $(".endTwoTokens #second2").html("");*/
+        
 
       } else {
 
         $(".firstTokenRate").html('-');
         $(".secondTokenRate").html('-');
 
-
         $("#create_pair_btn").prop('disabled', true);
 
       }
+
     });
+   
   }
+
 
   function createPairBtnClick(){
       
@@ -449,10 +433,10 @@
         });
 
       } else {
-        resetAllFields();
-      }
 
-      
+        resetAllFields();
+        
+      }
 
   }
 
@@ -580,7 +564,6 @@
               <!-- <button disabled="" class="btn btn-primary w-100 mb-3">
                 Insufficient ETH balance
               </button>
-
               <button class="btn btn-primary w-100 mb-3">Approve BAT</button> -->
 
             </div>

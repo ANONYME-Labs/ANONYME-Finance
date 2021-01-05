@@ -143,8 +143,8 @@
       <div class="modal-body">
         <div class="max-value">
           <div class="input-group mb-3">
-              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensToSupply" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="button" id="max_button_addon">MAX</button>
+              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">MAX</button>
             </div>
         </div>
         <div class="tabs-form">
@@ -167,7 +167,7 @@
                   <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span class="supply_percentage" >0.01%</span>
+                  <span>0.01%</span>
                 </div>
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
@@ -175,7 +175,7 @@
                   <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span>-</span>
+                  <span>0.07%</span>
                 </div>
               </div>
               <div class="row mb-3 ">
@@ -188,7 +188,7 @@
                   <span>Borrow Limit</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span  >0.01%</span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
+                  <span>0.01%</span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span>$547.21k</span>
                 </div>
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
@@ -196,18 +196,18 @@
                   <span>Borrow Limit Used</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span class="borrow_limit_used" >0%</span>
+                  <span>0%</span>
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col-sm-12">
-                  <button class="btn btn-secondary btn-block" id="supplying" >NO FUNDS AVAILABLE</button>
+                  <button class="btn btn-secondary btn-block">NO FUNDS AVAILABLE</button>
                 </div>
               </div>
               <div class="row ">
                 <div class="col-sm-12">
                   <span>Wallet Balance</span>
-                  <span style="float: right;" class="walletbalance" >0 ETH</span>
+                  <span style="float: right;">0ETH</span>
                 </div>
               </div>
             </div>
@@ -256,7 +256,7 @@
               </div>
               <div class="row mb-3">
                 <div class="col-sm-12">
-                  <button class="btn btn-secondary btn-block" id="supplying" >NO BALANCE TO WITHDRAW</button>
+                  <button class="btn btn-secondary btn-block">NO BALANCE TO WITHDRAW</button>
                 </div>
               </div>
               <div class="row ">
@@ -421,8 +421,7 @@ $(document).ready(async function(){
               {
 				var myAccountAddress=""+result[0];
 
-				var asset='<?=$_COOKIE['currency']?>';
-				
+				var asset='<?php if(isset($_COOKIE['currency'])){ echo $_COOKIE['currency']}?>';
 				var bal = await web3.eth.getBalance(myAccountAddress);
 				var accbal = ( bal / 1000000000000000000 );
 				
@@ -444,13 +443,11 @@ $(document).ready(async function(){
 				var myContract = new web3.eth.Contract(arrayABI, mainContractAddress, {
 					from: myAccountAddress, // default from address
 				});
-				var ctokendesimal = <?=$ctokendesimal?>;
 				console.log(mainContractAddress);
 				
 				//comptroller contract
 				var comptrollerAbi =<?=$comptrollerABI; ?>;
 				var comptrollerAddress = "<?=$comptrollerAddress; ?>";
-				
 
 				//market contract
 				var marketAbi =<?=$marketABI; ?>;
@@ -464,9 +461,9 @@ $(document).ready(async function(){
 				
 
 				//price contract
-				const priceFeedAddress = '';
-				const priceFeedAbi = '';
-				//const priceFeed = new web3.eth.Contract(priceFeedAbi, priceFeedAddress);
+				const priceFeedAddress = '0x922018674c12a7f0d394ebeef9b58f186cde13c1';
+				const priceFeedAbi = [{"inputs":[{"internalType":"contract OpenOraclePriceData","name":"priceData_","type":"address"},{"internalType":"address","name":"reporter_","type":"address"},{"internalType":"uint256","name":"anchorToleranceMantissa_","type":"uint256"},{"internalType":"uint256","name":"anchorPeriod_","type":"uint256"},{"components":[{"internalType":"address","name":"cToken","type":"address"},{"internalType":"address","name":"underlying","type":"address"},{"internalType":"bytes32","name":"symbolHash","type":"bytes32"},{"internalType":"uint256","name":"baseUnit","type":"uint256"},{"internalType":"enum UniswapConfig.PriceSource","name":"priceSource","type":"uint8"},{"internalType":"uint256","name":"fixedPrice","type":"uint256"},{"internalType":"address","name":"uniswapMarket","type":"address"},{"internalType":"bool","name":"isUniswapReversed","type":"bool"}],"internalType":"struct UniswapConfig.TokenConfig[]","name":"configs","type":"tuple[]"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"symbol","type":"string"},{"indexed":false,"internalType":"uint256","name":"anchorPrice","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"oldTimestamp","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"newTimestamp","type":"uint256"}],"name":"AnchorPriceUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"symbol","type":"string"},{"indexed":false,"internalType":"uint256","name":"reporter","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"anchor","type":"uint256"}],"name":"PriceGuarded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"symbol","type":"string"},{"indexed":false,"internalType":"uint256","name":"price","type":"uint256"}],"name":"PriceUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"reporter","type":"address"}],"name":"ReporterInvalidated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"symbolHash","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"oldTimestamp","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"newTimestamp","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"oldPrice","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"UniswapWindowUpdated","type":"event"},{"inputs":[],"name":"anchorPeriod","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ethBaseUnit","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"expScale","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getTokenConfig","outputs":[{"components":[{"internalType":"address","name":"cToken","type":"address"},{"internalType":"address","name":"underlying","type":"address"},{"internalType":"bytes32","name":"symbolHash","type":"bytes32"},{"internalType":"uint256","name":"baseUnit","type":"uint256"},{"internalType":"enum UniswapConfig.PriceSource","name":"priceSource","type":"uint8"},{"internalType":"uint256","name":"fixedPrice","type":"uint256"},{"internalType":"address","name":"uniswapMarket","type":"address"},{"internalType":"bool","name":"isUniswapReversed","type":"bool"}],"internalType":"struct UniswapConfig.TokenConfig","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"cToken","type":"address"}],"name":"getTokenConfigByCToken","outputs":[{"components":[{"internalType":"address","name":"cToken","type":"address"},{"internalType":"address","name":"underlying","type":"address"},{"internalType":"bytes32","name":"symbolHash","type":"bytes32"},{"internalType":"uint256","name":"baseUnit","type":"uint256"},{"internalType":"enum UniswapConfig.PriceSource","name":"priceSource","type":"uint8"},{"internalType":"uint256","name":"fixedPrice","type":"uint256"},{"internalType":"address","name":"uniswapMarket","type":"address"},{"internalType":"bool","name":"isUniswapReversed","type":"bool"}],"internalType":"struct UniswapConfig.TokenConfig","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"symbol","type":"string"}],"name":"getTokenConfigBySymbol","outputs":[{"components":[{"internalType":"address","name":"cToken","type":"address"},{"internalType":"address","name":"underlying","type":"address"},{"internalType":"bytes32","name":"symbolHash","type":"bytes32"},{"internalType":"uint256","name":"baseUnit","type":"uint256"},{"internalType":"enum UniswapConfig.PriceSource","name":"priceSource","type":"uint8"},{"internalType":"uint256","name":"fixedPrice","type":"uint256"},{"internalType":"address","name":"uniswapMarket","type":"address"},{"internalType":"bool","name":"isUniswapReversed","type":"bool"}],"internalType":"struct UniswapConfig.TokenConfig","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"symbolHash","type":"bytes32"}],"name":"getTokenConfigBySymbolHash","outputs":[{"components":[{"internalType":"address","name":"cToken","type":"address"},{"internalType":"address","name":"underlying","type":"address"},{"internalType":"bytes32","name":"symbolHash","type":"bytes32"},{"internalType":"uint256","name":"baseUnit","type":"uint256"},{"internalType":"enum UniswapConfig.PriceSource","name":"priceSource","type":"uint8"},{"internalType":"uint256","name":"fixedPrice","type":"uint256"},{"internalType":"address","name":"uniswapMarket","type":"address"},{"internalType":"bool","name":"isUniswapReversed","type":"bool"}],"internalType":"struct UniswapConfig.TokenConfig","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"underlying","type":"address"}],"name":"getTokenConfigByUnderlying","outputs":[{"components":[{"internalType":"address","name":"cToken","type":"address"},{"internalType":"address","name":"underlying","type":"address"},{"internalType":"bytes32","name":"symbolHash","type":"bytes32"},{"internalType":"uint256","name":"baseUnit","type":"uint256"},{"internalType":"enum UniswapConfig.PriceSource","name":"priceSource","type":"uint8"},{"internalType":"uint256","name":"fixedPrice","type":"uint256"},{"internalType":"address","name":"uniswapMarket","type":"address"},{"internalType":"bool","name":"isUniswapReversed","type":"bool"}],"internalType":"struct UniswapConfig.TokenConfig","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"cToken","type":"address"}],"name":"getUnderlyingPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes","name":"message","type":"bytes"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"invalidateReporter","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"lowerBoundAnchorRatio","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"newObservations","outputs":[{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"uint256","name":"acc","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"numTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"oldObservations","outputs":[{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"uint256","name":"acc","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes[]","name":"messages","type":"bytes[]"},{"internalType":"bytes[]","name":"signatures","type":"bytes[]"},{"internalType":"string[]","name":"symbols","type":"string[]"}],"name":"postPrices","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"symbol","type":"string"}],"name":"price","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"priceData","outputs":[{"internalType":"contract OpenOraclePriceData","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"prices","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reporter","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reporterInvalidated","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes","name":"message","type":"bytes"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"source","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"upperBoundAnchorRatio","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
+				const priceFeed = new web3.eth.Contract(priceFeedAbi, priceFeedAddress);
 
 // checkMembership for allowed user assets to enter compound market
 var marketcontract = new web3.eth.Contract(marketAbi, comptrollerAddress,{
@@ -481,8 +478,8 @@ console.log(checkMembership);
 
 
 
-
-
+var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress});
+$('.supply_blalnce').html( balance/100000000+' <?php echo $_COOKIE['currency'];?>');
 
 
 
@@ -491,41 +488,22 @@ var totalSupply = await myContract.methods.totalSupply().call({from: myAccountAd
 console.log(totalSupply/1000000000000000000);
 console.log('totalSupply');
 
-const underlyingDecimals = <?=$underlaying_desimal; ?>; // Number of decimals defined in this ERC20 token's contract
-            const mantissa = 18 + parseInt(underlyingDecimals) - 8;
 
 
-const ethMantissa =1e18;
+
+const ethMantissa = 1e18;
 const blocksPerDay = 4 * 60 * 24;
 const daysPerYear = 365;
 
 const cToken = new web3.eth.Contract(arrayABI, mainContractAddress);
 const supplyRatePerBlock = await myContract.methods.supplyRatePerBlock().call();
 const borrowRatePerBlock = await myContract.methods.borrowRatePerBlock().call();
-const supplyApy = (Math.pow( 1 + (5760 * supplyRatePerBlock) / ethMantissa ,daysPerYear) - 1)*100;
-const borrowApy = (Math.pow( 1 + (5760 * borrowRatePerBlock) / ethMantissa ,daysPerYear) - 1)*100;
+const supplyApy = (((Math.pow((supplyRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
+const borrowApy = (((Math.pow((borrowRatePerBlock / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
 
-const compounding_formula = Math.pow( 1 + (5760 * supplyRatePerBlock) / ethMantissa ,daysPerYear) - 1;
-  let exchangeRateCurrent = await myContract.methods.exchangeRateCurrent().call();
-  
-  exchangeRateCurrent = exchangeRateCurrent / Math.pow(10, 18 + 18 - 8);
-  console.log("Current exchange rate from cETH to ETH:", exchangeRateCurrent, '\n');
 
-  
-
- 
-
-		
-            let oneCTokenInUnderlying = exchangeRateCurrent / Math.pow(10, mantissa);
-            const totalSupplyScaled = (totalSupply) / Math.pow(10, 8) ;
-	 oneCTokenInUnderlying = exchangeRateCurrent / (1 * 10 ^ (18 + underlyingDecimals - 8));
-   console.log('totalSupplyScaled'+totalSupplyScaled);
-   console.log('oneCTokenInUnderlying'+oneCTokenInUnderlying);
-console.log('compounding_formula'+compounding_formula);
 console.log('supplyRatePerBlock'+supplyRatePerBlock);
 console.log('borrowRatePerBlock'+borrowRatePerBlock);
-console.log('totalSupplyScaled'+totalSupplyScaled);
-console.log('new'+5760 * supplyRatePerBlock / Math.pow(10, underlyingDecimals));
 
 
 $('.supply_percentage').html(supplyApy.toFixed(2)+' %');
@@ -597,75 +575,30 @@ var daibalance = await underlying.methods.balanceOf(myAccountAddress).call() ;
 }
  
 
+const underlyingDecimals = 18; // Number of decimals defined in this ERC20 token's contract
 
 const logBalances = () => {
   return new Promise(async (resolve, reject) => {
     let myWalletEthBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
-    let myWalletCEthBalance = await myContract.methods.balanceOf(myAccountAddress).call() /  Math.pow(10, ctokendesimal);
+    let myWalletCEthBalance = await myContract.methods.balanceOf(myAccountAddress).call() / 1e8;
 	if(asset!="" && asset!='ETH' && asset!='cETH'){ 
-		let myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals); // if you supply in compound otherwise it show you 0.
+		let myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, 8); // if you supply in compound otherwise it show you 0.
 		console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
 		$('.walletbalance').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
-
-		 if(myWalletUnderlyingBalance > 0.00 )
-				$('#supplying').html('Supply');
 		$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
 	}else{
-		let myWalletUnderlyingBalance = await myContract.methods.balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal); // if you supply in compound otherwise it show you 0.
+		let myWalletUnderlyingBalance = await myContract.methods.balanceOf(myAccountAddress).call() / Math.pow(10, 8); // if you supply in compound otherwise it show you 0.
 		console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
-		$('.walletbalance').html(myWalletEthBalance+''+asset);
-		 if(myWalletUnderlyingBalance > 0.00 )
-				$('#supplying').html('Supply');
-		 $("#supplying").attr("disabled", "disabled"); 
+		$('.walletbalance').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
 		$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
 	}
-	 $("#supplying").attr("disabled", "disabled"); 
     console.log("My Wallet's  ETH Balance:", myWalletEthBalance);
     console.log("My Wallet's cETH Balance:", myWalletCEthBalance);
     
 
     resolve();
   });
-};  
- 
- $('#max_button_addon').click( async function(){
-	 let myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals);
-	 $('#TokensToSupply').val(myWalletUnderlyingBalance);
-	 let TokensToSupply=$('#TokensToSupply').val();
-	 var TokenSupply=parseFloat(TokensToSupply-myWalletUnderlyingBalance);
-	 
-	 if(TokensToSupply > myWalletUnderlyingBalance){
-		 
-	 }
-	
- });
- 
- $('#TokensToSupply').keyup( async function(){
-	 
-	 let TokensToSupply=$('#TokensToSupply').val();
-	 let myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals);
-	 var TokensSupply=parseFloat(myWalletUnderlyingBalance-TokensToSupply);
-	    if(TokensToSupply > myWalletUnderlyingBalance){
-		 $('#supplying').html('NO FUNDS AVAILABLE');
-	     $("#supplying").attr("disabled", "disabled"); 
-        }
-        else {
-            $("#supplying").removeAttr("disabled"); 
-            $('#supplying').html('Supply');
-        }
-		
-	  if(TokensToSupply <= 0){
-		
-		 $("#supplying").attr("disabled", "disabled"); 
-	  }else {
-            $("#supplying").removeAttr("disabled"); 
-      }
-		
-	   
-		
-        alert(TokensToSupply);
-		
- });
+}; 
  
  
   //var checkallowance = await myContract.methods.allowance(myAccountAddress,batContractAddress).call();
@@ -673,39 +606,27 @@ const logBalances = () => {
  
  await logBalances();
  
-
+ 
  
  const ethDecimals = 18;
  console.log(marketcontract);
  var arrayMrk=[myAccountAddress];
- const balanceOfUnderlying = web3.utils.toBN(await myContract.methods
+ 
+const balanceOfUnderlying = web3.utils.toBN(await myContract.methods
     .balanceOfUnderlying(myAccountAddress).call()) / Math.pow(10, ethDecimals);
-	
-	console.log('balanceOfUnderlying'+balanceOfUnderlying);
-	
- if(asset!="" && asset!='ETH' && asset!='cETH'){ 
 
-
-  console.log("ETH supplied to the Compound Protocol:", balanceOfUnderlying.toFixed(3), '\n');
-  $('.supply_blalnce').html( balanceOfUnderlying.toFixed(3)+' <?php echo $_COOKIE['currency'];?>');
- }else{
-  var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress}) /Math.pow(10, ctokendesimal);
-  $('.supply_blalnce').html( balance.toFixed(3)+' <?php echo $_COOKIE['currency'];?>');
- } 
+  console.log("ETH supplied to the Compound Protocol:", balanceOfUnderlying, '\n');
   
-  var usd_value = <?=$usd_value;?>
-  
-  if(balanceOfUnderlying > 0.00){	
+  if(balanceOfUnderlying > 0){	
   
 	  $('.Supply_collateral').show();
 	  $('.borrow_collateral').show();
 	  $('#eth_supply_market').hide();
 	  $('#eth_borrow_market').hide();
-	  console.log("(2 *(("+balanceOfUnderlying+" * "+supplyApy+")/100))* "+usd_value);
-	  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* usd_value;
+	  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* 586.44;
 	  const borrow_limit=(supplybalanceUSD*80)/100;
      
-	  $('#supplybalanceUSD').html('$ '+supplybalanceUSD.toFixed(5));
+	  $('#supplybalanceUSD').html('$ '+supplybalanceUSD.toFixed(2));
 	  $('.borrow_limit').html('$ '+borrow_limit.toFixed(2));
 	  
 	  $('#totsupply').html(balanceOfUnderlying.toFixed(4));
@@ -717,16 +638,16 @@ const logBalances = () => {
 	   $('#eth_borrow_market').show();
   }
   const borrowBalanceStored= await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
-  const borrowBalance=borrowBalanceStored/Math.pow(10, underlyingDecimals);
-  if(borrowBalance > 0.00){	
+  const borrowBalance=borrowBalanceStored/1e18;
+  if(borrowBalance > 0){	
   
   
   
 	  $('.borrow_percentage').html(borrowApy.toFixed(2)+' %');
 	  
-	  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* usd_value;
+	  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* 586.44;
 	  const borrow_limit=(supplybalanceUSD*80)/100;
-	  const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* usd_value;
+	  const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* 586.44;
 	  const borrow_limit_used=(borrowbalanceUSD*100)/ borrow_limit;
 
 	    $('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance is <span id="totborrow">'+accbal.toFixed(3)+' <?php echo $_COOKIE['currency'];?></span>.</p><div class="go-back text-center my-3"><button class="btn btn-info" id="Borrowing" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
@@ -735,7 +656,14 @@ const logBalances = () => {
 	  $('#totborrow').html(borrowBalance.toFixed(4));
   }
   
+  let exchangeRateCurrent = await myContract.methods.exchangeRateCurrent().call();
+  exchangeRateCurrent = exchangeRateCurrent / Math.pow(10, 18 + ethDecimals - 8);
+  console.log("Current exchange rate from cETH to ETH:", exchangeRateCurrent, '\n');
 
+  
+
+  oneCTokenInUnderlying = exchangeRateCurrent / (1 * 10 ^ (18 + underlyingDecimals - 8));
+   console.log('oneCTokenInUnderlying'+oneCTokenInUnderlying);
   
  var Liquidity=await marketcontract.methods.getAccountLiquidity(myAccountAddress).call({from: myAccountAddress});
  console.log('Liquidity');
@@ -771,80 +699,30 @@ console.log(markets);
  
 
 
-
-
- 
- $('#supplying').click( async function(){
-	 
-
-
-
- // Mint cTokens by supplying underlying tokens to the Compound Protocol
-  const TokensToSupply=$('#TokensToSupply').val();
-  
-  console.log('\nSupplying ETH to the protocol as collateral (you will get cETH in return)...\n');
-   const underlyingTokensToSupply = 10 * Math.pow(10, underlyingDecimals);
-   
-      var ethToSupplyAsCollateral = TokensToSupply * Math.pow(10, underlyingDecimals);
-   console.log(''+ethToSupplyAsCollateral+' contract "supply" operation successful.');
-   // Web3 transaction information, we'll use this for every transaction we'll send
+// Web3 transaction information, we'll use this for every transaction we'll send
 const fromMyWallet = {
   from: myAccountAddress,
   gasLimit: web3.utils.toHex(500000),
   gasPrice: web3.utils.toHex(20000000000) // use ethgasstation.info (mainnet only)
 };
-  
- if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){ 
-  
-
-  // Tell the contract to allow 10 tokens to be taken by the cToken contract
-  await underlying.methods.approve(myAccountAddress, underlyingTokensToSupply).send(fromMyWallet);
-
-  console.log('${'+asset+'} contract "Approve" operation successful.');
-  console.log('Supplying ${'+asset+'} to the Compound Protocol...');
- }
 
  
-  
+ $('#supplying').click( async function(){
+	 
+
+await logBalances();
+
+  const ethToSupplyAsCollateral = 0.0001;
 
   console.log('\nSupplying ETH to the protocol as collateral (you will get cETH in return)...\n');
-  let mint = await myContract.methods.mint(web3.utils.toBN(ethToSupplyAsCollateral.toString())).send(fromMyWallet);
-  console.log("c${"+asset+"} 'Mint' operation successful.", '\n');
+  let mint = await myContract.methods.mint().send({
+    from: myAccountAddress,
+    gasLimit: web3.utils.toHex(210200),
+    gasPrice: web3.utils.toHex(1000000000), // use ethgasstation.info (mainnet only)
+    value: web3.utils.toHex(ethToSupplyAsCollateral * 1e18)
+  });
 
-  
- 
-
-  let cTokenBalance = await myContract.methods.
-    balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal);
-  console.log('My wallet\'s c${asset} Token Balance:', cTokenBalance);
-
-  let underlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call();
-  underlyingBalance = underlyingBalance / Math.pow(10, underlyingDecimals);
-  console.log("My wallet's ${asset} Token Balance:", underlyingBalance, '\n');
-
-  let erCurrent = await myContract.methods.exchangeRateCurrent().call();
-  let exchangeRate = erCurrent / Math.pow(10, 18 + underlyingDecimals - 8);
-  console.log("Current exchange rate from c${"+asset+"} to ${"+asset+"}:", exchangeRate, '\n');
-
-  console.log("Redeeming the c${"+asset+"} for ${"+asset+"}...");
-
-  // redeem (based on cTokens)
-  console.log("Exchanging all c${"+asset+"} based on cToken amount...", '\n');
-  await myContract.methods.redeem(cTokenBalance * Math.pow(10, ctokendesimal)).send(fromMyWallet);
-
-  // redeem (based on underlying)
-  // console.log(`Exchanging all c${asset} based on underlying ${asset} amount...`);
-  // let underlyingAmount = balanceOfUnderlying * Math.pow(10, underlyingDecimals);
-  // await myContract.methods.redeemUnderlying(underlyingAmount).send(fromMyWallet);
-
-  cTokenBalance = await myContract.methods.balanceOf(myAccountAddress).call();
-  cTokenBalance = cTokenBalance / Math.pow(10, ctokendesimal);
-  console.log("My wallet's c${asset} Token Balance:", cTokenBalance);
-
-  underlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call();
-  underlyingBalance = underlyingBalance / Math.pow(10, underlyingDecimals);
-  console.log("My wallet's ${asset} Token Balance:", underlyingBalance, '\n');
-
+  await logBalances();
 
  
 
@@ -857,44 +735,44 @@ const fromMyWallet = {
 
   console.log('Calculating your liquid assets in the protocol...');
   let { 1:liquidity } = await marketcontract.methods.getAccountLiquidity(myAccountAddress).call();
-  liquidity = liquidity / Math.pow(10, underlyingDecimals);
+  liquidity = liquidity / 1e18;
 
   console.log('Fetching cETH collateral factor...');
   let { 1:collateralFactor } = await marketcontract.methods.markets(myAccountAddress).call();
-  collateralFactor = (collateralFactor / Math.pow(10, underlyingDecimals)) * 100; // Convert to percent
+  collateralFactor = (collateralFactor / 1e18) * 100; // Convert to percent
 
-  console.log('Fetching ${asset} price from the price feed...');
- // let underlyingPriceInUsd = await priceFeed.methods.price(asset).call();
+  console.log('Fetching ${assetName} price from the price feed...');
+ // let underlyingPriceInUsd = await priceFeed.methods.price(assetName).call();
  // underlyingPriceInUsd = underlyingPriceInUsd / 1e6; // Price feed provides price in USD with 6 decimal places
 
-  console.log('Fetching borrow rate per block for ${asset} borrowing...');
+  console.log('Fetching borrow rate per block for ${assetName} borrowing...');
   let borrowRate = await myContract.methods.borrowRatePerBlock().call();
   borrowRate = borrowRate / Math.pow(10, underlyingDecimals);
 
   console.log('\nYou have ${'+liquidity+'} of LIQUID assets (worth of USD) pooled in the protocol.');
-  console.log('You can borrow up to ${'+collateralFactor+'}% of your TOTAL collateral supplied to the protocol as ${'+asset+'}.');
- // console.log('1 ${'+asset+'} == ${'+underlyingPriceInUsd.toFixed(6)+'} USD');
-//  console.log('You can borrow up to ${'+liquidity+' / '+underlyingPriceInUsd+'} ${'+asset+'} from the protocol.');
+  console.log('You can borrow up to ${'+collateralFactor+'}% of your TOTAL collateral supplied to the protocol as ${'+assetName+'}.');
+ // console.log('1 ${'+assetName+'} == ${'+underlyingPriceInUsd.toFixed(6)+'} USD');
+//  console.log('You can borrow up to ${'+liquidity+' / '+underlyingPriceInUsd+'} ${'+assetName+'} from the protocol.');
   console.log('NEVER borrow near the maximum amount because your account will be instantly liquidated.');
-  console.log('\nYour borrowed amount INCREASES (${'+borrowRate+'} * borrowed amount) ${'+asset+'} per block.\nThis is based on the current borrow rate.\n');
+  console.log('\nYour borrowed amount INCREASES (${'+borrowRate+'} * borrowed amount) ${'+assetName+'} per block.\nThis is based on the current borrow rate.\n');
 
   const underlyingToBorrow = 50;
-  console.log('Now attempting to borrow ${'+underlyingToBorrow+'} ${'+asset+'}...');
+  console.log('Now attempting to borrow ${'+underlyingToBorrow+'} ${'+assetName+'}...');
   const scaledUpBorrowAmount = (underlyingToBorrow * Math.pow(10, underlyingDecimals)).toString();
   const trx = await myContract.methods.borrow(scaledUpBorrowAmount).send({from: myAccountAddress});
    console.log('Borrow Transaction', trx);
 
   await logBalances();
 
-  console.log('\nFetching ${'+asset+'} borrow balance from c${'+asset+'} contract...');
+  console.log('\nFetching ${'+assetName+'} borrow balance from c${'+assetName+'} contract...');
   let balance = await myContract.methods.borrowBalanceCurrent(myAccountAddress).call();
   balance = balance / Math.pow(10, underlyingDecimals);
-  console.log('Borrow balance is ${'+balance+'} ${'+asset+'}');
+  console.log('Borrow balance is ${'+balance+'} ${'+assetName+'}');
 
   console.log('\nThis part is when you do something with those borrowed assets!\n');
 
   console.log('Now repaying the borrow...');
-  console.log('Approving ${asset} to be transferred from your wallet to the c${'+asset+'} contract...');
+  console.log('Approving ${assetName} to be transferred from your wallet to the c${'+assetName+'} contract...');
 //  const underlyingToRepay = (underlyingToBorrow * Math.pow(10, underlyingDecimals)).toString();
  /// await underlying.methods.approve(cTokenAddress, underlyingToRepay).send(fromMyWallet);
 

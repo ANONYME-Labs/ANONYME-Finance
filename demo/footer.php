@@ -495,7 +495,7 @@ const underlyingDecimals = <?=$underlaying_desimal; ?>; // Number of decimals de
             const mantissa = 18 + parseInt(underlyingDecimals) - 8;
 
 
-const ethMantissa = Math.pow(10, underlyingDecimals);
+const ethMantissa =1e18;
 const blocksPerDay = 4 * 60 * 24;
 const daysPerYear = 365;
 

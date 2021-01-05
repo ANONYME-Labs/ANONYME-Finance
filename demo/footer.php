@@ -444,7 +444,6 @@ $(document).ready(async function(){
 				var myContract = new web3.eth.Contract(arrayABI, mainContractAddress, {
 					from: myAccountAddress, // default from address
 				});
-				var ctokendesimal = <?=$ctokendesimal?>;
 				console.log(mainContractAddress);
 				
 				//comptroller contract
@@ -491,11 +490,10 @@ var totalSupply = await myContract.methods.totalSupply().call({from: myAccountAd
 console.log(totalSupply/1000000000000000000);
 console.log('totalSupply');
 
-const underlyingDecimals = <?=$underlaying_desimal; ?>; // Number of decimals defined in this ERC20 token's contract
-            const mantissa = 18 + parseInt(underlyingDecimals) - 8;
 
 
-const ethMantissa =1e18;
+
+const ethMantissa = 1e18;
 const blocksPerDay = 4 * 60 * 24;
 const daysPerYear = 365;
 
@@ -514,7 +512,8 @@ const compounding_formula = Math.pow( 1 + (5760 * supplyRatePerBlock) / ethManti
   
 
  
-
+const underlyingDecimals = <?=$underlaying_desimal; ?>; // Number of decimals defined in this ERC20 token's contract
+            const mantissa = 18 + parseInt(underlyingDecimals) - 8;
 		
             let oneCTokenInUnderlying = exchangeRateCurrent / Math.pow(10, mantissa);
             const totalSupplyScaled = (totalSupply) / Math.pow(10, 8) ;
@@ -525,7 +524,7 @@ console.log('compounding_formula'+compounding_formula);
 console.log('supplyRatePerBlock'+supplyRatePerBlock);
 console.log('borrowRatePerBlock'+borrowRatePerBlock);
 console.log('totalSupplyScaled'+totalSupplyScaled);
-console.log('new'+5760 * supplyRatePerBlock / Math.pow(10, underlyingDecimals));
+console.log('new'+5760 * supplyRatePerBlock / 1e18);
 
 
 $('.supply_percentage').html(supplyApy.toFixed(2)+' %');
@@ -601,7 +600,7 @@ var daibalance = await underlying.methods.balanceOf(myAccountAddress).call() ;
 const logBalances = () => {
   return new Promise(async (resolve, reject) => {
     let myWalletEthBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
-    let myWalletCEthBalance = await myContract.methods.balanceOf(myAccountAddress).call() /  Math.pow(10, ctokendesimal);
+    let myWalletCEthBalance = await myContract.methods.balanceOf(myAccountAddress).call() / 1e8;
 	if(asset!="" && asset!='ETH' && asset!='cETH'){ 
 		let myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals); // if you supply in compound otherwise it show you 0.
 		console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
@@ -611,7 +610,7 @@ const logBalances = () => {
 				$('#supplying').html('Supply');
 		$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
 	}else{
-		let myWalletUnderlyingBalance = await myContract.methods.balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal); // if you supply in compound otherwise it show you 0.
+		let myWalletUnderlyingBalance = await myContract.methods.balanceOf(myAccountAddress).call() / Math.pow(10, 8); // if you supply in compound otherwise it show you 0.
 		console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
 		$('.walletbalance').html(myWalletEthBalance+''+asset);
 		 if(myWalletUnderlyingBalance > 0.00 )
@@ -686,11 +685,11 @@ const logBalances = () => {
  if(asset!="" && asset!='ETH' && asset!='cETH'){ 
 
 
-  console.log("ETH supplied to the Compound Protocol:", balanceOfUnderlying.toFixed(3), '\n');
-  $('.supply_blalnce').html( balanceOfUnderlying.toFixed(3)+' <?php echo $_COOKIE['currency'];?>');
+  console.log("ETH supplied to the Compound Protocol:", balanceOfUnderlying, '\n');
+  $('.supply_blalnce').html( balanceOfUnderlying+' <?php echo $_COOKIE['currency'];?>');
  }else{
-  var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress}) /Math.pow(10, ctokendesimal);
-  $('.supply_blalnce').html( balance.toFixed(3)+' <?php echo $_COOKIE['currency'];?>');
+  var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress}) /1000000000;
+  $('.supply_blalnce').html( balance+' <?php echo $_COOKIE['currency'];?>');
  } 
   
   var usd_value = <?=$usd_value;?>
@@ -717,7 +716,7 @@ const logBalances = () => {
 	   $('#eth_borrow_market').show();
   }
   const borrowBalanceStored= await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
-  const borrowBalance=borrowBalanceStored/Math.pow(10, underlyingDecimals);
+  const borrowBalance=borrowBalanceStored/1e18;
   if(borrowBalance > 0.00){	
   
   
@@ -815,7 +814,7 @@ const fromMyWallet = {
  
 
   let cTokenBalance = await myContract.methods.
-    balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal);
+    balanceOf(myAccountAddress).call() / 1e8;
   console.log('My wallet\'s c${asset} Token Balance:', cTokenBalance);
 
   let underlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call();
@@ -830,7 +829,7 @@ const fromMyWallet = {
 
   // redeem (based on cTokens)
   console.log("Exchanging all c${"+asset+"} based on cToken amount...", '\n');
-  await myContract.methods.redeem(cTokenBalance * Math.pow(10, ctokendesimal)).send(fromMyWallet);
+  await myContract.methods.redeem(cTokenBalance * 1e8).send(fromMyWallet);
 
   // redeem (based on underlying)
   // console.log(`Exchanging all c${asset} based on underlying ${asset} amount...`);
@@ -838,7 +837,7 @@ const fromMyWallet = {
   // await myContract.methods.redeemUnderlying(underlyingAmount).send(fromMyWallet);
 
   cTokenBalance = await myContract.methods.balanceOf(myAccountAddress).call();
-  cTokenBalance = cTokenBalance / Math.pow(10, ctokendesimal);
+  cTokenBalance = cTokenBalance / 1e8;
   console.log("My wallet's c${asset} Token Balance:", cTokenBalance);
 
   underlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call();
@@ -857,11 +856,11 @@ const fromMyWallet = {
 
   console.log('Calculating your liquid assets in the protocol...');
   let { 1:liquidity } = await marketcontract.methods.getAccountLiquidity(myAccountAddress).call();
-  liquidity = liquidity / Math.pow(10, underlyingDecimals);
+  liquidity = liquidity / 1e18;
 
   console.log('Fetching cETH collateral factor...');
   let { 1:collateralFactor } = await marketcontract.methods.markets(myAccountAddress).call();
-  collateralFactor = (collateralFactor / Math.pow(10, underlyingDecimals)) * 100; // Convert to percent
+  collateralFactor = (collateralFactor / 1e18) * 100; // Convert to percent
 
   console.log('Fetching ${asset} price from the price feed...');
  // let underlyingPriceInUsd = await priceFeed.methods.price(asset).call();

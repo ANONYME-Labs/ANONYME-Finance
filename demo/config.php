@@ -64,7 +64,11 @@ if($network==0){
 }
 echo $_COOKIE['currency'];
 if(isset($_COOKIE['currency'])){
-    $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";
+	if($_COOKIE['currency']!='ETH' AND $_COOKIE['currency']!='cETH'){
+          $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";
+	}else{	
+		  $query2 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'";
+	}
     $result2 = mysqli_query($conn,$query2);
     $row = mysqli_fetch_array($result2);
     if($row != NULL){
@@ -72,7 +76,8 @@ if(isset($_COOKIE['currency'])){
     	 $mainContractAddress = $row['contractAddress'];
     	 $mainContractABI = $row['contractABI'];
     	 $ctokendesimal = $row['desimals'];
-    	 //echo 'test'.$usd_value  = $row['usdvalue'];
+    	 $usd_value  = $row['usdvalue'];
+    	
 		 
 		 
 		 if($_COOKIE['currency']!='ETH' or $_COOKIE['currency']!='cETH'){

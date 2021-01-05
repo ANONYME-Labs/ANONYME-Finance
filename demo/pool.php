@@ -1,6 +1,5 @@
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
-<link rel="stylesheet" href="css/alertify.min.css" />
 
 
 <style type="text/css">
@@ -78,85 +77,85 @@
 <!-- <msdropdown> -->
 <link rel="stylesheet" type="text/css" href="css/dd.css" />
 <script src="js/jquery.dd.js"></script>
+<!-- </msdropdown> -->
+
+<script type="text/javascript">
+  /*
+  $(document).ready(function(){
+
+    jQuery.noConflict();
+
+    $("select").msDropdown({roundedBorder:false});
+
+    $.ajax({
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: 'getTokens.php',
+      data: "{}",
+      dataType: "json",
+      success: function (data) {
+        var vStr='';
+        for(i=0;i<data.length;i++) {
+
+            vStr = vStr + '<option dataimage="'+data[i].cURL+'" value='+data[i].cCode+'>'+data[i].cCode+'</option>';
+        }
+        $('#displayTokenFrom').html('');
+        $('#displayTokenFrom').html(vStr);
+        
+        $('#displayTokenTo').html('');
+        $('#displayTokenTo').html(vStr);
+
+      },
+      error: function (result) {
+         
+      }
+    });
+
+  });
+  */
+</script>
 
 <?php include 'footer.php';?>
 
 <link rel="stylesheet" type="text/css" href="css/dd.css" />
 <script src="js/jquery.dd.js"></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script> -->
-
-<script src="js/alertify.min.js" type="text/javascript"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 <script type="text/javascript">
   
   $(document).ready(function(){
 
-    $("#coin_option2").on('shown.bs.modal', function() {
+    jQuery.noConflict();
 
-      $("#txtPoolFromToken").val("");
-      $("#txtPoolToToken").val("");
+    $("select").msDropdown({roundedBorder:false});
 
-      $("#pairWalletFromBalance").html("0.00");
-      $("#pairWalletToBalance").html("0.00");
+    $.ajax({
 
-      $(".firstTokenRate").html('-');
-      $(".secondTokenRate").html('-');
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: 'getTokens.php',
+      data: "{}",
+      dataType: "json",
+      success: function (data) {
 
-      $(".startTwoTokens #first1").html("");
-      $(".startTwoTokens #first2").html("");
-      $(".endTwoTokens #second1").html("");
-      $(".endTwoTokens #second2").html("");
+        var vStr = '';
+        var arr = {'text': [],'image':[],'value':[],'description':[]};
+        
+        for(i=0; i < data.length; i++) {
+        
+            var oDD = $('#poolFromToken').msDropDown().data("dd");
+            oDD.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
 
-      $("#poolFromToken_title .ddlabel").html("Select Token");
-      $("#poolFromToken_title img").remove();
-
-      $("#poolToToken_title .ddlabel").html("Select Token");
-      $("#poolToToken_title img").remove();
-
-      loadSelectOptions();
-
-    });
-
-    loadSelectOptions();
-    /*jQuery.noConflict();*/
-
-    function loadSelectOptions(){
-
-      $("select").msDropdown({roundedBorder:false});
-
-      $.ajax({
-
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        url: 'ajax/getAllTokens.php',
-        data: "{}",
-        dataType: "json",
-        success: function (data) {
-
-          var vStr = '';
-          var arr = {'text': [],'image':[],'value':[],'description':[]};
-          
-          for(i=0; i < data.length; i++) {
-          
-              var oDD = $('#poolFromToken').msDropDown().data("dd");
-              oDD.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
-
-              var oDD1 = $('#poolToToken').msDropDown().data("dd");
-              oDD1.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
-          }
-
-        },
-        error: function (result) {
-            alert("Error");
+            var oDD1 = $('#poolToToken').msDropDown().data("dd");
+            oDD1.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
         }
-      });
 
-      if($(".enabled._msddli_").hasClass("selected")){
-        $(".enabled._msddli_").removeClass("selected");
+      },
+      error: function (result) {
+          alert("Error");
       }
 
-    }
+    });
 
     
     $(document.body).on("change","#poolFromToken",function(){
@@ -179,11 +178,96 @@
 
         changeFromToken();
 
+        /*
+        $("#pairWalletToBalance").html('');
+
+        var poolToToken = $('#poolFromToken option:selected').val();
+
+        if(poolToToken == 'ETH'){
+          window.web3 = new Web3(ethereum);
+          web3.eth.getAccounts(async function(error, result) {
+            if(!error && typeof(result[0]) !== 'undefined') {
+              metaMaskAddress=""+result[0];
+              var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
+              var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
+
+              $("#pairWalletToBalance").html(vAvailableETH);
+
+            }
+          });
+        } else {
+          $("#pairWalletToBalance").html(0.00);          
+        }
+        */
+
+
     });
     
-    
+    /*
+    $("#pairETHButtonFrom").click( async function(){
+
+        $('#btnPoolFromToken img').show();
+        $('#btnPoolFromToken img').attr('src', 'images/eth.png');
+
+        $("#from_token_pop").modal('hide');
+        $("#spnPoolFromToken").html('ETH');
+
+        window.web3 = new Web3(ethereum);
+        web3.eth.getAccounts(async function(error, result) {
+          if(!error && typeof(result[0]) !== 'undefined') {
+            metaMaskAddress=""+result[0];
+            var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
+            var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
+
+            $("#pairWalletFromBalance").html(vAvailableETH);
+
+            $("#displayTokenFrom").select2({
+              templateResult: formatState,
+              templateSelection: formatState
+            });
+
+            changeFromToken();
+
+          }
+        });
+    });
+    */
+
+    /*
+    $("#pairETHButtonTo").click( async function(){
+
+        $('#btnPoolToToken img').show();
+        $('#btnPoolToToken img').attr('src', 'images/eth.png');
+
+        $("#to_token_pop").modal('hide');
+        $("#spnPoolToToken").html('ETH');
+
+        window.web3 = new Web3(ethereum);
+        web3.eth.getAccounts(async function(error, result) {
+          if(!error && typeof(result[0]) !== 'undefined') {
+            metaMaskAddress=""+result[0];
+            var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
+            var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
+
+            $("#pairWalletToBalance").html(vAvailableETH);
+
+            $("#displayTokenTo").select2({
+              templateResult: formatState,
+              templateSelection: formatState
+            });
+
+            changeFromToken();
+
+          }
+        });
+    });
+    */
     
     $('#txtPoolFromToken, #txtPoolToToken').on('keyup paste input', function () {
+
+        // allows 123. or .123 which are fine for entering on a MySQL decimal() or float() field
+        // if more than one dot is detected then erase (or slice) the string till we detect just one dot
+        // this is likely the case of a paste with the right click mouse button and then a paste (probably others too), the other situations are handled with keydown, keypress, keyup, etc
 
         while ( ($(this).val().split(".").length - 1) > 1 ) {
 
@@ -246,20 +330,13 @@
       } else {
         $("#pairWalletToBalance").html(loader);
       }
-           
-      var metaMaskAddress = '';
-
       if(tokenname == 'ETH'){
 
         window.web3 = new Web3(ethereum);
         web3.eth.getAccounts(async function(error, result) {
           if(!error && typeof(result[0]) !== 'undefined') {
 
-            metaMaskAddress = result[0];
-            if(metaMaskAddress == ''){
-              alertify.alert('Warning','Please Login to Tronlink Wallet.');
-              return false;                  
-            }
+            metaMaskAddress=""+result[0];
 
             var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
             var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
@@ -272,69 +349,17 @@
 
           }
         });
-      
       } else {
 
-        $.ajax({
+        if(walletLocation == 'fromwallet'){
+          $("#pairWalletFromBalance").html(0.00);
+        } else {
+          $("#pairWalletToBalance").html(0.00);
+        }
 
-          type: "POST",
-          //contentType: "application/json; charset=utf-8",
-          url: 'ajax/getCurrencyData.php',
-          data: {tokenname: tokenname},
-          dataType: "json",
-          success: function (res) {
-
-            console.log(res.status);
-            if(res.status == '1'){
-                
-                var contractABI = res.data.contractABI;
-                var contractAddress = res.data.contractAddress;
-
-                web3.eth.getAccounts(async function(error, result) {
-
-                  myAccountAddress = result[0];
-                  if(myAccountAddress == ''){
-                    alertify.alert('Warning','Please Login to Tronlink Wallet.');
-                    return false;                  
-                  }
-
-                  contractABI = JSON.parse(contractABI);
-                  console.log(contractABI);
-                  console.log(contractAddress);
-
-                  var tknContract = new web3.eth.Contract(contractABI, contractAddress);  
-
-                  var balance = await tknContract.methods.balanceOf(myAccountAddress).call() ;
-                  console.log(balance);
-
-                  var vAvailable = parseFloat( balance /  1e18).toFixed(4);
-
-                  if(walletLocation == 'fromwallet'){
-                    $("#pairWalletFromBalance").html(vAvailable);
-                  } else {
-                    $("#pairWalletToBalance").html(vAvailable);
-                  }
-
-                });
-
-            } else {
-              if(walletLocation == 'fromwallet'){
-                $("#pairWalletFromBalance").html("0.00");
-              } else {
-                $("#pairWalletToBalance").html("0.00");
-              }
-
-              alertify.alert('Error','Something went wrong, Please try again.');
-              return false;
-            }
-
-          },
-          error: function (result) {
-              alert("Error");
-          }
-        });
       }
-   
+
+    
   }
 
   function changeFromToken(){
@@ -386,9 +411,7 @@
               });
 
               //var vCurrencyType = $('#spnFromToken').text();
-              var vCurrencyType = $('#poolFromToken_title .ddlabel').text();
-              var vCurrencyType = $('#poolToToken_title .ddlabel').text();
-
+              var vCurrencyType = $('#drpFromToken option:selected').text();
               var vAvailableBalance =0;
               // this gives BAT amount
               var vCurrentBATbalance = await batContract.methods.balanceOf(metaMaskAddress).call();
@@ -411,7 +434,7 @@
               if(parseFloat(txtPoolFromToken) > parseFloat(vAvailableBalance )) {
 
                 $("#btnAmount").text("Insuficient liquidity");
-                $("#btnAmount").prop('disabled', false);
+                $("#btnAmount").prop('disabled', true);
 
               } else {
 
@@ -424,10 +447,6 @@
 
               $('#txtFromToken').val('');
               $('#txtToToken').val('');
-
-              $("#btnAmount").prop('disabled', false);
-              $("#btnAmount").text("Enter an Amount");
-
               alert("Please connect with your wallet.");
 
             }
@@ -474,24 +493,30 @@
       } else if(poolFromToken == 'ETH'){
 
       } else {
-        $("#pairWalletFromBalance").html("0.00");          
+        $("#pairWalletFromBalance").html(0.00);          
       }
 
-  }
-
-
-  function createPairBtnClick(){
-      
-      console.log("dasd");
-
-      web3.eth.getAccounts(async function(error, result) {
-        
-        web3.personal.sign(web3.fromUtf8("Hello from Toptal!"), web3.eth.coinbase, console.log);
-
-      });
 
   }
 
+
+  /*
+  function formatState (opt) {
+    if (!opt.id) {
+      return opt.text;
+    }
+
+    var optimage = $(opt.element).attr('dataimage'); 
+    if(!optimage){
+      return opt.text;
+    } else {
+      var $opt = $(
+      '<span class="selectCSpan"><img src="' + optimage + '" class="selectCImage" /> ' + $(opt.element).text() + '</span>'
+      );
+      return $opt;
+    }
+  }
+  */
 </script>
 
 
@@ -609,7 +634,7 @@
 
           <div class="row py-4 hover-select-token">
             <div class="col-lg-12 col-md-12 col-sm-12">
-              <button disabled="" class="btn btn-primary w-100 mb-3" id="btnAmount" onclick="createPairBtnClick();">
+              <button disabled="" class="btn btn-primary w-100 mb-3" id="btnAmount">
                 <div class="css-10ob8xa">Invalid pair</div>
               </button>
 

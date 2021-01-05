@@ -24,34 +24,39 @@ curl_close($ch);
 $arrToken = array();
 
 $i=1;
-foreach($arr['tokens'] as $tok) {
+if(count($arr) > 0){
+  foreach($arr['tokens'] as $tok) {
 
-  if($tok['chainId']==1){
+    if($tok['chainId']==1){
 
-  	if (isset($tok['logoURI'])){
-  		$cURL =$tok['logoURI'];
-  	} else {
-  		$cURL ='';
-  	}
+    	if (isset($tok['logoURI'])){
+    		$cURL =$tok['logoURI'];
+    	} else {
+    		$cURL ='';
+    	}
 
-    $arrToken[] = array("cCode" => $tok['symbol'],
-                     "cURL" => $cURL,
-                     "tokenaddress" => $tok['address']
-                  );
+      $arrToken[] = array("cCode" => $tok['symbol'],
+                       "cURL" => $cURL,
+                       "tokenaddress" => $tok['address']
+                    );
+    }
+    
+    $sql="SELECT * FROM `currency` where name='".$tok['symbol']."'";
+    if($result=mysqli_query($conn,$sql)){
+      $rowcount=mysqli_num_rows($result);
+    }
+
+    if($rowcount == 0){ 	 
+      mysqli_query($conn,'INSERT INTO `currency` (`name` , `contractAddress`) VALUES ( "'.$tok['symbol'].'","'.$tok['address'].'")');
+    }
   }
-  
-  $sql="SELECT * FROM `currency` where name='".$tok['symbol']."'";
-  if($result=mysqli_query($conn,$sql)){
-    $rowcount=mysqli_num_rows($result);
-  }
 
-  if($rowcount == 0){ 	 
-    mysqli_query($conn,'INSERT INTO `currency` (`name` , `contractAddress`) VALUES ( "'.$tok['symbol'].'","'.$tok['address'].'")');
-  }
+  $uniqueTokensArray = array_map("unserialize",  array_unique(array_map("serialize", $arrToken)));
+  sort($uniqueTokensArray);
+
+  echo  json_encode($uniqueTokensArray);
+} else {
+  echo '';
 }
 
-$uniqueTokensArray = array_map("unserialize",  array_unique(array_map("serialize", $arrToken)));
-sort($uniqueTokensArray);
-
-echo  json_encode($uniqueTokensArray);
 ?>

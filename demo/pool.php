@@ -94,6 +94,18 @@
 
     $("#coin_option2").on('shown.bs.modal', function() {
 
+      resetAllFields();
+
+      loadSelectOptions();
+
+    });
+
+    loadSelectOptions();
+    /*jQuery.noConflict();*/
+    getCurrieenciesData();
+
+    function resetAllFields(){
+
       $("#txtPoolFromToken").val("");
       $("#txtPoolToToken").val("");
 
@@ -114,17 +126,8 @@
       $("#poolToToken_title .ddlabel").html("Select Token");
       $("#poolToToken_title img").remove();
 
-      loadSelectOptions();
-
-    });
-
-    loadSelectOptions();
-    /*jQuery.noConflict();*/
-
-    function loadSelectOptions(){
-
-      $("select").msDropdown({roundedBorder:false});
-
+    }
+    function getCurrieenciesData(){
       $.ajax({
 
         type: "POST",
@@ -134,16 +137,19 @@
         dataType: "json",
         success: function (data) {
 
-          var vStr = '';
-          var arr = {'text': [],'image':[],'value':[],'description':[]};
-          
-          for(i=0; i < data.length; i++) {
-          
-              var oDD = $('#poolFromToken').msDropDown().data("dd");
-              oDD.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
+          if(data != ''){
 
-              var oDD1 = $('#poolToToken').msDropDown().data("dd");
-              oDD1.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
+            for(i=0; i < data.length; i++) {
+            
+                var oDD = $('#poolFromToken').msDropDown().data("dd");
+                oDD.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
+
+                var oDD1 = $('#poolToToken').msDropDown().data("dd");
+                oDD1.add({text:data[i].cCode, value:data[i].cCode, image:data[i].cURL});
+            }
+
+          } else {
+            getCurrieenciesData();
           }
 
         },
@@ -151,6 +157,13 @@
             alert("Error");
         }
       });
+    }
+
+    function loadSelectOptions(){
+
+      $("select").msDropdown({roundedBorder:false});
+
+      //$("select").msDropdown().data("dd").refresh();
 
       if($(".enabled._msddli_").hasClass("selected")){
         $(".enabled._msddli_").removeClass("selected");
@@ -299,15 +312,19 @@
                   }
 
                   contractABI = JSON.parse(contractABI);
-                  console.log(contractABI);
-                  console.log(contractAddress);
+                  /*console.log(contractABI);
+                  console.log(contractAddress);*/
 
                   var tknContract = new web3.eth.Contract(contractABI, contractAddress);  
 
                   var balance = await tknContract.methods.balanceOf(myAccountAddress).call() ;
                   console.log(balance);
-
-                  var vAvailable = parseFloat( balance /  1e18).toFixed(4);
+                  balance = (balance /  1e18);
+                  console.log(balance);
+                  var vAvailable = parseFloat(balance);
+                  console.log(vAvailable);
+                  vAvailable = vAvailable.toFixed(4);
+                  console.log(vAvailable);
 
                   if(walletLocation == 'fromwallet'){
                     $("#pairWalletFromBalance").html(vAvailable);
@@ -374,121 +391,68 @@
           $(".endTwoTokens #second1").html(spnPoolToToken);
           $(".endTwoTokens #second2").html(spnPoolFromToken);
 
-          if(!error && typeof(result[0]) !== 'undefined'){
-            
-            metaMaskAddress = "" + result[0];
+          $("#create_pair_btn").prop('disabled', false);
 
-            var batContractAddress = "0xbf7a7169562078c96f0ec1a8afd6ae50f12e5a99";
-            var batABI = [{"constant":true,"inputs":[],"name":"batFundDeposit","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"batFund","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokenExchangeRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"finalize","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"refund","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokenCreationCap","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"isFinalized","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"fundingEndBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"ethFundDeposit","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"createTokens","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"tokenCreationMin","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"fundingStartBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_ethFundDeposit","type":"address"},{"name":"_batFundDeposit","type":"address"},{"name":"_fundingStartBlock","type":"uint256"},{"name":"_fundingEndBlock","type":"uint256"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"LogRefund","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"CreateBAT","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}];
+          /*
+          $(".firstTokenRate").html('-');
+          $(".secondTokenRate").html('-');
 
-              var batContract = new web3.eth.Contract(batABI, batContractAddress, {
-                from: metaMaskAddress, // default from address
-              });
+          $(".startTwoTokens #first1").html("");
+          $(".startTwoTokens #first2").html("");
+          $(".endTwoTokens #second1").html("");
+          $(".endTwoTokens #second2").html("");
+          */
 
-              //var vCurrencyType = $('#spnFromToken').text();
-              var vCurrencyType = $('#poolFromToken_title .ddlabel').text();
-              var vCurrencyType = $('#poolToToken_title .ddlabel').text();
+        } else {
 
-              var vAvailableBalance =0;
-              // this gives BAT amount
-              var vCurrentBATbalance = await batContract.methods.balanceOf(metaMaskAddress).call();
+          $("#create_pair_btn").prop('disabled', true);
 
-              // this gives ETH amount
-              var vCurrentETHBalance = await web3.eth.getBalance(metaMaskAddress);
-
-              if(vCurrencyType == "BAT") {
-
-                vAvailableBalance = parseFloat( vCurrentBATbalance /  1e18);
-
-              } else if(vCurrencyType == "ETH") {
-
-                vAvailableBalance = parseFloat( vCurrentETHBalance /  1e18);
-
-              }
-
-              var txtPoolFromToken = $("#txtPoolFromToken").val();
-
-              if(parseFloat(txtPoolFromToken) > parseFloat(vAvailableBalance )) {
-
-                $("#btnAmount").text("Insuficient liquidity");
-                $("#btnAmount").prop('disabled', false);
-
-              } else {
-
-                $("#btnAmount").prop('disabled', false);
-                $("#btnAmount").text("Enter an Amount");
-
-              }
-            
-            } else {
-
-              $('#txtFromToken').val('');
-              $('#txtToToken').val('');
-
-              $("#btnAmount").prop('disabled', false);
-              $("#btnAmount").text("Enter an Amount");
-
-              alert("Please connect with your wallet.");
-
-            }
-
-          } else {
-
-            $(".firstTokenRate").html('-');
-            $(".secondTokenRate").html('-');
-
-            $(".startTwoTokens #first1").html("");
-            $(".startTwoTokens #first2").html("");
-            $(".endTwoTokens #second1").html("");
-            $(".endTwoTokens #second2").html("");
-          }
-        
+        }        
 
       } else {
 
         $(".firstTokenRate").html('-');
         $(".secondTokenRate").html('-');
 
-      }
 
+        $("#create_pair_btn").prop('disabled', true);
+
+      }
     });
-   
   }
-
-  function getWalletBalance(){
-
-
-      if(poolFromToken == 'ETH'){
-
-        window.web3 = new Web3(ethereum);
-        web3.eth.getAccounts(async function(error, result) {
-          if(!error && typeof(result[0]) !== 'undefined') {
-            metaMaskAddress=""+result[0];
-            var vCurrentBalance = await web3.eth.getBalance(metaMaskAddress);
-            var vAvailableETH = parseFloat( vCurrentBalance /  1e18).toFixed(4);
-
-            $("#pairWalletFromBalance").html(vAvailableETH);
-
-          }
-        });
-      } else if(poolFromToken == 'ETH'){
-
-      } else {
-        $("#pairWalletFromBalance").html("0.00");          
-      }
-
-  }
-
 
   function createPairBtnClick(){
       
-      console.log("dasd");
+      var startToken = $("#poolFromToken_title .ddlabel").html();
+      var endToken = $("#poolToToken_title .ddlabel").html();
 
-      web3.eth.getAccounts(async function(error, result) {
+      if( (startToken != '' && endToken != '') && (startToken != 'Select Token' && endToken != 'Select Token')){
         
-        web3.personal.sign(web3.fromUtf8("Hello from Toptal!"), web3.eth.coinbase, console.log);
+        $.ajax({
 
-      });
+            type: "POST",
+            url: 'ajax/getStartEndCurrencyData.php',
+            data: {startToken: startToken, endToken: endToken},
+            dataType: "json",
+            success: function (res) {
+
+              console.log(res);
+              if(res.status == '1'){
+                
+                var contractABI = res.data.contractABI;
+                var contractAddress = res.data.contractAddress;
+              }
+            },
+          error: function (result) {
+              alert("Error");
+          }
+        });
+
+      } else {
+        resetAllFields();
+      }
+
+      
 
   }
 
@@ -609,7 +573,7 @@
 
           <div class="row py-4 hover-select-token">
             <div class="col-lg-12 col-md-12 col-sm-12">
-              <button disabled="" class="btn btn-primary w-100 mb-3" id="btnAmount" onclick="createPairBtnClick();">
+              <button disabled="" class="btn btn-primary w-100 mb-3" id="create_pair_btn" onclick="createPairBtnClick();">
                 <div class="css-10ob8xa">Invalid pair</div>
               </button>
 

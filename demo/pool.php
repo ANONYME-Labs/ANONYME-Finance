@@ -13,6 +13,14 @@
     .select2-container--default .select2-selection--single{
         height: 40px;
     }
+    
+    .alertify .ajs-dialog{
+            background-color: #2b2d3c;
+    }
+    
+    .alertify .ajs-header, .alertify .ajs-footer{
+        background-color: #000;
+    }
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -288,7 +296,6 @@
 
                     console.log(res.status);
                     if (res.status == '1') {
-
                         var contractABI = res.data.contractABI;
                         var contractAddress = res.data.contractAddress;
 
@@ -301,15 +308,23 @@
                             }
 
                             contractABI = JSON.parse(contractABI);
+                            /*
                             console.log(contractABI);
                             console.log(contractAddress);
+                            */
 
                             var tknContract = new web3.eth.Contract(contractABI, contractAddress);
 
                             var balance = await tknContract.methods.balanceOf(myAccountAddress).call();
                             console.log(balance);
-
-                            var vAvailable = parseFloat(balance / 1e18).toFixed(4);
+                            
+                            var devide_to = 1e18;
+                            
+                            if(tokenname == 'cDAI'){
+                                devide_to = 1e8;
+                            }
+                            
+                            var vAvailable = parseFloat(balance / devide_to).toFixed(4);
 
                             if (walletLocation == 'fromwallet') {
                                 $("#pairWalletFromBalance").html(vAvailable);
@@ -402,6 +417,13 @@
         var endToken = $("#poolToToken_title .ddlabel").html();
 
         if ((startToken != '' && endToken != '') && (startToken != 'Select Token' && endToken != 'Select Token')) {
+            
+            
+            
+            //uint amountIn = 50 * 10 ** DAI.decimals();
+            //require(DAI.transferFrom(msg.sender, address(this), amountIn), 'transferFrom failed.');
+            
+            /*
             $.ajax({
                 type: "POST",
                 url: 'ajax/getStartEndCurrencyData.php',
@@ -420,6 +442,7 @@
                     alert("Error");
                 }
             });
+            */
         } else {
             resetAllFields();
         }

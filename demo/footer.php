@@ -138,7 +138,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="supplyWithdrawLabel">Ether</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <div class="max-value">
@@ -164,7 +166,7 @@
               </div>  
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span class="supply_percentage" >0.01%</span>
@@ -172,7 +174,7 @@
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>-</span>
@@ -219,7 +221,7 @@
               </div>  
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>0.01%</span>
@@ -227,7 +229,7 @@
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>0.07%</span>

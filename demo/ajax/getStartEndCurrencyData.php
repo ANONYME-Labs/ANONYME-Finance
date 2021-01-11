@@ -7,18 +7,21 @@ include '../connection.php';
 
 $data = [];
 
-if(isset($_POST['tokenname']) && $_POST['tokenname'] != ''){
+if(isset($_POST['startToken']) && $_POST['startToken'] != '' && isset($_POST['endToken']) && $_POST['endToken'] != ''){
 
-	$tokenname = $_POST['tokenname'];
+	$startToken = $_POST['startToken'];
+	$endToken = $_POST['endToken'];
 
-	$sel_qry = "SELECT * FROM `currency` where name='".$tokenname."' AND contractABI != '' ORDER BY contractABI DESC";
+	$sel_qry = "SELECT * FROM `currency` where (name = '".$startToken."' OR name = '".$endToken."') AND contractABI != '' ORDER BY contractABI DESC";
 	$result = mysqli_query($conn, $sel_qry);
 	$cur_count = mysqli_num_rows($result);
 	
 	if($cur_count > 0){
 
 		$currency_data = [];
-		$currency_data = mysqli_fetch_assoc($result);
+		while ($currencydata = mysqli_fetch_assoc($result)) {
+			$currency_data[] = $currencydata;
+		}
 
 		$data['status'] = '1';
 		$data['message'] = '';

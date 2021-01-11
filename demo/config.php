@@ -11,9 +11,11 @@ if($row != NULL){
 	
     $comptrollerAddress = $row['comptrollerAddress'];
     $marketAddress = $row['marketAddress'];
+    $priceAddress = $row['priceAddress'];
     $mainContractABI1 = $row['mainContractABI'];
     $comptrollerABI = $row['comptrollerABI'];
     $marketABI = $row['marketABI'];
+    $priceABI = $row['priceABI'];
    
    
     $gasPriceAverage = $row['gasPriceAverage'];
@@ -74,13 +76,12 @@ if(isset($_COOKIE['currency'])){
     if($row != NULL){
     	
     	 $mainContractAddress = $row['contractAddress'];
-    	 $mainContractABI = $row['contractABI'];
-    	 $ctokendesimal = $row['desimals'];
+    	 $mainContractABI = $row['contractABI'];    	 
     	 $usd_value  = $row['usdvalue'];
     	
 		 
 		 
-		 if($_COOKIE['currency']!='ETH' or $_COOKIE['currency']!='cETH'){
+		 if($_COOKIE['currency']!='ETH' and $_COOKIE['currency']!='cETH'){
 		 $query3 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'";
 		 
 							$result3 = mysqli_query($conn,$query3);							
@@ -104,7 +105,7 @@ if(isset($_COOKIE['currency'])){
 								$underlaying_desimal =18;
 		}
     }else {
-		 $ctokendesimal = 8;
+		 
 		 $mainContractAddress = $mainContractAddress1;
     	 $mainContractABI = $mainContractABI1;
 		 $assetsContractAddress='null';
@@ -120,5 +121,5 @@ if(isset($_COOKIE['currency'])){
 		 $assetsContractABI='null';
 }
 
- 
+
 

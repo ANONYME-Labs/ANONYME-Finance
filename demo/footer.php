@@ -138,9 +138,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="supplyWithdrawLabel">Ether</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" class="close" data-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <div class="max-value">
@@ -170,7 +168,7 @@
               </div>  
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span class="supply_percentage" >0.01%</span>
@@ -178,7 +176,7 @@
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>-</span>
@@ -225,7 +223,7 @@
               </div>  
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span class="supply_percentage">0.01%</span>
@@ -233,7 +231,7 @@
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>-</span>
@@ -292,12 +290,12 @@
 </button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="borrowWithdraw" tabindex="-1" aria-labelledby="borrowWithdrawLabel" aria-hidden="true">
+<div class="modal fade" id="borrowRepay" tabindex="-1" aria-labelledby="borrowWithdrawLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="supplyWithdrawLabel">Ether</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" class="close" data-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <div class="max-value">
@@ -646,7 +644,7 @@ $(document).ready(async function(){
 				const fromMyWallet = {
 				  from: myAccountAddress,
 				  gasLimit: web3.utils.toHex(500000),
-				  gasPrice: web3.utils.toHex(20000000000) // use ethgasstation.info (mainnet only)
+				  gasPrice: web3.utils.toHex(1000000000) // use ethgasstation.info (mainnet only)
 			  };
 				
 				// main instance 
@@ -785,7 +783,7 @@ $(document).ready(async function(){
 				  const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* usd_value;
 				  const borrow_limit_used=(borrowbalanceUSD*100)/ borrow_limit;
 
-					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance is <span id="totborrow">'+borrowBalance.toFixed(3)+' <?php echo $_COOKIE['currency'];?></span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowWithdraw" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
+					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance is <span id="totborrow">'+borrowBalance.toFixed(3)+' <?php echo $_COOKIE['currency'];?></span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowRepay" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
 				  $('#borrowbalanceUSD').html('$ '+borrowbalanceUSD.toFixed(2));
 				  $('.borrow_limit_used').html(borrow_limit_used.toFixed(2)+' %');
 				  $('#totborrow').html(borrowBalance.toFixed(4));
@@ -1005,20 +1003,26 @@ $(document).ready(async function(){
 		console.log('${'+asset+'} contract "Approve" operation successful.');
 		console.log('Supplying ${'+asset+'} to the Compound Protocol...');
 		console.log('\nSupplying ETH to the protocol as collateral (you will get cETH in return)...\n');
-		let mint = await myContract.methods.mint(web3.utils.toBN(underlyingTokensToSupply.toString()) ).send(fromMyWallet);
+		const mint = await myContract.methods.mint(web3.utils.toBN(underlyingTokensToSupply.toString()) ).send(fromMyWallet);
 	  
 	  
   }else{
-	   let mint = await myContract.methods.mint().send({
+	   const mint = await myContract.methods.mint().send({
     from: myAccountAddress,
     gasLimit: web3.utils.toHex(150000),
-    gasPrice: web3.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
+    gasPrice: web3.utils.toHex(2000000000), // use ethgasstation.info (mainnet only)
     value: web3.utils.toHex(web3.utils.toWei(web3.utils.toBN(underlyingTokensToSupply.toString(), 'ether')))
   });
   }
 
- 
-  alert("c${"+asset+"} 'Mint' operation successful.", '\n');
+ if (isNaN(mint)) {
+    console.log("c${"+asset+"} 'Mint' operation successful.", '\n');
+	 $('#supplyWithdraw').hide();
+	
+  }else{
+	  alert('\n Error in transection! .\n');
+  } 
+  
 
   let cTokenBalance = await myContract.methods.
     balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal);
@@ -1072,7 +1076,8 @@ $(document).ready(async function(){
   const borrowResult = await myContract.methods.borrow(web3.utils.toWei(ethToBorrow.toString(), 'ether')).send(fromMyWallet);
 
   if (isNaN(borrowResult)) {
-    alert('\nETH borrow successful.\n');
+    console.log('\nETH borrow successful.\n');
+	 $('#borrowRepay').hide();
 	
   }else{
 	  alert('\n Error in transection! .\n');
@@ -1096,7 +1101,8 @@ $(document).ready(async function(){
 	var withdrowResult = await myContract.methods.redeemUnderlying(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet); 
 
   if (isNaN(withdrowResult)) {
-    alert('\nETH  Withdraw successful.\n');
+    console.log('\nETH  Withdraw successful.\n');
+	 $('#supplyWithdraw').hide();
 	
   }else{
 	  alert('\n Error in transection! .\n');
@@ -1126,7 +1132,8 @@ $(document).ready(async function(){
   }); 
 
   if (isNaN(repayResult)) {
-    alert('\nETH  Repay successful.\n');
+    console.log('\nETH  Repay successful.\n');
+	 $('#borrowRepay').hide();
 	
   }else{
 	  alert('\n Error in transection! .\n');
@@ -1134,8 +1141,8 @@ $(document).ready(async function(){
   }
   
  });
- 
-$('.close').click( async function(){ $('#borrowWithdraw').attr('aria-hidden', 'false');  });
+
+$('.close').click( async function(){ $('#supplyWithdraw').hide();   $('#borrowRepay').hide();});
  
 
 
@@ -1198,7 +1205,13 @@ for (var i=0;i<totassets;i++){
         alert("System is not connecting to the user wallet. Please try again later!");
     }
 
+window.ethereum.on('accountsChanged', function (accounts) {
+  location.reload();
+})
 
+window.ethereum.on('networkChanged', function (networkId) {
+  location.reload();
+})
 
   });
   });
@@ -1222,6 +1235,8 @@ for (var i=0;i<totassets;i++){
 	     
 	      location.href='home.php';
        });
+	   
+	   
 </script>
 
 </body></html>

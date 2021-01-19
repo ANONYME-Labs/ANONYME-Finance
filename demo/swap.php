@@ -30,7 +30,7 @@
             <div class="card px-3 py-4">
               <div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" id="txtFromToken" class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                    <input type="text" id="txtFromToken" class="form-control clsfromtoken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
                     	<select  name="drpFromToken" id="drpFromToken" style="width:100px;">
 							<option value="calendar" data-image="images/eth.png">ETH</option>
@@ -48,6 +48,7 @@
                     <div class="input-group-append">
                       <!-- <button class="btn btn-outline-secondary dropdown-toggle" id="btnToToken" type="button" data-toggle="modal" data-target="#to_token_pop"><img src="images/eth.png" id="imgToToken" style="width: 20px;margin-right: 10px;"><span id="spnToToken">ETH</span></button> -->
                       <select  name="drpToToken" id="drpToToken" style="width:100px;">
+                      		<option value="0">Select Token</option>
 							<option value="calendar" data-image="images/eth.png">ETH</option>
 						</select>
                     </div>
@@ -114,7 +115,41 @@ $(document).ready(function(){
   	});
 
 	$("#drpFromToken").change(function(){
-		CheckCurrentBalance();
+		var vFromVal = $('#drpFromToken option:selected').text();
+		var vToVal = $('#drpToToken option:selected').text();
+		if( vFromVal== vToVal)
+		{
+			alert("Both tokens can not be same");
+			return false;
+		}
+		else
+		{
+			CheckCurrentBalance();
+		}
+		// if($('#drpFromToken option:selected').text() == "ETH")
+		// {
+		// 	alert(" Etherum selected ");
+		// }
+		// else
+		// {
+		// 	alert(" Etherum NOT selected ");
+		// }
+  	});
+
+  	$("#drpToToken").change(function(){
+		
+		var vFromVal = $('#drpFromToken option:selected').text();
+		var vToVal = $('#drpToToken option:selected').text()
+		if( vFromVal== vToVal)
+		{
+			alert("Both tokens can not be same");
+			return false;
+		}
+		else
+		{
+			CheckCurrentBalance();
+		}
+		
   	});
 
 
@@ -147,20 +182,27 @@ $(document).ready(function(){
 		              		vCurrentbalance =await vContract.methods.balanceOf(metaMaskAddress).call();
 		              	}
 	              	}
+
+	              	var devide_to = 1e18;
+                            
+                    if(vCurrencyType == 'cDAI'){
+                        devide_to = 1e8;
+                    }
               		
               		if(vCurrencyType=="ETH")
               		{
               			// this gives ETH amount
                 		vCurrentbalance = await web3.eth.getBalance(metaMaskAddress);
-              			vAvailableBalance =parseFloat( vCurrentbalance /  1e18);
+              			vAvailableBalance =parseFloat( vCurrentbalance /  devide_to).toFixed(4);
               		}
               		else
               		{
               			if(vCurrentbalance!="0")
 		              	{
-	              			vAvailableBalance =parseFloat( vCurrentbalance /  1e18);
+	              			vAvailableBalance =parseFloat( vCurrentbalance /  devide_to).toFixed(4);
 	              		}
               		}
+
 
               		if(parseInt(vCurrentbalance)==0)
 	              	{
@@ -176,8 +218,16 @@ $(document).ready(function(){
                 	}
                 	else
                 	{
-                		$("#btnAmount").prop('disabled', false);
-						$("#btnAmount").text("Enter an Amount");
+                		if($('#drpToToken option:selected').val()==0)
+                		{
+                			$("#btnAmount").prop('disabled', true);
+							$("#btnAmount").text("Select Token");
+                		}
+                		else
+                		{
+                			$("#btnAmount").prop('disabled', false);
+							$("#btnAmount").text("SWAP");
+						}
                 	}
               }
               else

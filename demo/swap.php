@@ -28,6 +28,12 @@
             <!-- /.card -->
 
             <div class="card px-3 py-4">
+
+            	<div class="col-lg-12 col-md-6 col-sm-6 text-right">
+	                <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="txtWalletFromBalance">0.00</span> &nbsp;
+	                    
+	                </div>
+	            </div>
               <div class="col-sm-12">
                 <div class="input-group">
                     <input type="text" id="txtFromToken" class="form-control clsfromtoken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
@@ -42,8 +48,9 @@
               <div class="col-sm-12 py-3 text-center">
                 <p class="m-0"><i class="fa fa-arrow-down" aria-hidden="true"></i></p>
               </div>
+          
               <div class="col-sm-12">
-                <div class="input-group">
+                   <div class="input-group">
                     <input type="text" id="txtToToken"  class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
                       <!-- <button class="btn btn-outline-secondary dropdown-toggle" id="btnToToken" type="button" data-toggle="modal" data-target="#to_token_pop"><img src="images/eth.png" id="imgToToken" style="width: 20px;margin-right: 10px;"><span id="spnToToken">ETH</span></button> -->
@@ -203,6 +210,7 @@ $(document).ready(function(){
 	              		}
               		}
 
+              		$('#txtWalletFromBalance').text(vAvailableBalance);
 
               		if(parseInt(vCurrentbalance)==0)
 	              	{

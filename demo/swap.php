@@ -31,7 +31,6 @@
 
             	<div class="col-lg-12 col-md-6 col-sm-6 text-right">
 	                <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="txtWalletFromBalance">0.00</span> &nbsp;
-	                    
 	                </div>
 	            </div>
               <div class="col-sm-12">
@@ -48,7 +47,11 @@
               <div class="col-sm-12 py-3 text-center">
                 <p class="m-0"><i class="fa fa-arrow-down" aria-hidden="true"></i></p>
               </div>
-          
+          		
+          	<div class="col-lg-12 col-md-6 col-sm-6 text-right">
+	                <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="txtWalletToBalance">0.00</span> &nbsp;
+	                </div>
+	            </div>
               <div class="col-sm-12">
                    <div class="input-group">
                     <input type="text" id="txtToToken"  class="form-control" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
@@ -117,8 +120,10 @@ $(document).ready(function(){
 	$("#btnAmount").prop('disabled', false);
 	$("#btnAmount").text("Enter an Amount");
 
+	CheckCurrentBalance('from');
+
 	$("#txtFromToken").change(function(){
-		CheckCurrentBalance();
+		CheckCurrentBalance('from');
   	});
 
 	$("#drpFromToken").change(function(){
@@ -131,7 +136,7 @@ $(document).ready(function(){
 		}
 		else
 		{
-			CheckCurrentBalance();
+			CheckCurrentBalance('from');
 		}
 		// if($('#drpFromToken option:selected').text() == "ETH")
 		// {
@@ -150,17 +155,19 @@ $(document).ready(function(){
 		if( vFromVal== vToVal)
 		{
 			alert("Both tokens can not be same");
+			$('#txtWalletToBalance').text('0.00');
+			$("#drpToToken").val(0);
 			return false;
 		}
 		else
 		{
-			CheckCurrentBalance();
+			CheckCurrentBalance('to');
 		}
 		
   	});
 
 
-  	function CheckCurrentBalance()
+  	function CheckCurrentBalance(drpType)
   	{
   		var vFromAmount = $('#txtFromToken').val();
   		window.web3 = new Web3(ethereum);
@@ -168,7 +175,15 @@ $(document).ready(function(){
             if(!error && typeof(result[0]) !== 'undefined')
                {
                 	metaMaskAddress=""+result[0];
-                	var vCurrencyType = $('#drpFromToken option:selected').text();
+                	var vCurrencyType = '';
+                	if(drpType=='from')
+              		{
+                		vCurrencyType=$('#drpFromToken option:selected').text();
+                	}
+                	else
+                	{
+                		vCurrencyType=$('#drpToToken option:selected').text();
+                	}
               		var vAvailableBalance =0;
               		var vCurrentbalance=0;
 					var vContractAddress ='';
@@ -210,33 +225,40 @@ $(document).ready(function(){
 	              		}
               		}
 
-              		$('#txtWalletFromBalance').text(vAvailableBalance);
+              		if(drpType=='from')
+              		{
+              			$('#txtWalletFromBalance').text(vAvailableBalance);
+              		}
+              		else
+              		{
+              			$('#txtWalletToBalance').text(vAvailableBalance);
+              		}
 
-              		if(parseInt(vCurrentbalance)==0)
-	              	{
-	              		alert("There is 0 balance found for "+vCurrencyType);
-	              		$("#txtFromToken").val('');
-	              		$("#btnAmount").prop('disabled', false);
-						$("#btnAmount").text("Enter an Amount");
-	              	}
-                	else if(parseFloat(vFromAmount) > parseFloat(vAvailableBalance ))
-                	{
-                		$("#btnAmount").text("Insuficient liquidity");
-                		$("#btnAmount").prop('disabled', true); 
-                	}
-                	else
-                	{
-                		if($('#drpToToken option:selected').val()==0)
-                		{
-                			$("#btnAmount").prop('disabled', true);
-							$("#btnAmount").text("Select Token");
-                		}
-                		else
-                		{
-                			$("#btnAmount").prop('disabled', false);
-							$("#btnAmount").text("SWAP");
-						}
-                	}
+      //         		if(parseInt(vCurrentbalance)==0)
+	     //          	{
+	     //          		alert("There is 0 balance found for "+vCurrencyType);
+	     //          		$("#txtFromToken").val('');
+	     //          		$("#btnAmount").prop('disabled', false);
+						// $("#btnAmount").text("Enter an Amount");
+	     //          	}
+      //           	else if(parseFloat(vFromAmount) > parseFloat(vAvailableBalance ))
+      //           	{
+      //           		$("#btnAmount").text("Insuficient liquidity");
+      //           		$("#btnAmount").prop('disabled', true); 
+      //           	}
+      //           	else
+      //           	{
+      //           		if($('#drpToToken option:selected').val()==0)
+      //           		{
+      //           			$("#btnAmount").prop('disabled', true);
+						// 	$("#btnAmount").text("Select Token");
+      //           		}
+      //           		else
+      //           		{
+      //           			$("#btnAmount").prop('disabled', false);
+						// 	$("#btnAmount").text("SWAP");
+						// }
+      //           	}
               }
               else
               {

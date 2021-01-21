@@ -64,7 +64,7 @@ if($network==0){
     
     
 }
-echo $_COOKIE['currency'];
+//echo $_COOKIE['currency'];
 if(isset($_COOKIE['currency'])){
 	if($_COOKIE['currency']!='ETH' AND $_COOKIE['currency']!='cETH'){
           $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";

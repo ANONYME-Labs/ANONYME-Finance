@@ -290,7 +290,7 @@
 </button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="borrowRepay" tabindex="-1" aria-labelledby="borrowWithdrawLabel" aria-hidden="true">
+<div class="modal fade" id="borrowRepay" tabindex="-1" aria-labelledby="borrowRepayLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -609,7 +609,7 @@ $(document).ready(async function(){
 				//comptroller contract
 				var comptrollerAbi =<?=$comptrollerABI; ?>;
 				var comptrollerAddress = "<?=$comptrollerAddress; ?>";
-				
+				const comptroller = new web3.eth.Contract(comptrollerAbi, comptrollerAddress);
 
 				//market contract
 				var marketAbi =<?=$marketABI; ?>;
@@ -886,7 +886,8 @@ $(document).ready(async function(){
 					var myWalletUnderlyingBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
 				  }
 				  
-				 var TokensSupply=parseFloat(myWalletUnderlyingBalance-TokensToSupply);
+				    var TokensSupply=parseFloat(myWalletUnderlyingBalance-TokensToSupply);
+				    var str = TokensToSupply.toString();
 					if(TokensToSupply > myWalletUnderlyingBalance){
 					 $('#supplying').html('NO FUNDS AVAILABLE');
 					 $("#supplying").attr("disabled", "disabled"); 
@@ -894,9 +895,17 @@ $(document).ready(async function(){
 					else if(TokensToSupply <= 0){
 					
 					 $("#supplying").attr("disabled", "disabled"); 
-				  }else {
-						$("#supplying").removeAttr("disabled"); 
+				  }else if(!str.match(/^-?[0-9]*[.][0-9]+$/)) {
+					  
+						$("#supplying").attr("disabled", "disabled"); 
+					}
+				  else {
+						$("#supplying").removeAttr("disabled");
+						$('#withdrawing').html('Supply');
 				  }
+					
+				
+					
 					
 				
 					
@@ -907,16 +916,19 @@ $(document).ready(async function(){
 			 $('#TokensTowithdraw').keyup( async function(){
 				 
 				 let TokensTowithdraw=$('#TokensTowithdraw').val();
-				 
+				 var str = TokensTowithdraw.toString();
 				  
 				 var Tokenswithdraw=parseFloat(balanceOfUnderlying-TokensTowithdraw);
 					if(TokensTowithdraw > balanceOfUnderlying){
 						$('#withdrawing').html('NO FUNDS AVAILABLE');
 						$("#withdrawing").attr("disabled", "disabled"); 
 					}
-					else if(TokensTowithdraw <= 0 && checkMembership==false){
+					else if(TokensTowithdraw <= 0 || checkMembership==false){
 					 $("#withdrawing").attr("disabled", "disabled"); 
-				  }else {
+				  }else if(!str.match(/^-?[0-9]*[.][0-9]+$/)) {
+					  
+						$("#withdrawing").attr("disabled", "disabled"); 
+					}else {
 						$("#withdrawing").removeAttr("disabled"); 
 						$('#withdrawing').html('Withdraw');
 				  }
@@ -931,6 +943,7 @@ $(document).ready(async function(){
 			 $('#TokensTorepay').keyup( async function(){
 				 
 				 let TokensTorepay=$('#TokensTorepay').val();
+				 var str = TokensTorepay.toString();
 				// console.log(TokensTorepay+" > "+borrowBalance);
 				// console.log(TokensTorepay+" <= "+borrowBalance+" && "+checkMembership+" == false");
 				  
@@ -938,14 +951,17 @@ $(document).ready(async function(){
 					if(TokensTorepay > borrowBalance){
 						$('#repaying').html('NO FUNDS AVAILABLE');
 						$("#repaying").attr("disabled", "disabled"); 
-						alert("test1");
-					}else if(TokensTorepay <= 0 && checkMembership==false){
+						
+					}else if(TokensTorepay <= 0 || checkMembership==false){
 					 $("#repaying").attr("disabled", "disabled"); 
-					 alert("test3");
-				  }else {
+					
+				    }else if(!str.match(/^-?[0-9]*[.][0-9]+$/)) {
+					  
+						$("#repaying").attr("disabled", "disabled"); 
+					}else {
 						$("#repaying").removeAttr("disabled"); 
 						$('#repaying').html('Repay');
-						alert("test4");
+						
 				  }
 					
 				
@@ -957,19 +973,20 @@ $(document).ready(async function(){
 			 $('#TokensToborrow').keyup( async function(){
 				 
 				 let TokensToborrow=$('#TokensToborrow').val();
-				 
+				  var str = TokensToborrow.toString();
 				  
 				 var Tokensborrow=parseFloat(borrowBalance-TokensToborrow);
 					if(TokensToborrow > borrowBalance){
 						$('#Borrowing').html('NO FUNDS AVAILABLE');
 						$("#Borrowing").attr("disabled", "disabled"); 
-					}
-					else if(TokensToborrow <= 0 && checkMembership==false){
+					}else if(TokensToborrow <= 0 || checkMembership==false){
 					 $("#Borrowing").attr("disabled", "disabled"); 
-				  }else {
+				    }else if(!str.match(/^-?[0-9]*[.][0-9]+$/)) {					  
+						$("#Borrowing").attr("disabled", "disabled"); 
+					}else {
 						$("#Borrowing").removeAttr("disabled"); 
 						$('#Borrowing').html('Borrow');
-				  }
+				    }
 					
 				
 					
@@ -981,11 +998,16 @@ $(document).ready(async function(){
 
 
 
+  console.log('Calculating your liquid assets in the protocol...');
+ // let { 1:liquidity } = await comptroller.methods.getAccountLiquidity(myAccountAddress).call();
+ // liquidity = liquidity / 1e18;
+ // console.log(`You can borrow up to ${liquidity} ${asset} from the protocol.`);
  // supply
  $('#supplying').click( async function(){
-
+	 const TokensToSupply=$('#TokensToSupply').val();
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');
  // Mint cTokens by supplying underlying tokens to the Compound Protocol
-  const TokensToSupply=$('#TokensToSupply').val();
+  
   
   console.log('\nSupplying ETH to the protocol as collateral (you will get cETH in return)...\n');
    const underlyingTokensToSupply = 10 * Math.pow(10, underlyingDecimals);
@@ -1003,25 +1025,40 @@ $(document).ready(async function(){
 		console.log('${'+asset+'} contract "Approve" operation successful.');
 		console.log('Supplying ${'+asset+'} to the Compound Protocol...');
 		console.log('\nSupplying ETH to the protocol as collateral (you will get cETH in return)...\n');
-		const mint = await myContract.methods.mint(web3.utils.toBN(underlyingTokensToSupply.toString()) ).send(fromMyWallet);
+		await myContract.methods.mint(web3.utils.toBN(ethToSupplyAsCollateral.toString()) ).send(fromMyWallet).on("transactionHash", function (hash) {
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+    })
+    .on("receipt", function () {
+        console.log("Receipt");
+    })
+    .on("confirmation", function () {
+        console.log("Confirmed");
+    })
+    .on("error", async function () {
+        console.log("Error");
+    });
 	  
 	  
   }else{
-	   const mint = await myContract.methods.mint().send({
+	  await myContract.methods.mint().send({
     from: myAccountAddress,
-    gasLimit: web3.utils.toHex(150000),
-    gasPrice: web3.utils.toHex(2000000000), // use ethgasstation.info (mainnet only)
-    value: web3.utils.toHex(web3.utils.toWei(web3.utils.toBN(underlyingTokensToSupply.toString(), 'ether')))
-  });
+     gasLimit: web3.utils.toHex(500000),
+	 gasPrice: web3.utils.toHex(1000000000), // use ethgasstation.info (mainnet only)
+    value: web3.utils.toHex(web3.utils.toWei(web3.utils.toBN(ethToSupplyAsCollateral.toString(), 'ether')))
+  }).on("transactionHash", function (hash) {
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+    })
+    .on("receipt", function () {
+        console.log("Receipt");
+    })
+    .on("confirmation", function () {
+        console.log("Confirmed");
+    })
+    .on("error", async function () {
+        console.log("Error");
+    });
   }
 
- if (isNaN(mint)) {
-    console.log("c${"+asset+"} 'Mint' operation successful.", '\n');
-	 $('#supplyWithdraw').hide();
-	
-  }else{
-	  alert('\n Error in transection! .\n');
-  } 
   
 
   let cTokenBalance = await myContract.methods.
@@ -1057,7 +1094,8 @@ $(document).ready(async function(){
  
  // Borrow
   $('#Borrowing').click( async function(){
-	 
+  const ethToBorrow = $('#TokensToborrow').val();	 
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	 
 
   let underlyingAsCollateral = 15;
 
@@ -1071,17 +1109,23 @@ $(document).ready(async function(){
   }
   
   if(checkMembership!=false && borrowBalance > 0){
-  const ethToBorrow = $('#TokensToborrow').val();
+  
   console.log('\nNow attempting to borrow ${ethToBorrow} ETH...');
-  const borrowResult = await myContract.methods.borrow(web3.utils.toWei(ethToBorrow.toString(), 'ether')).send(fromMyWallet);
-
-  if (isNaN(borrowResult)) {
-    console.log('\nETH borrow successful.\n');
-	 $('#borrowRepay').hide();
+  await myContract.methods.borrow(web3.utils.toWei(ethToBorrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for borrowing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+    })
+    .on("receipt", function () {
+        console.log("Receipt");
+    })
+    .on("confirmation", function () {
+        console.log("Confirmed");
+    })
+    .on("error", async function () {
+        console.log("Error");
+    });
 	
-  }else{
-	  alert('\n Error in transection! .\n');
-  } 
+  console.log('\nNow attempting to borrow ${ethToBorrow} ETH...successful');	
+  
   }
   
  });
@@ -1090,23 +1134,41 @@ $(document).ready(async function(){
 
   $('#withdrawing').click( async function(){
 
+  const ethTowithdrow = $('#TokensTowithdraw').val();
   
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	 
   if(checkMembership!=false && balanceOfUnderlying > 0){
 	  
-  const ethTowithdrow = $('#TokensTowithdraw').val();
+  
   console.log('\nNow attempting to borrow ${'+ethTowithdrow+'} ETH...');
-  if(asset!="" && asset!='ETH' && asset!='cETH')
-	var withdrowResult = await myContract.methods.redeem(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet);
-  else
-	var withdrowResult = await myContract.methods.redeemUnderlying(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet); 
-
-  if (isNaN(withdrowResult)) {
-    console.log('\nETH  Withdraw successful.\n');
-	 $('#supplyWithdraw').hide();
-	
+  if(asset!="" && asset!='ETH' && asset!='cETH'){
+	var withdrowResult = await myContract.methods.redeem(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+    })
+    .on("receipt", function () {
+        console.log("Receipt");
+    })
+    .on("confirmation", function () {
+        console.log("Confirmed");
+    })
+    .on("error", async function () {
+        console.log("Error");
+    });
   }else{
-	  alert('\n Error in transection! .\n');
-  } 
+	var withdrowResult = await myContract.methods.redeemUnderlying(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+    })
+    .on("receipt", function () {
+        console.log("Receipt");
+    })
+    .on("confirmation", function () {
+        console.log("Confirmed");
+    })
+    .on("error", async function () {
+        console.log("Error");
+    }); 
+  }
+  
   }
   
  });
@@ -1115,29 +1177,47 @@ $(document).ready(async function(){
   // repay
 
   $('#repaying').click( async function(){
-
+   
+   const ethTorepay = $('#TokensTorepay').val();
+   $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	
   
   if(checkMembership!=false && borrowBalance > 0){
 	  
-  const ethTorepay = $('#TokensTorepay').val();
+  
   console.log('\nNow attempting to repay ${'+ethTorepay+'} ETH...');
-  if(asset!="" && asset!='ETH' && asset!='cETH')
-	var repayResult = await myContract.methods.repayBorrow(web3.utils.toWei(ethTorepay.toString(), 'ether')).send(fromMyWallet);
-  else
+  if(asset!="" && asset!='ETH' && asset!='cETH'){
+	var repayResult = await myContract.methods.repayBorrow(web3.utils.toWei(ethTorepay.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+    })
+    .on("receipt", function () {
+        console.log("Receipt");
+    })
+    .on("confirmation", function () {
+        console.log("Confirmed");
+    })
+    .on("error", async function () {
+        console.log("Error");
+    });
+  }else{
 	var repayResult = await myContract.methods.repayBorrow().send({
     from: myAccountAddress,
-    gasLimit: web3.utils.toHex(600000),
-    gasPrice: web3.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
+    gasLimit: web3.utils.toHex(500000),
+	gasPrice: web3.utils.toHex(1000000000), // use ethgasstation.info (mainnet only)
     value: web3.utils.toWei(ethTorepay.toString(), 'ether')
-  }); 
-
-  if (isNaN(repayResult)) {
-    console.log('\nETH  Repay successful.\n');
-	 $('#borrowRepay').hide();
-	
-  }else{
-	  alert('\n Error in transection! .\n');
-  } 
+    }).on("transactionHash", function (hash) {
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+    })
+    .on("receipt", function () {
+        console.log("Receipt");
+    })
+    .on("confirmation", function () {
+        console.log("Confirmed");
+    })
+    .on("error", async function () {
+        console.log("Error");
+    }); 
+  }
+ 
   }
   
  });

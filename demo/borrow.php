@@ -9,7 +9,7 @@
         <div class="row mb-2 border-bottom pb-3">
           <div class="col-lg-3 col-md-3 col-sm-12 text-center">
             <p class="mb-0">You borrowed</p>
-            <h5 class="m-0"><span id="totborrow"></span>  <?php echo $_COOKIE['currency'];?></h5>
+            <h5 class="m-0"><span id="totborrow"></span>  <?php if(isset($_COOKIE['currency'])) echo $_COOKIE['currency'];?></h5>
             <span id="borrowbalanceUSD" >$ 0.0000</span>
           </div>
            <div class="col-lg-3 col-md-3 col-sm-12 text-center">

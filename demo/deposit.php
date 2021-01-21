@@ -38,7 +38,7 @@
              <div class="row justify-content-center">
                <div class="col-md-7 col-sm-12">
                  <h3 class="text-center text-info">Your balance is <span id="supplybalanceUSD"> $ 0</span></h3>
-                 <p class="text-center">Your balance is <span class="supply_blalnce"> 0 <?=ltrim($_COOKIE['currency'],'c');?></span>.</p>
+                 <p class="text-center">Your balance is <span class="supply_blalnce"> 0 <?php if(isset($_COOKIE['currency'])) echo ltrim($_COOKIE['currency'],'c');?></span>.</p>
                  <div class="go-back text-center my-3">
 					<button class="btn btn-info"  data-toggle="modal" data-target="#supplyWithdraw" >Supply</button>
                     <div class="text-center"><a href="home.php">Go back</a></div>

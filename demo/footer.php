@@ -597,7 +597,7 @@ $(document).ready(async function(){
 				
 				
 				// Assets Name
-				var asset='<?=ltrim($_COOKIE['currency'], 'c')?>';
+				var asset='<?php if(isset($_COOKIE['currency'])) { echo ltrim($_COOKIE['currency'], 'c'); }else echo 'ETH';?>';
 				
 				//main contract
 				var arrayABI = <?=$mainContractABI; ?>;
@@ -783,7 +783,7 @@ $(document).ready(async function(){
 				  const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* usd_value;
 				  const borrow_limit_used=(borrowbalanceUSD*100)/ borrow_limit;
 
-					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance is <span id="totborrow">'+borrowBalance.toFixed(3)+' <?php echo $_COOKIE['currency'];?></span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowRepay" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
+					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance is <span id="totborrow">'+borrowBalance.toFixed(3)+' '+asset+'</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowRepay" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
 				  $('#borrowbalanceUSD').html('$ '+borrowbalanceUSD.toFixed(2));
 				  $('.borrow_limit_used').html(borrow_limit_used.toFixed(2)+' %');
 				  $('#totborrow').html(borrowBalance.toFixed(4));
@@ -998,10 +998,11 @@ $(document).ready(async function(){
 
 
 
-  console.log('Calculating your liquid assets in the protocol...');
+  //console.log('Calculating your liquid assets in the protocol...');
  // let { 1:liquidity } = await comptroller.methods.getAccountLiquidity(myAccountAddress).call();
  // liquidity = liquidity / 1e18;
  // console.log(`You can borrow up to ${liquidity} ${asset} from the protocol.`);
+ 
  // supply
  $('#supplying').click( async function(){
 	 const TokensToSupply=$('#TokensToSupply').val();

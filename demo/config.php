@@ -31,6 +31,7 @@ if($row != NULL){
     $infuraAPIMainnet  = $row['infuraAPIMainnet'];
     $infuraAPITestnet  = $row['infuraAPITestnet'];
     $network=$row['network'];
+	$usdvalue = $row['usdvalue'];
 
 }
 
@@ -64,7 +65,7 @@ if($network==0){
     
     
 }
-//echo $_COOKIE['currency'];
+
 if(isset($_COOKIE['currency'])){
 	if($_COOKIE['currency']!='ETH' AND $_COOKIE['currency']!='cETH'){
           $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";
@@ -114,11 +115,13 @@ if(isset($_COOKIE['currency'])){
 	}
 }else{
 	
-    	
+		 
     	 $mainContractAddress = $mainContractAddress1;
     	 $mainContractABI = $mainContractABI1;
 		 $assetsContractAddress='null';
 		 $assetsContractABI='null';
+		 $usd_value  = $usdvalue;
+		 $underlaying_desimal =18;
 }
 
 

@@ -33,6 +33,9 @@ if($row != NULL){
     $network=$row['network'];
 	$usdvalue = $row['usdvalue'];
 
+	$routerContractAddress = $row['routerContractAddress'];
+	$routerContractABI = $row['routerContractABI'];
+
 }
 
 // 0 = rinkeby testnet and 1 = mainnet

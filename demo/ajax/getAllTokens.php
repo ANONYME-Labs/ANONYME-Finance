@@ -11,6 +11,7 @@ $url='https://raw.githubusercontent.com/compound-finance/token-list/master/compo
 $ch = curl_init();
 // Will return the response, if false it print the response
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 // Set the url
 curl_setopt($ch, CURLOPT_URL,$url);
 // Execute
@@ -27,7 +28,7 @@ $i=1;
 if(count($arr) > 0){
   foreach($arr['tokens'] as $tok) {
 
-    if($tok['chainId']==1){
+    if($tok['chainId']==4){
 
     	if (isset($tok['logoURI'])){
     		$cURL =$tok['logoURI'];
@@ -39,16 +40,21 @@ if(count($arr) > 0){
                        "cURL" => $cURL,
                        "tokenaddress" => $tok['address']
                     );
-    }
-    
+
+
     $sql="SELECT * FROM `currency` where name='".$tok['symbol']."'";
     if($result=mysqli_query($conn,$sql)){
       $rowcount=mysqli_num_rows($result);
     }
 
-    if($rowcount == 0){ 	 
-      mysqli_query($conn,'INSERT INTO `currency` (`name` , `contractAddress`) VALUES ( "'.$tok['symbol'].'","'.$tok['address'].'")');
+    if($rowcount == 0){
+      mysqli_query($conn,'INSERT INTO `currency` (`name` ,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['desimals'].'")');
     }
+    else {
+      // code...
+      mysqli_query($conn,'Update `currency` set  `contractAddress`="'.$tok['address'].'" where name="'.$tok['symbol'].'"');
+    }
+  }
   }
 
   $uniqueTokensArray = array_map("unserialize",  array_unique(array_map("serialize", $arrToken)));

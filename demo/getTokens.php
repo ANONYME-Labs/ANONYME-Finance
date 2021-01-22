@@ -25,6 +25,8 @@ $url='https://raw.githubusercontent.com/compound-finance/token-list/master/compo
 $ch = curl_init();
 // Will return the response, if false it print the response
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
 // Set the url
 curl_setopt($ch, CURLOPT_URL,$url);
 // Execute
@@ -40,7 +42,7 @@ $arrToken = array();
 $i=1;
   foreach($arr['tokens'] as $tok)
   {
-    if($tok['chainId']==1){
+    if($tok['chainId']==4){
     	if (isset($tok['logoURI']))
     	{
     		$cURL =$tok['logoURI'];
@@ -50,20 +52,24 @@ $i=1;
     		$cURL ='';
     	}
 
-  	$arrToken[] = array("cCode" => $tok['symbol'],
+  	   $arrToken[] = array("cCode" => $tok['symbol'],
                        "cURL" => $cURL,
                        "tokenaddress" => $tok['address']
                     );
+
+
+  	  $sql="SELECT * FROM `currency` where name='".$tok['symbol']."'";
+  	  if($result=mysqli_query($conn,$sql)){
+  			$rowcount=mysqli_num_rows($result);
+  	  }
+        if($rowcount == 0){
+  			mysqli_query($conn,'INSERT INTO `currency` (`name` ,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['desimals'].'")');
+  	  }
+      else {
+        // code...
+        mysqli_query($conn,'Update `currency` set  `contractAddress`="'.$tok['address'].'" where name="'.$tok['symbol'].'"');
       }
-	  
-	  $sql="SELECT * FROM `currency` where name='".$tok['symbol']."'";
-	  if($result=mysqli_query($conn,$sql)){
-			$rowcount=mysqli_num_rows($result);
-	  }	
-      if($rowcount == 0){ 	 
-			mysqli_query($conn,'INSERT INTO `currency` (`name` ,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['desimals'].'")');
-	  }
-	  
+  }
   	//$cURL = "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/".$tok['address']. "/logo.png";
 
   	//$i++;

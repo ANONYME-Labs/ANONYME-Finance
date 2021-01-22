@@ -138,13 +138,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="supplyWithdrawLabel">Ether</h5>
-        <button type="button" class="btn-close" class="close" data-dismiss="modal"></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <div class="max-value">
           <div class="input-group mb-3" class="active" id="supplyinputs" >
-              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensToSupply" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_supply">MAX</button>
+              <input style="font-size: 60px;text-align: center;padding: 30px;border: none;height: calc(2.25rem + 24px);" id="TokensToSupply" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_supply" style="border-radius: 4px;height: 36px; margin: auto 0;">MAX</button>
           </div>
 		  <div class="input-group mb-3" id="withdrawinputs" style="display:none" >
               <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensTowithdraw" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -153,7 +155,7 @@
         </div>
         <div class="tabs-form">
           
-          <nav>
+          <nav class="mb-3">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Supply</a>
               <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Withdraw</a>
@@ -167,39 +169,39 @@
                 </div>
               </div>  
               <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span class="supply_percentage" >0.01%</span>
                 </div>
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span>-</span>
                 </div>
               </div>
-              <div class="row mb-3 ">
+              <div class="row">
                 <div class="col-sm-12">
                   <a href="">Borrow Limit</a>
                 </div>
               </div>  
               <div class="row border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span>Borrow Limit</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span  ></span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span  ></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
                 </div>
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span>Borrow Limit Used</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span class="borrow_limit_used" >0%</span>
                 </div>
               </div>
@@ -222,39 +224,39 @@
                 </div>
               </div>  
               <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span class="supply_percentage">0.01%</span>
                 </div>
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span>-</span>
                 </div>
               </div>
-              <div class="row mb-3 ">
+              <div class="row">
                 <div class="col-sm-12">
                   <a href="">Borrow Limit</a>
                 </div>
               </div>  
               <div class="row border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span>Borrow Limit</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span></span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span class="borrow_limit">$0</span>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit">$0</span>
                 </div>
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span>Borrow Limit Used</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span class="borrow_limit_used" >0%</span>
                 </div>
               </div>
@@ -351,7 +353,7 @@
                   <span>Borrow Limit</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span></span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
+                  <span></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
                 </div>
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">
@@ -406,7 +408,7 @@
                   <span>Borrow Limit</span>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span  ></span><i class="fa fa-arrow-right ml-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
+                  <span  ></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
                 </div>
               </div>
               <div class="row mb-3 border-bottom py-3 px-2">

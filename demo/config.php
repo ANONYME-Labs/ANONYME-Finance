@@ -33,9 +33,6 @@ if($row != NULL){
     $network=$row['network'];
 	$usdvalue = $row['usdvalue'];
 
-	$routerContractAddress = $row['routerContractAddress'];
-	$routerContractABI = $row['routerContractABI'];
-
 }
 
 // 0 = rinkeby testnet and 1 = mainnet
@@ -79,6 +76,7 @@ if(isset($_COOKIE['currency'])){
     $row = mysqli_fetch_array($result2);
     if($row != NULL){
     	
+    	 $currency_full_name = $row['full_name'];
     	 $mainContractAddress = $row['contractAddress'];
     	 $mainContractABI = $row['contractABI'];    	 
     	 $usd_value  = $row['usdvalue'];
@@ -96,17 +94,19 @@ if(isset($_COOKIE['currency'])){
 									$assetsContractAddress=$row['contractAddress'];
 									$assetsContractABI=$row['contractABI'];
 									$underlaying_desimal = $row['desimals'];
-									
+									$currency_full_name = $row['full_name'];
 								}
 							}else{
 								$assetsContractAddress='null';
 									$assetsContractABI='null';
 									$underlaying_desimal =18;
+									$currency_full_name = 'Ether';
 							}
 		 }else{
 								$assetsContractAddress='null';
 								$assetsContractABI='null';
 								$underlaying_desimal =18;
+								$currency_full_name = 'Ether';
 		}
     }else {
 		 
@@ -115,6 +115,7 @@ if(isset($_COOKIE['currency'])){
 		 $assetsContractAddress='null';
 		 $assetsContractABI='null';
 		 $underlaying_desimal =18;
+		 $currency_full_name = 'Ether';
 	}
 }else{
 	

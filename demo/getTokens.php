@@ -51,7 +51,7 @@ $i=1;
   			$rowcount=mysqli_num_rows($result);
   	  }
         if($rowcount == 0){
-  			mysqli_query($conn,'INSERT INTO `currency` (`name` ,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['desimals'].'")');
+  			mysqli_query($conn,'INSERT INTO `currency` (`name` ,`full_name`,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'", "'.$tok['name'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['desimals'].'")');
   	  }
       else {
         // code...

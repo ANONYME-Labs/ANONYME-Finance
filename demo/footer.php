@@ -137,7 +137,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="supplyWithdrawLabel">Ether</h5>
+        <h5 class="modal-title" id="supplyWithdrawLabel"><?=$currency_full_name;?></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -296,7 +296,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="supplyWithdrawLabel">Ether</h5>
+        <h5 class="modal-title" id="supplyWithdrawLabel"><?=$currency_full_name;?></h5>
         <button type="button" class="btn-close" class="close" data-dismiss="modal"></button>
       </div>
       <div class="modal-body">
@@ -736,10 +736,10 @@ $(document).ready(async function(){
 					}else{
 						let myWalletUnderlyingBalance = await myContract.methods.balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal); // if you supply in compound otherwise it show you 0.
 						console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
-						$('.walletbalance').html(myWalletEthBalance+''+asset);
+						$('.walletbalance').html(parseFloat(myWalletEthBalance).toFixed(3)+''+asset);
 						 if(myWalletUnderlyingBalance > 0 )
 								$('#supplying').html('Supply');
-						 $("#supplying").attr("disabled", "disabled"); 
+						       // $("#supplying").attr("disabled", "disabled"); 
 						$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
 					}
 					 $("#supplying").attr("disabled", "disabled"); 
@@ -842,27 +842,24 @@ $(document).ready(async function(){
 				 }else{
 						var myWalletUnderlyingBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
 				 }
-					 $('#TokensToSupply').val(myWalletUnderlyingBalance);
-					 let TokensToSupply=$('#TokensToSupply').val();
-					 var TokenSupply=parseFloat(TokensToSupply-myWalletUnderlyingBalance);
-					 
-					 if(TokensToSupply > myWalletUnderlyingBalance){
-						 $('.walletbalance').html(TokenSupply.toFixed(3)+''+asset);
-					 }
+					 var newbalance=parseFloat(myWalletUnderlyingBalance).toFixed(3);
+					 $('#TokensToSupply').val(newbalance);
+					
 					
 				 });
 				 
 			//popup withdraw Max
 				$('#max_button_addon_withdraw').click( async function(){
 					
-					 $('#TokensTowithdraw').val(balanceOfUnderlying);
+					 var newbalance=parseFloat(balanceOfUnderlying).toFixed(3);
+					 $('#TokensTowithdraw').val(newbalance);
 					
 				 });
 			
 			 //popup borrow Max
 				$('#max_button_addon_borrow').click( async function(){
-					 
-					 $('#TokensToborrow').val(borrowBalance);
+					 var newbalance=parseFloat(borrowBalance).toFixed(3);
+					 $('#TokensToborrow').val(newbalance);
 					 let TokensToborrow=$('#TokensToborrow').val();
 					 var TokenBorrow=parseFloat(borrowBalance-TokensToborrow);
 					 
@@ -871,8 +868,8 @@ $(document).ready(async function(){
 				
 			//popup repay Max
 				$('#max_button_addon_repay').click( async function(){
-					
-					 $('#TokensTorepay').val(borrowBalance);
+					 var newbalance=parseFloat(borrowBalance).toFixed(3);
+					 $('#TokensTorepay').val(newbalance);
 					
 				 });
 			//popup input validation 
@@ -897,13 +894,16 @@ $(document).ready(async function(){
 					else if(TokensToSupply <= 0){
 					
 					 $("#supplying").attr("disabled", "disabled"); 
-				  }else if(!str.match(/^-?[0-9]*[.][0-9]+$/)) {
+				  }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {
 					  
 						$("#supplying").attr("disabled", "disabled"); 
 					}
-				  else {
+				  else if(Number.isInteger(TokensToSupply)) {
 						$("#supplying").removeAttr("disabled");
-						$('#withdrawing').html('Supply');
+						$('#supplying').html('Supply');
+				  }else {
+						$("#supplying").removeAttr("disabled");
+						$('#supplying').html('Supply');
 				  }
 					
 				
@@ -927,7 +927,7 @@ $(document).ready(async function(){
 					}
 					else if(TokensTowithdraw <= 0 || checkMembership==false){
 					 $("#withdrawing").attr("disabled", "disabled"); 
-				  }else if(!str.match(/^-?[0-9]*[.][0-9]+$/)) {
+				  }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {
 					  
 						$("#withdrawing").attr("disabled", "disabled"); 
 					}else {
@@ -957,7 +957,7 @@ $(document).ready(async function(){
 					}else if(TokensTorepay <= 0 || checkMembership==false){
 					 $("#repaying").attr("disabled", "disabled"); 
 					
-				    }else if(!str.match(/^-?[0-9]*[.][0-9]+$/)) {
+				    }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {
 					  
 						$("#repaying").attr("disabled", "disabled"); 
 					}else {
@@ -983,7 +983,7 @@ $(document).ready(async function(){
 						$("#Borrowing").attr("disabled", "disabled"); 
 					}else if(TokensToborrow <= 0 || checkMembership==false){
 					 $("#Borrowing").attr("disabled", "disabled"); 
-				    }else if(!str.match(/^-?[0-9]*[.][0-9]+$/)) {					  
+				    }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {					  
 						$("#Borrowing").attr("disabled", "disabled"); 
 					}else {
 						$("#Borrowing").removeAttr("disabled"); 
@@ -1045,9 +1045,9 @@ $(document).ready(async function(){
   }else{
 	  await myContract.methods.mint().send({
     from: myAccountAddress,
-     gasLimit: web3.utils.toHex(500000),
-	 gasPrice: web3.utils.toHex(1000000000), // use ethgasstation.info (mainnet only)
-    value: web3.utils.toHex(web3.utils.toWei(web3.utils.toBN(ethToSupplyAsCollateral.toString(), 'ether')))
+    gasLimit: web3.utils.toHex(150000),
+    gasPrice: web3.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
+    value: web3.utils.toHex(web3.utils.toWei(TokensToSupply.toString(), 'ether'))
   }).on("transactionHash", function (hash) {
        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })

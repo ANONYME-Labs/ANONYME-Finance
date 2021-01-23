@@ -412,7 +412,21 @@
             });
         }
     }
+    Number.prototype.toFixedSpecial = function(n) {
+      var str = this.toFixed(n);
+      if (str.indexOf('e+') === -1)
+        return str;
 
+      // if number is in scientific notation, pick (b)ase and (p)ower
+      str = str.replace('.', '').split('e+').reduce(function(p, b) {
+        return p + Array(b - p.length + 2).join(0);
+      });
+
+      if (n > 0)
+        str += '.' + Array(n + 1).join(0);
+
+      return str;
+    };
     function changeFromToken(change = '') {
         var spnPoolFromToken = poolFromToken = $('#poolFromToken option:selected').val();
         var spnPoolToToken = poolToToken = $('#poolToToken option:selected').val();
@@ -476,9 +490,10 @@
 
 
                                 var path = [result, contractAddress];
-                                  //console.log("amountOut : " + amountOut);
+
                                   //console.log("amountOut : " + web3.utils.toHex(amountOut));
-                                //  console.log("test :: " + web3.utils.toHex(txtPoolFromToken*10*18) );
+                                  //console.log("test :: " + web3.utils.toWei(amountOut.toString(), 'ether') );
+                                //  console.log(web3.utils.toHex(amountOut.toFixedSpecial(2)));
                                 var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
 
                                 getamntin.then(function(getAmtVal) {
@@ -666,7 +681,7 @@
                             //    multiply_to = 1e8;
                           //  }
 
-                            const userInputEthValue = web3.utils.toHex(txtPoolFromToken * multiply_to);
+                            const userInputEthValue = web3.utils.toHex( multiply_to / txtPoolFromToken);//web3.utils.toHex(txtPoolFromToken * multiply_to);
 
 
 
@@ -697,18 +712,29 @@
 
                                 console.log(result);
 
-                                var amountOut = 100000000000000;
+                              //  var amountOut = userInputEthValue;//100000000000000;
+                                var amountOut = ( txtPoolFromToken * multiply_to);
+                                var decimals = (txtPoolFromToken!=Math.floor(txtPoolFromToken))?(txtPoolFromToken.toString()).split('.')[1].length:0;
+                              //  alert(decimals);
+                                if(endToken=='ETH' )
+                                {
+                                  amountOut = ( multiply_to * txtPoolFromToken);
+                                }
                                 var path = [result, contractAddress];
-
+                                console.log("amountOut : " + amountOut);
                                 var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
 
                                 getamntin.then(function(getAmtVal) {
 
-                                    console.log(getAmtVal);
+                                    console.log("getAmtVal : " + getAmtVal);
 
                                     var tokenAount = getAmtVal[0];
                                     var ETHValue = getAmtVal[1];
+                                    var inpDevide = (tokenAount/ETHValue).toFixed(8);
+                                    var getInpSingle = parseFloat(inpDevide).toFixed(8);
+                                      //console.log("getInpSingle : " + getInpSingle);
 
+                                    var tokenAount =  ((1 / getInpSingle)*ETHValue);
                                     var token_percent = Math.ceil((tokenAount * 1) / 100);
                                     var ETH_percent = Math.ceil((ETHValue * 1) / 100);
 
@@ -733,7 +759,7 @@
 
                                     var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
                                         gasLimit: web3.utils.toHex(560000),
-                                        gasPrice: web3.utils.toHex(20000000000),
+                                        gasPrice: web3.utils.toHex(10000000000),
                                         value: addLiquidityETH });
 
                                     console.log(addLiqETH);

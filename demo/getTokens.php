@@ -51,11 +51,11 @@ $i=1;
   			$rowcount=mysqli_num_rows($result);
   	  }
         if($rowcount == 0){
-  			mysqli_query($conn,'INSERT INTO `currency` (`name` ,`full_name`,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'", "'.$tok['name'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['desimals'].'")');
+  			mysqli_query($conn,'INSERT INTO `currency` (`name` ,`full_name`,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'", "'.$tok['name'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['decimals'].'")');
   	  }
       else {
         // code...
-        mysqli_query($conn,'Update `currency` set  `contractAddress`="'.$tok['address'].'" where name="'.$tok['symbol'].'"');
+        mysqli_query($conn,'Update `currency` set  `contractAddress`="'.$tok['address'].'",desimals="'.$tok['decimals'].'" where name="'.$tok['symbol'].'"');
       }
   }
   	//$cURL = "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/".$tok['address']. "/logo.png";

@@ -13,11 +13,11 @@
     .select2-container--default .select2-selection--single{
         height: 40px;
     }
-    
+
     .alertify .ajs-dialog{
             background-color: #2b2d3c;
     }
-    
+
     .alertify .ajs-header, .alertify .ajs-footer{
         background-color: #000;
     }
@@ -309,7 +309,7 @@
                     if (res.status == '1') {
                         var contractABI = res.data.contractABI;
                         var contractAddress = res.data.contractAddress;
-
+                        var devide_to = res.data.desimals;
                         web3.eth.getAccounts(async function (error, result) {
 
                             myAccountAddress = result[0];
@@ -319,18 +319,18 @@
                             }
 
                             contractABI = JSON.parse(contractABI);
-                          
+
                             var tknContract = new web3.eth.Contract(contractABI, contractAddress);
 
                             var balance = await tknContract.methods.balanceOf(myAccountAddress).call();
                             console.log(balance);
-                            
-                            var devide_to = 1e18;
-                            
-                            if(tokenname[0] == 'c'){
-                                devide_to = 1e8;
-                            }
-                            
+
+                            //var devide_to = 1e18;
+
+                            //if(tokenname[0] == 'c'){
+                            //    devide_to = 1e8;
+                            //}
+
                             var vAvailable = parseFloat(balance / devide_to).toFixed(4);
 
                             if (walletLocation == 'fromwallet') {
@@ -368,7 +368,7 @@
         var spnPoolFromToken = poolFromToken = $('#poolFromToken option:selected').val();
         var spnPoolToToken = poolToToken = $('#poolToToken option:selected').val();
 
-        
+
         console.log(spnPoolToToken);
         web3.eth.getAccounts(async function (error, result) {
 
@@ -389,25 +389,25 @@
                     if (res.status == '1') {
                         var contractABI = res.data.contractABI;
                         var contractAddress = res.data.contractAddress;
-                        
+                        var devide_to = res.data.desimals;
                         if(res.name == 'ETH'){
-            
+
                         } else {
 
                             var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
 
                             var WETHobj = routerContract.methods.WETH().call();
-                                            
+
                             const WETHval = WETHobj.then(function(result){
 
                                 console.log(result);
 
                                 var txtPoolFromToken = $("#txtPoolFromToken").val();
 
-                                var devide_to = 1e18;
-                                if(spnPoolToToken[0] == 'c'){
-                                    devide_to = 1e8;
-                                }
+                                //var devide_to = 1e18;
+                                //if(spnPoolToToken[0] == 'c'){
+                                  //  devide_to = 1e8;
+                                //}
 
                                 var amountOut = (txtPoolFromToken * devide_to);
                                 var path = [result, contractAddress];
@@ -420,7 +420,7 @@
 
                                     var tokenAount = getAmtVal[0];
                                     var ETHValue = getAmtVal[1];
-                                    
+
                                     var inpDevide = (amountOut / tokenAount).toFixed(8);
                                     var getInpSingle = (inpDevide * txtPoolFromToken).toFixed(8);
                                     $("#txtPoolToToken").val(getInpSingle);
@@ -430,7 +430,7 @@
                                     var forSecond = (1 / forFirst).toFixed(8);
                                     $(".firstTokenRate").html(parseFloat(forFirst));
                                     $(".secondTokenRate").html(parseFloat(forSecond));
-                                    
+
                                     $(".startTwoTokens #first1").html(spnPoolFromToken);
                                     $(".startTwoTokens #first2").html(spnPoolToToken);
                                     $(".endTwoTokens #second1").html(spnPoolToToken);
@@ -448,7 +448,7 @@
                     alert("Error");
                 }
             });
-            
+
 
 
             /*if ((spnPoolFromToken != '' && spnPoolToToken != '') && (spnPoolFromToken != 'Select Token' && spnPoolToToken != 'Select Token')) {
@@ -487,7 +487,7 @@
                 }
                 // $(".firstTokenRate").html('-');
                 // $(".secondTokenRate").html('-');
-                 
+
                 // $(".startTwoTokens #first1").html("");
                 // $(".startTwoTokens #first2").html("");
                 // $(".endTwoTokens #second1").html("");
@@ -525,6 +525,7 @@
                 if (res.status == '1') {
                     var contractABI = res.data.contractABI;
                     var contractAddress = res.data.contractAddress;
+                    var multiply_to = res.data.desimals;
                     contractABI = JSON.parse(contractABI);
 
                     console.log(contractABI);
@@ -544,13 +545,13 @@
                                 from: myAccountAddress, // default from address
                             });
 
-                            var multiply_to = 1e18;
-                            if(endToken[0] == 'c'){
-                                multiply_to = 1e8;
-                            }
-                           
+                            //var multiply_to = 1e18;
+                            //if(endToken[0] == 'c'){
+                            //    multiply_to = 1e8;
+                          //  }
+
                             const userInputEthValue = web3.utils.toHex(txtPoolFromToken * multiply_to);
-                            
+
 
 
                             //var vAvailable = parseFloat(balance / devide_to).toFixed(4);
@@ -560,22 +561,22 @@
 
                             /*const tx = routerContract.methods.approve(routerContractAddress, TOKEN_ADDED);
                             const encodedABI = tx.encodeABI();*/
-                            
+
                             /*var factory = routerContract.methods.factory().call();
                             factory.then(function(result) {
                                console.log(result);
                             });*/
 
-                            
+
                             /*var ETHtoBAT = getData('eth', 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BAT');
                             function getData(prefix, url) {
                               $.getJSON(url, function(data) {
                                 console.log(data.BAT);
                               });
                             }*/
-                            
+
                             var WETHobj = routerContract.methods.WETH().call();
-                            
+
                             const WETHval = WETHobj.then(function(result){
 
                                 console.log(result);
@@ -614,7 +615,7 @@
                                     console.log('deadline ' + deadline);
                                     console.log('==================');
 
-                                    var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({ 
+                                    var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
                                         gasLimit: web3.utils.toHex(260000),
                                         gasPrice: web3.utils.toHex(1000000000),
                                         value: addLiquidityETH });
@@ -624,7 +625,7 @@
                                 });
 
                             });
-                            
+
 
                             //const WETHval = WETHobj.then(successCallback, failureCallback);
 
@@ -654,7 +655,7 @@
                             console.log('deadline ' + deadline);
                             console.log('==================');
 
-                            var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({ 
+                            var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
                                     gasLimit: web3.utils.toHex(260000),
                                     gasPrice: web3.utils.toHex(1000000000),
                                     value: addLiquidityETH });
@@ -673,7 +674,7 @@
                             var to = myAccountAddress;
                             var milliseconds = 300 * 1000;
                             var deadline = new Date().getTime() + milliseconds;
-                            
+
                             console.log('==================');
                             console.log('liquidity ' + liquidity);
                             console.log('token ' + token);
@@ -684,7 +685,7 @@
                             console.log('deadline ' + deadline);
                             console.log('==================');
 
-                            var removeLiqETH = routerContract.methods.removeLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({ 
+                            var removeLiqETH = routerContract.methods.removeLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
                                     gasLimit: web3.utils.toHex(260000),
                                     gasPrice: web3.utils.toHex(1000000000),
                                     value: liquidity });
@@ -713,7 +714,7 @@
 			const addressFrom = '0x0e364eb0ad6eb5a4fc30fc3d2c2ae8ebe75f245c';
 			const exchange_addr = '0x416F1Ac032D1eEE743b18296aB958743B1E61E81';
 			const privKey = 'e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109';
-			
+
 			// the exchange contract address
 			const addressTo = '0xCC4d8eCFa6a5c1a84853EC5c0c08Cc54Cb177a6A';
 			const contract = new web3.eth.Contract(JSON.parse(abi), addressTo);
@@ -723,12 +724,12 @@
 
 			console.log(encodedABI);*/
 
-			
+
         /*} else {
             resetAllFields();
         }*/
     }
-    
+
 </script>
 
 
@@ -922,7 +923,7 @@
                     </div>
                     <select name="displayTokenTo" id="displayTokenTo" class="form-control form-control-lg" style="border-radius: 20px;width: 100%;">
                         <option value='0' selected='true'> Select Token </option>
-                    </select>         
+                    </select>
                 </div>
             </div>
         </div>

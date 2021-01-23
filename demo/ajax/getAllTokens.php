@@ -48,11 +48,11 @@ if(count($arr) > 0){
     }
 
     if($rowcount == 0){
-      mysqli_query($conn,'INSERT INTO `currency` (`name` ,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['desimals'].'")');
+      mysqli_query($conn,'INSERT INTO `currency` (`name` ,`image_url`, `contractAddress`,`desimals`) VALUES ( "'.$tok['symbol'].'","'.$cURL.'","'.$tok['address'].'","'.$tok['decimals'].'")');
     }
     else {
       // code...
-      mysqli_query($conn,'Update `currency` set  `contractAddress`="'.$tok['address'].'" where name="'.$tok['symbol'].'"');
+      mysqli_query($conn,'Update `currency` set  `contractAddress`="'.$tok['address'].'",desimals="'.$tok['decimals'].'" where name="'.$tok['symbol'].'"');
     }
   }
   }

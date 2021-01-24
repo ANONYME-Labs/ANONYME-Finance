@@ -64,6 +64,36 @@
                     </div>
                   </div>
               </div>
+              
+                    <div class="row py-2 hover-select-token">
+                        <div class="col-sm-12">
+                            <div class="sc-gqjmRU sc-fMiknA sc-dVhcbM iwiYPV">
+                                <div class="sc-gqjmRU sc-jTzLTM sc-fjdhpX bdIUOu">
+                                    <div class="sc-kkGfuU hyvXgi css-1aekuku">
+                                        Initial prices and pool share
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="width: 100%;">
+                                <div class="col-md-4">
+                                    <div class="firstTokenRate">-</div>
+                                    <div class="startTwoTokens">
+                                        <span id="first1"></span> per <span id="first2"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="secondTokenRate">-</div>
+                                    <div class="endTwoTokens">
+                                        <span id="second1"></span> per <span id="second2"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="sc-kkGfuU kuSmHG css-1kt4f20">100%</div>
+                                    <div class="css-1m402ei">Share of Pool</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
               <div class="col-sm-12 py-3 text-center">
                 <button id="btnAmount" class="btn btn-info btn-block btn-lg">Connect Wallet</button>
               </div>
@@ -141,6 +171,7 @@ $(document).ready(function(){
 		else
 		{
 			CheckBalanceInWallet('from');
+			changeFromToken("from_change");
 		}
 		// if($('#drpFromToken option:selected').text() == "ETH")
 		// {
@@ -166,6 +197,7 @@ $(document).ready(function(){
 		else
 		{
 			CheckBalanceInWallet('to');
+			changeFromToken("to_change");
 		}
 		
   	});
@@ -292,21 +324,21 @@ $(document).ready(function(){
         return true;
     });
 
-   // $('#txtToToken').on('keyup paste input', function () {
-   //      while (($(this).val().split(".").length - 1) > 1) {
-   //          $(this).val($(this).val().slice(0, -1));
+   $('#txtToToken').on('keyup paste input', function () {
+        while (($(this).val().split(".").length - 1) > 1) {
+            $(this).val($(this).val().slice(0, -1));
 
-   //          if (($(this).val().split(".").length - 1) > 1) {
-   //              continue;
-   //          } else {
-   //              return false;
-   //          }
-   //      }
-   //      // replace any character that's not a digit or a dot
-   //      $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-   //      changeFromToken('to_change');
-   //      return true;
-   //  });
+            if (($(this).val().split(".").length - 1) > 1) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        // replace any character that's not a digit or a dot
+        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        changeFromToken('to_change');
+        return true;
+    });
 
 
   	function changeFromToken(change = '') {
@@ -399,13 +431,13 @@ $(document).ready(function(){
                                       $("#txtToToken").val(parseFloat(forFirst).toFixed(8));
                                       //$("#txtToToken").focus();
                                     }
-                                      // $(".firstTokenRate").html(parseFloat(forFirst));
-                                      // $(".secondTokenRate").html(parseFloat(forSecond));
+                                      $(".firstTokenRate").html(parseFloat(forFirst));
+                                      $(".secondTokenRate").html(parseFloat(forSecond));
 
-                                      // $(".startTwoTokens #first1").html(spnPoolToToken);
-                                      // $(".startTwoTokens #first2").html(spnPoolFromToken);
-                                      // $(".endTwoTokens #second1").html(spnPoolFromToken);
-                                      // $(".endTwoTokens #second2").html(spnPoolToToken);
+                                      $(".startTwoTokens #first1").html(spnPoolToToken);
+                                      $(".startTwoTokens #first2").html(spnPoolFromToken);
+                                      $(".endTwoTokens #second1").html(spnPoolFromToken);
+                                      $(".endTwoTokens #second2").html(spnPoolToToken);
                                     }
                                     else {
                                       var tokenAount = getAmtVal[0];
@@ -432,13 +464,13 @@ $(document).ready(function(){
                                       //$("#txtToToken").focus();
                                       }
 
-                                      // $(".firstTokenRate").html(parseFloat(forFirst));
-                                      // $(".secondTokenRate").html(parseFloat(forSecond));
+                                      $(".firstTokenRate").html(parseFloat(forFirst));
+                                      $(".secondTokenRate").html(parseFloat(forSecond));
 
-                                      // $(".startTwoTokens #first1").html(spnPoolFromToken);
-                                      // $(".startTwoTokens #first2").html(spnPoolToToken);
-                                      // $(".endTwoTokens #second1").html(spnPoolToToken);
-                                      // $(".endTwoTokens #second2").html(spnPoolFromToken);
+                                      $(".startTwoTokens #first1").html(spnPoolFromToken);
+                                      $(".startTwoTokens #first2").html(spnPoolToToken);
+                                      $(".endTwoTokens #second1").html(spnPoolToToken);
+                                      $(".endTwoTokens #second2").html(spnPoolFromToken);
                                     }
                                     //$("#create_pair_btn").prop('disabled', false);
 

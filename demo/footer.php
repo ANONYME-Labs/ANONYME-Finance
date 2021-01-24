@@ -1228,10 +1228,11 @@ $(document).ready(async function(){
 $('.close').click( async function(){ $('#supplyWithdraw').hide();   $('#borrowRepay').hide();});
  
 
+// Assets loop
 
-	/* Assets loop
 var arrayABI=$('#arrayABI').val();
-if(arrayABI!=""){
+
+if(arrayABI){
 arrayABI=arrayABI.split(',');
 var totassets=arrayABI.length;
 
@@ -1244,33 +1245,35 @@ for (var i=0;i<totassets;i++){
 						from: myAccountAddress, // default from address
 					});
 
-					var approveamount = 1/1e18;
+					/*var approveamount = 1/1e18;
                     var checkMembership = await Token.methods.approve(myAccountAddress,approveamount).send();
 					
 					var Assetsbal = await Token.methods.balanceOf(myAccountAddress).call()/ 1e18;
 					console.log('Assetsbal'+Assetsbal);
 					
-					$('#CurrentAssetsBAL'+arrayABI[i]).html(Assetsbal+' '+arrayABI[i]);
-					/*const supplyRatePerBlockBAT = await Token.methods.supplyRatePerBlock().call();
+					$('#CurrentAssetsBAL'+arrayABI[i]).html(Assetsbal+' '+arrayABI[i]);*/
+					const supplyRatePerBlockBAT = await Token.methods.supplyRatePerBlock().call();
 					const borrowRatePerBlockBAT = await Token.methods.borrowRatePerBlock().call();
 					const supplyApyBAT = (((Math.pow((supplyRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
 					const borrowApyBAT = (((Math.pow((borrowRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100; 
 					
+					const borrowBalanceStoredBAT= await Token.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
+			        const borrowBalanceBAT=borrowBalanceStoredBAT/Math.pow(10, underlyingDecimals);
+					const borrowbalanceUSDBAT= (2 *((borrowBalanceBAT * borrowApyBAT)/100))* usd_value;
+					
+					$('.totalborrow'+arrayABI[i]).html(borrowbalanceUSDBAT.toFixed(2)+' USD');
 					$('.supply_percentage'+arrayABI[i]).html(supplyApyBAT.toFixed(2)+' %');
 
 					$('.borrow_percentage'+arrayABI[i]).html(borrowApyBAT.toFixed(2)+' %');
 					
-					$('.supply_percentage'+arrayABI[i]).html('13 %');
-
-					$('.borrow_percentage'+arrayABI[i]).html('12.00 %');
-			
+					
 
 					
 }
 }
 
  
-*/
+
             }
           });
         } catch (error) {

@@ -45,7 +45,7 @@
                     <th>Active</th>
                     <th>Market-Size</th>
                     <th>Total Borrowed</th>
-                    <th>Deposit API</th>
+                    <th>Deposit APY</th>
                     <th>
                       <span>Variable</span>
                       <p>Borrow APR</p>
@@ -58,26 +58,74 @@
                   </tr>
                   </thead>
                   <tbody id="showtokenlist">
-                  <!-- <tr>
+				  <?php
+							$query2 = "SELECT * FROM currency where (contractABI!='') ";
+							$result2 = mysqli_query($conn,$query2);
+							
+							$i=0;
+							
+							if($result2){
+							while($row = mysqli_fetch_array($result2)){
+							
+								
+								$name = $row['name'];
+								
+								
+								if($name=='BAT' || $name=='DAI' || $name=='cETH'){
+				?>
+                  <tr>
                     <td>
-                      <img src="images/dai.59d423e0.svg" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      DAI
+                      <img src="<?=$row['image_url']; ?>" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      <?=$row['name'];?>
                     </td>
-                    <td><span>$13 USD</span></td>
-                    <td><span>$13 USD</span></td>
-                    <td><span>$13 USD</span></td>
+                    <td><span>-</span></td>
+                    <td><span class="totalborrowc<?=ltrim($name, 'c');?>" >0.00 USD</span></td>
+                    <td><span class="supply_percentagec<?=ltrim($name, 'c');?>" >0%</span></td>
                     <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      12,000 Sold
+                      <span class="borrow_percentagec<?=ltrim($name, 'c');?>">0%</span>                     
                     </td>
                     <td>
-                      <span>20.60%</span>
-                    </td>
-                  </tr> -->
-
+                      <span>-</span>
+                    </td>                  
+				  <td>
+                   <span><button class="btn btn-info"  onclick="deposit('<?=$row['name'];?>');" >Deposit</button> &nbsp;&nbsp;<button class="btn btn-info" onclick="borrow('<?=$row['name'];?>');" >Borrow</button></span>
+                   </td>
+				   <td> <?php 
+				       if($name!='cETH'){
+						$queryInner = "SELECT * FROM currency where (name='c".$name."' and contractABI!='') ";
+					   }else{
+						 $queryInner = "SELECT * FROM currency where (name='".$name."' and contractABI!='') ";  
+					   }
+							$resultInner = mysqli_query($conn,$queryInner);
+							
+							
+							
+							if($resultInner){
+							while($rowInner = mysqli_fetch_array($resultInner)){
+								
+								$ContractAddress = $rowInner['contractAddress'];
+							    $ContractABI= $rowInner['contractABI'];
+								$arrayABI[$i]=$rowInner['name'];
+							    
+						?>
+						<input type='hidden' name='contractABI<?=$rowInner['name'];?>' id='contractABI<?=$rowInner['name'];?>' value='<?=$ContractABI; ?>' /><input type='hidden' name='ContractAddress<?=$rowInner['name'];?>' id='ContractAddress<?=$rowInner['name'];?>' value='<?=$ContractAddress;?>' />
+						<?php
+						
+							   
+							}
+							}
+						?>
+					</td>
+				   </tr>
+				  
+				   <?php
+								 $i++;	
+								}
+							}
+							
+						}
+						echo "<input type='hidden' name='arrayABI' id='arrayABI' value='".implode(',',$arrayABI)."' />";
+				   ?>
                   </tbody>
                 </table>
               </div>
@@ -136,8 +184,8 @@
 				}
 
                 }
-                $('#showtokenlist').html('');
-                $('#showtokenlist').html(vStr);
+               // $('#showtokenlist').html('');
+               // $('#showtokenlist').html(vStr);
                /* $(".tokenrow").click(function(){
                   var vadd= $(this).attr('data-address');
                   location.href='overview.php?address='+vadd;

@@ -123,10 +123,10 @@ $(document).ready(function(){
 	var routerContractAddress = "<?php echo $routerContractAddress; ?>";
     var routerContractABI = <?php echo $routerContractABI; ?>;
 
-	CheckCurrentBalance('from');
+	CheckBalanceInWallet('from');
 
 	$("#txtFromToken").change(function(){
-		CheckCurrentBalance('from');
+		CheckBalanceInWallet('from');
 		changeFromToken("from_change");
   	});
 
@@ -140,7 +140,7 @@ $(document).ready(function(){
 		}
 		else
 		{
-			CheckCurrentBalance('from');
+			CheckBalanceInWallet('from');
 		}
 		// if($('#drpFromToken option:selected').text() == "ETH")
 		// {
@@ -165,13 +165,13 @@ $(document).ready(function(){
 		}
 		else
 		{
-			CheckCurrentBalance('to');
+			CheckBalanceInWallet('to');
 		}
 		
   	});
 
 
-  	function CheckCurrentBalance(drpType)
+  	function CheckBalanceInWallet(drpType)
   	{
   		var vFromAmount = $('#txtFromToken').val();
   		window.web3 = new Web3(ethereum);
@@ -232,37 +232,40 @@ $(document).ready(function(){
               		if(drpType=='from')
               		{
               			$('#txtWalletFromBalance').text(vAvailableBalance);
+
+              			// Change button text
+
+              			if(parseInt(vCurrentbalance)==0)
+		              	{
+		              		alert("There is 0 balance found for "+vCurrencyType);
+		              		$("#txtFromToken").val('');
+		              		$("#btnAmount").prop('disabled', false);
+							$("#btnAmount").text("Enter an Amount");
+		              	}
+	                	else if(parseFloat(vFromAmount) > parseFloat(vAvailableBalance ))
+	                	{
+	                		$("#btnAmount").text("Insuficient liquidity");
+	                		$("#btnAmount").prop('disabled', true); 
+	                	}
+	                	else
+	                	{
+	                		if($('#drpToToken option:selected').val()==0)
+	                		{
+	                			$("#btnAmount").prop('disabled', true);
+								$("#btnAmount").text("Select Token");
+	                		}
+	                		else
+	                		{
+	                			$("#btnAmount").prop('disabled', false);
+								$("#btnAmount").text("SWAP");
+							}
+	                	}
               		}
               		else
               		{
               			$('#txtWalletToBalance').text(vAvailableBalance);
               		}
-
-      //         		if(parseInt(vCurrentbalance)==0)
-	     //          	{
-	     //          		alert("There is 0 balance found for "+vCurrencyType);
-	     //          		$("#txtFromToken").val('');
-	     //          		$("#btnAmount").prop('disabled', false);
-						// $("#btnAmount").text("Enter an Amount");
-	     //          	}
-      //           	else if(parseFloat(vFromAmount) > parseFloat(vAvailableBalance ))
-      //           	{
-      //           		$("#btnAmount").text("Insuficient liquidity");
-      //           		$("#btnAmount").prop('disabled', true); 
-      //           	}
-      //           	else
-      //           	{
-      //           		if($('#drpToToken option:selected').val()==0)
-      //           		{
-      //           			$("#btnAmount").prop('disabled', true);
-						// 	$("#btnAmount").text("Select Token");
-      //           		}
-      //           		else
-      //           		{
-      //           			$("#btnAmount").prop('disabled', false);
-						// 	$("#btnAmount").text("SWAP");
-						// }
-      //           	}
+              		
               }
               else
               {
@@ -273,8 +276,41 @@ $(document).ready(function(){
             });
   	}
 
+  	$('#txtFromToken').on('keyup paste input', function () {
+        while (($(this).val().split(".").length - 1) > 1) {
+            $(this).val($(this).val().slice(0, -1));
+            if (($(this).val().split(".").length - 1) > 1) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        // replace any character that's not a digit or a dot
+        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        changeFromToken();
+
+        return true;
+    });
+
+   // $('#txtToToken').on('keyup paste input', function () {
+   //      while (($(this).val().split(".").length - 1) > 1) {
+   //          $(this).val($(this).val().slice(0, -1));
+
+   //          if (($(this).val().split(".").length - 1) > 1) {
+   //              continue;
+   //          } else {
+   //              return false;
+   //          }
+   //      }
+   //      // replace any character that's not a digit or a dot
+   //      $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+   //      changeFromToken('to_change');
+   //      return true;
+   //  });
+
 
   	function changeFromToken(change = '') {
+
         var spnPoolFromToken = poolFromToken = $('#drpFromToken option:selected').val();
         var spnPoolToToken = poolToToken = $('#drpToToken option:selected').val();
         if(change=='to_change')

@@ -5,7 +5,6 @@
 
 <!-- Modal 3 -->
 
-<?php include('config.php'); ?>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
 
 <div class="modal fade" id="coin_option3" tabindex="-1" aria-labelledby="coin_option3Label" aria-hidden="true">
@@ -42,9 +41,9 @@
             </div>
           </div>
           <div id="displayTokenCoin3" class="row py-2 hover-select-token">
-             
+
           </div>
-          
+
         </div>
       </div>
       <div class="modal-footer border-top-0">
@@ -148,7 +147,7 @@
             </div>
         </div>
         <div class="tabs-form">
-          
+
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Supply</a>
@@ -161,7 +160,7 @@
                 <div class="col-sm-12">
                   <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
                 </div>
-              </div>  
+              </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
@@ -182,7 +181,7 @@
                 <div class="col-sm-12">
                   <a href="">Borrow Limit</a>
                 </div>
-              </div>  
+              </div>
               <div class="row border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>Borrow Limit</span>
@@ -216,7 +215,7 @@
                 <div class="col-sm-12">
                   <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
                 </div>
-              </div>  
+              </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Supply APY</span>
@@ -237,7 +236,7 @@
                 <div class="col-sm-12">
                   <a href="">Borrow Limit</a>
                 </div>
-              </div>  
+              </div>
               <div class="row border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>Borrow Limit</span>
@@ -326,14 +325,14 @@ $(".btn-group-toggle").twbsToggleButtons();
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-  
- 
-  
-// web3  
+
+
+
+// web3
   window.addEventListener('load', async () => {
   $(document).ready(async function(){
-	
-	
+
+
 	 if (window.ethereum) {
         window.web3 = new Web3(ethereum);
         try {
@@ -345,15 +344,15 @@ $(".btn-group-toggle").twbsToggleButtons();
               {
               var metaMaskAddress=""+result[0];
 			  console.log(metaMaskAddress);
-			 
+
 			    $('.asset-list').show();
-				
-				
-				
+
+
+
               var now = new Date();
               now.setTime(now.getTime() + 1 * 3600 * 1000);
               document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
-              
+
              // location.reload();
             }
           });
@@ -372,18 +371,18 @@ $(".btn-group-toggle").twbsToggleButtons();
           var now = new Date();
           now.setTime(now.getTime() + 1 * 3600 * 1000);
           document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
-          
+
          // location.reload();
         }
       });
-        
+
     }
     // Non-dapp browsers...
     else {
 
         console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
     }
-	
+
 	var userWallet=getCookie('userWallet');
   	//alert(userWallet);
 
@@ -392,8 +391,8 @@ $(".btn-group-toggle").twbsToggleButtons();
        $(".btnwalletaddress").html(vWallet);
   	}
 
-	
-	
+
+
 
 
 });
@@ -422,22 +421,22 @@ $(document).ready(async function(){
 				var myAccountAddress=""+result[0];
 
 				var asset='<?=$_COOKIE['currency']?>';
-				
+
 				var bal = await web3.eth.getBalance(myAccountAddress);
 				var accbal = ( bal / 1000000000000000000 );
-				
-				
-				
+
+
+
 
 				var userWallet=getCookie('userWallet');
 				if(userWallet!=""){
 					var vWallet=userWallet.substring(0, 6) + '...' + userWallet.substring(userWallet.length - 6, userWallet.length);
 					$(".btnwalletaddress").html(vWallet);
 				}
-				
-				
-				
-				
+
+
+
+
 				//main contract
 				var arrayABI = <?=$mainContractABI; ?>;
 				var mainContractAddress = "<?=$mainContractAddress; ?>";
@@ -445,22 +444,22 @@ $(document).ready(async function(){
 					from: myAccountAddress, // default from address
 				});
 				console.log(mainContractAddress);
-				
+
 				//comptroller contract
 				var comptrollerAbi =<?=$comptrollerABI; ?>;
 				var comptrollerAddress = "<?=$comptrollerAddress; ?>";
-				
+
 
 				//market contract
 				var marketAbi =<?=$marketABI; ?>;
 				var marketAddress = "<?=$marketAddress; ?>";
-				
+
 				//Assets contract
-				if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+				if(asset!="" && asset!='ETH' && asset!='cETH'){
 				var underlyingContractAddress ='<?=$assetsContractAddress; ?>';
 				var erc20AbiJson = <?=$assetsContractABI; ?>;
 				}
-				
+
 
 				//price contract
 				const priceFeedAddress = '';
@@ -473,10 +472,10 @@ var marketcontract = new web3.eth.Contract(marketAbi, comptrollerAddress,{
 				});
 console.log(marketcontract);
 var checkMembership = await marketcontract.methods.checkMembership(myAccountAddress,mainContractAddress).call({from: myAccountAddress});
-console.log(checkMembership); 
+console.log(checkMembership);
  $('#ether-basic-switch').attr('checked', checkMembership);
-  
- 
+
+
 
 
 
@@ -523,59 +522,59 @@ arrayABI=arrayABI.split(',');
 var totassets=arrayABI.length;
 
 for (var i=0;i<totassets;i++){
-	
+
 					var contractABI=$('#contractABI'+arrayABI[i]).val();
 					var ContractAddress=$('#ContractAddress'+arrayABI[i]).val();
 					const abi = JSON.parse(contractABI);
-					
-					
 
-					
 
-					
-					
+
+
+
+
+
 					const Token= new web3.eth.Contract(abi, ContractAddress, {
 						from: myAccountAddress, // default from address
 					});
 
 					var approveamount = 1/1e18;
                     var checkMembership = await Token.methods.approve(myAccountAddress,approveamount).send();
-					
+
 					var Assetsbal = await Token.methods.balanceOf(myAccountAddress).call()/ 1e18;
 					console.log('Assetsbal'+Assetsbal);
-					
+
 					$('#CurrentAssetsBAL'+arrayABI[i]).html(Assetsbal+' '+arrayABI[i]);
 					/*const supplyRatePerBlockBAT = await Token.methods.supplyRatePerBlock().call();
 					const borrowRatePerBlockBAT = await Token.methods.borrowRatePerBlock().call();
 					const supplyApyBAT = (((Math.pow((supplyRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
-					const borrowApyBAT = (((Math.pow((borrowRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100; 
-					
+					const borrowApyBAT = (((Math.pow((borrowRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
+
 					$('.supply_percentage'+arrayABI[i]).html(supplyApyBAT.toFixed(2)+' %');
 
 					$('.borrow_percentage'+arrayABI[i]).html(borrowApyBAT.toFixed(2)+' %');
-					
+
 					$('.supply_percentage'+arrayABI[i]).html('13 %');
 
 					$('.borrow_percentage'+arrayABI[i]).html('12.00 %');
-			
 
-					
+
+
 }
 }
 
- 
+
 */
- 
-//Assets instance 
-if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+
+//Assets instance
+if(asset!="" && asset!='ETH' && asset!='cETH'){
 console.log('erc20AbiJson '+erc20AbiJson);
 console.log('underlyingContractAddress '+underlyingContractAddress);
-var underlying = new web3.eth.Contract(erc20AbiJson, underlyingContractAddress);  
-console.log('underlying '+underlying); 
+var underlying = new web3.eth.Contract(erc20AbiJson, underlyingContractAddress);
+console.log('underlying '+underlying);
 var daibalance = await underlying.methods.balanceOf(myAccountAddress).call() ;
 							console.log('Dai '+daibalance);
 }
- 
+
 
 const underlyingDecimals = 18; // Number of decimals defined in this ERC20 token's contract
 
@@ -583,7 +582,7 @@ const logBalances = () => {
   return new Promise(async (resolve, reject) => {
     let myWalletEthBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
     let myWalletCEthBalance = await myContract.methods.balanceOf(myAccountAddress).call() / 1e8;
-	if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+	if(asset!="" && asset!='ETH' && asset!='cETH'){
 		let myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals); // if you supply in compound otherwise it show you 0.
 		console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
 		$('.walletbalance').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
@@ -596,29 +595,29 @@ const logBalances = () => {
 	}
     console.log("My Wallet's  ETH Balance:", myWalletEthBalance);
     console.log("My Wallet's cETH Balance:", myWalletCEthBalance);
-    
+
 
     resolve();
   });
-}; 
- 
- 
+};
+
+
   //var checkallowance = await myContract.methods.allowance(myAccountAddress,batContractAddress).call();
   //console.log('checkallowance'+checkallowance);
- 
+
  await logBalances();
- 
- 
- 
+
+
+
  const ethDecimals = 18;
  console.log(marketcontract);
  var arrayMrk=[myAccountAddress];
  const balanceOfUnderlying = web3.utils.toBN(await myContract.methods
     .balanceOfUnderlying(myAccountAddress).call()) / Math.pow(10, ethDecimals);
-	
+
 	console.log('balanceOfUnderlying'+balanceOfUnderlying);
-	
- if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+
+ if(asset!="" && asset!='ETH' && asset!='cETH'){
 
 
   console.log("ETH supplied to the Compound Protocol:", balanceOfUnderlying, '\n');
@@ -626,24 +625,24 @@ const logBalances = () => {
  }else{
   var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress}) /1000000000;
   $('.supply_blalnce').html( balance+' <?php echo $_COOKIE['currency'];?>');
- } 
-  
-  
-  
-  if(balanceOfUnderlying > 0){	
-  
+ }
+
+
+
+  if(balanceOfUnderlying > 0){
+
 	  $('.Supply_collateral').show();
 	  $('.borrow_collateral').show();
 	  $('#eth_supply_market').hide();
 	  $('#eth_borrow_market').hide();
 	  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* 586.44;
 	  const borrow_limit=(supplybalanceUSD*80)/100;
-     
+
 	  $('#supplybalanceUSD').html('$ '+supplybalanceUSD.toFixed(2));
 	  $('.borrow_limit').html('$ '+borrow_limit.toFixed(2));
-	  
+
 	  $('#totsupply').html(balanceOfUnderlying.toFixed(4));
-	  
+
   }else{
 	   $('.Supply_collateral').hide();
 	   $('.borrow_collateral').hide();
@@ -652,12 +651,12 @@ const logBalances = () => {
   }
   const borrowBalanceStored= await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
   const borrowBalance=borrowBalanceStored/1e18;
-  if(borrowBalance > 0){	
-  
-  
-  
+  if(borrowBalance > 0){
+
+
+
 	  $('.borrow_percentage').html(borrowApy.toFixed(2)+' %');
-	  
+
 	  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* 586.44;
 	  const borrow_limit=(supplybalanceUSD*80)/100;
 	  const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* 586.44;
@@ -668,48 +667,48 @@ const logBalances = () => {
 	  $('.borrow_limit_used').html(borrow_limit_used.toFixed(2)+' %');
 	  $('#totborrow').html(borrowBalance.toFixed(4));
   }
-  
+
   let exchangeRateCurrent = await myContract.methods.exchangeRateCurrent().call();
   exchangeRateCurrent = exchangeRateCurrent / Math.pow(10, 18 + ethDecimals - 8);
   console.log("Current exchange rate from cETH to ETH:", exchangeRateCurrent, '\n');
 
-  
+
 
   oneCTokenInUnderlying = exchangeRateCurrent / (1 * 10 ^ (18 + underlyingDecimals - 8));
    console.log('oneCTokenInUnderlying'+oneCTokenInUnderlying);
-  
+
  var Liquidity=await marketcontract.methods.getAccountLiquidity(myAccountAddress).call({from: myAccountAddress});
  console.log('Liquidity');
   console.log(Liquidity);
   // market enter or exit
- 
+
  $('#ether-basic-switch').click( async function(){
-	
+
 if($(this).prop('checked')==true){
-		 
+
 var markets = await marketcontract.methods.enterMarkets(arrayMrk).send({from: myAccountAddress});
 console.log(myAccountAddress);
-console.log(markets);  
+console.log(markets);
 
-  
+
 
 
 
 
  }else{
-	 
+
 	 var markets = await marketcontract.methods.exitMarket(myAccountAddress).send({from: myAccountAddress});
 console.log(myAccountAddress);
-console.log(markets); 
+console.log(markets);
 
 
-	 
+
  }
 
  });
- 
- 
- 
+
+
+
 
 
 // Web3 transaction information, we'll use this for every transaction we'll send
@@ -719,9 +718,9 @@ const fromMyWallet = {
   gasPrice: web3.utils.toHex(20000000000) // use ethgasstation.info (mainnet only)
 };
 
- 
+
  $('#supplying').click( async function(){
-	 
+
 
 await logBalances();
 
@@ -737,14 +736,14 @@ await logBalances();
 
   await logBalances();
 
- 
 
- 
+
+
 
  });
- 
+
   $('#Borrowing').click( async function(){
-	 
+
 
   console.log('Calculating your liquid assets in the protocol...');
   let { 1:liquidity } = await marketcontract.methods.getAccountLiquidity(myAccountAddress).call();
@@ -801,15 +800,15 @@ await logBalances();
   await logBalances();
   alert('cETH "borrow" operation successful.', '\n');
  });
- 
- 
+
+
             }
           });
         } catch (error) {
             // User denied account access...
         }
     }
-   
+
 // Legacy dapp browsers...
     else if (window.web3) {
     alert('legacy');
@@ -839,9 +838,9 @@ await logBalances();
     }
     return "";
   }
-  
+
    $('#go-back').click(function(){
-	     
+
 	      location.href='home.php';
        });
 </script>

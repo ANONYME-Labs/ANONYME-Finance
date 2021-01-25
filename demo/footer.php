@@ -5,7 +5,6 @@
 
 <!-- Modal 3 -->
 
-<?php include('config.php'); ?>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
 
 <div class="modal fade" id="coin_option3" tabindex="-1" aria-labelledby="coin_option3Label" aria-hidden="false">
@@ -42,9 +41,9 @@
             </div>
           </div>
           <div id="displayTokenCoin3" class="row py-2 hover-select-token">
-             
+
           </div>
-          
+
         </div>
       </div>
       <div class="modal-footer border-top-0">
@@ -154,7 +153,7 @@
           </div>
         </div>
         <div class="tabs-form">
-          
+
           <nav class="mb-3">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Supply</a>
@@ -167,7 +166,7 @@
                 <div class="col-sm-12">
                   <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
                 </div>
-              </div>  
+              </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
@@ -188,7 +187,7 @@
                 <div class="col-sm-12">
                   <a href="">Borrow Limit</a>
                 </div>
-              </div>  
+              </div>
               <div class="row border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span>Borrow Limit</span>
@@ -222,7 +221,7 @@
                 <div class="col-sm-12">
                   <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
                 </div>
-              </div>  
+              </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
@@ -243,7 +242,7 @@
                 <div class="col-sm-12">
                   <a href="">Borrow Limit</a>
                 </div>
-              </div>  
+              </div>
               <div class="row border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                   <span>Borrow Limit</span>
@@ -310,9 +309,9 @@
               <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensTorepay" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
               <button class="btn btn-outline-secondary" type="button" id="max_button_addon_repay">MAX</button>
             </div>
-      
+
         <div class="tabs-form">
-          
+
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-link active" id="borrow-tab" data-toggle="tab" href="#borrow" role="tab" aria-controls="borrow" aria-selected="true">Borrow</a>
@@ -320,13 +319,13 @@
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
-        
+
             <div class="tab-pane fade  show active" id="borrow" role="tabpanel" aria-labelledby="borrow-tab">
               <div class="row">
                 <div class="col-sm-12">
                   <a href="">Borrow rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
                 </div>
-              </div>  
+              </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Borrow APY</span>
@@ -347,7 +346,7 @@
                 <div class="col-sm-12">
                   <a href="">Borrow Limit</a>
                 </div>
-              </div>  
+              </div>
               <div class="row border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>Borrow Limit</span>
@@ -381,7 +380,7 @@
                 <div class="col-sm-12">
                   <a href="">Repay rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
                 </div>
-              </div>  
+              </div>
               <div class="row mb-3 border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Borrow APY</span>
@@ -402,7 +401,7 @@
                 <div class="col-sm-12">
                   <a href="">Borrow Limit</a>
                 </div>
-              </div>  
+              </div>
               <div class="row border-bottom py-3 px-2">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <span>Borrow Limit</span>
@@ -434,7 +433,7 @@
           </div>
         </div>
       </div>
-	  
+
       <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
@@ -491,14 +490,14 @@ $(".btn-group-toggle").twbsToggleButtons();
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-  
- 
-  
-// web3  
+
+
+
+// web3
   window.addEventListener('load', async () => {
   $(document).ready(async function(){
-	
-	
+
+
 	 if (window.ethereum) {
         window.web3 = new Web3(ethereum);
         try {
@@ -510,15 +509,15 @@ $(".btn-group-toggle").twbsToggleButtons();
               {
               var metaMaskAddress=""+result[0];
 			  console.log(metaMaskAddress);
-			 
+
 			    $('.asset-list').show();
-				
-				
-				
+
+
+
               var now = new Date();
               now.setTime(now.getTime() + 1 * 3600 * 1000);
               document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
-              
+
              // location.reload();
             }
           });
@@ -537,18 +536,18 @@ $(".btn-group-toggle").twbsToggleButtons();
           var now = new Date();
           now.setTime(now.getTime() + 1 * 3600 * 1000);
           document.cookie = "userWallet="+metaMaskAddress+"; expires=" + now.toUTCString() + "; path=/";
-          
+
          // location.reload();
         }
       });
-        
+
     }
     // Non-dapp browsers...
     else {
 
         console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
     }
-	
+
 	var userWallet=getCookie('userWallet');
   	//alert(userWallet);
 
@@ -557,8 +556,8 @@ $(".btn-group-toggle").twbsToggleButtons();
        $(".btnwalletaddress").html(vWallet);
   	}
 
-	
-	
+
+
 
 
 });
@@ -587,27 +586,27 @@ $(document).ready(async function(){
 				var myAccountAddress=""+result[0];
 				var bal = await web3.eth.getBalance(myAccountAddress);
 				var accbal = ( bal / 1000000000000000000 );
-				
-				
-				
+
+
+
 				// userWallet
 				var userWallet=getCookie('userWallet');
 				if(userWallet!=""){
 					var vWallet=userWallet.substring(0, 6) + '...' + userWallet.substring(userWallet.length - 6, userWallet.length);
 					$(".btnwalletaddress").html(vWallet);
 				}
-				
-				
+
+
 				// Assets Name
 				var asset='<?php if(isset($_COOKIE['currency'])) { echo ltrim($_COOKIE['currency'], 'c'); }else echo 'ETH';?>';
-				
+
 				//main contract
 				var arrayABI = <?=$mainContractABI; ?>;
 				var mainContractAddress = "<?=$mainContractAddress; ?>";
 
-				
+
 				console.log(mainContractAddress);
-				
+
 				//comptroller contract
 				var comptrollerAbi =<?=$comptrollerABI; ?>;
 				var comptrollerAddress = "<?=$comptrollerAddress; ?>";
@@ -616,82 +615,82 @@ $(document).ready(async function(){
 				//market contract
 				var marketAbi =<?=$marketABI; ?>;
 				var marketAddress = "<?=$marketAddress; ?>";
-				
+
 				//Assets contract
-				if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+				if(asset!="" && asset!='ETH' && asset!='cETH'){
 				var underlyingContractAddress ='<?=$assetsContractAddress; ?>';
 				var erc20AbiJson = <?=$assetsContractABI; ?>;
 				}
-				
+
 
 				/*price contract
 				const priceFeedAbi = <?=$priceABI; ?>;
-				const priceFeedAddress = '<?=$priceAddress; ?>';				
+				const priceFeedAddress = '<?=$priceAddress; ?>';
 				const priceFeed = new web3.eth.Contract(priceFeedAbi, priceFeedAddress);
 				console.log('Fetching ${'+asset+'} price from the price feed...');
 				let underlyingPriceInUsd = await priceFeed.methods.price(asset).call();
 				underlyingPriceInUsd = underlyingPriceInUsd / 1e6; // Price feed provides price in USD with 6 decimal places
 				console.log(underlyingPriceInUsd);*/
-				
-				var usd_value = <?=$usd_value;?>				
+
+				var usd_value = <?=$usd_value;?>
 				// desimals
 				var ctokendesimal = 8;
-				const underlyingDecimals = <?=$underlaying_desimal; ?>; // Number of decimals defined in this ERC20 token's contract				
+				const underlyingDecimals = <?=$underlaying_desimal; ?>; // Number of decimals defined in this ERC20 token's contract
 				const mantissa = 18 + parseInt(underlyingDecimals) - 8;
 				const ethMantissa =1e18;
 				const blocksPerDay = 4 * 60 * 24;
-				const daysPerYear = 365;				
+				const daysPerYear = 365;
 				var arrayMrk=[myAccountAddress];
-				
+
 				const fromMyWallet = {
 				  from: myAccountAddress,
 				  gasLimit: web3.utils.toHex(500000),
 				  gasPrice: web3.utils.toHex(1000000000) // use ethgasstation.info (mainnet only)
 			  };
-				
-				// main instance 
+
+				// main instance
 				var myContract = new web3.eth.Contract(arrayABI, mainContractAddress, {
 					from: myAccountAddress, // default from address
 				});
 				console.log(myContract)
-				
-				// market instance 
+
+				// market instance
 				var marketcontract = new web3.eth.Contract(marketAbi, comptrollerAddress,{
 					from: myAccountAddress, // default from address
 				});
 				console.log(marketcontract);
-				
-				//Assets instance 
-				if(asset!="" && asset!='ETH' && asset!='cETH'){ 
-				var underlying = new web3.eth.Contract(erc20AbiJson, underlyingContractAddress);  
-				console.log('underlying '+underlying); 
+
+				//Assets instance
+				if(asset!="" && asset!='ETH' && asset!='cETH'){
+				var underlying = new web3.eth.Contract(erc20AbiJson, underlyingContractAddress);
+				console.log('underlying '+underlying);
 				}
-				
+
 				//balanceOfUnderlying
 				const balanceOfUnderlying = web3.utils.toBN(await myContract.methods.balanceOfUnderlying(myAccountAddress).call()) / Math.pow(10, underlyingDecimals);
-				console.log('balanceOfUnderlying'+balanceOfUnderlying);	
+				console.log('balanceOfUnderlying'+balanceOfUnderlying);
 				$('.supply_blalnce').html( balanceOfUnderlying.toFixed(3)+' '+asset);
 				if(balanceOfUnderlying>0)
 					  $("#withdrawing").html('Withdraw');
-				  
+
 				 if($('#TokensTowithdraw').val()=="")
 					$("#withdrawing").attr("disabled", "disabled");
-					
-				 /*if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+
+				 /*if(asset!="" && asset!='ETH' && asset!='cETH'){
 				  console.log("ETH supplied to the Compound Protocol:", balanceOfUnderlying.toFixed(3), '\n');
 				  $('.supply_blalnce').html( balanceOfUnderlying.toFixed(3)+' <?php echo $_COOKIE['currency'];?>');
 				 }else{
 				  var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress}) /Math.pow(10, ctokendesimal);
 				  $('.supply_blalnce').html( balance.toFixed(3)+' <?php echo $_COOKIE['currency'];?>');
-				 } 
+				 }
 				 */
-				 
+
 				// checkMembership for allowed user assets to enter compound market
 				var checkMembership = await marketcontract.methods.checkMembership(myAccountAddress,mainContractAddress).call({from: myAccountAddress});
-				console.log(checkMembership); 
+				console.log(checkMembership);
 				$('#ether-basic-switch').attr('checked', checkMembership);
-				 
-				
+
+
 				// APY
 				const supplyRatePerBlock = await myContract.methods.supplyRatePerBlock().call();
 				const borrowRatePerBlock = await myContract.methods.borrowRatePerBlock().call();
@@ -704,12 +703,12 @@ $(document).ready(async function(){
 				$('.supply_percentage_mo').html(supplyApy.toFixed(2)+' %');
 				$('.borrow_percentage').html(borrowApy.toFixed(2)+' %');
 				$('.borrow_percentage_mo').html(borrowApy.toFixed(2)+' %');
-				  
 
-				 
+
+
 
 				var totalSupply = await myContract.methods.totalSupply().call({from: myAccountAddress});
-				console.log('totalSupply'+totalSupply/1000000000000000000);	
+				console.log('totalSupply'+totalSupply/1000000000000000000);
 				let oneCTokenInUnderlying = exchangeRateCurrent / Math.pow(10, mantissa);
 				const totalSupplyScaled = (totalSupply) / Math.pow(10, 8) ;
 				oneCTokenInUnderlying = exchangeRateCurrent / (1 * 10 ^ (18 + underlyingDecimals - 8));
@@ -719,13 +718,13 @@ $(document).ready(async function(){
 				console.log('borrowRatePerBlock'+borrowRatePerBlock);
 				console.log('totalSupplyScaled'+totalSupplyScaled);
 				//console.log('new'+5760 * supplyRatePerBlock / Math.pow(10, underlyingDecimals));
-				
-				
+
+
 				const logBalances = () => {
 				  return new Promise(async (resolve, reject) => {
 					let myWalletEthBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
 					let myWalletCEthBalance = await myContract.methods.balanceOf(myAccountAddress).call() /  Math.pow(10, ctokendesimal);
-					if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+					if(asset!="" && asset!='ETH' && asset!='cETH'){
 						var myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals); // if you supply in compound otherwise it show you 0.
 						console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
 						$('.walletbalance').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
@@ -739,45 +738,45 @@ $(document).ready(async function(){
 						$('.walletbalance').html(parseFloat(myWalletEthBalance).toFixed(3)+''+asset);
 						 if(myWalletUnderlyingBalance > 0 )
 								$('#supplying').html('Supply');
-						       // $("#supplying").attr("disabled", "disabled"); 
+						       // $("#supplying").attr("disabled", "disabled");
 						$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
 					}
-					 $("#supplying").attr("disabled", "disabled"); 
+					 $("#supplying").attr("disabled", "disabled");
 					console.log("My Wallet's  ETH Balance:", myWalletEthBalance);
 					console.log("My Wallet's cETH Balance:", myWalletCEthBalance);
-					
+
 
 					resolve();
 				  });
 				};
- 
+
 			   await logBalances();
-			  
+
 			  //supply balance data
-			  if(balanceOfUnderlying > 0.00){	
-			  
+			  if(balanceOfUnderlying > 0.00){
+
 				  console.log("(2 *(("+balanceOfUnderlying+" * "+supplyApy+")/100))* "+usd_value);
 				  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* usd_value;
 				  const borrow_limit=(supplybalanceUSD*80)/100;
-				 
+
 				  $('#supplybalanceUSD').html('$ '+supplybalanceUSD.toFixed(5));
 				  $('.borrow_limit').html('$ '+borrow_limit.toFixed(2));
-				  
+
 				  $('#totsupply').html(balanceOfUnderlying.toFixed(4));
-				  
+
 			  }
-			  
-			  
+
+
 			  // borrow balance  Data
 			  const borrowBalanceStored= await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
 			  const borrowBalance=borrowBalanceStored/Math.pow(10, underlyingDecimals);
-			 
-				  
+
+
 			   if($('#TokensTorepay').val()=="")
 					$("#repaying").attr("disabled", "disabled");
 				else
 					 $("#repaying").html('Repay');
-			  if(borrowBalance > 0){	
+			  if(borrowBalance > 0){
 				  $('.borrow_percentage').html(borrowApy.toFixed(2)+' %');
 				  $("#repaying").html('Repay');
 				  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* usd_value;
@@ -794,26 +793,26 @@ $(document).ready(async function(){
 				  if($('#TokensToborrow').val()=="")
 					$("#Borrowing").attr("disabled", "disabled");
 			  }
-  
 
-  
+
+
 				// check Collateral
 				 $('#ether-basic-switch').click( async function(){
-					
+
 				if($(this).prop('checked')==true){
-						 
+
 				var markets = await marketcontract.methods.enterMarkets(arrayMrk).send({from: myAccountAddress});
 				console.log(myAccountAddress);
-				console.log(markets);  
+				console.log(markets);
 				 }else{
-					 
+
 					 var markets = await marketcontract.methods.exitMarket(myAccountAddress).send({from: myAccountAddress});
 				console.log(myAccountAddress);
-				console.log(markets); 
+				console.log(markets);
 				 }
 
 				 });
- 
+
 				//Tabs
 				$('#nav-profile-tab').click(async function(){
 				$('#withdrawinputs').show();
@@ -823,8 +822,8 @@ $(document).ready(async function(){
 				$('#withdrawinputs').hide();
 				$('#supplyinputs').show();
 				});
-				
-				
+
+
 				$('#borrow-tab').click(async function(){
 				$('#repayinputs').hide();
 				$('#borrowinputs').show();
@@ -833,8 +832,8 @@ $(document).ready(async function(){
 				$('#repayinputs').show();
 				$('#borrowinputs').hide();
 				});
-				
-				
+
+
 				//popup supply Max
 				$('#max_button_addon_supply').click( async function(){
 					 if(asset!="" && asset!='ETH' && asset!='cETH'){
@@ -844,59 +843,59 @@ $(document).ready(async function(){
 				 }
 					 var newbalance=parseFloat(myWalletUnderlyingBalance).toFixed(3);
 					 $('#TokensToSupply').val(newbalance);
-					
-					
+
+
 				 });
-				 
+
 			//popup withdraw Max
 				$('#max_button_addon_withdraw').click( async function(){
-					
+
 					 var newbalance=parseFloat(balanceOfUnderlying).toFixed(3);
 					 $('#TokensTowithdraw').val(newbalance);
-					
+
 				 });
-			
+
 			 //popup borrow Max
 				$('#max_button_addon_borrow').click( async function(){
 					 var newbalance=parseFloat(borrowBalance).toFixed(3);
 					 $('#TokensToborrow').val(newbalance);
 					 let TokensToborrow=$('#TokensToborrow').val();
 					 var TokenBorrow=parseFloat(borrowBalance-TokensToborrow);
-					 
-						
+
+
 				 });
-				
+
 			//popup repay Max
 				$('#max_button_addon_repay').click( async function(){
 					 var newbalance=parseFloat(borrowBalance).toFixed(3);
 					 $('#TokensTorepay').val(newbalance);
-					
+
 				 });
-			//popup input validation 
+			//popup input validation
 			 $('#TokensToSupply').keyup( async function(){
-				 
+
 				 let TokensToSupply=$('#TokensToSupply').val();
 				  if(asset!="" && asset!='ETH' && asset!='cETH'){
-					  
+
 					var myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals);
-					
+
 				  }else{
-					  
+
 					var myWalletUnderlyingBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
 				  }
-				  
+
 				    var TokensSupply=parseFloat(myWalletUnderlyingBalance-TokensToSupply);
 				    var str = TokensToSupply.toString();
 					if(TokensToSupply > myWalletUnderlyingBalance){
 					 $('#supplying').html('NO FUNDS AVAILABLE');
-					 $("#supplying").attr("disabled", "disabled"); 
+					 $("#supplying").attr("disabled", "disabled");
 					}
 					else if(TokensToSupply <= 0){
-					
-					 $("#supplying").attr("disabled", "disabled"); 
+
+					 $("#supplying").attr("disabled", "disabled");
 				  }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {
-					  
-						$("#supplying").attr("disabled", "disabled"); 
+
+						$("#supplying").attr("disabled", "disabled");
 					}
 				  else if(Number.isInteger(TokensToSupply)) {
 						$("#supplying").removeAttr("disabled");
@@ -905,96 +904,96 @@ $(document).ready(async function(){
 						$("#supplying").removeAttr("disabled");
 						$('#supplying').html('Supply');
 				  }
-					
-				
-					
-					
-				
-					
-			 });	 
-				 
+
+
+
+
+
+
+			 });
+
 			//popup input validation for withdraw
-			
+
 			 $('#TokensTowithdraw').keyup( async function(){
-				 
+
 				 let TokensTowithdraw=$('#TokensTowithdraw').val();
 				 var str = TokensTowithdraw.toString();
-				  
+
 				 var Tokenswithdraw=parseFloat(balanceOfUnderlying-TokensTowithdraw);
 					if(TokensTowithdraw > balanceOfUnderlying){
 						$('#withdrawing').html('NO FUNDS AVAILABLE');
-						$("#withdrawing").attr("disabled", "disabled"); 
+						$("#withdrawing").attr("disabled", "disabled");
 					}
 					else if(TokensTowithdraw <= 0 || checkMembership==false){
-					 $("#withdrawing").attr("disabled", "disabled"); 
+					 $("#withdrawing").attr("disabled", "disabled");
 				  }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {
-					  
-						$("#withdrawing").attr("disabled", "disabled"); 
+
+						$("#withdrawing").attr("disabled", "disabled");
 					}else {
-						$("#withdrawing").removeAttr("disabled"); 
+						$("#withdrawing").removeAttr("disabled");
 						$('#withdrawing').html('Withdraw');
 				  }
-					
-				
-					
+
+
+
 			 });
-			 
-			 
+
+
 			 //popup input validation for repay
-			
+
 			 $('#TokensTorepay').keyup( async function(){
-				 
+
 				 let TokensTorepay=$('#TokensTorepay').val();
 				 var str = TokensTorepay.toString();
 				// console.log(TokensTorepay+" > "+borrowBalance);
 				// console.log(TokensTorepay+" <= "+borrowBalance+" && "+checkMembership+" == false");
-				  
+
 				 var Tokensrepay=parseFloat(borrowBalance-TokensTorepay);
 					if(TokensTorepay > borrowBalance){
 						$('#repaying').html('NO FUNDS AVAILABLE');
-						$("#repaying").attr("disabled", "disabled"); 
-						
+						$("#repaying").attr("disabled", "disabled");
+
 					}else if(TokensTorepay <= 0 || checkMembership==false){
-					 $("#repaying").attr("disabled", "disabled"); 
-					
+					 $("#repaying").attr("disabled", "disabled");
+
 				    }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {
-					  
-						$("#repaying").attr("disabled", "disabled"); 
+
+						$("#repaying").attr("disabled", "disabled");
 					}else {
-						$("#repaying").removeAttr("disabled"); 
+						$("#repaying").removeAttr("disabled");
 						$('#repaying').html('Repay');
-						
+
 				  }
-					
-				
-					
+
+
+
 			 });
- 	 
+
 			//popup input validation for borrow
-			
+
 			 $('#TokensToborrow').keyup( async function(){
-				 
+
 				 let TokensToborrow=$('#TokensToborrow').val();
 				  var str = TokensToborrow.toString();
-				  
+
 				 var Tokensborrow=parseFloat(borrowBalance-TokensToborrow);
 					if(TokensToborrow > borrowBalance){
 						$('#Borrowing').html('NO FUNDS AVAILABLE');
-						$("#Borrowing").attr("disabled", "disabled"); 
+						$("#Borrowing").attr("disabled", "disabled");
 					}else if(TokensToborrow <= 0 || checkMembership==false){
-					 $("#Borrowing").attr("disabled", "disabled"); 
-				    }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {					  
-						$("#Borrowing").attr("disabled", "disabled"); 
+					 $("#Borrowing").attr("disabled", "disabled");
+				    }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {
+						$("#Borrowing").attr("disabled", "disabled");
 					}else {
-						$("#Borrowing").removeAttr("disabled"); 
+						$("#Borrowing").removeAttr("disabled");
 						$('#Borrowing').html('Borrow');
 				    }
-					
-				
-					
+
+
+
 			 });
- 
- 
+
+
 		  //var checkallowance = await myContract.methods.allowance(myAccountAddress,batContractAddress).call();
 		  //console.log('checkallowance'+checkallowance);
 
@@ -1004,24 +1003,24 @@ $(document).ready(async function(){
  // let { 1:liquidity } = await comptroller.methods.getAccountLiquidity(myAccountAddress).call();
  // liquidity = liquidity / 1e18;
  // console.log(`You can borrow up to ${liquidity} ${asset} from the protocol.`);
- 
+
  // supply
  $('#supplying').click( async function(){
 	 const TokensToSupply=$('#TokensToSupply').val();
   $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');
  // Mint cTokens by supplying underlying tokens to the Compound Protocol
-  
-  
+
+
   console.log('\nSupplying ETH to the protocol as collateral (you will get cETH in return)...\n');
    const underlyingTokensToSupply = 10 * Math.pow(10, underlyingDecimals);
-   
+
    var ethToSupplyAsCollateral = TokensToSupply * Math.pow(10, underlyingDecimals);
    console.log(''+ethToSupplyAsCollateral+' contract "supply" operation successful.');
    // Web3 transaction information, we'll use this for every transaction we'll send
-  
-	  
-  if(asset!="" && asset!='ETH' && asset!='cETH' ){ 
-	  
+
+
+  if(asset!="" && asset!='ETH' && asset!='cETH' ){
+
 		if(balanceOfUnderlying==0.00)
 			await underlying.methods.approve(myAccountAddress, underlyingTokensToSupply).send(fromMyWallet);
 
@@ -1040,8 +1039,8 @@ $(document).ready(async function(){
     .on("error", async function () {
         console.log("Error");
     });
-	  
-	  
+
+
   }else{
 	  await myContract.methods.mint().send({
     from: myAccountAddress,
@@ -1062,13 +1061,13 @@ $(document).ready(async function(){
     });
   }
 
-  
+
 
   let cTokenBalance = await myContract.methods.
     balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal);
   console.log('My wallet\'s c${asset} Token Balance:', cTokenBalance);
 
-  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){ 
+  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){
   let underlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call();
   underlyingBalance = underlyingBalance / Math.pow(10, underlyingDecimals);
   console.log("My wallet's ${asset} Token Balance:", underlyingBalance, '\n');
@@ -1077,28 +1076,28 @@ $(document).ready(async function(){
   let exchangeRate = erCurrent / Math.pow(10, 18 + underlyingDecimals - 8);
   console.log("Current exchange rate from c${"+asset+"} to ${"+asset+"}:", exchangeRate, '\n');
 
- 
 
- 
-  
+
+
+
 
   cTokenBalance = await myContract.methods.balanceOf(myAccountAddress).call();
   cTokenBalance = cTokenBalance / Math.pow(10, ctokendesimal);
   console.log("My wallet's c${"+asset+"} Token Balance:", cTokenBalance);
-  
-  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){ 
+
+  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){
   underlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call();
   underlyingBalance = underlyingBalance / Math.pow(10, underlyingDecimals);
   console.log("My wallet's ${asset} Token Balance:", underlyingBalance, '\n');
   }
  });
- 
- 
- 
+
+
+
  // Borrow
   $('#Borrowing').click( async function(){
-  const ethToBorrow = $('#TokensToborrow').val();	 
-  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	 
+  const ethToBorrow = $('#TokensToborrow').val();
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');
 
   let underlyingAsCollateral = 15;
 
@@ -1106,13 +1105,13 @@ $(document).ready(async function(){
   underlyingAsCollateral = underlyingAsCollateral * Math.pow(10, underlyingDecimals);
   underlyingAsCollateral = underlyingAsCollateral.toString();
 
-  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){ 
+  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){
   console.log('\nApproving ${assetName} to be transferred from your wallet to the c${'+asset+'} contract...\n');
   await underlying.methods.approve(cTokenAddress, underlyingAsCollateral).send(fromMyWallet);
   }
-  
+
   if(checkMembership!=false && borrowBalance > 0){
-  
+
   console.log('\nNow attempting to borrow ${ethToBorrow} ETH...');
   await myContract.methods.borrow(web3.utils.toWei(ethToBorrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for borrowing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
@@ -1126,23 +1125,23 @@ $(document).ready(async function(){
     .on("error", async function () {
         console.log("Error");
     });
-	
-  console.log('\nNow attempting to borrow ${ethToBorrow} ETH...successful');	
-  
+
+  console.log('\nNow attempting to borrow ${ethToBorrow} ETH...successful');
+
   }
-  
+
  });
- 
+
   // withdraw
 
   $('#withdrawing').click( async function(){
 
   const ethTowithdrow = $('#TokensTowithdraw').val();
-  
-  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	 
+
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');
   if(checkMembership!=false && balanceOfUnderlying > 0){
-	  
-  
+
+
   console.log('\nNow attempting to borrow ${'+ethTowithdrow+'} ETH...');
   if(asset!="" && asset!='ETH' && asset!='cETH'){
 	var withdrowResult = await myContract.methods.redeem(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
@@ -1169,24 +1168,24 @@ $(document).ready(async function(){
     })
     .on("error", async function () {
         console.log("Error");
-    }); 
+    });
   }
-  
+
   }
-  
+
  });
- 
- 
+
+
   // repay
 
   $('#repaying').click( async function(){
-   
+
    const ethTorepay = $('#TokensTorepay').val();
-   $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	
-  
+   $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');
+
   if(checkMembership!=false && borrowBalance > 0){
-	  
-  
+
+
   console.log('\nNow attempting to repay ${'+ethTorepay+'} ETH...');
   if(asset!="" && asset!='ETH' && asset!='cETH'){
 	var repayResult = await myContract.methods.repayBorrow(web3.utils.toWei(ethTorepay.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
@@ -1218,15 +1217,15 @@ $(document).ready(async function(){
     })
     .on("error", async function () {
         console.log("Error");
-    }); 
+    });
   }
- 
+
   }
-  
+
  });
 
 $('.close').click( async function(){ $('#supplyWithdraw').hide();   $('#borrowRepay').hide();});
- 
+
 
 // Assets loop
 
@@ -1237,7 +1236,7 @@ arrayABI=arrayABI.split(',');
 var totassets=arrayABI.length;
 
 for (var i=0;i<totassets;i++){
-	
+
 					var contractABI=$('#contractABI'+arrayABI[i]).val();
 					var ContractAddress=$('#ContractAddress'+arrayABI[i]).val();
 					const abi = JSON.parse(contractABI);
@@ -1247,32 +1246,32 @@ for (var i=0;i<totassets;i++){
 
 					/*var approveamount = 1/1e18;
                     var checkMembership = await Token.methods.approve(myAccountAddress,approveamount).send();
-					
+
 					var Assetsbal = await Token.methods.balanceOf(myAccountAddress).call()/ 1e18;
 					console.log('Assetsbal'+Assetsbal);
-					
+
 					$('#CurrentAssetsBAL'+arrayABI[i]).html(Assetsbal+' '+arrayABI[i]);*/
 					const supplyRatePerBlockBAT = await Token.methods.supplyRatePerBlock().call();
 					const borrowRatePerBlockBAT = await Token.methods.borrowRatePerBlock().call();
 					const supplyApyBAT = (((Math.pow((supplyRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
-					const borrowApyBAT = (((Math.pow((borrowRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100; 
-					
+					const borrowApyBAT = (((Math.pow((borrowRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
+
 					const borrowBalanceStoredBAT= await Token.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
 			        const borrowBalanceBAT=borrowBalanceStoredBAT/Math.pow(10, underlyingDecimals);
 					const borrowbalanceUSDBAT= (2 *((borrowBalanceBAT * borrowApyBAT)/100))* usd_value;
-					
+
 					$('.totalborrow'+arrayABI[i]).html(borrowbalanceUSDBAT.toFixed(2)+' USD');
 					$('.supply_percentage'+arrayABI[i]).html(supplyApyBAT.toFixed(2)+' %');
 
 					$('.borrow_percentage'+arrayABI[i]).html(borrowApyBAT.toFixed(2)+' %');
-					
-					
 
-					
+
+
+
 }
 }
 
- 
+
 
             }
           });
@@ -1280,7 +1279,7 @@ for (var i=0;i<totassets;i++){
             // User denied account access...
         }
     }
-   
+
 // Legacy dapp browsers...
     else if (window.web3) {
     alert('legacy');
@@ -1316,13 +1315,13 @@ window.ethereum.on('networkChanged', function (networkId) {
     }
     return "";
   }
-  
+
    $('#go-back').click(function(){
-	     
+
 	      location.href='home.php';
        });
-	   
-	   
+
+
 </script>
 
 </body></html>

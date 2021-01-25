@@ -61,16 +61,16 @@
 				  <?php
 							$query2 = "SELECT * FROM currency where (contractABI!='') ";
 							$result2 = mysqli_query($conn,$query2);
-							
+
 							$i=0;
-							
+
 							if($result2){
 							while($row = mysqli_fetch_array($result2)){
-							
-								
+
+
 								$name = $row['name'];
-								
-								
+
+
 								if($name=='BAT' || $name=='DAI' || $name=='cETH'){
 				?>
                   <tr>
@@ -82,47 +82,47 @@
                     <td><span class="totalborrowc<?=ltrim($name, 'c');?>" >0.00 USD</span></td>
                     <td><span class="supply_percentagec<?=ltrim($name, 'c');?>" >0%</span></td>
                     <td>
-                      <span class="borrow_percentagec<?=ltrim($name, 'c');?>">0%</span>                     
+                      <span class="borrow_percentagec<?=ltrim($name, 'c');?>">0%</span>
                     </td>
                     <td>
                       <span>-</span>
-                    </td>                  
+                    </td>
 				  <td>
                    <span><button class="btn btn-info"  onclick="deposit('<?=$row['name'];?>');" >Deposit</button> &nbsp;&nbsp;<button class="btn btn-info" onclick="borrow('<?=$row['name'];?>');" >Borrow</button></span>
                    </td>
-				   <td> <?php 
+				   <td> <?php
 				       if($name!='cETH'){
 						$queryInner = "SELECT * FROM currency where (name='c".$name."' and contractABI!='') ";
 					   }else{
-						 $queryInner = "SELECT * FROM currency where (name='".$name."' and contractABI!='') ";  
+						 $queryInner = "SELECT * FROM currency where (name='".$name."' and contractABI!='') ";
 					   }
 							$resultInner = mysqli_query($conn,$queryInner);
-							
-							
-							
+
+
+
 							if($resultInner){
 							while($rowInner = mysqli_fetch_array($resultInner)){
-								
+
 								$ContractAddress = $rowInner['contractAddress'];
 							    $ContractABI= $rowInner['contractABI'];
 								$arrayABI[$i]=$rowInner['name'];
-							    
+
 						?>
 						<input type='hidden' name='contractABI<?=$rowInner['name'];?>' id='contractABI<?=$rowInner['name'];?>' value='<?=$ContractABI; ?>' /><input type='hidden' name='ContractAddress<?=$rowInner['name'];?>' id='ContractAddress<?=$rowInner['name'];?>' value='<?=$ContractAddress;?>' />
 						<?php
-						
-							   
+
+
 							}
 							}
 						?>
 					</td>
 				   </tr>
-				  
+
 				   <?php
-								 $i++;	
+								 $i++;
 								}
 							}
-							
+
 						}
 						echo "<input type='hidden' name='arrayABI' id='arrayABI' value='".implode(',',$arrayABI)."' />";
 				   ?>
@@ -152,9 +152,9 @@
             data: "{}",
             dataType: "json",
             success: function (data) {
-				
+
 				console.log(data);
-				
+
             	var vStr='';
                 for(i=0;i<data.length;i++)
                 {
@@ -196,12 +196,12 @@
                 alert("Error");
             }
         });
-		
+
 		function deposit(currency){
 	      document.cookie = "currency="+currency+"; expires=''; path=/";
 	      location.href='deposit.php';
        }
-	   
+
 	   function borrow(currency){
 	      document.cookie = "currency="+currency+"; expires=''; path=/";
 	      location.href='borrow.php';
@@ -209,5 +209,5 @@
 
   </script>
   <!-- Main Footer -->
-  <?php include('config.php'); ?>
+  
  <?php include 'footer.php';?>

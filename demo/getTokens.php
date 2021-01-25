@@ -55,7 +55,7 @@ $i=1;
   	  }
       else {
         // code...
-        mysqli_query($conn,'Update `currency` set  `contractAddress`="'.$tok['address'].'",desimals="'.$tok['decimals'].'" where name="'.$tok['symbol'].'"');
+        mysqli_query($conn,'Update `currency` set  `contractAddress`="'.$tok['address'].'",desimals="'.$tok['decimals'].'",full_name="'.$tok['name'].'" where name="'.$tok['symbol'].'"');
       }
   }
   	//$cURL = "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/".$tok['address']. "/logo.png";

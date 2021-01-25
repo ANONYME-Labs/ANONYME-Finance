@@ -1,4 +1,6 @@
-<?php include 'connection.php';?>
+<?php include 'connection.php';
+include 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en" style="height: auto;" class=""><head>
   <meta charset="utf-8">
@@ -39,7 +41,7 @@ a {
 }
 .card-1:hover {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-} 
+}
 .badge {
   font-size: 100%;
 }
@@ -84,7 +86,7 @@ a {
 
 
 
-.card-header1 .btn-group { 
+.card-header1 .btn-group {
   border-radius: 30px!important;
   background-color: var(--gray-dark);
   padding: 6px;
@@ -97,7 +99,7 @@ a {
     width: 140px;
 
 
-    
+
 }
 /*.card {
   margin-top: 1em;

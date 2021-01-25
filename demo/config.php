@@ -127,4 +127,5 @@ if(isset($_COOKIE['currency'])){
 		 $assetsContractABI='null';
 		 $usd_value  = $usdvalue;
 		 $underlaying_desimal =18;
+		 $currency_full_name = 'Ether';
 }

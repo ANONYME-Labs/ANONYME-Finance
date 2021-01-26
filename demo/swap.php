@@ -38,7 +38,7 @@
                     <input type="text" id="txtFromToken" class="form-control clsfromtoken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
                     	<select  name="drpFromToken" id="drpFromToken" style="width:100px;">
-							<option value="calendar" data-image="images/eth.png">ETH</option>
+							<option value="ETH" data-image="images/eth.png">ETH</option>
 						</select>
                        
                     </div>
@@ -58,8 +58,8 @@
                     <div class="input-group-append">
                       <!-- <button class="btn btn-outline-secondary dropdown-toggle" id="btnToToken" type="button" data-toggle="modal" data-target="#to_token_pop"><img src="images/eth.png" id="imgToToken" style="width: 20px;margin-right: 10px;"><span id="spnToToken">ETH</span></button> -->
                       <select  name="drpToToken" id="drpToToken" style="width:100px;">
-                      		<option value="0">Select Token</option>
-							<option value="calendar" data-image="images/eth.png">ETH</option>
+                      		<option value="">Select Token</option>
+							<option value="ETH" data-image="images/eth.png">ETH</option>
 						</select>
                     </div>
                   </div>
@@ -355,6 +355,7 @@ $(document).ready(function(){
 
             var myAccountAddress = result[0];
             var selectedtoken = spnPoolToToken
+            
             if(spnPoolToToken=='ETH')
             {
               selectedtoken=spnPoolFromToken;
@@ -376,7 +377,7 @@ $(document).ready(function(){
                         var contractAddress = res.data.contractAddress;
                         var devide_to = '1e'+res.data.desimals;
                         if(res.name == 'ETH'){
-
+                        		
                         } else {
 
                             var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);

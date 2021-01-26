@@ -601,24 +601,24 @@ $(document).ready(async function(){
 				var asset='<?php if(isset($_COOKIE['currency'])) { echo ltrim($_COOKIE['currency'], 'c'); }else echo 'ETH';?>';
 
 				//main contract
-				var arrayABI = <?=$mainContractABI; ?>;
-				var mainContractAddress = "<?=$mainContractAddress; ?>";
+				var arrayABI = "<?php echo $mainContractABI; ?>";
+				var mainContractAddress = "<?php echo $mainContractAddress; ?>";
 
 
 				console.log(mainContractAddress);
 
 				//comptroller contract
 				var comptrollerAbi =<?=$comptrollerABI; ?>;
-				var comptrollerAddress = "<?=$comptrollerAddress; ?>";
+				var comptrollerAddress = "<?php echo $comptrollerAddress; ?>";
 				const comptroller = new web3.eth.Contract(comptrollerAbi, comptrollerAddress);
 
 				//market contract
 				var marketAbi =<?=$marketABI; ?>;
-				var marketAddress = "<?=$marketAddress; ?>";
+				var marketAddress = "<?php echo $marketAddress; ?>";
 
 				//Assets contract
 				if(asset!="" && asset!='ETH' && asset!='cETH'){
-				var underlyingContractAddress ='<?=$assetsContractAddress; ?>';
+				var underlyingContractAddress ='<?php echo $assetsContractAddress; ?>';
 				var erc20AbiJson = <?=$assetsContractABI; ?>;
 				}
 
@@ -632,10 +632,10 @@ $(document).ready(async function(){
 				underlyingPriceInUsd = underlyingPriceInUsd / 1e6; // Price feed provides price in USD with 6 decimal places
 				console.log(underlyingPriceInUsd);*/
 
-				var usd_value = <?=$usd_value;?>
+				var usd_value = <?php echo $usd_value;?>
 				// desimals
 				var ctokendesimal = 8;
-				const underlyingDecimals = <?=$underlaying_desimal; ?>; // Number of decimals defined in this ERC20 token's contract
+				const underlyingDecimals = <?php echo $underlaying_desimal; ?>; // Number of decimals defined in this ERC20 token's contract
 				const mantissa = 18 + parseInt(underlyingDecimals) - 8;
 				const ethMantissa =1e18;
 				const blocksPerDay = 4 * 60 * 24;

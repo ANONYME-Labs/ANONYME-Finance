@@ -154,11 +154,14 @@ $(document).ready(function(){
     var routerContractABI = <?php echo $routerContractABI; ?>;
 
 	CheckBalanceInWallet('from');
+	window.web3 = new Web3(ethereum);
+
 
 	$("#txtFromToken").change(function(){
 		CheckBalanceInWallet('from');
 		changeFromToken("from_change");
   	});
+
 
 	$("#drpFromToken").change(function(){
 		var vFromVal = $('#drpFromToken option:selected').text();
@@ -206,7 +209,7 @@ $(document).ready(function(){
   	function CheckBalanceInWallet(drpType)
   	{
   		var vFromAmount = $('#txtFromToken').val();
-  		window.web3 = new Web3(ethereum);
+  		 
   		 web3.eth.getAccounts(async function(error, result) {
             if(!error && typeof(result[0]) !== 'undefined')
                {
@@ -340,6 +343,66 @@ $(document).ready(function(){
         return true;
     });
 
+
+   $("#btnAmount").click(function(){
+		var vFromVal = $('#drpFromToken option:selected').text();
+		var vToVal = $('#drpToToken option:selected').text();
+		 
+		 web3.eth.getAccounts(async function (error, result) {
+
+		 	var ETHmetaMaskAddress = result[0];
+		 	console.log(" my wallet address =" + ETHmetaMaskAddress);
+
+		 	// SWAP ETH to ERC20
+			if(vFromVal == "ETH")
+			{
+				 $.ajax({
+	                type: "POST",
+	                url: 'ajax/getCurrencyData.php',
+	                data: {tokenname:vToVal },
+	                dataType: "json",
+	                success: function (res) {
+	                	if (res.status == '1') {
+	                		var contractABI = res.data.contractABI;
+                        	var contractAddress = res.data.contractAddress;
+                        	var devide_to = '1e'+res.data.desimals;
+
+                        	console.log(" token ="+res.name);
+                        	console.log(" contract address = "+ contractAddress);
+
+                        	// the addressFrom address that will send the test transaction
+                        	const addressFrom =ETHmetaMaskAddress; 
+                        	// the Uniswap factory contract address
+          					var addressTo = '0xf5D915570BC477f9B8D6C0E980aA81757A3AaC36';
+          					var abiUniSwap = '[{"name":"NewExchange","inputs":[{"type":"address","name":"token","indexed":true},{"type":"address","name":"exchange","indexed":true}],"anonymous":false,"type":"event"},{"name":"initializeFactory","outputs":[],"inputs":[{"type":"address","name":"template"}],"constant":false,"payable":false,"type":"function","gas":35725},{"name":"createExchange","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"token"}],"constant":false,"payable":false,"type":"function","gas":187911},{"name":"getExchange","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"token"}],"constant":true,"payable":false,"type":"function","gas":715},{"name":"getToken","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"exchange"}],"constant":true,"payable":false,"type":"function","gas":745},{"name":"getTokenWithId","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"uint256","name":"token_id"}],"constant":true,"payable":false,"type":"function","gas":736},{"name":"exchangeTemplate","outputs":[{"type":"address","name":"out"}],"inputs":[],"constant":true,"payable":false,"type":"function","gas":633},{"name":"tokenCount","outputs":[{"type":"uint256","name":"out"}],"inputs":[],"constant":true,"payable":false,"type":"function","gas":663}]';
+
+          					var token =contractAddress;
+          					const contract = new web3.eth.Contract(JSON.parse(abiUniSwap), addressTo);
+          					const tx = contract.methods.createExchange(token).send({ 
+                                        from: addressFrom,
+                                        to: addressTo
+                                      });
+					       
+					       // **************  GET Exchange Token  ************
+					        var abi = '[{"name":"NewExchange","inputs":[{"type":"address","name":"token","indexed":true},{"type":"address","name":"exchange","indexed":true}],"anonymous":false,"type":"event"},{"name":"initializeFactory","outputs":[],"inputs":[{"type":"address","name":"template"}],"constant":false,"payable":false,"type":"function","gas":35725},{"name":"createExchange","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"token"}],"constant":false,"payable":false,"type":"function","gas":187911},{"name":"getExchange","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"token"}],"constant":true,"payable":false,"type":"function","gas":715},{"name":"getToken","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"exchange"}],"constant":true,"payable":false,"type":"function","gas":745},{"name":"getTokenWithId","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"uint256","name":"token_id"}],"constant":true,"payable":false,"type":"function","gas":736},{"name":"exchangeTemplate","outputs":[{"type":"address","name":"out"}],"inputs":[],"constant":true,"payable":false,"type":"function","gas":633},{"name":"tokenCount","outputs":[{"type":"uint256","name":"out"}],"inputs":[],"constant":true,"payable":false,"type":"function","gas":663}]'
+					        
+					        const uniswap = new web3.eth.Contract(JSON.parse(abi), addressTo);
+					        async function call(transaction) {
+					              return await transaction.call({from: addressFrom});
+					        }
+
+					        vExchangeAddress = await call(uniswap.methods.getExchange(token));
+
+					        console.log(" exchanged address = "+ vExchangeAddress);
+	                	}
+	                },
+	                error: function (result) {
+	                    alert("Error");
+	                }
+	            });
+			}
+		});
+  	});
 
   	function changeFromToken(change = '') {
 

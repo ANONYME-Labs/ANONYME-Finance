@@ -601,7 +601,12 @@ $(document).ready(async function(){
 				var asset='<?php if(isset($_COOKIE['currency'])) { echo ltrim($_COOKIE['currency'], 'c'); }else echo 'ETH';?>';
 
 				//main contract
-				var arrayABI = "<?php echo $mainContractABI; ?>";
+				<?php if($mainContractABI!="") { ?>
+					var arrayABI = <?php echo $mainContractABI; ?>;
+				<?php } else { ?>
+					var arrayABI = "";
+				<?php } ?>
+
 				var mainContractAddress = "<?php echo $mainContractAddress; ?>";
 
 

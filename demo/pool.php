@@ -428,6 +428,10 @@
       return str;
     };
     function changeFromToken(change = '') {
+      //console.log("ADSDSD : " + web3.utils.toHex(5*100**16) );
+      console.log("rrrrr : " + web3.utils.toHex(0.00005*1e18) );
+      console.log("1111 : " + web3.utils.fromWei(web3.utils.toHex(5*10**16) ));
+
         var spnPoolFromToken = poolFromToken = $('#poolFromToken option:selected').val();
         var spnPoolToToken = poolToToken = $('#poolToToken option:selected').val();
         if(change=='to_change')
@@ -471,9 +475,10 @@
                             const WETHval = WETHobj.then(function(result){
 
                                 console.log("weth result : " + result);
-
+                                if(result){
                                 var txtPoolFromToken = $("#txtPoolFromToken").val();
-                                var amountOut = ( devide_to / txtPoolFromToken);
+                                var amountOut = ( devide_to * txtPoolFromToken);
+                                console.log("amountOut : " +amountOut);
                                 if(change=='to_change')
                                 {
                                   txtPoolFromToken = $("#txtPoolToToken").val();
@@ -494,83 +499,138 @@
                                   //console.log("amountOut : " + web3.utils.toHex(amountOut));
                                   //console.log("test :: " + web3.utils.toWei(amountOut.toString(), 'ether') );
                                 //  console.log(web3.utils.toHex(amountOut.toFixedSpecial(2)));
-                                var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+                                if(spnPoolFromToken=='ETH'){
+                                  var getamntin = routerContract.methods.getAmountsOut(amountOut, path).call();
+                                }
+                                else {
+                                  var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+                                }
 
                                 getamntin.then(function(getAmtVal) {
 
-                                    console.log(getAmtVal);
+                                    console.log("getAmtVal : " + getAmtVal);
+                                    if(getAmtVal){
 
-                                    if(spnPoolToToken=='ETH' || spnPoolFromToken=='ETH')
-                                    {
-                                      devide_to = 1e18;
-                                    }
-
-
-                                    if(spnPoolToToken=='ETH' )
-                                    {
-                                      var ETHValue = getAmtVal[0];
-                                      var  tokenAount= getAmtVal[1];
-                                      var inpDevide = (ETHValue/devide_to).toFixed(8);
-                                      var getInpSingle = parseFloat(inpDevide).toFixed(8);
-
-
-                                      var forFirst = getInpSingle;
-                                      var forSecond = (1 / forFirst).toFixed(8);
-                                      if(change=='to_change')
+                                      if(spnPoolToToken=='ETH' || spnPoolFromToken=='ETH')
                                       {
-                                        $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
-                                        //$("#txtPoolFromToken").focus();
+                                        devide_to = 1e18;
+                                    //  }
+
+
+                                      if(spnPoolToToken=='ETH' )
+                                      {
+                                        var ETHValue = getAmtVal[0];
+                                        var  tokenAount= getAmtVal[1];
                                       }
                                       else {
+                                        var ETHValue = getAmtVal[1];
+                                        var  tokenAount= getAmtVal[0];
+                                      }
+                                        var inpDevide = (ETHValue/devide_to).toFixed(8);
+                                        var getInpSingle = parseFloat(inpDevide).toFixed(8);
 
-                                      $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
-                                      //$("#txtPoolToToken").focus();
-                                    }
-                                      $(".firstTokenRate").html(parseFloat(forFirst));
-                                      $(".secondTokenRate").html(parseFloat(forSecond));
 
-                                      $(".startTwoTokens #first1").html(spnPoolToToken);
-                                      $(".startTwoTokens #first2").html(spnPoolFromToken);
-                                      $(".endTwoTokens #second1").html(spnPoolFromToken);
-                                      $(".endTwoTokens #second2").html(spnPoolToToken);
-                                    }
-                                    else {
-                                      var tokenAount = getAmtVal[0];
-                                      var ETHValue = getAmtVal[1];
-                                      //var inpDevide = (amountOut / tokenAount).toFixed(8);
-                                      console.log("tokenAount : " + tokenAount);
+                                        var forFirst = getInpSingle;
+                                        var forSecond = (1 / forFirst).toFixed(8);
+                                        if(change=='to_change')
+                                        {
+                                          $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
+                                          //$("#txtPoolFromToken").focus();
+                                        }
+                                        else {
 
-                                      var inpDevide = (tokenAount/devide_to).toFixed(8);
-                                      var getInpSingle = parseFloat(inpDevide).toFixed(8);
-                                        console.log("getInpSingle : " + getInpSingle);
+                                          $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
+                                          //$("#txtPoolToToken").focus();
+                                        }
+                                        $(".firstTokenRate").html(parseFloat(forFirst));
+                                        $(".secondTokenRate").html(parseFloat(forSecond));
 
-                                      var forFirst =  ((1 / getInpSingle)).toFixed(8);
-                                      console.log("forFirst : " + forFirst);
-                                      var forSecond =getInpSingle;
-                                      console.log("*txtPoolFromToken : " + txtPoolFromToken);
-                                      console.log("forSecond : " + forSecond);
-                                      if(change=='to_change')
-                                      {
-                                        $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
-                                        //$("#txtPoolFromToken").focus();
+                                        $(".startTwoTokens #first1").html(spnPoolToToken);
+                                        $(".startTwoTokens #first2").html(spnPoolFromToken);
+                                        $(".endTwoTokens #second1").html(spnPoolFromToken);
+                                        $(".endTwoTokens #second2").html(spnPoolToToken);
                                       }
                                       else {
-                                        $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(3));
-                                      //$("#txtPoolToToken").focus();
+                                        var tokenAount = getAmtVal[0];
+                                        var ETHValue = getAmtVal[1];
+                                        //var inpDevide = (amountOut / tokenAount).toFixed(8);
+                                        console.log("tokenAount : " + tokenAount);
+
+                                        var inpDevide = (tokenAount/devide_to).toFixed(8);
+                                        var getInpSingle = parseFloat(inpDevide).toFixed(8);
+                                          console.log("getInpSingle : " + getInpSingle);
+
+                                        var forFirst =  getInpSingle;
+                                        console.log("forFirst : " + forFirst);
+                                        var forSecond =((1 / forFirst)).toFixed(8);
+                                        console.log("*txtPoolFromToken : " + txtPoolFromToken);
+                                        console.log("forSecond : " + forSecond);
+                                        if(change=='to_change')
+                                        {
+                                          $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
+                                          //$("#txtPoolFromToken").focus();
+                                        }
+                                        else {
+                                          $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(3));
+                                        //$("#txtPoolToToken").focus();
+                                        }
+
+                                        $(".firstTokenRate").html(parseFloat(forFirst));
+                                        $(".secondTokenRate").html(parseFloat(forSecond));
+                                        $(".startTwoTokens #first1").html(spnPoolFromToken);
+                                        $(".startTwoTokens #first2").html(spnPoolToToken);
+                                        $(".endTwoTokens #second1").html(spnPoolToToken);
+                                        $(".endTwoTokens #second2").html(spnPoolFromToken);
                                       }
+                                      if(parseFloat($("#txtPoolFromToken").val()) > parseFloat($("#pairWalletFromBalance").html()))
+                                      {
+                                        $("#create_pair_btn").prop('disabled', true);
+                                        var vtoken=$('#poolFromToken option:selected').val();
+                                        $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
+                                      }
+                                      else if(parseFloat($("#txtPoolToToken").val()) > parseFloat($("#pairWalletToBalance").html()))
+                                      {
+                                        $("#create_pair_btn").prop('disabled', true);
+                                        var vtoken=$('#poolToToken option:selected').val();
+                                        $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
+                                      }
+                                      else {
+                                        $("#create_pair_btn").html('Supply');
+                                          //check approval into ERC-20 token for router contract
+                                          contractABI = JSON.parse(contractABI);
 
-                                      $(".firstTokenRate").html(parseFloat(forFirst));
-                                      $(".secondTokenRate").html(parseFloat(forSecond));
+                                          var tknContract = new web3.eth.Contract(contractABI, contractAddress);
+                                          var getallowance = tknContract.methods.allowance(myAccountAddress, routerContractAddress).call();
 
-                                      $(".startTwoTokens #first1").html(spnPoolFromToken);
-                                      $(".startTwoTokens #first2").html(spnPoolToToken);
-                                      $(".endTwoTokens #second1").html(spnPoolToToken);
-                                      $(".endTwoTokens #second2").html(spnPoolFromToken);
-                                    }
-                                    $("#create_pair_btn").prop('disabled', false);
+                                          getallowance.then(function(getallowance) {
+                                            console.log("getallowance : " + getallowance);
+                                            if(parseInt(getallowance)<= 0)
+                                            {
+                                                $("#approve1").show();
+                                                $("#approve1").html('Approve');
+                                            }
+                                            else {
+                                              $("#create_pair_btn").prop('disabled', false);
+                                              $("#create_pair_btn").html('Supply');
+                                            }
+                                          });
 
-                                    $("#create_pair_btn").html('Supply');
+
+
+                                      }
+                                  }
+                                  else {
+                                    $("#create_pair_btn").prop('disabled', true);
+
+                                    $("#create_pair_btn").html('Insufficient token');
+                                  }
                                 });
+                              }
+                              else {
+                                $("#create_pair_btn").prop('disabled', true);
+
+                                $("#create_pair_btn").html('Insufficient token');
+                              }
                             });
                         }
                     }
@@ -989,6 +1049,12 @@
 
                     <div class="row py-4 hover-select-token">
                         <div class="col-lg-12 col-md-12 col-sm-12">
+                          <button style="display:none" class="btn btn-danger w-100 mb-3" id="approve1" >
+                              <div class="css-10ob8xa">Invalid pair</div>
+                          </button>
+                          <button style="display:none" class="btn btn-danger w-100 mb-3" id="approve2" >
+                              <div class="css-10ob8xa">Invalid pair</div>
+                          </button>
                             <button disabled="" class="btn btn-primary w-100 mb-3" id="create_pair_btn" onclick="createPairBtnClick();">
                                 <div class="css-10ob8xa">Invalid pair</div>
                             </button>

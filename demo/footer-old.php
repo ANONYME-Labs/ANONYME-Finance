@@ -602,12 +602,7 @@ $(document).ready(async function(){
 				var asset='<?php if(isset($_COOKIE['currency'])) { echo ltrim($_COOKIE['currency'], 'c'); }else echo 'ETH';?>';
 				
 				//main contract
-				var mainContractABI = <?php echo $mainContractABI; ?>;
-				<?php if($mainContractABI!="") { ?>
-					var mainContractABI = <?php echo $mainContractABI; ?>;
-				<?php } else { ?>
-					var mainContractABI = "";
-				<?php } ?>
+				var arrayABI = <?php echo $mainContractABI; ?>;
 				var mainContractAddress = "<?php echo $mainContractAddress; ?>";
 
 				
@@ -655,7 +650,7 @@ $(document).ready(async function(){
 			  };
 				
 				// main instance 
-				var myContract = new web3.eth.Contract(mainContractABI, mainContractAddress, {
+				var myContract = new web3.eth.Contract(arrayABI, mainContractAddress, {
 					from: myAccountAddress, // default from address
 				});
 				console.log(myContract)

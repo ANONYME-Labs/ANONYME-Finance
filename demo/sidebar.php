@@ -70,7 +70,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="deposit.php" class="nav-link">
+            <a href="alldeposit.php" class="nav-link">
               <i class="nav-icon fas fa-wallet"></i>
               <p>
                 Deposit
@@ -102,7 +102,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="borrow.php" class="nav-link">
+            <a href="allborrows.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 BORROW

@@ -646,7 +646,7 @@ $(document).ready(async function(){
 				const ethMantissa =1e18;
 				const blocksPerDay = 4 * 60 * 24;
 				const daysPerYear = 365;				
-				var arrayMrk=[myAccountAddress];
+				var arrayMrk=[mainContractAddress];
 				
 				const fromMyWallet = {
 				  from: myAccountAddress,
@@ -785,7 +785,11 @@ $(document).ready(async function(){
 				 
 			   if(balanceOfUnderlying > 0 && borrowBalance == 0){	
 				  
-					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your borrow balance is <span id="borrowbalanceUSD"> $0</span></h3><p class="text-center">Your borrow balance is <span id="totborrow"> 0 '+asset+'</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowRepay" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
+					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your borrow balance is <span id="borrowbalanceUSD"> $0</span></h3><p class="text-center">Your borrow balance is <span id="totborrow"> 0 '+asset+'</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowRepay" >Borrow</button>&nbsp;&nbsp;&nbsp;<div class="text-center"><a href="home.php">Go back</a></div></div>');
+					
+					if($('#TokensToborrow').val()=="")
+					  $("#Borrowing").attr("disabled", "disabled");
+				   
 				
 			  }	 
 				 
@@ -805,7 +809,7 @@ $(document).ready(async function(){
 				  $('#Borrowing').html('Borrow');
 				  if($('#TokensToborrow').val()=="")
 					$("#Borrowing").attr("disabled", "disabled");
-			  }
+				}
   
 
   
@@ -819,7 +823,7 @@ $(document).ready(async function(){
 				console.log(markets);  
 				 }else{
 					 
-					 var markets = await marketcontract.methods.exitMarket(myAccountAddress).send({from: myAccountAddress});
+					 var markets = await marketcontract.methods.exitMarket(mainContractAddress).send({from: myAccountAddress});
 				console.log(myAccountAddress);
 				console.log(markets); 
 				 }
@@ -870,12 +874,17 @@ $(document).ready(async function(){
 			
 			 //popup borrow Max
 				$('#max_button_addon_borrow').click( async function(){
-					 var newbalance=parseFloat(borrowBalance).toFixed(3);
+					 var borrowbalancepop=(balanceOfUnderlying*80)/100;
+					 console.log(borrowbalancepop+'borrowbalancepop');
+					 var newbalance=parseFloat(borrowbalancepop).toFixed(4);
 					 $('#TokensToborrow').val(newbalance);
-					 let TokensToborrow=$('#TokensToborrow').val();
-					 var TokenBorrow=parseFloat(borrowBalance-TokensToborrow);
 					 
-						
+					 if (newbalance>0){
+						$("#Borrowing").removeAttr("disabled"); 
+						$('#Borrowing').html('Borrow');
+				    }
+					
+					
 				 });
 				
 			//popup repay Max
@@ -985,15 +994,18 @@ $(document).ready(async function(){
 			//popup input validation for borrow
 			
 			 $('#TokensToborrow').keyup( async function(){
-				 
+				 var borrowbalancepop=(balanceOfUnderlying*80)/100;
 				 let TokensToborrow=$('#TokensToborrow').val();
 				  var str = TokensToborrow.toString();
 				  
-				 var Tokensborrow=parseFloat(borrowBalance-TokensToborrow);
-					if(TokensToborrow > borrowBalance){
+				 var Tokensborrow=parseFloat(borrowbalancepop-TokensToborrow);
+				 console.log('Tokensborrow'+Tokensborrow);
+				  console.log('borrowbalancepop'+borrowbalancepop);
+					if(TokensToborrow > borrowbalancepop){
 						$('#Borrowing').html('NO FUNDS AVAILABLE');
 						$("#Borrowing").attr("disabled", "disabled"); 
 					}else if(TokensToborrow <= 0 || checkMembership==false){
+						$('#Borrowing').html('NO FUNDS AVAILABLE');
 					 $("#Borrowing").attr("disabled", "disabled"); 
 				    }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {					  
 						$("#Borrowing").attr("disabled", "disabled"); 
@@ -1351,9 +1363,14 @@ window.ethereum.on('networkChanged', function (networkId) {
     return "";
   }
   
-   $('#go-back').click(function(){
+		$('#go-back').click(function(){
 	     
 	      location.href='home.php';
+       });
+	   
+	   $('.depositnow').click(function(){
+	     
+	      location.href='deposit.php';
        });
 	   
 	function deposit(currency){

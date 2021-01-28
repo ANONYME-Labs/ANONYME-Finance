@@ -715,12 +715,15 @@
                         }
                       }
                       var txtPoolFromToken = $("#txtPoolFromToken").val();
+
                       if(change=='to_change') {
                           txtPoolFromToken = $("#txtPoolToToken").val();
+                          //var amountOut = (devide_to2 * txtPoolFromToken);
                         //  amountOut = ( devide_to * txtPoolFromToken);
                       }
-                      var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
                       var amountOut = (devide_to1 * txtPoolFromToken);
+                      var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
+
                       amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
                       console.log("amountOut : " +amountOut);
 
@@ -739,6 +742,7 @@
                               var tokenAount = getAmtVal[0];
                               var ETHValue = getAmtVal[1];
                               var path = [result, contractAddress2];
+                              tokenAount = tokenAount.toLocaleString('fullwide', {useGrouping:false});
                               var getamntout = routerContract.methods.getAmountsOut(tokenAount, path).call();
                               getamntout.then(function(getAmtVal) {
                                 console.log("getamntout : " + getamntout);
@@ -747,8 +751,15 @@
                                    ETHValue = getAmtVal[0];
                               //var inpDevide = (amountOut / tokenAount).toFixed(8);
                                   console.log("tokenAount : " + tokenAount);
+                                  if(change=='to_change') {
+                                    //var inpDevide = (tokenAount/devide_to1).toFixed(8);
+                                    console.log("devide_to2 : " +devide_to2);
+                                    var inpDevide = (tokenAount/devide_to2).toFixed(8);
+                                  }
+                                  else {
+                                      var inpDevide = (tokenAount/devide_to2).toFixed(8);
+                                  }
 
-                                  var inpDevide = (tokenAount/devide_to2).toFixed(8);
                                   var getInpSingle = parseFloat(inpDevide).toFixed(8);
                                     console.log("getInpSingle : " + getInpSingle);
 
@@ -763,7 +774,7 @@
                                     //$("#txtPoolFromToken").focus();
                                   }
                                   else {
-                                    $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(3));
+                                    $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
                                   //$("#txtPoolToToken").focus();
                                   }
 

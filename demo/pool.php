@@ -110,7 +110,37 @@
     var routerContractABI = <?php echo $routerContractABI; ?>;
 
     $(document).ready(function () {
+        $("#approve2").on("click",function(){
 
+          //alert($(this).attr('data-address') + ' --- ' + $(this).attr('data-abi'));
+          var contractAddress=$(this).attr('data-address');
+          var contractABI_json = JSON.parse($(this).attr('data-abi'));
+          var contract_dec = JSON.parse($(this).attr('data-decimal'));
+          web3.eth.getAccounts(async function (error, result) {
+
+              myAccountAddress = result[0];
+
+
+          var tknContract = new web3.eth.Contract(contractABI_json, contractAddress);
+          var value= 1000*parseInt(contract_dec);
+          value = value.toLocaleString('fullwide', {useGrouping:false});
+          var getapprove = tknContract.methods.approve(routerContractAddress,value).send({
+              from: myAccountAddress,
+              gasLimit: web3.utils.toHex(560000),
+              gasPrice: web3.utils.toHex(10000000000),
+              value: 0 })
+              .on("confirmation", function () {
+
+            console.log(getapprove);
+            //if(getapprove){
+              $("#approve2").hide();
+              if($("#approve1").is(':hidden'))
+              {
+                $("#create_pair_btn").prop('disabled', false);
+              }
+            });
+          });
+        });
         $("#coin_option2").on('shown.bs.modal', function () {
 
             resetAllFields();
@@ -422,6 +452,8 @@
       return str;
     };
     function changeFromToken(change = '') {
+      $("#approve1").hide();
+      $("#approve2").hide();
       //console.log("ADSDSD : " + web3.utils.toHex(5*100**16) );
       console.log("rrrrr : " + web3.utils.toHex(0.00005*1e18) );
       console.log("1111 : " + web3.utils.fromWei(web3.utils.toHex(5*10**16) ));
@@ -459,7 +491,7 @@
                         var contractABI = res.data.contractABI;
                         var contractAddress = res.data.contractAddress;
                         var devide_to = '1e'+res.data.desimals;
-                        
+
                         if(res.name == 'ETH'){
 
                         } else {
@@ -476,7 +508,7 @@
                                     var amountOut = ( devide_to * txtPoolFromToken);
                                     amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
                                     console.log("amountOut : " +amountOut);
-                                    
+
 
                                     if(change=='to_change') {
                                         txtPoolFromToken = $("#txtPoolToToken").val();
@@ -486,7 +518,7 @@
                                     if(spnPoolToToken== 'ETH') {
                                         amountOut = ( devide_to * txtPoolFromToken);
                                     }
-                                    
+                                    amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
                                     var path = [result, contractAddress];
                                     console.log(path);
                                     if(spnPoolFromToken=='ETH'){
@@ -504,7 +536,7 @@
 
                                             if(spnPoolToToken=='ETH' || spnPoolFromToken=='ETH') {
                                                 devide_to = 1e18;
-                                        
+
                                                 if(spnPoolToToken=='ETH' ) {
                                                     var ETHValue = getAmtVal[0];
                                                     var  tokenAount= getAmtVal[1];
@@ -578,24 +610,78 @@
                                                 var vtoken=$('#poolToToken option:selected').val();
                                                 $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
                                             } else {
-                                                
+
                                                 $("#create_pair_btn").html('Supply');
                                                 //check approval into ERC-20 token for router contract
-                                                contractABI = JSON.parse(contractABI);
+                                                contractABI_json = JSON.parse(contractABI);
 
-                                                var tknContract = new web3.eth.Contract(contractABI, contractAddress);
+                                                var tknContract = new web3.eth.Contract(contractABI_json, contractAddress);
                                                 var getallowance = tknContract.methods.allowance(myAccountAddress, routerContractAddress).call();
-
                                                 getallowance.then(function(getallowance) {
                                                     console.log("getallowance : " + getallowance);
                                                     if(parseInt(getallowance)<= 0) {
-                                                        $("#approve1").show();
-                                                        $("#approve1").html('Approve');
+                                                        $("#approve2").show();
+                                                        if($('#poolToToken option:selected').val()=='ETH'){
+                                                          var vtoken=$('#poolFromToken option:selected').val();
+                                                        }
+                                                        else {
+                                                          var vtoken=$('#poolToToken option:selected').val();
+                                                        }
+                                                        $("#approve2").html('Approve '+vtoken);
+                                                        $("#approve2").attr('data-address',contractAddress);
+                                                        $("#approve2").attr('data-abi',contractABI);
+                                                        $("#approve2").attr('data-decimal',devide_to);
+                                                        $("#create_pair_btn").prop('disabled', true);
                                                     } else {
+                                                        $("#approve2").hide();
+                                                        $("#approve2").attr('data-address','');
+                                                        $("#approve2").attr('data-abi','');
+                                                        $("#approve2").attr('data-decimal',0);
                                                         $("#create_pair_btn").prop('disabled', false);
                                                         $("#create_pair_btn").html('Supply');
                                                     }
                                                 });
+
+                                                if(spnPoolFromToken!='ETH' && spnPoolToToken!='ETH')
+                                                {
+                                                  var selectedtoken1=spnPoolFromToken;
+                                                  $.ajax({
+                                                      type: "POST",
+                                                      url: 'ajax/getCurrencyData.php',
+                                                      data: {tokenname:selectedtoken1 },
+                                                      dataType: "json",
+                                                      success: function (res) {
+                                                          console.log(res.status);
+                                                          if (res.status == '1') {
+                                                              var contractABI1 = res.data.contractABI;
+                                                              var contractAddress1 = res.data.contractAddress;
+
+                                                              contractABI1 = JSON.parse(contractABI1);
+
+                                                              var tknContract1 = new web3.eth.Contract(contractABI1, contractAddress1);
+                                                              var getallowance1 = tknContract.methods.allowance(myAccountAddress, routerContractAddress).call();
+                                                              getallowance1.then(function(getallowance1) {
+                                                                  console.log("getallowance : " + getallowance1);
+                                                                  if(parseInt(getallowance1)<= 0) {
+                                                                      $("#approve1").show();
+                                                                        var vtoken=$('#poolFromToken option:selected').val();
+                                                                      $("#approve1").html('Approve '+vtoken);
+                                                                      $("#approve1").attr('data-address',contractAddress1);
+                                                                      $("#create_pair_btn").prop('disabled', true);
+                                                                  } else {
+                                                                      $("#approve1").hide();
+                                                                      $("#approve1").attr('data-address','');
+                                                                      $("#create_pair_btn").prop('disabled', false);
+                                                                      $("#create_pair_btn").html('Supply');
+                                                                  }
+                                                              });
+                                                            }
+                                                          }
+                                                        });
+                                                }
+
+
+
                                             }
                                         } else {
                                             $("#create_pair_btn").prop('disabled', true);
@@ -917,12 +1003,16 @@
 
                     <div class="row py-4 hover-select-token">
                         <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="col-md-6">
                           <button style="display:none" class="btn btn-danger w-100 mb-3" id="approve1" >
                               <div class="css-10ob8xa">Invalid pair</div>
                           </button>
+                        </div>
+                        <div class="col-md-6">
                           <button style="display:none" class="btn btn-danger w-100 mb-3" id="approve2" >
                               <div class="css-10ob8xa">Invalid pair</div>
                           </button>
+                        </div>
                             <button disabled="" class="btn btn-primary w-100 mb-3" id="create_pair_btn" onclick="createPairBtnClick();">
                                 <div class="css-10ob8xa">Invalid pair</div>
                             </button>

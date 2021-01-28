@@ -110,7 +110,7 @@
     var routerContractABI = <?php echo $routerContractABI; ?>;
 
     $(document).ready(function () {
-        $("#approve2").on("click",function(){
+        $(".apprvebuttons").on("click",function(){
 
           //alert($(this).attr('data-address') + ' --- ' + $(this).attr('data-abi'));
           var contractAddress=$(this).attr('data-address');
@@ -133,11 +133,14 @@
 
             console.log(getapprove);
             //if(getapprove){
-              $("#approve2").hide();
-              if($("#approve1").is(':hidden'))
-              {
-                $("#create_pair_btn").prop('disabled', false);
-              }
+              $(this).hide();
+
+              $(".apprvebuttons").each(function() {
+                if($(this).is(':hidden'))
+                {
+                  $("#create_pair_btn").prop('disabled', false);
+                }
+              });
             });
           });
         });
@@ -750,40 +753,108 @@
                                    tokenAount = getAmtVal[1];
                                    ETHValue = getAmtVal[0];
                               //var inpDevide = (amountOut / tokenAount).toFixed(8);
-                                  console.log("tokenAount : " + tokenAount);
-                                  if(change=='to_change') {
-                                    //var inpDevide = (tokenAount/devide_to1).toFixed(8);
-                                    console.log("devide_to2 : " +devide_to2);
-                                    var inpDevide = (tokenAount/devide_to2).toFixed(8);
-                                  }
-                                  else {
+                                    console.log("tokenAount : " + tokenAount);
+                                    if(change=='to_change') {
+                                      //var inpDevide = (tokenAount/devide_to1).toFixed(8);
+                                      console.log("devide_to2 : " +devide_to2);
                                       var inpDevide = (tokenAount/devide_to2).toFixed(8);
-                                  }
+                                    }
+                                    else {
+                                        var inpDevide = (tokenAount/devide_to2).toFixed(8);
+                                    }
 
-                                  var getInpSingle = parseFloat(inpDevide).toFixed(8);
-                                    console.log("getInpSingle : " + getInpSingle);
+                                    var getInpSingle = parseFloat(inpDevide).toFixed(8);
+                                      console.log("getInpSingle : " + getInpSingle);
 
-                                  var forFirst =  getInpSingle;
-                                  console.log("forFirst : " + forFirst);
-                                  var forSecond =((1 / forFirst)).toFixed(8);
-                                  console.log("*txtPoolFromToken : " + txtPoolFromToken);
-                                  console.log("forSecond : " + forSecond);
-                                  if(change=='to_change')
-                                  {
-                                    $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
-                                    //$("#txtPoolFromToken").focus();
-                                  }
-                                  else {
-                                    $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
-                                  //$("#txtPoolToToken").focus();
-                                  }
+                                    var forFirst =  getInpSingle;
+                                    console.log("forFirst : " + forFirst);
+                                    var forSecond =((1 / forFirst)).toFixed(8);
+                                    console.log("*txtPoolFromToken : " + txtPoolFromToken);
+                                    console.log("forSecond : " + forSecond);
+                                    if(change=='to_change')
+                                    {
+                                      $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
+                                      //$("#txtPoolFromToken").focus();
+                                    }
+                                    else {
+                                      $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
+                                    //$("#txtPoolToToken").focus();
+                                    }
 
-                                  $(".firstTokenRate").html(parseFloat(forFirst));
-                                  $(".secondTokenRate").html(parseFloat(forSecond));
-                                  $(".startTwoTokens #first1").html(spnPoolFromToken);
-                                  $(".startTwoTokens #first2").html(spnPoolToToken);
-                                  $(".endTwoTokens #second1").html(spnPoolToToken);
-                                  $(".endTwoTokens #second2").html(spnPoolFromToken);
+                                    $(".firstTokenRate").html(parseFloat(forFirst));
+                                    $(".secondTokenRate").html(parseFloat(forSecond));
+                                    $(".startTwoTokens #first1").html(spnPoolFromToken);
+                                    $(".startTwoTokens #first2").html(spnPoolToToken);
+                                    $(".endTwoTokens #second1").html(spnPoolToToken);
+                                    $(".endTwoTokens #second2").html(spnPoolFromToken);
+                                    if(parseFloat($("#txtPoolFromToken").val()) > parseFloat($("#pairWalletFromBalance").html())) {
+                                        $("#create_pair_btn").prop('disabled', true);
+                                        var vtoken=$('#poolFromToken option:selected').val();
+                                        $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
+                                    } else if(parseFloat($("#txtPoolToToken").val()) > parseFloat($("#pairWalletToBalance").html())) {
+                                        $("#create_pair_btn").prop('disabled', true);
+                                        var vtoken=$('#poolToToken option:selected').val();
+                                        $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
+                                    } else {
+
+                                        $("#create_pair_btn").html('Supply');
+                                        //check approval into ERC-20 token for router contract
+                                        contractABI_json1 = JSON.parse(contractABI1);
+
+                                        var tknContract1 = new web3.eth.Contract(contractABI_json1, contractAddress1);
+                                        var getallowance1 = tknContract1.methods.allowance(myAccountAddress, routerContractAddress).call();
+                                        getallowance1.then(function(getallowance1) {
+                                            console.log("getallowance1 : " + getallowance1);
+                                            if(parseInt(getallowance1)<= 0) {
+                                                $("#approve1").show();
+                                                var vtoken1=$('#poolFromToken option:selected').val();
+                                                $("#approve1").html('Approve '+vtoken1);
+                                                $("#approve1").attr('data-address',contractAddress1);
+                                                $("#approve1").attr('data-abi',contractABI1);
+                                                $("#approve1").attr('data-decimal',devide_to1);
+                                                $("#create_pair_btn").prop('disabled', true);
+                                            } else {
+                                                $("#approve1").hide();
+                                                $("#approve1").attr('data-address','');
+                                                $("#approve1").attr('data-abi','');
+                                                $("#approve1").attr('data-decimal',0);
+                                                $("#create_pair_btn").prop('disabled', false);
+                                                $("#create_pair_btn").html('Supply');
+                                            }
+                                        });
+
+
+
+                                              contractABI_json2 = JSON.parse(contractABI2);
+
+                                              var tknContract2 = new web3.eth.Contract(contractABI_json2, contractAddress2);
+                                              var getallowance2 = tknContract2.methods.allowance(myAccountAddress, routerContractAddress).call();
+                                              getallowance2.then(function(getallowance2) {
+                                                  console.log("getallowance2 : " + getallowance2);
+                                                  if(parseInt(getallowance2)<= 0) {
+                                                      $("#approve2").show();
+                                                      var vtoken=$('#poolToToken option:selected').val();
+                                                      $("#approve2").html('Approve '+vtoken);
+                                                      $("#approve2").attr('data-address',contractAddress1);
+                                                      $("#approve2").attr('data-abi',contractABI2);
+                                                      $("#approve2").attr('data-decimal',devide_to2);
+                                                      $("#create_pair_btn").prop('disabled', true);
+                                                  } else {
+                                                      $("#approve2").hide();
+                                                      $("#approve2").attr('data-address','');
+                                                      $("#approve2").attr('data-abi','');
+                                                      $("#approve2").attr('data-decimal',0);
+                                                      if($("#approve1").is(':hidden')){
+                                                        $("#create_pair_btn").prop('disabled', false);
+                                                      }
+                                                      $("#create_pair_btn").html('Supply');
+                                                  }
+                                              });
+
+
+
+
+                                    }
                                 }
                               });
                             }
@@ -1098,12 +1169,12 @@
                     <div class="row py-4 hover-select-token">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                           <div class="col-md-6">
-                          <button style="display:none" class="btn btn-danger w-100 mb-3" id="approve1" >
+                          <button style="display:none" class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve1" >
                               <div class="css-10ob8xa">Invalid pair</div>
                           </button>
                         </div>
                         <div class="col-md-6">
-                          <button style="display:none" class="btn btn-danger w-100 mb-3" id="approve2" >
+                          <button style="display:none" class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve2" >
                               <div class="css-10ob8xa">Invalid pair</div>
                           </button>
                         </div>

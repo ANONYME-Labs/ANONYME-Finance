@@ -2,7 +2,7 @@
 <?php include 'sidebar.php';?>
 
 <?php
-	
+
 ?>
 
 
@@ -40,14 +40,14 @@
                     	<select  name="drpFromToken" id="drpFromToken" style="width:100px;">
 							<option value="ETH" data-image="images/eth.png">ETH</option>
 						</select>
-                       
+
                     </div>
                   </div>
               </div>
               <div class="col-sm-12 py-3 text-center">
                 <p class="m-0"><i class="fa fa-arrow-down" aria-hidden="true"></i></p>
               </div>
-          		
+
           	<div class="col-lg-12 col-md-6 col-sm-6 text-right">
 	                <div class="sc-kkGfuU hyvXgi css-1rhdhic">Balance: <span id="txtWalletToBalance">0.00</span> &nbsp;
 	                </div>
@@ -64,7 +64,7 @@
                     </div>
                   </div>
               </div>
-              
+
                     <div class="row py-2 hover-select-token">
                         <div class="col-sm-12">
                             <div class="sc-gqjmRU sc-fMiknA sc-dVhcbM iwiYPV">
@@ -104,7 +104,7 @@
 				$vStr="";
 				if($result2){
 				while($row = mysqli_fetch_array($result2)){
-				
+
 					$name = $row['name'];
 					$mainContractAddress = $row['contractAddress'];
 					$mainContractABI = $row['contractABI'];
@@ -114,7 +114,7 @@
 					<textarea style="visibility: hidden;" id="txt_abi_<?php echo $name; ?>"><?php echo $mainContractABI; ?></textarea>
 				<?php
 				}
-				
+
 				}else{ echo 'No result found!'; }
             ?>
             <!-- /.card -->
@@ -140,11 +140,11 @@
 
 
 <script>
-	 
+
 $(document).ready(function(){
 
 	jQuery.noConflict();
-	
+
 	$("select").msDropdown({roundedBorder:false});
 
 	$("#btnAmount").prop('disabled', false);
@@ -154,7 +154,7 @@ $(document).ready(function(){
     var routerContractABI = <?php echo $routerContractABI; ?>;
 
 	CheckBalanceInWallet('from');
-	
+
 	$("#txtFromToken").change(function(){
 		CheckBalanceInWallet('from');
 		changeFromToken("from_change");
@@ -185,7 +185,7 @@ $(document).ready(function(){
   	});
 
   	$("#drpToToken").change(function(){
-		
+
 		var vFromVal = $('#drpFromToken option:selected').text();
 		var vToVal = $('#drpToToken option:selected').text()
 		if( vFromVal== vToVal)
@@ -200,7 +200,7 @@ $(document).ready(function(){
 			CheckBalanceInWallet('to');
 			changeFromToken("to_change");
 		}
-		
+
   	});
 
 
@@ -228,7 +228,7 @@ $(document).ready(function(){
 					var vContractAddress ='';
 					var vContractABI ='';
 					var vContract='';
-					
+
 					if($('#txt_mc_'+vCurrencyType).val()!=undefined)
 					{
 	              		vContractAddress = $('#txt_mc_'+vCurrencyType).val().toString(); // main contract address
@@ -245,11 +245,11 @@ $(document).ready(function(){
 	              	}
 
 	              	var devide_to = 1e18;
-                            
+
                     if(vCurrencyType == 'cDAI'){
                         devide_to = 1e8;
                     }
-              		
+
               		if(vCurrencyType=="ETH")
               		{
               			// this gives ETH amount
@@ -289,7 +289,7 @@ $(document).ready(function(){
                 	else if(parseFloat(vFromAmount) > parseFloat(vAvailableBalance ))
                 	{
                 		$("#btnAmount").text("Insuficient liquidity");
-                		$("#btnAmount").prop('disabled', true); 
+                		$("#btnAmount").prop('disabled', true);
                 	}
                 	else
                 	{
@@ -304,7 +304,7 @@ $(document).ready(function(){
 							$("#btnAmount").text("SWAP");
 						}
                 	}
-              		
+
               }
               else
               {
@@ -374,10 +374,10 @@ $(document).ready(function(){
                         	console.log(" token ="+res.data.name);
                         	console.log(" contract address = "+ contractAddress);
 
-                        	
-                        					     
-					        
-					         
+
+
+
+
 	                	}
 	                },
 	                error: function (result) {
@@ -402,7 +402,7 @@ $(document).ready(function(){
 
             var myAccountAddress = result[0];
             var selectedtoken = spnPoolToToken
-            
+
             if(spnPoolToToken=='ETH')
             {
               selectedtoken=spnPoolFromToken;
@@ -424,7 +424,7 @@ $(document).ready(function(){
                         var contractAddress = res.data.contractAddress;
                         var devide_to = '1e'+res.data.desimals;
                         if(res.name == 'ETH'){
-                        		
+
                         } else {
 
                             var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
@@ -436,7 +436,7 @@ $(document).ready(function(){
                                 console.log("weth result : " + result);
 
                                 var txtPoolFromToken = $("#txtFromToken").val();
-                                var amountOut = ( devide_to / txtPoolFromToken);
+                                var amountOut = ( devide_to * txtPoolFromToken);
                                 if(change=='to_change')
                                 {
                                   txtPoolFromToken = $("#txtToToken").val();
@@ -446,8 +446,19 @@ $(document).ready(function(){
                                 {
                                   amountOut = ( devide_to * txtPoolFromToken);
                                 }
+
                                 var path = [result, contractAddress];
-                                var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+																amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
+																console.log("amountOut : " + amountOut);
+
+																console.log("path : " + path);
+																	//	var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+																	if(spnPoolFromToken=='ETH'){
+																			var getamntin = routerContract.methods.getAmountsOut(amountOut, path).call();
+																	} else {
+																			var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+																	}
+
 
                                 getamntin.then(function(getAmtVal) {
 
@@ -456,13 +467,20 @@ $(document).ready(function(){
                                     if(spnPoolToToken=='ETH' || spnPoolFromToken=='ETH')
                                     {
                                       devide_to = 1e18;
-                                    }
+                                    //}
 
 
-                                    if(spnPoolToToken=='ETH' )
-                                    {
-                                      var ETHValue = getAmtVal[0];
-                                      var  tokenAount= getAmtVal[1];
+                                    //if(spnPoolToToken=='ETH' )
+                                    //{
+                                    //  var ETHValue = getAmtVal[0];
+                                    //  var  tokenAount= getAmtVal[1];
+																		if(spnPoolToToken=='ETH' ) {
+																				var ETHValue = getAmtVal[0];
+																				var  tokenAount= getAmtVal[1];
+																		} else {
+																				var ETHValue = getAmtVal[1];
+																				var  tokenAount= getAmtVal[0];
+																		}
                                       var inpDevide = (ETHValue/devide_to).toFixed(8);
                                       var getInpSingle = parseFloat(inpDevide).toFixed(8);
 
@@ -476,9 +494,9 @@ $(document).ready(function(){
                                       }
                                       else {
 
-                                      $("#txtToToken").val(parseFloat(forFirst).toFixed(8));
-                                      //$("#txtToToken").focus();
-                                    }
+	                                      $("#txtToToken").val(parseFloat(forFirst).toFixed(8));
+	                                      //$("#txtToToken").focus();
+	                                    }
                                       $(".firstTokenRate").html(parseFloat(forFirst));
                                       $(".secondTokenRate").html(parseFloat(forSecond));
 

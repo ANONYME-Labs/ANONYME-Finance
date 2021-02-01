@@ -57,6 +57,7 @@ if($row != NULL){
     if($factoryContractABI == ''){
         $factoryContractABI = "''";
     }
+    $WETHAddress = $row['WETHAddress'];
 }
 
 // 0 = rinkeby testnet and 1 = mainnet

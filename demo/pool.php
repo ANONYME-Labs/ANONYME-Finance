@@ -692,6 +692,9 @@
                                     if(change == 'to_change') {
                                         txtPoolFromToken = $("#txtPoolToToken").val();
                                     }
+                                    if(txtPoolFromToken <= 0){
+                                        $("#txtPoolToToken").val("");
+                                    }
 
                                     console.log(contractAddress);
                                     var from_token_name = $('#poolFromToken option:selected').val();;

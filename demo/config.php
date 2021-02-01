@@ -13,10 +13,24 @@ if($row != NULL){
     $marketAddress = $row['marketAddress'];
     $priceAddress = $row['priceAddress'];
     $mainContractABI1 = $row['mainContractABI'];
-    $comptrollerABI = $row['comptrollerABI'];
-    $marketABI = $row['marketABI'];
-    $priceABI = $row['priceABI'];
+    if($mainContractABI1 == ''){
+        $mainContractABI1 = "''";
+    }
 
+    $comptrollerABI = $row['comptrollerABI'];
+    if($comptrollerABI == ''){
+        $comptrollerABI = "''";
+    }
+
+    $marketABI = $row['marketABI'];
+    if($marketABI == ''){
+        $marketABI = "''";
+    }
+
+    $priceABI = $row['priceABI'];
+    if($priceABI == ''){
+        $priceABI = "''";
+    }
 
     $gasPriceAverage = $row['gasPriceAverage'];
     $gasPriceFast = $row['gasPriceFast'];
@@ -32,8 +46,23 @@ if($row != NULL){
     $infuraAPITestnet  = $row['infuraAPITestnet'];
     $network=$row['network'];
 	$usdvalue = $row['usdvalue'];
-		$routerContractAddress = $row['routerContractAddress'];
-		$routerContractABI = $row['routerContractABI'];
+	$routerContractAddress = $row['routerContractAddress'];
+	$routerContractABI = $row['routerContractABI'];
+    if($routerContractABI == ''){
+        $routerContractABI = "''";
+    }
+
+    $factoryContractAddress = $row['factoryContractAddress'];
+    $factoryContractABI = $row['factoryContractABI'];
+    if($factoryContractABI == ''){
+        $factoryContractABI = "''";
+    }
+
+    $getPairAddress = $row['getPairAddress'];
+    $getPairABI = $row['getPairABI'];
+    if($getPairABI == ''){
+        $getPairABI = "''";
+    }
 }
 
 // 0 = rinkeby testnet and 1 = mainnet

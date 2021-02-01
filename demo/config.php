@@ -57,12 +57,6 @@ if($row != NULL){
     if($factoryContractABI == ''){
         $factoryContractABI = "''";
     }
-
-    $getPairAddress = $row['getPairAddress'];
-    $getPairABI = $row['getPairABI'];
-    if($getPairABI == ''){
-        $getPairABI = "''";
-    }
 }
 
 // 0 = rinkeby testnet and 1 = mainnet

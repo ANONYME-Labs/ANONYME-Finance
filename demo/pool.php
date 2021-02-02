@@ -1026,6 +1026,34 @@
       return x;
     }
 
+    function MakeQuerablePromise(promise) {
+        // Don't modify any promise that has been already modified.
+        if (promise.isResolved) return promise;
+
+        // Set initial state
+        var isPending = true;
+        var isRejected = false;
+        var isFulfilled = false;
+
+        // Observe the promise, saving the fulfillment in a closure scope.
+        var result = promise.then(
+            function(v) {
+                isFulfilled = true;
+                isPending = false;
+                return v; 
+            }, 
+            function(e) {
+                isRejected = true;
+                isPending = false;
+                throw e; 
+            }
+        );
+
+        result.isFulfilled = function() { return isFulfilled; };
+        result.isPending = function() { return isPending; };
+        result.isRejected = function() { return isRejected; };
+        return result;
+    }
 
     function createPairBtnClick() {
 
@@ -1060,12 +1088,8 @@
 
                         if ((startToken != '' && endToken != '') && (startToken != 'Select Token' && endToken != 'Select Token')) {
 
-
                             var txtPoolFromToken = $("#txtPoolFromToken").val();
                             var txtPoolToToken = $("#txtPoolToToken").val();
-
-                            console.log(txtPoolFromToken);
-                            console.log(txtPoolToToken);
 
                             var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress, {
                                 from: myAccountAddress, // default from address
@@ -1079,13 +1103,13 @@
 
                                 console.log(result);
 
-                              //  var amountOut = userInputEthValue;//100000000000000;
                                 var amountOut = ( txtPoolFromToken * multiply_to);
                                 var decimals = (txtPoolFromToken!=Math.floor(txtPoolFromToken))?(txtPoolFromToken.toString()).split('.')[1].length:0;
-                              //  alert(decimals);
+                              
                                 if(endToken=='ETH') {
-                                  amountOut = ( multiply_to * txtPoolFromToken);
+                                    amountOut = ( multiply_to * txtPoolFromToken);
                                 }
+
                                 var path = [result, contractAddress];
                                 console.log("amountOut : " + amountOut);
                                 var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
@@ -1098,8 +1122,7 @@
                                     var ETHValue = getAmtVal[1];
                                     var inpDevide = (tokenAount/ETHValue).toFixed(8);
                                     var getInpSingle = parseFloat(inpDevide).toFixed(8);
-                                      //console.log("getInpSingle : " + getInpSingle);
-
+                                    
                                     var tokenAount =  ((1 / getInpSingle)*ETHValue);
                                     var token_percent = Math.ceil((tokenAount * 1) / 100);
                                     var ETH_percent = Math.ceil((ETHValue * 1) / 100);
@@ -1128,10 +1151,103 @@
                                         gasPrice: web3.utils.toHex(10000000000),
                                         value: addLiquidityETH });
 
-                                    console.log(addLiqETH);
+                                    var myPromise = MakeQuerablePromise(addLiqETH);
 
+                                    if(myPromise.isPending()){
+                                        alertify.alert("<div class='text-center'><b>Please wait</b>","<center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                                    }
+
+                                    var timerID = setInterval(function() {
+                                        console.log("Initial fulfilled:", myPromise.isFulfilled());//false
+                                        console.log("Initial rejected:", myPromise.isRejected());//false
+                                        console.log("Initial pending:", myPromise.isPending());//true
+
+                                        if(myPromise.isFulfilled()){
+
+                                            myPromise.then(function(result){
+                                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                                            });
+
+                                            $(".ajs-ok").click();
+                                            clearInterval(timerID);
+                                        }
+
+                                        if(myPromise.isFulfilled()){
+                                            $(".ajs-ok").click();
+                                            clearInterval(timerID);
+                                        }
+
+                                        if(myPromise.isRejected()){
+                                            $(".ajs-ok").click();
+                                            clearInterval(timerID);
+                                        }
+
+                                    }, 500);
+
+                                    return false;
+
+                                    /*var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
+                                        gasLimit: web3.utils.toHex(560000),
+                                        gasPrice: web3.utils.toHex(10000000000),
+                                        value: addLiquidityETH });
+
+                                    const promise2 = addLiqETH.then( successCallback, failureCallback);
+                                   
+                                    function successCallback(result) {
+                                      console.log('Resolved');
+                                      console.log(result);
+
+                                      alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+
+                                    }
+
+                                    function failureCallback(result) {
+                                        alertify.alert(result.message, function(){});
+                                    }*/
+                                        
+
+                                    /*alertify.alert("<b>Please wait</b>","<center><img src='https://forsagetron.io/img/ripple-loader.gif' /></center> <br>Please wait upto 2 minutes and then refresh the page. <a href='"+etherscan_api_url+"/tx/"+addLiqETH+"' target='_blank'>Click here to check the status of transaction.</a><br>", function(){ 
+                                            //window.location.reload();
+                                        });*/
+                                    /*
+                                    setTimeout(async function(){
+
+                                        var result = await mySellContract.sellTokens(valuePass).send({ shouldPollResponse: false, feeLimit: 15000000, callValue: valuePass, from: myAccountAddress });
+
+                                        if(result){
+                                        
+                                            alertify.alert("<b>Please wait</b>","<center><img src='https://forsagetron.io/img/ripple-loader.gif' /></center> <br>Please wait upto 2 minutes and then refresh the page. <a href='<?php //echo $etherscanTx; ?>"+result+"' target='_blank'>Click here to check the status of transaction.</a><br>", function(){ 
+                                                    //window.location.reload();
+                                            });
+
+                                            $(".ajs-ok").css("display", "none");
+                                            $(".ajs-close").css("display", "none");
+
+                                            var timerID = setInterval(function() {
+
+                                                var xhttp = new XMLHttpRequest();
+                                                xhttp.onreadystatechange = function() {
+                                                    console.log("this.status : " + this.status + " ::: " + this.readyState);
+                                                    if (this.readyState == 4 && this.status == 200) {
+
+                                                        $(".ajs-ok").click();
+                                                        if(this.responseText=='') {
+                                                            alertify.alert("", "<center><img src='<?php //echo $siteURL; ?>img/green-tick-mark.png' /> <br> <br>Thanks for Selling Token.");
+                                                        } else {
+                                                            alertify.alert("", "<center><img src='<?php //echo $siteURL; ?>img/red-warning-50x50.png' /> <br> <br>Your transaction has been failed");
+                                                        }
+
+                                                        $(".ajs-ok").css("display", "table-footer-group");
+                                                        clearInterval(timerID);
+                                                    }
+                                                };
+                                                xhttp.open("GET", "https://forsagetron.io/dashboard/includes/getUserIdFromTransactionHash.php?txHash="+result, true);
+                                                xhttp.send();
+                                            }, 30 * 1000);
+                                        }
+                                    },1500);
+                                    */
                                 });
-
                             });
 
                             function successCallback(result) { }

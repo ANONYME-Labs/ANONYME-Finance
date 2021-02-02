@@ -524,6 +524,9 @@
 
                 $(".firstTokenRate").html("");
                 $(".secondTokenRate").html("");
+
+                $("#create_pair_btn").prop('disabled', true);
+                $("#create_pair_btn").html('Invalid pair');
                 /*$(".startTwoTokens #first1").html(spnPoolToToken);
                 $(".startTwoTokens #first2").html(spnPoolFromToken);
                 $(".endTwoTokens #second1").html(spnPoolFromToken);
@@ -557,6 +560,13 @@
                     console.log(forFirst);
                     $("#txtPoolToToken").val(forFirst);
                 }
+            }
+
+            if($("#txtPoolFromToken").val() <= 0 || $("#txtPoolToToken").val() <= 0){
+                $("#create_pair_btn").prop('disabled', true);
+                $("#create_pair_btn").html('Invalid pair');
+                $("#pool_loading").hide();
+                return false;
             }
             
             var totalLiquidity = (reserve0 + reserve1 + numOfToken);

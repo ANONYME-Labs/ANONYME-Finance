@@ -1008,6 +1008,24 @@
         });
     }
 
+    function toFixedNumber(x) {
+      if (Math.abs(x) < 1.0) {
+        var e = parseInt(x.toString().split('e-')[1]);
+        if (e) {
+            x *= Math.pow(10,e-1);
+            x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+        }
+      } else {
+        var e = parseInt(x.toString().split('+')[1]);
+        if (e > 20) {
+            e -= 20;
+            x /= Math.pow(10,e);
+            x += (new Array(e+1)).join('0');
+        }
+      }
+      return x;
+    }
+
 
     function createPairBtnClick() {
 
@@ -1046,12 +1064,15 @@
                             var txtPoolFromToken = $("#txtPoolFromToken").val();
                             var txtPoolToToken = $("#txtPoolToToken").val();
 
+                            console.log(txtPoolFromToken);
+                            console.log(txtPoolToToken);
+
                             var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress, {
                                 from: myAccountAddress, // default from address
                             });
 
-                            const userInputEthValue = web3.utils.toHex( multiply_to / txtPoolFromToken);
-
+                            const userInputEthValue = web3.utils.toHex( toFixedNumber(multiply_to / txtPoolFromToken) );
+                            console.log(userInputEthValue);
                             var WETHobj = routerContract.methods.WETH().call();
 
                             const WETHval = WETHobj.then(function(result){

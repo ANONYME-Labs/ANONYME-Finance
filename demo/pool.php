@@ -854,11 +854,27 @@
                                 console.log("getreserves : " + response[0]);
                                 var vReverse1=response[0];
                                 var vReverse2=response[1];
+                                var share_of_pool=0;
                                 if(vtoken0==contractAddress1) {
                                   var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
+                                  vReverse1 = vReverse1/devide_to1;
+                                  console.log("aaa: "+ parseFloat(txtPoolFromToken).toFixed(2));
+                                  console.log("vReverse1: "+ vReverse1);
+                                  share_of_pool = (parseFloat(txtPoolFromToken).toFixed(2)/vReverse1)*100;
                                 }
                                 else {
                                   var vQuote = routerContract.methods.quote(amountOut,vReverse2,vReverse1).call();
+                                  vReverse2 = vReverse2/devide_to2;
+                                  console.log("aaa: "+ parseFloat(txtPoolFromToken).toFixed(2));
+                                  console.log("vReverse1: "+ vReverse2 );
+                                  share_of_pool = (parseFloat(txtPoolFromToken).toFixed(2)/vReverse2)*100;
+                                }
+                                if(parseFloat(share_of_pool)<=0.01)
+                                {
+                                  $("#share_of_pool").html('<0.01%');
+                                }
+                                else {
+                                    $("#share_of_pool").html(share_of_pool.toFixed(2) + '%');
                                 }
 
                                 vQuote.then(function(vQuote) {

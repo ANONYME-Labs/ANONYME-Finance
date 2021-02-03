@@ -172,9 +172,6 @@
                     gasPrice: web3.utils.toHex(10000000000),
                     value: 0 
                 }).on("confirmation", function () {
-
-                    console.log(getapprove);
-                    //if(getapprove){
                     $(this).hide();
 
                     $(".apprvebuttons").each(function() {
@@ -191,31 +188,7 @@
             resetAllFields();
             loadSelectOptions();
 
-        });
-
-        function resetAllFields() {
-
-            $("#txtPoolFromToken").val("");
-            $("#txtPoolToToken").val("");
-
-            $("#pairWalletFromBalance").html("0.00");
-            $("#pairWalletToBalance").html("0.00");
-
-            $(".firstTokenRate").html('-');
-            $(".secondTokenRate").html('-');
-
-            $(".startTwoTokens #first1").html("");
-            $(".startTwoTokens #first2").html("");
-            $(".endTwoTokens #second1").html("");
-            $(".endTwoTokens #second2").html("");
-
-            $("#poolFromToken_title .ddlabel").html("Select Token");
-            $("#poolFromToken_title img").remove();
-
-            $("#poolToToken_title .ddlabel").html("Select Token");
-            $("#poolToToken_title img").remove();
-
-        }
+        });       
 
         loadSelectOptions();
         /*jQuery.noConflict();*/
@@ -247,22 +220,9 @@
             }
         });
 
-        function loadSelectOptions() {
-
-            $("select").msDropdown({roundedBorder: false});
-
-            if ($(".enabled._msddli_").hasClass("selected")) {
-                $(".enabled._msddli_").removeClass("selected");
-            }
-
-        }
-
-
         $(document.body).on("change", "#poolFromToken", function () {
 
             var poolFromToken = $('#poolFromToken option:selected').val();
-
-            console.log(poolFromToken);
             getSelectedWalletBalance(poolFromToken, 'fromwallet');
 
             changeFromToken("from_change");
@@ -272,8 +232,6 @@
         $(document.body).on("change", "#poolToToken", function () {
 
             var poolToToken = $('#poolToToken option:selected').val();
-
-            console.log(poolToToken);
             getSelectedWalletBalance(poolToToken, 'towallet');
 
             changeFromToken("from_change");
@@ -330,6 +288,7 @@
 
             return true;
         });
+
         $('#txtPoolToToken').on('keyup paste input change', function () {
 
             while (($(this).val().split(".").length - 1) > 1) {
@@ -381,6 +340,39 @@
             return true;
         });
     });
+    
+    function resetAllFields() {
+
+        $("#txtPoolFromToken").val("");
+        $("#txtPoolToToken").val("");
+
+        $("#pairWalletFromBalance").html("0.00");
+        $("#pairWalletToBalance").html("0.00");
+
+        $(".firstTokenRate").html('-');
+        $(".secondTokenRate").html('-');
+
+        $(".startTwoTokens #first1").html("");
+        $(".startTwoTokens #first2").html("");
+        $(".endTwoTokens #second1").html("");
+        $(".endTwoTokens #second2").html("");
+
+        $("#poolFromToken_title .ddlabel").html("Select Token");
+        $("#poolFromToken_title img").remove();
+
+        $("#poolToToken_title .ddlabel").html("Select Token");
+        $("#poolToToken_title img").remove();
+        
+    }
+
+    function loadSelectOptions() {
+
+        $("select").msDropdown({roundedBorder: false});
+
+        if ($(".enabled._msddli_").hasClass("selected")) {
+            $(".enabled._msddli_").removeClass("selected");
+        }
+    }
 
     function getSelectedWalletBalance(tokenname, walletLocation) {
 
@@ -432,8 +424,6 @@
                 data: {tokenname: tokenname},
                 dataType: "json",
                 success: function (res) {
-
-                    console.log(res.status);
                     if (res.status == '1') {
                         var contractABI = res.data.contractABI;
                         var contractAddress = res.data.contractAddress;
@@ -449,10 +439,7 @@
                             contractABI = JSON.parse(contractABI);
 
                             var tknContract = new web3.eth.Contract(contractABI, contractAddress);
-
                             var balance = await tknContract.methods.balanceOf(myAccountAddress).call();
-                            console.log(balance);
-
                             var vAvailable = parseFloat(balance / devide_to).toFixed(4);
 
                             if (walletLocation == 'fromwallet') {
@@ -491,6 +478,7 @@
             $("#pool_loading").hide();
         }
     }
+
     Number.prototype.toFixedSpecial = function(n) {
       var str = this.toFixed(n);
       if (str.indexOf('e+') === -1)
@@ -510,9 +498,7 @@
 
     function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to){
         if(_reserve0 > 0 && _reserve1 > 0){
-            
-            console.log(devide_to);
-
+        
             var reserve0 = (_reserve0 / devide_to);
             var reserve1 = (_reserve1 / devide_to);
             var numOfToken = txtPoolFromToken;
@@ -527,10 +513,7 @@
 
                 $("#create_pair_btn").prop('disabled', true);
                 $("#create_pair_btn").html('Invalid pair');
-                /*$(".startTwoTokens #first1").html(spnPoolToToken);
-                $(".startTwoTokens #first2").html(spnPoolFromToken);
-                $(".endTwoTokens #second1").html(spnPoolFromToken);
-                $(".endTwoTokens #second2").html(spnPoolToToken);*/
+                
                 return false;
             }
             var token0Price = (reserve0 / reserve1).toFixed(8);
@@ -543,21 +526,18 @@
                 forFirst = (txtPoolFromToken * token0Price);
                 if(forFirst > 0){
                     forFirst = parseFloat(forFirst).toFixed(8);
-                    console.log(forFirst);
                     $("#txtPoolToToken").val(forFirst);
                 }
             } else if(change == 'to_change') {
                 forSecond = (txtPoolFromToken * token1Price);
                 if(forSecond > 0){
                     forSecond = parseFloat(forSecond).toFixed(8);
-                    console.log(forSecond);
                     $("#txtPoolFromToken").val(forSecond);
                 }
             } else {
                 forFirst = (txtPoolFromToken * token0Price);
                 if(forFirst > 0){
                     forFirst = parseFloat(forFirst).toFixed(8);
-                    console.log(forFirst);
                     $("#txtPoolToToken").val(forFirst);
                 }
             }
@@ -571,8 +551,7 @@
             
             var totalLiquidity = (reserve0 + reserve1 + numOfToken);
             var share = ((numOfToken * 100) / totalLiquidity).toFixed(2);
-            console.log(share);
-
+            
             $(".firstTokenRate").html((token0Price));
             $(".secondTokenRate").html((token1Price));
             $(".startTwoTokens #first1").html(spnPoolToToken);
@@ -599,7 +578,7 @@
                 var tknContract = new web3.eth.Contract(contractABI_json, contractAddress);
                 var getallowance = tknContract.methods.allowance(myAccountAddress, routerContractAddress).call();
                 getallowance.then(function(getallowance) {
-                    console.log("getallowance : " + getallowance);
+                    
                     if(parseInt(getallowance)<= 0) {
                         $("#approve2").show();
                         if($('#poolToToken option:selected').val()=='ETH'){
@@ -632,7 +611,7 @@
                         data: {tokenname:selectedtoken1 },
                         dataType: "json",
                         success: function (res) {
-                            console.log(res.status);
+                            
                             if (res.status == '1') {
                                 var contractABI1 = res.data.contractABI;
                                 var contractAddress1 = res.data.contractAddress;
@@ -642,7 +621,7 @@
                                 var tknContract1 = new web3.eth.Contract(contractABI1, contractAddress1);
                                 var getallowance1 = tknContract.methods.allowance(myAccountAddress, routerContractAddress).call();
                                 getallowance1.then(function(getallowance1) {
-                                console.log("getallowance : " + getallowance1);
+                                
                                 if(parseInt(getallowance1)<= 0) {
                                     $("#approve1").show();
                                     var vtoken=$('#poolFromToken option:selected').val();
@@ -674,16 +653,18 @@
         $("#approve1").hide();
         $("#approve2").hide();
       
-        console.log("rrrrr : " + web3.utils.toHex(0.00005*1e18) );
-        console.log("1111 : " + web3.utils.fromWei(web3.utils.toHex(5*10**16) ));
+        /*console.log("rrrrr : " + web3.utils.toHex(0.00005*1e18) );
+        console.log("1111 : " + web3.utils.fromWei(web3.utils.toHex(5*10**16) ));*/
 
         var spnPoolFromToken = poolFromToken = $('#poolFromToken option:selected').val();
         var spnPoolToToken = poolToToken = $('#poolToToken option:selected').val();
         if(change == 'to_change') {
-          spnPoolToToken = poolToToken  = $('#poolFromToken option:selected').val();
-          console.log(spnPoolToToken);
-          spnPoolFromToken  = poolFromToken = $('#poolToToken option:selected').val();
-          console.log(spnPoolFromToken);
+            spnPoolToToken = poolToToken  = $('#poolFromToken option:selected').val();
+            spnPoolFromToken  = poolFromToken = $('#poolToToken option:selected').val();
+        }
+
+        if(spnPoolToToken == '' || spnPoolFromToken == ''){
+            return false;
         }
 
         web3.eth.getAccounts(async function (error, result) {
@@ -698,7 +679,7 @@
             } else {
                 selectedtoken = [spnPoolFromToken,spnPoolToToken];
             }
-            console.log(selectedtoken);
+            
             $.ajax({
                 type: "POST",
                 url: 'ajax/getCurrencyData1.php',
@@ -715,9 +696,6 @@
                             $("#pool_loading").show();
 
                             var WETHAddress = $("#WETHAddress").val(WETHAddress);
-
-                            console.log("WETHAddress : " + WETHAddress);
-
                             if(WETHAddress){
 
                                 var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
@@ -734,7 +712,6 @@
                                     $("#txtPoolToToken").val("");
                                 }
 
-                                console.log(contractAddress);
                                 var from_token_name = $('#poolFromToken option:selected').val();;
                                 var to_token_name = $('#poolToToken option:selected').val();;
 
@@ -760,9 +737,6 @@
                                                 var _reserve0 = getReserveResult._reserve0;
                                                 var _reserve1 = getReserveResult._reserve1;
 
-                                                console.log(_reserve0);
-                                                console.log(_reserve1);
-
                                                 getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to);
                                             });
 
@@ -773,19 +747,14 @@
                                             var getPairObj = UniswapV2Factory.methods.getPair(token0, token1).call();
                                             getPairObj.then(function(getPairAddress){
 
-                                                console.log(getPairAddress);
-                                    
                                                 $.get(etherscan_api_url + "api?module=contract&action=getabi&address="+getPairAddress+"&format=raw", function( getPairABI ) {
 
-                                                    console.log(getPairAddress);
-                                                    
                                                     var getPairABI_JSON = jQuery.parseJSON(JSON.stringify(getPairABI));
                                                     var getPairABI_JSON = JSON.parse(getPairABI_JSON);
                                                     var UniswapV2Pair = new web3.eth.Contract(getPairABI_JSON, getPairAddress);
                                                     var getReserve = UniswapV2Pair.methods.getReserves().call();
                                                     getReserve.then(function(getReserveResult){
-                                                        console.log(getReserveResult);
-                                                    
+                                                        
                                                         var _reserve0 = getReserveResult._reserve0;
                                                         var _reserve1 = getReserveResult._reserve1;
                                                         
@@ -816,8 +785,6 @@
                                                         }
                                                     });
                                                 });
-                                                
-
                                             });
                                         }                                    
                                     },
@@ -830,52 +797,47 @@
                                 $("#create_pair_btn").prop('disabled', true);
                                 $("#create_pair_btn").html('Insufficient token');
                             }
-
                         }
                     } else {
 
-                      var contractABI1,contractAddress1,devide_to1;
-                      var contractABI2,contractAddress2,devide_to2;
-                      for(i=0;i<resp.length;i++) {
-                        var res=resp[i];
+                        var contractABI1,contractAddress1,devide_to1;
+                        var contractABI2,contractAddress2,devide_to2;
+                      
+                        for(i=0;i<resp.length;i++) {
+                            var res=resp[i];
 
-                        if (res.status == '1') {
-                          if(i==0){
-                             contractABI1 = res.data.contractABI;
-                             contractAddress1 = res.data.contractAddress;
-                             devide_to1 = '1e'+res.data.desimals;
-                          }
-                          else {
-                             contractABI2 = res.data.contractABI;
-                             contractAddress2 = res.data.contractAddress;
-                             devide_to2 = '1e'+res.data.desimals;
-                          }
+                            if (res.status == '1') {
+                                if(i==0){
+                                    contractABI1 = res.data.contractABI;
+                                    contractAddress1 = res.data.contractAddress;
+                                    devide_to1 = '1e'+res.data.desimals;
+                                } else {
+                                    contractABI2 = res.data.contractABI;
+                                    contractAddress2 = res.data.contractAddress;
+                                    devide_to2 = '1e'+res.data.desimals;
+                                }
+                            }
                         }
-                      }
-                      var txtPoolFromToken = $("#txtPoolFromToken").val();
+                        var txtPoolFromToken = $("#txtPoolFromToken").val();
 
-                      if(change=='to_change') {
-                          txtPoolFromToken = $("#txtPoolToToken").val();
-                          //var amountOut = (devide_to2 * txtPoolFromToken);
-                        //  amountOut = ( devide_to * txtPoolFromToken);
-                      }
-                      var amountOut = (devide_to1 * txtPoolFromToken);
-                      var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
+                        if(change=='to_change') {
+                            txtPoolFromToken = $("#txtPoolToToken").val();
+                        }
 
-                      amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
-                      console.log("amountOut : " +amountOut);
+                        var amountOut = (devide_to1 * txtPoolFromToken);
+                        var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
 
-                      var WETHobj = routerContract.methods.WETH().call();
+                        amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
+                      
+                        var WETHobj = routerContract.methods.WETH().call();
 
-                      const WETHval = WETHobj.then(function(result){
+                        const WETHval = WETHobj.then(function(result){
 
-                        console.log(result);
                         var path = [result, contractAddress1];
-                        console.log(path);
                         var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
-                        console.log("getamntin : " + getamntin);
+                        
                         getamntin.then(function(getAmtVal) {
-                            console.log("getAmtVal : " + getAmtVal);
+                            
                             if(getAmtVal){
                               var tokenAount = getAmtVal[0];
                               var ETHValue = getAmtVal[1];
@@ -883,37 +845,26 @@
                               tokenAount = tokenAount.toLocaleString('fullwide', {useGrouping:false});
                               var getamntout = routerContract.methods.getAmountsOut(tokenAount, path).call();
                               getamntout.then(function(getAmtVal) {
-                                console.log("getamntout : " + getamntout);
+                                
                                 if(getamntout){
                                    tokenAount = getAmtVal[1];
                                    ETHValue = getAmtVal[0];
-                              //var inpDevide = (amountOut / tokenAount).toFixed(8);
-                                    console.log("tokenAount : " + tokenAount);
+                                    
                                     if(change=='to_change') {
-                                      //var inpDevide = (tokenAount/devide_to1).toFixed(8);
-                                      console.log("devide_to2 : " +devide_to2);
                                       var inpDevide = (tokenAount/devide_to2).toFixed(8);
-                                    }
-                                    else {
+                                    } else {
                                         var inpDevide = (tokenAount/devide_to2).toFixed(8);
                                     }
 
                                     var getInpSingle = parseFloat(inpDevide).toFixed(8);
-                                      console.log("getInpSingle : " + getInpSingle);
-
+                                      
                                     var forFirst =  getInpSingle;
-                                    console.log("forFirst : " + forFirst);
                                     var forSecond =((1 / forFirst)).toFixed(8);
-                                    console.log("*txtPoolFromToken : " + txtPoolFromToken);
-                                    console.log("forSecond : " + forSecond);
-                                    if(change=='to_change')
-                                    {
-                                      $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
-                                      //$("#txtPoolFromToken").focus();
-                                    }
-                                    else {
-                                      $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
-                                    //$("#txtPoolToToken").focus();
+                                    
+                                    if(change=='to_change'){
+                                        $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
+                                    } else {
+                                        $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
                                     }
 
                                     $(".firstTokenRate").html(parseFloat(forFirst));
@@ -922,6 +873,7 @@
                                     $(".startTwoTokens #first2").html(spnPoolToToken);
                                     $(".endTwoTokens #second1").html(spnPoolToToken);
                                     $(".endTwoTokens #second2").html(spnPoolFromToken);
+
                                     if(parseFloat($("#txtPoolFromToken").val()) > parseFloat($("#pairWalletFromBalance").html())) {
                                         $("#create_pair_btn").prop('disabled', true);
                                         var vtoken=$('#poolFromToken option:selected').val();
@@ -939,7 +891,7 @@
                                         var tknContract1 = new web3.eth.Contract(contractABI_json1, contractAddress1);
                                         var getallowance1 = tknContract1.methods.allowance(myAccountAddress, routerContractAddress).call();
                                         getallowance1.then(function(getallowance1) {
-                                            console.log("getallowance1 : " + getallowance1);
+
                                             if(parseInt(getallowance1)<= 0) {
                                                 $("#approve1").show();
                                                 var vtoken1=$('#poolFromToken option:selected').val();
@@ -958,37 +910,31 @@
                                             }
                                         });
 
+                                        contractABI_json2 = JSON.parse(contractABI2);
 
-
-                                              contractABI_json2 = JSON.parse(contractABI2);
-
-                                              var tknContract2 = new web3.eth.Contract(contractABI_json2, contractAddress2);
-                                              var getallowance2 = tknContract2.methods.allowance(myAccountAddress, routerContractAddress).call();
-                                              getallowance2.then(function(getallowance2) {
-                                                  console.log("getallowance2 : " + getallowance2);
-                                                  if(parseInt(getallowance2)<= 0) {
-                                                      $("#approve2").show();
-                                                      var vtoken=$('#poolToToken option:selected').val();
-                                                      $("#approve2").html('Approve '+vtoken);
-                                                      $("#approve2").attr('data-address',contractAddress1);
-                                                      $("#approve2").attr('data-abi',contractABI2);
-                                                      $("#approve2").attr('data-decimal',devide_to2);
-                                                      $("#create_pair_btn").prop('disabled', true);
-                                                  } else {
-                                                      $("#approve2").hide();
-                                                      $("#approve2").attr('data-address','');
-                                                      $("#approve2").attr('data-abi','');
-                                                      $("#approve2").attr('data-decimal',0);
-                                                      if($("#approve1").is(':hidden')){
-                                                        $("#create_pair_btn").prop('disabled', false);
-                                                      }
-                                                      $("#create_pair_btn").html('Supply');
-                                                  }
-                                              });
-
-
-
-
+                                        var tknContract2 = new web3.eth.Contract(contractABI_json2, contractAddress2);
+                                        var getallowance2 = tknContract2.methods.allowance(myAccountAddress, routerContractAddress).call();
+                                        getallowance2.then(function(getallowance2) {
+                                          
+                                            if(parseInt(getallowance2)<= 0) {
+                                                $("#approve2").show();
+                                                var vtoken=$('#poolToToken option:selected').val();
+                                                $("#approve2").html('Approve '+vtoken);
+                                                $("#approve2").attr('data-address',contractAddress1);
+                                                $("#approve2").attr('data-abi',contractABI2);
+                                                $("#approve2").attr('data-decimal',devide_to2);
+                                                $("#create_pair_btn").prop('disabled', true);
+                                            } else {
+                                                $("#approve2").hide();
+                                                $("#approve2").attr('data-address','');
+                                                $("#approve2").attr('data-abi','');
+                                                $("#approve2").attr('data-decimal',0);
+                                                if($("#approve1").is(':hidden')){
+                                                    $("#create_pair_btn").prop('disabled', false);
+                                                }
+                                                $("#create_pair_btn").html('Supply');
+                                            }
+                                        });
                                     }
                                 }
                               });
@@ -1072,15 +1018,11 @@
             dataType: "json",
             success: function (res) {
 
-                console.log(res.status);
                 if (res.status == '1') {
                     var contractABI = res.data.contractABI;
                     var contractAddress = res.data.contractAddress;
                     var multiply_to = '1e'+res.data.desimals;
                     contractABI = JSON.parse(contractABI);
-
-                    console.log(contractABI);
-                    console.log(contractAddress);
 
                     web3.eth.getAccounts(async function (error, result) {
 
@@ -1095,13 +1037,10 @@
                                 from: myAccountAddress, // default from address
                             });
 
-                            const userInputEthValue = web3.utils.toHex( toFixedNumber(multiply_to / txtPoolFromToken) );
-                            console.log(userInputEthValue);
+                            const userInputEthValue = web3.utils.toHex( toFixedNumber(multiply_to / txtPoolFromToken));
                             var WETHobj = routerContract.methods.WETH().call();
 
                             const WETHval = WETHobj.then(function(result){
-
-                                console.log(result);
 
                                 var amountOut = ( txtPoolFromToken * multiply_to);
                                 var decimals = (txtPoolFromToken!=Math.floor(txtPoolFromToken))?(txtPoolFromToken.toString()).split('.')[1].length:0;
@@ -1111,12 +1050,9 @@
                                 }
 
                                 var path = [result, contractAddress];
-                                console.log("amountOut : " + amountOut);
                                 var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
 
                                 getamntin.then(function(getAmtVal) {
-
-                                    console.log("getAmtVal : " + getAmtVal);
 
                                     var tokenAount = getAmtVal[0];
                                     var ETHValue = getAmtVal[1];
@@ -1158,10 +1094,7 @@
                                     }
 
                                     var timerID = setInterval(function() {
-                                        console.log("Initial fulfilled:", myPromise.isFulfilled());//false
-                                        console.log("Initial rejected:", myPromise.isRejected());//false
-                                        console.log("Initial pending:", myPromise.isPending());//true
-
+                                        
                                         if(myPromise.isFulfilled()){
 
                                             myPromise.then(function(result){
@@ -1173,117 +1106,25 @@
                                         }
 
                                         if(myPromise.isFulfilled()){
+                                            resetAllFields();
+                                            loadSelectOptions();
                                             $(".ajs-ok").click();
                                             clearInterval(timerID);
                                         }
 
                                         if(myPromise.isRejected()){
+
+                                            myPromise.then(response => {
+                                            }).catch(error => {
+                                                alertify.alert("Warning", error.message, function(){});
+                                            });
                                             $(".ajs-ok").click();
                                             clearInterval(timerID);
                                         }
 
-                                    }, 500);
-
-                                    return false;
-
-                                    /*var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                        gasLimit: web3.utils.toHex(560000),
-                                        gasPrice: web3.utils.toHex(10000000000),
-                                        value: addLiquidityETH });
-
-                                    const promise2 = addLiqETH.then( successCallback, failureCallback);
-                                   
-                                    function successCallback(result) {
-                                      console.log('Resolved');
-                                      console.log(result);
-
-                                      alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
-
-                                    }
-
-                                    function failureCallback(result) {
-                                        alertify.alert(result.message, function(){});
-                                    }*/
-                                        
-
-                                    /*alertify.alert("<b>Please wait</b>","<center><img src='https://forsagetron.io/img/ripple-loader.gif' /></center> <br>Please wait upto 2 minutes and then refresh the page. <a href='"+etherscan_api_url+"/tx/"+addLiqETH+"' target='_blank'>Click here to check the status of transaction.</a><br>", function(){ 
-                                            //window.location.reload();
-                                        });*/
-                                    /*
-                                    setTimeout(async function(){
-
-                                        var result = await mySellContract.sellTokens(valuePass).send({ shouldPollResponse: false, feeLimit: 15000000, callValue: valuePass, from: myAccountAddress });
-
-                                        if(result){
-                                        
-                                            alertify.alert("<b>Please wait</b>","<center><img src='https://forsagetron.io/img/ripple-loader.gif' /></center> <br>Please wait upto 2 minutes and then refresh the page. <a href='<?php //echo $etherscanTx; ?>"+result+"' target='_blank'>Click here to check the status of transaction.</a><br>", function(){ 
-                                                    //window.location.reload();
-                                            });
-
-                                            $(".ajs-ok").css("display", "none");
-                                            $(".ajs-close").css("display", "none");
-
-                                            var timerID = setInterval(function() {
-
-                                                var xhttp = new XMLHttpRequest();
-                                                xhttp.onreadystatechange = function() {
-                                                    console.log("this.status : " + this.status + " ::: " + this.readyState);
-                                                    if (this.readyState == 4 && this.status == 200) {
-
-                                                        $(".ajs-ok").click();
-                                                        if(this.responseText=='') {
-                                                            alertify.alert("", "<center><img src='<?php //echo $siteURL; ?>img/green-tick-mark.png' /> <br> <br>Thanks for Selling Token.");
-                                                        } else {
-                                                            alertify.alert("", "<center><img src='<?php //echo $siteURL; ?>img/red-warning-50x50.png' /> <br> <br>Your transaction has been failed");
-                                                        }
-
-                                                        $(".ajs-ok").css("display", "table-footer-group");
-                                                        clearInterval(timerID);
-                                                    }
-                                                };
-                                                xhttp.open("GET", "https://forsagetron.io/dashboard/includes/getUserIdFromTransactionHash.php?txHash="+result, true);
-                                                xhttp.send();
-                                            }, 30 * 1000);
-                                        }
-                                    },1500);
-                                    */
+                                    }, 500);                                    
                                 });
                             });
-
-                            function successCallback(result) { }
-                            function failureCallback(error) { }
-                            return false;
-
-
-                            /* Add Liquidity Methid Call - Start  */
-
-                            var addLiquidityETH = 100000000000000;
-                            var token = contractAddress;
-                            var amountTokenDesired = 92407300000000000;
-                            var amountTokenMin = 82407300000000000;
-                            var amountETHMin = 90000000000000;
-                            var to = myAccountAddress;
-                            var milliseconds = 300 * 1000;
-                            var deadline = new Date().getTime() + milliseconds;
-
-                            console.log('==================');
-                            console.log('addLiquidityETH ' + addLiquidityETH);
-                            console.log('token ' + token);
-                            console.log('amountTokenDesired ' + amountTokenDesired);
-                            console.log('amountTokenMin ' + amountTokenMin);
-                            console.log('amountETHMin ' + amountETHMin);
-                            console.log('to ' + to);
-                            console.log('deadline ' + deadline);
-                            console.log('==================');
-
-                            var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                    gasLimit: web3.utils.toHex(560000),
-                                    gasPrice: web3.utils.toHex(1000000000),
-                                    value: addLiquidityETH });
-
-                            console.log(addLiqETH);
-
-                            /* Add Liquidity Methid Call - End  */
 
                             /* Remove Liquidity Methid Call - Start  */
                             /*
@@ -1315,8 +1156,6 @@
                             */
 
                             /* Remove Liquidity Methid Call - End  */
-
-
                         }
                     });
 

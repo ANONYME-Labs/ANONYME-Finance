@@ -652,6 +652,77 @@
         }
     }
 
+    function getShareOfPoolCalculations(UniswapV2Pair, txtPoolFromToken, devide_to, _reserve0, _reserve1, contractAddress1, contractAddress2){
+
+        var amountOut = (devide_to * txtPoolFromToken);
+        var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
+
+        amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
+        //get quote
+        
+        var vtoken0 = UniswapV2Pair.methods.token0().call();
+        vtoken0.then(function(res) {
+            vtoken0 = res;
+        });
+        var vtoken1 = UniswapV2Pair.methods.token1().call();
+        vtoken1.then(function(res) {
+            vtoken1 = res;
+        });
+
+        setTimeout(function(){
+            
+            var vReverse1 = _reserve0;
+            var vReverse2 = _reserve1;
+
+            var share_of_pool = 0;
+            if(vtoken0 == contractAddress1) {
+
+                var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
+                vReverse1 = vReverse1 / devide_to;
+
+                if(txtPoolFromToken > 0){
+                    share_of_pool = (parseFloat(txtPoolFromToken).toFixed(2) / vReverse1) * 100;
+                } else {
+                    share_of_pool = 0;
+                }
+
+                if(share_of_pool > 100){
+                    share_of_pool = 100;
+                }
+
+            } else {
+                
+                if(amountOut > 0){
+                    var vQuote = routerContract.methods.quote(amountOut, vReverse2, vReverse1).call();
+                  
+                    vReverse2 = vReverse2 / devide_to;
+                    
+                    if(txtPoolFromToken > 0){
+                        share_of_pool = (parseFloat(txtPoolFromToken).toFixed(2) / vReverse2) * 100;
+                    } else {
+                        share_of_pool = 0;
+                    }
+
+                    if(share_of_pool > 100){
+                        share_of_pool = 100;
+                    }
+                }
+            }
+
+            if(parseFloat(share_of_pool) <= 0) {
+                $("#share_of_pool").html('0%');
+            } else if(parseFloat(share_of_pool) <= 0.01) { 
+                $("#share_of_pool").html('<0.01%');
+            } else {
+                if(share_of_pool < 0){
+
+                }
+                $("#share_of_pool").html(share_of_pool.toFixed(2) + '%');
+            }
+            
+        }, 200);
+    }
+
     function changeFromToken(change = '') {
 
         $("#approve1").hide();
@@ -699,7 +770,7 @@
 
                             $("#pool_loading").show();
 
-                            var WETHAddress = $("#WETHAddress").val(WETHAddress);
+                            var WETHAddress = $("#WETHAddress").val();
                             if(WETHAddress){
 
                                 var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
@@ -730,6 +801,10 @@
                                     success: function (resp) {
 
                                         if(resp != ''){
+
+                                            var contractAddress1 = WETHAddress;
+                                            var contractAddress2 = contractAddress;
+
                                             var getPairAddress = resp.getPairAddress;
                                             var getPairABI = resp.getPairABI;
                                             var getPairABI_JSON = JSON.parse(getPairABI);
@@ -742,6 +817,10 @@
                                                 var _reserve1 = getReserveResult._reserve1;
 
                                                 getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to);
+
+                                                /* Share of Pool Calculation - Start */
+                                                getShareOfPoolCalculations(UniswapV2Pair, txtPoolFromToken, devide_to, _reserve0, _reserve1, contractAddress1, contractAddress2);
+                                                /* Share of Pool Calculation - End */
                                             });
 
                                         } else {
@@ -763,6 +842,10 @@
                                                         var _reserve1 = getReserveResult._reserve1;
 
                                                         getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to);
+
+                                                        /* Share of Pool Calculation - Start */
+                                                        getShareOfPoolCalculations(UniswapV2Pair, txtPoolFromToken, devide_to, _reserve0, _reserve1, contractAddress1, contractAddress2);
+                                                        /* Share of Pool Calculation - End */
                                                     });
 
                                                     var from_token_name = $('#poolFromToken option:selected').val();

@@ -1,6 +1,10 @@
 <?php include 'header.php'; ?>
 <?php include 'sidebar.php'; ?>
+
+<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="css/alertify.min.css" />
+<link rel="stylesheet" type="text/css" href="css/dd.css" />
+<link rel="stylesheet" type="text/css" href="css/custom.css" />
 
 
 <style type="text/css">
@@ -77,7 +81,30 @@
                             <p>Don't see a pool you joined? <a href="javascript:;"> Import it.</a></p>
                         </div>
                     </div>
+
+                    
                     <!-- /.card -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <table class="table tbl_pool_events-striped" id="tbl_pool_events" >
+                     <thead>
+                        <tr>
+                           <th>Gas Price</th>
+                           <th>Gas Used</th>
+                           <th>Transaction Hash</th>
+                           <th>Time Stamp</th>
+                           <th id="action">Action</th>
+                        </tr>
+                     <tbody>
+                     </tbody>
+                     </thead>
+                  </table>
+
+                    
                 </div>
             </div>
             <!-- /.row -->
@@ -86,22 +113,21 @@
     </div>
     <!-- /.content -->
 </div>
+
+
 <!-- /.content-wrapper -->
 <!-- /.control-sidebar -->
 <input type="hidden" name="WETHAddress" id="WETHAddress" value="<?php echo $WETHAddress; ?>">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- <msdropdown> -->
-<link rel="stylesheet" type="text/css" href="css/dd.css" />
-<script src="js/jquery.dd.js"></script>
-
 <?php include 'footer.php'; ?>
 
-<link rel="stylesheet" type="text/css" href="css/dd.css" />
 <script src="js/jquery.dd.js"></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script> -->
-
 <script src="js/alertify.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/pool_events_table.js"></script>
 
 <script type="text/javascript">
 

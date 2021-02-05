@@ -36,7 +36,7 @@
           <div class="col-lg-8 col-md-8 col-sm-12 col-12">
             <div class="card px-3 py-5">
              <div class="row justify-content-center">
-               <div class="col-md-7 col-sm-12">
+               <div class="col-md-7 col-sm-12" id="supply_wrapper">
                  <h3 class="text-center text-info">Your balance is <span id="supplybalanceUSD"> $ 0</span></h3>
                  <p class="text-center">Your balance is <span class="supply_blalnce"> 0 <?php if(isset($_COOKIE['currency'])) echo ltrim($_COOKIE['currency'],'c');?></span>.</p>
                  <div class="go-back text-center my-3">

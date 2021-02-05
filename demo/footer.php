@@ -125,325 +125,6 @@
 </div>
 
 
-<!-- modal -->
-
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplyWithdraw">
-  Launch demo modal
-</button> -->
-
-<!-- Modal -->
-<div class="modal fade" id="supplyWithdraw" tabindex="-1" aria-labelledby="supplyWithdrawLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="supplyWithdrawLabel"><?=$currency_full_name;?></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="max-value">
-          <div class="input-group mb-3" class="active" id="supplyinputs" >
-              <input style="font-size: 60px;text-align: center;padding: 30px;border: none;height: calc(2.25rem + 24px);" id="TokensToSupply" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_supply" style="border-radius: 4px;height: 36px; margin: auto 0;">MAX</button>
-          </div>
-		  <div class="input-group mb-3" id="withdrawinputs" style="display:none" >
-              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensTowithdraw" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_withdraw">MAX</button>
-          </div>
-        </div>
-        <div class="tabs-form">
-          
-          <nav class="mb-3">
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Supply</a>
-              <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Withdraw</a>
-            </div>
-          </nav>
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <div class="row">
-                <div class="col-sm-12">
-                  <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
-                </div>
-              </div>  
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span class="supply_percentage" >0.01%</span>
-                </div>
-              </div>
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span>-</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <a href="">Borrow Limit</a>
-                </div>
-              </div>  
-              <div class="row border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span>Borrow Limit</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span  ></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
-                </div>
-              </div>
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span>Borrow Limit Used</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span class="borrow_limit_used" >0%</span>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <button class="btn btn-secondary btn-block" id="supplying" >NO FUNDS AVAILABLE</button>
-                </div>
-              </div>
-              <div class="row ">
-                <div class="col-sm-12">
-                  <span>Wallet Balance</span>
-                  <span style="float: right;" class="walletbalance" >0 ETH</span>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <div class="row">
-                <div class="col-sm-12">
-                  <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
-                </div>
-              </div>  
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span class="supply_percentage">0.01%</span>
-                </div>
-              </div>
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span>-</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <a href="">Borrow Limit</a>
-                </div>
-              </div>  
-              <div class="row border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span>Borrow Limit</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit">$0</span>
-                </div>
-              </div>
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span>Borrow Limit Used</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                  <span class="borrow_limit_used" >0%</span>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <button class="btn btn-secondary btn-block"  id="withdrawing" >NO BALANCE TO WITHDRAW</button>
-                </div>
-              </div>
-              <div class="row ">
-                <div class="col-sm-12">
-                  <span>Currenctly Supplying</span>
-                  <span style="float: right;" class="supply_blalnce" >0 ETH</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
-    </div>
-  </div>
-</div>
-
-<!-- modal -->
-<!-- borrow modal -->
-
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplyWithdraw">
-  Launch demo modal
-</button> -->
-
-<!-- Modal -->
-<div class="modal fade" id="borrowRepay" tabindex="-1" aria-labelledby="borrowRepayLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="supplyWithdrawLabel"><?=$currency_full_name;?></h5>
-        <button type="button" class="btn-close" class="close" data-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="max-value">
-          <div class="input-group mb-3"  id="borrowinputs">
-              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensToborrow" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_borrow">MAX</button>
-            </div>
-        </div>
-		<div class="input-group mb-3"  id="repayinputs" style="display:none" >
-              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensTorepay" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_repay">MAX</button>
-            </div>
-      
-        <div class="tabs-form">
-          
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-link active" id="borrow-tab" data-toggle="tab" href="#borrow" role="tab" aria-controls="borrow" aria-selected="true">Borrow</a>
-              <a class="nav-link" id="repay-tab" data-toggle="tab" href="#repay" role="tab" aria-controls="repay" aria-selected="false">Repay</a>
-            </div>
-          </nav>
-          <div class="tab-content" id="nav-tabContent">
-        
-            <div class="tab-pane fade  show active" id="borrow" role="tabpanel" aria-labelledby="borrow-tab">
-              <div class="row">
-                <div class="col-sm-12">
-                  <a href="">Borrow rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
-                </div>
-              </div>  
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Borrow APY</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span class="borrow_percentage" >0%</span>
-                </div>
-              </div>
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span>-</span>
-                </div>
-              </div>
-              <div class="row mb-3 ">
-                <div class="col-sm-12">
-                  <a href="">Borrow Limit</a>
-                </div>
-              </div>  
-              <div class="row border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span>Borrow Limit</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
-                </div>
-              </div>
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span>Borrow Limit Used</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span class="borrow_limit_used" >0%</span>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <button class="btn btn-secondary btn-block" id="Borrowing"  >NO BALANCE TO BORROW</button>
-                </div>
-              </div>
-              <div class="row ">
-                <div class="col-sm-12">
-                  <span>Currenctly Borrowing</span>
-                  <span style="float: right;" id="currenct_totborrow" >0 ETH</span>
-                </div>
-              </div>
-            </div>
-			<div class="tab-pane fade" id="repay" role="tabpanel" aria-labelledby="repay-tab">
-              <div class="row">
-                <div class="col-sm-12">
-                  <a href="">Repay rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
-                </div>
-              </div>  
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Borrow APY</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span class="borrow_percentage" >0.01%</span>
-                </div>
-              </div>
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span>-</span>
-                </div>
-              </div>
-              <div class="row mb-3 ">
-                <div class="col-sm-12">
-                  <a href="">Borrow Limit</a>
-                </div>
-              </div>  
-              <div class="row border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span>Borrow Limit</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span  ></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
-                </div>
-              </div>
-              <div class="row mb-3 border-bottom py-3 px-2">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span>Borrow Limit Used</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                  <span class="borrow_limit_used" >0%</span>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-12">
-                  <button class="btn btn-secondary btn-block" id="repaying" >NO FUNDS AVAILABLE</button>
-                </div>
-              </div>
-              <div class="row ">
-                <div class="col-sm-12">
-                  <span>Wallet Balance</span>
-                  <span style="float: right;" class="walletbalance" >0 ETH</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-	  
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
-    </div>
-  </div>
-</div>
-
-<!-- modal -->
  <footer class="main-footer">
     <strong>Copyright © 2020</strong>
     All rights reserved.
@@ -672,6 +353,12 @@ $(document).ready(async function(){
 				console.log('underlying '+underlying); 
 				}
 				
+				//liquidity
+				let {1:liquidity} = await marketcontract.methods.getAccountLiquidity(myAccountAddress).call();
+                liquidity = web3.utils.fromWei(liquidity).toString();
+				console.log('liquidity '+liquidity); 
+				
+				
 				//balanceOfUnderlying
 				const balanceOfUnderlying = web3.utils.toBN(await myContract.methods.balanceOfUnderlying(myAccountAddress).call()) / Math.pow(10, underlyingDecimals);
 				console.log('balanceOfUnderlying'+balanceOfUnderlying);	
@@ -682,6 +369,8 @@ $(document).ready(async function(){
 				 if($('#TokensTowithdraw').val()=="")
 					$("#withdrawing").attr("disabled", "disabled");
 					
+					
+				
 				 /*if(asset!="" && asset!='ETH' && asset!='cETH'){ 
 				  console.log("ETH supplied to the Compound Protocol:", balanceOfUnderlying.toFixed(3), '\n');
 				  $('.supply_blalnce').html( balanceOfUnderlying.toFixed(3)+' <?php echo $_COOKIE['currency'];?>');
@@ -695,8 +384,20 @@ $(document).ready(async function(){
 				var checkMembership = await marketcontract.methods.checkMembership(myAccountAddress,mainContractAddress).call({from: myAccountAddress});
 				console.log(checkMembership); 
 				$('#ether-basic-switch').attr('checked', checkMembership);
-				 
 				
+				//allowance	
+				if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+				var checkallowance = await underlying.methods.allowance(myAccountAddress,underlyingContractAddress).call();
+		        console.log('checkallowance'+checkallowance);
+				if(checkallowance==0){
+					$('#approve').show();
+					$('#checkMembership').hide();
+				}else {
+					$('#checkMembership').show();
+					$('#approve').hide();
+				}
+
+				}
 				// APY
 				const supplyRatePerBlock = await myContract.methods.supplyRatePerBlock().call();
 				const borrowRatePerBlock = await myContract.methods.borrowRatePerBlock().call();
@@ -734,6 +435,8 @@ $(document).ready(async function(){
 						var myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals); // if you supply in compound otherwise it show you 0.
 						console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
 						$('.walletbalance').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
+						myWalletUnderlyingBalance=(myWalletUnderlyingBalance*97)/100;
+						$('.walletbalancepop').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
 
 						 if(myWalletUnderlyingBalance > 0 )
 								$('#supplying').html('Supply');
@@ -742,6 +445,8 @@ $(document).ready(async function(){
 						let myWalletUnderlyingBalance = await myContract.methods.balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal); // if you supply in compound otherwise it show you 0.
 						console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
 						$('.walletbalance').html(parseFloat(myWalletEthBalance).toFixed(3)+' '+asset);
+						myWalletEthBalance=(myWalletEthBalance*97)/100;
+						$('.walletbalancepop').html(parseFloat(myWalletEthBalance).toFixed(3)+' '+asset);
 						 if(myWalletUnderlyingBalance > 0 )
 								$('#supplying').html('Supply');
 						       // $("#supplying").attr("disabled", "disabled"); 
@@ -762,6 +467,7 @@ $(document).ready(async function(){
 			  if(balanceOfUnderlying > 0){	
 			  
 				  console.log("(2 *(("+balanceOfUnderlying+" * "+supplyApy+")/100))* "+usd_value);
+				  
 				  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* usd_value;
 				  const borrow_limit=(supplybalanceUSD*80)/100;
 				 
@@ -770,8 +476,14 @@ $(document).ready(async function(){
 				  
 				  $('#totsupply').html(balanceOfUnderlying.toFixed(4));
 				  
+				  
+				  
 			  }
 			  
+			  console.log('Fetching cETH collateral factor...');
+              let { 1:collateralFactor } = await marketcontract.methods.markets(mainContractAddress).call();
+              collateralFactor = (collateralFactor / 1e18) * 100; // Convert to percent
+              console.log("mainContractAddress % "+collateralFactor); // Convert to percent
 			  
 			  // borrow balance  Data
 			  const borrowBalanceStored= await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
@@ -783,7 +495,7 @@ $(document).ready(async function(){
 				else
 					 $("#repaying").html('Repay');
 				 
-			   if(balanceOfUnderlying > 0 && borrowBalance == 0){	
+			   if(liquidity > 0){	
 				  
 					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your borrow balance is <span id="borrowbalanceUSD"> $0</span></h3><p class="text-center">Your borrow balance is <span id="totborrow"> 0 '+asset+'</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowRepay" >Borrow</button>&nbsp;&nbsp;&nbsp;<div class="text-center"><a href="home.php">Go back</a></div></div>');
 					
@@ -792,8 +504,16 @@ $(document).ready(async function(){
 				   
 				
 			  }	 
-				 
-			  if(balanceOfUnderlying > 0 && borrowBalance > 0){	
+			   if(liquidity == 0 && checkMembership==false){	
+				  
+					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your borrow balance is <span id="borrowbalanceUSD"> $0</span></h3><p class="text-center">You need to collateral first to unlock your borrowing power</span>.</p><div class="go-back text-center my-3"><div class="text-center btn btn-info"><a href="deposit.php">Collateral</a></div></div>');
+					
+					if($('#TokensToborrow').val()=="")
+					  $("#Borrowing").attr("disabled", "disabled");
+				   
+				
+			  }	 
+			  if(liquidity > 0 && borrowBalance > 0 && balanceOfUnderlying > 0 && checkMembership==true){	
 				  $('.borrow_percentage').html(borrowApy.toFixed(2)+' %');
 				  $("#repaying").html('Repay');
 				  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* usd_value;
@@ -859,8 +579,12 @@ $(document).ready(async function(){
 						var myWalletUnderlyingBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
 				 }
 					 var newbalance=parseFloat(myWalletUnderlyingBalance).toFixed(3);
-					 $('#TokensToSupply').val(newbalance);
-					
+					 newbalance=newbalance*97/100;
+					 $('#TokensToSupply').val(parseFloat(newbalance).toFixed(4));
+					 if(TokensToSupply > myWalletUnderlyingBalance){
+					   $('#supplying').html('Supply');
+					   $("#supplying").removeAttr("disabled"); 
+					}
 					
 				 });
 				 
@@ -874,10 +598,11 @@ $(document).ready(async function(){
 			
 			 //popup borrow Max
 				$('#max_button_addon_borrow').click( async function(){
-					 var borrowbalancepop=(balanceOfUnderlying*80)/100;
-					 console.log(borrowbalancepop+'borrowbalancepop');
-					 var newbalance=parseFloat(borrowbalancepop).toFixed(4);
-					 $('#TokensToborrow').val(newbalance);
+					
+					const borrowlimit=(liquidity*80)/100;
+					 var maxborrow=borrowlimit*usd_value;
+					 var newbalance=parseFloat(maxborrow).toFixed(4);
+					 $('#TokensToborrow').val(maxborrow);
 					 
 					 if (newbalance>0){
 						$("#Borrowing").removeAttr("disabled"); 
@@ -912,7 +637,7 @@ $(document).ready(async function(){
 					 $('#supplying').html('NO FUNDS AVAILABLE');
 					 $("#supplying").attr("disabled", "disabled"); 
 					}
-					else if(TokensToSupply <= 0){
+					else if(TokensToSupply <= 0 || TokensToSupply==""){
 					
 					 $("#supplying").attr("disabled", "disabled"); 
 				  }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {
@@ -994,20 +719,24 @@ $(document).ready(async function(){
 			//popup input validation for borrow
 			
 			 $('#TokensToborrow').keyup( async function(){
-				 var borrowbalancepop=(balanceOfUnderlying*80)/100;
+				
 				 let TokensToborrow=$('#TokensToborrow').val();
 				  var str = TokensToborrow.toString();
 				  
-				 var Tokensborrow=parseFloat(borrowbalancepop-TokensToborrow);
+				 var Tokensborrow=parseFloat(liquidity-TokensToborrow);
 				 console.log('Tokensborrow'+Tokensborrow);
-				  console.log('borrowbalancepop'+borrowbalancepop);
-					if(TokensToborrow > borrowbalancepop){
+				  console.log('borrowbalancepop'+liquidity);
+					if(TokensToborrow > liquidity){
 						$('#Borrowing').html('NO FUNDS AVAILABLE');
 						$("#Borrowing").attr("disabled", "disabled"); 
 					}else if(TokensToborrow <= 0 || checkMembership==false){
 						$('#Borrowing').html('NO FUNDS AVAILABLE');
 					 $("#Borrowing").attr("disabled", "disabled"); 
-				    }else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {					  
+				    }else if(balanceOfUnderlying <= 0){
+						
+					 $("#Borrowing").attr("disabled", "disabled"); 
+				    }
+					else if(!str.match(/^[0-9]*([.,][0-9]+)?$/)) {					  
 						$("#Borrowing").attr("disabled", "disabled"); 
 					}else {
 						$("#Borrowing").removeAttr("disabled"); 
@@ -1019,20 +748,25 @@ $(document).ready(async function(){
 			 });
  
  
-		  //var checkallowance = await myContract.methods.allowance(myAccountAddress,batContractAddress).call();
-		  //console.log('checkallowance'+checkallowance);
+		
 
 
 
-  //console.log('Calculating your liquid assets in the protocol...');
- // let { 1:liquidity } = await comptroller.methods.getAccountLiquidity(myAccountAddress).call();
- // liquidity = liquidity / 1e18;
- // console.log(`You can borrow up to ${liquidity} ${asset} from the protocol.`);
+ 
+ 
+  // approve
+ $('#approve').click( async function(){
+			
+			const underlyingTokensToSupply = 10 * Math.pow(10, underlyingDecimals);
+			await underlying.methods.approve(mainContractAddress, underlyingTokensToSupply).send(fromMyWallet);
+			$('#checkMembership').show();
+			$('#approve').hide();
+ });
  
  // supply
  $('#supplying').click( async function(){
 	 const TokensToSupply=$('#TokensToSupply').val();
-  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" alt="loading" style="width: 20%;" /></span>');
  // Mint cTokens by supplying underlying tokens to the Compound Protocol
   
   
@@ -1046,23 +780,23 @@ $(document).ready(async function(){
 	  
   if(asset!="" && asset!='ETH' && asset!='cETH' ){ 
 	  
-		if(balanceOfUnderlying==0.00)
-			await underlying.methods.approve(myAccountAddress, underlyingTokensToSupply).send(fromMyWallet);
+		if(checkallowance==0)
+			await underlying.methods.approve(mainContractAddress, underlyingTokensToSupply).send(fromMyWallet);
 
 		console.log('${'+asset+'} contract "Approve" operation successful.');
 		console.log('Supplying ${'+asset+'} to the Compound Protocol...');
 		console.log('\nSupplying ETH to the protocol as collateral (you will get cETH in return)...\n');
 		await myContract.methods.mint(web3.utils.toBN(ethToSupplyAsCollateral.toString()) ).send(fromMyWallet).on("transactionHash", function (hash) {
-       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+      
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
-    .on("confirmation", function () {
-        console.log("Confirmed");
+    .on("confirmation", function (hash) {
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
-    .on("error", async function () {
-        console.log("Error");
+    .on("error", async function (hash) {
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     });
 	  
 	  
@@ -1073,16 +807,18 @@ $(document).ready(async function(){
     gasPrice: web3.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
     value: web3.utils.toHex(web3.utils.toWei(TokensToSupply.toString(), 'ether'))
   }).on("transactionHash", function (hash) {
-       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+       
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
-    .on("confirmation", function () {
+    .on("confirmation", function (hash) {
         console.log("Confirmed");
+		$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
-    .on("error", async function () {
+    .on("error", async function (hash) {
         console.log("Error");
+		$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"> Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     });
   }
 
@@ -1092,7 +828,7 @@ $(document).ready(async function(){
     balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal);
   console.log('My wallet\'s c${asset} Token Balance:', cTokenBalance);
 
-  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){ 
+  if(asset!="" && asset!='ETH' && asset!='cETH'){ 
   let underlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call();
   underlyingBalance = underlyingBalance / Math.pow(10, underlyingDecimals);
   console.log("My wallet's ${asset} Token Balance:", underlyingBalance, '\n');
@@ -1101,20 +837,44 @@ $(document).ready(async function(){
   let exchangeRate = erCurrent / Math.pow(10, 18 + underlyingDecimals - 8);
   console.log("Current exchange rate from c${"+asset+"} to ${"+asset+"}:", exchangeRate, '\n');
 
- 
+ const balanceOfUnderlying = web3.utils.toBN(await myContract.methods.balanceOfUnderlying(myAccountAddress).call()) / Math.pow(10, underlyingDecimals);
+ console.log('balanceOfUnderlying'+balanceOfUnderlying);	
+ $('.supply_blalnce').html( balanceOfUnderlying.toFixed(3)+' '+asset);
 
+  if(balanceOfUnderlying > 0){	
+			  
+  console.log("(2 *(("+balanceOfUnderlying+" * "+supplyApy+")/100))* "+usd_value);
+  const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApy)/100))* usd_value;
+  const borrow_limit=(supplybalanceUSD*80)/100;
  
-  
+  $('#supplybalanceUSD').html('$ '+supplybalanceUSD.toFixed(5));
+  let myWalletEthBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
+  let myWalletCEthBalance = await myContract.methods.balanceOf(myAccountAddress).call() /  Math.pow(10, ctokendesimal);
+  if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+	var myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals); // if you supply in compound otherwise it show you 0.
+	console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
+	$('.walletbalance').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
+	myWalletUnderlyingBalance=(myWalletUnderlyingBalance*97)/100;
+	$('.walletbalancepop').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
 
-  cTokenBalance = await myContract.methods.balanceOf(myAccountAddress).call();
-  cTokenBalance = cTokenBalance / Math.pow(10, ctokendesimal);
-  console.log("My wallet's c${"+asset+"} Token Balance:", cTokenBalance);
+	 if(myWalletUnderlyingBalance > 0 )
+			$('#supplying').html('Supply');
+	$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
+}else{
+	let myWalletUnderlyingBalance = await myContract.methods.balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal); // if you supply in compound otherwise it show you 0.
+	console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
+	$('.walletbalance').html(parseFloat(myWalletEthBalance).toFixed(3)+' '+asset);
+	myWalletEthBalance=(myWalletEthBalance*97)/100;
+	$('.walletbalancepop').html(parseFloat(myWalletEthBalance).toFixed(3)+' '+asset);
+	 if(myWalletUnderlyingBalance > 0 )
+			$('#supplying').html('Supply');
+		   // $("#supplying").attr("disabled", "disabled"); 
+	$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
+}
   
-  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){ 
-  underlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call();
-  underlyingBalance = underlyingBalance / Math.pow(10, underlyingDecimals);
-  console.log("My wallet's ${asset} Token Balance:", underlyingBalance, '\n');
   }
+  
+  
  });
  
  
@@ -1122,7 +882,7 @@ $(document).ready(async function(){
  // Borrow
   $('#Borrowing').click( async function(){
   const ethToBorrow = $('#TokensToborrow').val();	 
-  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	 
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" alt="loading" style="width: 20%;" /></span>');	 
 
   let underlyingAsCollateral = 15;
 
@@ -1130,25 +890,21 @@ $(document).ready(async function(){
   underlyingAsCollateral = underlyingAsCollateral * Math.pow(10, underlyingDecimals);
   underlyingAsCollateral = underlyingAsCollateral.toString();
 
-  if(asset!="" && asset!='ETH' && asset!='cETH' && balanceOfUnderlying==0.00){ 
-  console.log('\nApproving ${assetName} to be transferred from your wallet to the c${'+asset+'} contract...\n');
-  await underlying.methods.approve(cTokenAddress, underlyingAsCollateral).send(fromMyWallet);
-  }
   
-  if(checkMembership!=false && borrowBalance > 0){
+  if(checkMembership!=false && liquidity > 0){
   
   console.log('\nNow attempting to borrow ${ethToBorrow} ETH...');
   await myContract.methods.borrow(web3.utils.toWei(ethToBorrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
-       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for borrowing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+       
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
-    .on("confirmation", function () {
-        console.log("Confirmed");
+    .on("confirmation", function (hash) {
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for borrowing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
-    .on("error", async function () {
-        console.log("Error");
+    .on("error", async function (hash) {
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     });
 	
   console.log('\nNow attempting to borrow ${ethToBorrow} ETH...successful');	
@@ -1163,36 +919,36 @@ $(document).ready(async function(){
 
   const ethTowithdrow = $('#TokensTowithdraw').val();
   
-  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	 
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" style="width: 20%;" alt="loading" /></span>');	 
   if(checkMembership!=false && balanceOfUnderlying > 0){
 	  
   
   console.log('\nNow attempting to borrow ${'+ethTowithdrow+'} ETH...');
   if(asset!="" && asset!='ETH' && asset!='cETH'){
 	var withdrowResult = await myContract.methods.redeem(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
-       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+       
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
-    .on("confirmation", function () {
-        console.log("Confirmed");
+    .on("confirmation", function (hash) {
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
-    .on("error", async function () {
-        console.log("Error");
+    .on("error", async function (hash) {
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     });
   }else{
 	var withdrowResult = await myContract.methods.redeemUnderlying(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
-       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+       
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
-    .on("confirmation", function () {
-        console.log("Confirmed");
+    .on("confirmation", function (hash) {
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
-    .on("error", async function () {
-        console.log("Error");
+    .on("error", async function (hash) {
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     }); 
   }
   
@@ -1206,7 +962,7 @@ $(document).ready(async function(){
   $('#repaying').click( async function(){
    
    const ethTorepay = $('#TokensTorepay').val();
-   $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Loading.....</span>');	
+   $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" style="width: 20%;" alt="loading" /></span>');	
   
   if(checkMembership!=false && borrowBalance > 0){
 	  
@@ -1214,16 +970,16 @@ $(document).ready(async function(){
   console.log('\nNow attempting to repay ${'+ethTorepay+'} ETH...');
   if(asset!="" && asset!='ETH' && asset!='cETH'){
 	var repayResult = await myContract.methods.repayBorrow(web3.utils.toWei(ethTorepay.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
-       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+      
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
-    .on("confirmation", function () {
-        console.log("Confirmed");
+    .on("confirmation", function (hash) {
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
-    .on("error", async function () {
-        console.log("Error");
+    .on("error", async function (hash) {
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     });
   }else{
 	var repayResult = await myContract.methods.repayBorrow().send({
@@ -1232,16 +988,16 @@ $(document).ready(async function(){
 	gasPrice: web3.utils.toHex(1000000000), // use ethgasstation.info (mainnet only)
     value: web3.utils.toWei(ethTorepay.toString(), 'ether')
     }).on("transactionHash", function (hash) {
-       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+      
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
-    .on("confirmation", function () {
-        console.log("Confirmed");
+    .on("confirmation", function (hash) {
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
-    .on("error", async function () {
-        console.log("Error");
+    .on("error", async function (hash) {
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     }); 
   }
  
@@ -1385,4 +1141,335 @@ window.ethereum.on('networkChanged', function (networkId) {
 	   
 </script>
 
+<!-- modal -->
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplyWithdraw">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="supplyWithdraw" tabindex="-1" aria-labelledby="supplyWithdrawLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="supplyWithdrawLabel"><?=$currency_full_name;?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="max-value" >
+          <div class="input-group mb-3" class="active" id="supplyinputs" >
+              <input style="font-size: 60px;text-align: center;padding: 30px;border: none;height: calc(2.25rem + 24px);" id="TokensToSupply" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_supply" style="border-radius: 4px;height: 36px; margin: auto 0;">MAX</button>
+          </div>
+		  <div class="input-group mb-3" id="withdrawinputs" style="display:none" >
+              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensTowithdraw" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_withdraw">MAX</button>
+          </div>
+        </div>
+        <div class="tabs-form">
+          
+          <nav class="mb-3">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Supply</a>
+              <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Withdraw</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
+                </div>
+              </div>  
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span class="supply_percentage" >0.01%</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span>-</span>
+                </div>
+              </div>
+			  
+			  <div id="checkMembership" >
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Borrow Limit</a>
+                </div>
+              </div>  
+              <div class="row border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span>Borrow Limit</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span  ></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span>Borrow Limit Used</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span class="borrow_limit_used" >0%</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block" id="supplying" >NO FUNDS AVAILABLE</button>
+                </div>
+              </div>
+			 </div>
+			  
+			 <div id="approve" style="display:none" >	  
+			  <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block" id="approve" >Enable</button>
+                </div>
+               </div>
+			  </div>
+			 
+               <div class="row ">
+                <div class="col-sm-12">
+                  <span>Wallet Balance</span>
+                  <span style="float: right;" class="walletbalancepop" >0 ETH</span>
+                </div>
+              </div>  
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Supply rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
+                </div>
+              </div>  
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Supply APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span class="supply_percentage">0.01%</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <img src="images/logo-d.png" style="width: 16px; margin-right: 5px;"><span>Distribution APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span>-</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Borrow Limit</a>
+                </div>
+              </div>  
+              <div class="row border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span>Borrow Balance</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit">$0</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span>Borrow Limit Used</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                  <span class="borrow_limit_used" >0%</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block"  id="withdrawing" >NO BALANCE TO WITHDRAW</button>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-sm-12">
+                  <span>Currenctly Supplying</span>
+                  <span style="float: right;" class="supply_blalnce" >0 ETH</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<!-- borrow modal -->
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplyWithdraw">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="borrowRepay" tabindex="-1" aria-labelledby="borrowRepayLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="supplyWithdrawLabel"><?=$currency_full_name;?></h5>
+        <button type="button" class="btn-close" class="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="max-value">
+          <div class="input-group mb-3"  id="borrowinputs">
+              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensToborrow" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_borrow">MAX</button>
+            </div>
+        </div>
+		<div class="input-group mb-3"  id="repayinputs" style="display:none" >
+              <input style="font-size: 59px;text-align: center;padding: 30px;border: none;" id="TokensTorepay" type="text" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="max_button_addon_repay">MAX</button>
+            </div>
+      
+        <div class="tabs-form">
+          
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="borrow-tab" data-toggle="tab" href="#borrow" role="tab" aria-controls="borrow" aria-selected="true">Borrow</a>
+              <a class="nav-link" id="repay-tab" data-toggle="tab" href="#repay" role="tab" aria-controls="repay" aria-selected="false">Repay</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+        
+            <div class="tab-pane fade  show active" id="borrow" role="tabpanel" aria-labelledby="borrow-tab">
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Borrow rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
+                </div>
+              </div>  
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Borrow APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span class="borrow_percentage" >0%</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>-</span>
+                </div>
+              </div>
+              <div class="row mb-3 ">
+                <div class="col-sm-12">
+                  <a href="">Borrow Limit</a>
+                </div>
+              </div>  
+              <div class="row border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit Used</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span class="borrow_limit_used" >0%</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block" id="Borrowing"  >NO BALANCE TO BORROW</button>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-sm-12">
+                  <span>Currenctly Borrowing</span>
+                  <span style="float: right;" id="currenct_totborrow" >0 ETH</span>
+                </div>
+              </div>
+            </div>
+			<div class="tab-pane fade" id="repay" role="tabpanel" aria-labelledby="repay-tab">
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="">Repay rates<i class="fa fa-external-link ml-1" aria-hidden="true"></i></a>
+                </div>
+              </div>  
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Borrow APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span class="borrow_percentage" >0.01%</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <img src="images/logo-d.png" style="width: 16px; margin-left: 5px;"><span>Distribution APY</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>-</span>
+                </div>
+              </div>
+              <div class="row mb-3 ">
+                <div class="col-sm-12">
+                  <a href="">Borrow Limit</a>
+                </div>
+              </div>  
+              <div class="row border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span  ></span><i class="fa fa-arrow-right mr-1" aria-hidden="true"></i><span class="borrow_limit" >$0</span>
+                </div>
+              </div>
+              <div class="row mb-3 border-bottom py-3 px-2">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span>Borrow Limit Used</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                  <span class="borrow_limit_used" >0%</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-12">
+                  <button class="btn btn-secondary btn-block" id="repaying" >NO FUNDS AVAILABLE</button>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-sm-12">
+                  <span>Wallet Balance</span>
+                  <span style="float: right;" class="walletbalancepop" >0 ETH</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+	  
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
 </body></html>

@@ -32,7 +32,7 @@ $(document).ready(function () {
             {"data": "timeStamp"},
         ],
 
-        "order": [[0, "desc"]],
+        "order": [[3, "desc"]],
         "lengthpool_events": [
             [5,10, 25, 50, 100],
             [5,10, 25, 50, 100]
@@ -57,17 +57,13 @@ $(document).ready(function () {
         "columnDefs": [
             {
                "render": function (data, type, row) {
-                    var st='<button onClick="changeStatus('+"'0'"+','+row.id+')"  type="button" class=" btn btn-xs btn-danger">Remove</button>';
+                    var st='<button onClick="removeLiquidity('+row.id+')"  type="button" class=" btn btn-xs btn-danger">Remove</button>';
                     
                     return [st].join('');
                 },
                 "targets": $('#tbl_pool_events th#action').index(),
-                "orderable": false,
-                "searchable": false                  
-            },
-            {
-                "targets": 0,
-                "orderable": false
+                /*"orderable": false,
+                "searchable": false */                 
             }
         ]
     });
@@ -90,7 +86,8 @@ $(document).ready(function () {
     $('#tbl_pool_events_filter input').addClass("form-control");
 
 });
-     
+
+    
 
 //filter option hide and show
 $('#close_filter').click(function(){ 

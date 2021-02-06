@@ -1309,43 +1309,13 @@
                                     }, 500);
                                 });
                             });
-
-                            /* Remove Liquidity Methid Call - Start  */
-                            /*
-                            var liquidity = 10000000000000;
-                            var token = contractAddress;
-                            var amountTokenDesired = 92407300000000000;
-                            var amountTokenMin = 82407300000000000;
-                            var amountETHMin = 90000000000000;
-                            var to = myAccountAddress;
-                            var milliseconds = 300 * 1000;
-                            var deadline = new Date().getTime() + milliseconds;
-
-                            console.log('==================');
-                            console.log('liquidity ' + liquidity);
-                            console.log('token ' + token);
-                            console.log('amountTokenDesired ' + amountTokenDesired);
-                            console.log('amountTokenMin ' + amountTokenMin);
-                            console.log('amountETHMin ' + amountETHMin);
-                            console.log('to ' + to);
-                            console.log('deadline ' + deadline);
-                            console.log('==================');
-
-                            var removeLiqETH = routerContract.methods.removeLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                    gasLimit: web3.utils.toHex(260000),
-                                    gasPrice: web3.utils.toHex(1000000000),
-                                    value: liquidity });
-
-                            console.log(removeLiqETH);
-                            */
-
-                            /* Remove Liquidity Methid Call - End  */
                         }
                     });
 
                 }
-              }
-              else {
+
+              }  else {
+                
                 var contractABI1,contractAddress1,devide_to1;
                 var contractABI2,contractAddress2,devide_to2;
                 for(i=0;i<resp.length;i++) {
@@ -1490,6 +1460,59 @@
             },
             error: function (result) {
                 alert("Error");
+            }
+        });
+    }
+
+    function removeLiquidity(dbid){
+
+        $.ajax({
+            type: "POST",
+            url: 'ajax/getSinglePoolEvent.php',
+            data: { dbid:dbid },
+            success: function (resp) {
+                
+                console.log(resp);
+
+                web3.eth.getAccounts(async function (error, result) {
+
+                    myAccountAddress = result[0];
+
+                    /* Remove Liquidity Methid Call - Start  */
+                    
+                    var liquidity = 10000000000000;
+                    var token = contractAddress;
+                    var amountTokenDesired = 92407300000000000;
+                    var amountTokenMin = 82407300000000000;
+                    var amountETHMin = 90000000000000;
+                    var to = myAccountAddress;
+                    var milliseconds = 300 * 1000;
+                    var deadline = new Date().getTime() + milliseconds;
+
+                    console.log('==================');
+                    console.log('liquidity ' + liquidity);
+                    console.log('token ' + token);
+                    console.log('amountTokenDesired ' + amountTokenDesired);
+                    console.log('amountTokenMin ' + amountTokenMin);
+                    console.log('amountETHMin ' + amountETHMin);
+                    console.log('to ' + to);
+                    console.log('deadline ' + deadline);
+                    console.log('==================');
+
+                    var removeLiqETH = routerContract.methods.removeLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
+                            gasLimit: web3.utils.toHex(260000),
+                            gasPrice: web3.utils.toHex(1000000000),
+                            value: liquidity });
+
+                    console.log(removeLiqETH);
+                    
+                    /* Remove Liquidity Methid Call - End  */
+
+                });
+
+            },
+            error: function (res_error) {
+                console.log(res_error);
             }
         });
     }

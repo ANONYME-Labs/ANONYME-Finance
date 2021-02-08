@@ -1174,6 +1174,7 @@
         result.isFulfilled = function() { return isFulfilled; };
         result.isPending = function() { return isPending; };
         result.isRejected = function() { return isRejected; };
+
         return result;
     }
 
@@ -1186,6 +1187,7 @@
             alertify.alert('Warning', 'Please select different token.');
             return false;
         }
+
         var selectedtoken=[];
         if(endToken == 'ETH') {
             selectedtoken = [startToken];
@@ -1194,6 +1196,7 @@
         } else {
             selectedtoken = [startToken,endToken];
         }
+
         $.ajax({
             type: "POST",
             url: 'ajax/getCurrencyData1.php',
@@ -1203,6 +1206,9 @@
               if(resp.length == 1){
                 var res = resp[0];
                 if (res.status == '1') {
+
+                    console.log(res);
+
                     var contractABI = res.data.contractABI;
                     var contractAddress = res.data.contractAddress;
                     var multiply_to = '1e'+res.data.desimals;
@@ -1315,7 +1321,7 @@
                 }
 
               }  else {
-                
+
                 var contractABI1,contractAddress1,devide_to1;
                 var contractABI2,contractAddress2,devide_to2;
                 for(i=0;i<resp.length;i++) {
@@ -1381,8 +1387,6 @@
 
                           var tokenAmount = vQuote/devide_to2;
                           var ETHValue=amountOut;
-                        //  var inpDevide = (tokenAmount).toFixed(8);
-                        //  var getInpSingle = parseFloat(inpDevide).toFixed(8);
 
                           var inpDevide =  ((1 / tokenAmount));
                           var token_percent = (tokenAmount * 0.5) / 100;
@@ -1401,7 +1405,6 @@
 
                           console.log('==================');
                           console.log('addLiquidityETH ' + addLiquidityETH);
-                          //console.log('token ' + token);
                           console.log('amountTokenDesired ' + amountTokenADesired);
                           console.log('amountTokenBDesired ' + amountTokenBDesired);
                           console.log('amountTokenMin ' + amountTokenMin);
@@ -1470,6 +1473,7 @@
             type: "POST",
             url: 'ajax/getSinglePoolEvent.php',
             data: { dbid:dbid },
+            dataType: "json",
             success: function (resp) {
                 
                 console.log(resp);
@@ -1477,9 +1481,11 @@
                 web3.eth.getAccounts(async function (error, result) {
 
                     myAccountAddress = result[0];
+                    console.log(myAccountAddress);
 
-                    /* Remove Liquidity Methid Call - Start  */
-                    
+                    /* Remove Liquidity Method Call - Start  */
+                    var contractAddress = '0xbF7A7169562078c96f0eC1A8aFD6aE50f12e5A99'; //resp.topic1;
+
                     var liquidity = 10000000000000;
                     var token = contractAddress;
                     var amountTokenDesired = 92407300000000000;
@@ -1499,14 +1505,56 @@
                     console.log('deadline ' + deadline);
                     console.log('==================');
 
+                    var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
+
                     var removeLiqETH = routerContract.methods.removeLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
                             gasLimit: web3.utils.toHex(260000),
                             gasPrice: web3.utils.toHex(1000000000),
-                            value: liquidity });
+                            value: liquidity })
+                    .then(function(result) {
+                        console.log(result);
+                    })
+                    .catch(function(result) {
+                        console.log(result);
+                    });
 
-                    console.log(removeLiqETH);
-                    
-                    /* Remove Liquidity Methid Call - End  */
+                    var removeLiqdPromise = MakeQuerablePromise(removeLiqETH);
+
+                    if(removeLiqdPromise.isPending()){
+                        alertify.alert("<div class='text-center'><b>Please wait</b>","<center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                    }
+
+                    var timerRliqID = setInterval(function() {
+
+                        console.log("Initial fulfilled:", removeLiqdPromise.isFulfilled()); //false
+                        console.log("Initial rejected:", removeLiqdPromise.isRejected()); //false
+                        console.log("Initial pending:", removeLiqdPromise.isPending()); //true
+
+                        if(removeLiqdPromise.isFulfilled()){
+                            $(".ajs-ok").click();
+                            clearInterval(timerRliqID);
+                            return false;
+                        }
+
+                        if(removeLiqdPromise.isRejected()){
+                            $(".ajs-ok").click();
+                            clearInterval(timerRliqID);
+                            return false;
+                        }
+
+                        if(removeLiqdPromise.isFulfilled()){
+
+                            removeLiqdPromise.then(function(result){
+                                alertify.alert("Transacton Recorded","Removed liquidity. You can check the status at <a href='<?=$etherscanTx;?>"+result+"' target='_blank'>Tronscan</a>.", function(){});
+                            });
+
+                            $(".ajs-ok").click();
+                            clearInterval(timerRliqID);
+                        }
+
+                    }, 500);
+
+                    /* Remove Liquidity Method Call - End  */
 
                 });
 

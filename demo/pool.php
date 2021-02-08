@@ -529,7 +529,7 @@
 
             var reserve0 = (_reserve0 / devide_to);
             var reserve1 = (_reserve1 / devide_to);
-            var numOfToken = txtPoolFromToken;
+            var numOfToken = txtPoolFromToken;            
 
             if(reserve0 <= 0 && reserve1 <= 0){
 
@@ -544,6 +544,7 @@
 
                 return false;
             }
+
             var token0Price = (reserve0 / reserve1).toFixed(8);
             var token1Price = (reserve1 / reserve0).toFixed(8);
 
@@ -678,8 +679,34 @@
         }
     }
 
-    function getShareOfPoolCalculations(UniswapV2Pair, txtPoolFromToken, devide_to, _reserve0, _reserve1, contractAddress1, contractAddress2){
+    function getShareOfPoolCalculations(_reserve0, _reserve1, devide_to){
+        
+        setTimeout(function(){
+            
+            var txtPoolFromToken = $("#txtPoolFromToken").val();
+            var txtPoolToToken = $("#txtPoolToToken").val();
 
+            var token_reserv0 = parseInt(_reserve0) / devide_to;
+            var token_reserv1 = parseInt(_reserve1) / devide_to;
+
+            var total_token= ((parseFloat(txtPoolFromToken)+parseFloat(txtPoolToToken)).toFixed(2));
+            console.log(total_token);
+            var total_pool_amount = token_reserv0 + token_reserv1 + parseFloat(total_token);
+            var share_of_pool = ((total_token * 100) / total_pool_amount).toFixed(2);
+
+            if(share_of_pool > 100){
+                share_of_pool = 100;
+            }
+
+            if(parseFloat(share_of_pool) <= 0.01) { 
+                $("#share_of_pool").html('<0.01%');
+            } else {
+                $("#share_of_pool").html(share_of_pool + '%');
+            }
+
+        }, 100);
+
+        /*
         var amountOut = (devide_to * txtPoolFromToken);
         var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
 
@@ -747,6 +774,7 @@
             }
             
         }, 200);
+        */
     }
 
     function changeFromToken(change = '') {
@@ -780,6 +808,10 @@
             } else {
                 selectedtoken = [spnPoolFromToken,spnPoolToToken];
             }
+
+            console.log("*************");
+            console.log(selectedtoken);
+            console.log("*************");
 
             $.ajax({
                 type: "POST",
@@ -839,13 +871,17 @@
                                             var getReserve = UniswapV2Pair.methods.getReserves().call();
                                             getReserve.then(function(getReserveResult){
 
-                                                var _reserve0 = getReserveResult._reserve0;
-                                                var _reserve1 = getReserveResult._reserve1;
-
+                                                if(selectedtoken == 'ETH'){
+                                                    var _reserve0 = getReserveResult._reserve0;
+                                                    var _reserve1 = getReserveResult._reserve1;
+                                                } else {
+                                                    var _reserve0 = getReserveResult._reserve1;
+                                                    var _reserve1 = getReserveResult._reserve0;
+                                                }
                                                 getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to);
 
                                                 /* Share of Pool Calculation - Start */
-                                                getShareOfPoolCalculations(UniswapV2Pair, txtPoolFromToken, devide_to, _reserve0, _reserve1, contractAddress1, contractAddress2);
+                                                getShareOfPoolCalculations(_reserve0, _reserve1, devide_to);
                                                 /* Share of Pool Calculation - End */
                                             });
 
@@ -864,13 +900,18 @@
                                                     var getReserve = UniswapV2Pair.methods.getReserves().call();
                                                     getReserve.then(function(getReserveResult){
 
-                                                        var _reserve0 = getReserveResult._reserve0;
-                                                        var _reserve1 = getReserveResult._reserve1;
+                                                        if(selectedtoken == 'ETH'){
+                                                            var _reserve0 = getReserveResult._reserve0;
+                                                            var _reserve1 = getReserveResult._reserve1;
+                                                        } else {
+                                                            var _reserve0 = getReserveResult._reserve1;
+                                                            var _reserve1 = getReserveResult._reserve0;
+                                                        }
 
                                                         getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to);
 
                                                         /* Share of Pool Calculation - Start */
-                                                        getShareOfPoolCalculations(UniswapV2Pair, txtPoolFromToken, devide_to, _reserve0, _reserve1, contractAddress1, contractAddress2);
+                                                        getShareOfPoolCalculations(_reserve0, _reserve1, devide_to);
                                                         /* Share of Pool Calculation - End */
                                                     });
 
@@ -967,6 +1008,9 @@
                                 
                                 var vReverse1=response[0];
                                 var vReverse2=response[1];
+
+                                getShareOfPoolCalculations(vReverse1, vReverse2, devide_to1);
+
                                 var share_of_pool=0;
                                 if(vtoken0==contractAddress1) {
                                   var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
@@ -996,14 +1040,14 @@
                                   }
                                 }
 
-                                if(parseFloat(share_of_pool) <= 0.01) {
+                                /*if(parseFloat(share_of_pool) <= 0.01) {
                                   $("#share_of_pool").html('<0.01%');
                                 } else {
                                     if(share_of_pool < 0){
 
                                     }
                                     $("#share_of_pool").html(share_of_pool.toFixed(2) + '%');
-                                }
+                                }*/
 
                                 vQuote.then(function(vQuote) {
                                   console.log("vQuote : " + vQuote);
@@ -1478,6 +1522,9 @@
                 
                 console.log(resp);
 
+                var gasPrice = resp.gasPrice;
+                var gasUsed = resp.gasUsed;
+
                 web3.eth.getAccounts(async function (error, result) {
 
                     myAccountAddress = result[0];
@@ -1508,8 +1555,8 @@
                     var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
 
                     var removeLiqETH = routerContract.methods.removeLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                            gasLimit: web3.utils.toHex(260000),
-                            gasPrice: web3.utils.toHex(1000000000),
+                            gasLimit: web3.utils.toHex(gasUsed),
+                            gasPrice: web3.utils.toHex(gasPrice),
                             value: liquidity })
                     .then(function(result) {
                         console.log(result);

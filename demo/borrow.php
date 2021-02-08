@@ -46,7 +46,7 @@
                  <h3 class="text-center text-info">No deposits yet</h3>
                  <p class="text-center">You need to deposit some collateral first to unlock your borrowing power.</p>
                  <div class="go-back text-center my-3">
-                   <button class="btn btn-info">Deposit Now</button>
+                   <button class="btn btn-info depositnow" >Deposit Now</button>
                  </div>
                  <div class="text-center"><a href="home.php">Go back</a></div>
                </div>
@@ -56,8 +56,8 @@
                   <tr>
                     <th>Asset</th>
                     <th>APY / Earned</th>
-                    <th>Balance</th>
-
+                    <th>Balance</th> 
+					
                   </tr>
                   </thead>
                   <tbody id="productlist">
@@ -67,13 +67,13 @@
 							$vStr="";
 							if($result2){
 							while($row = mysqli_fetch_array($result2)){
-
-
+							
+								
 								$name = $row['name'];
 								$image_url = $row['image_url'];
 								$mainContractAddress = $row['contractAddress'];
 								$mainContractABI = $row['contractABI'];
-
+								
 								$vStr = $vStr.'<tr data-address="'.$mainContractAddress.'" class="tokenrow" >';
 								$vStr = $vStr.'<td>';
 								$vStr = $vStr . ' <img  src="'.$image_url .'" alt=""  class="img-circle img-size-32 mr-2 ">';
@@ -82,16 +82,16 @@
 								$vStr = $vStr . '<td>';
 								$vStr = $vStr . '  <span>20.60%</span>';
 								$vStr = $vStr . '</td>';
-								$vStr = $vStr . '<td><span>13 '.$name.'</span></td>';
+								$vStr = $vStr . '<td><span>13 '.$name.'</span></td>';  												
 								$vStr = $vStr . '</tr>';
 							}
-
+							
 							echo $vStr;
 							}else{ echo 'No result found!'; }
 						?>
                      </tbody>
                 </table>
-                 </div-->
+                 </div--> 
              </div>
             </div>
           </div>
@@ -127,11 +127,16 @@
                       Borrow APY <span class="borrow_percentage float-right badge text-danger">5.56%</span>
                     </a>
                   </li>
+				  <!--li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Can be used as collateral <span class="float-right badge"><input id="ether-basic-switch" class="" type="checkbox" role="checkbox"></span>
+                    </a>
+                  </li-->
                   <li class="nav-item">
                     <a href="#" class="nav-link">
                       Borrow Limit <span class="float-right badge borrow_limit">$0</span>
                     </a>
-                  </li>
+                  </li> 
 				  <li class="nav-item">
                     <a href="#" class="nav-link">
                       Borrow Limit Used <span class="float-right badge borrow_limit_used">0 %</span>
@@ -173,6 +178,6 @@
 
   <!-- /.control-sidebar -->
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-
+<?php include('config.php'); ?>
+	
  <?php include 'footer.php';?>

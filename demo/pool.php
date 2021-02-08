@@ -871,7 +871,8 @@
                                             var getReserve = UniswapV2Pair.methods.getReserves().call();
                                             getReserve.then(function(getReserveResult){
 
-                                                if(selectedtoken == 'ETH'){
+                                                var poolFromTokenVl = $('#poolFromToken option:selected').val();
+                                                if(poolFromTokenVl == 'ETH'){
                                                     var _reserve0 = getReserveResult._reserve0;
                                                     var _reserve1 = getReserveResult._reserve1;
                                                 } else {
@@ -900,7 +901,8 @@
                                                     var getReserve = UniswapV2Pair.methods.getReserves().call();
                                                     getReserve.then(function(getReserveResult){
 
-                                                        if(selectedtoken == 'ETH'){
+                                                        var poolFromTokenVl = $('#poolFromToken option:selected').val();
+                                                        if(poolFromTokenVl == 'ETH'){
                                                             var _reserve0 = getReserveResult._reserve0;
                                                             var _reserve1 = getReserveResult._reserve1;
                                                         } else {

@@ -183,6 +183,15 @@
 
     $(document).ready(function () {
 
+        /*$('#custom_number_slider').change(function(){
+            $('#pool_percent_number').text($(this).val());
+        });
+        */
+        $("#custom_number_slider").mousemove(function(){
+            $("#pool_percent_number").text(document.getElementById("custom_number_slider").value + "%");
+            $("#rm_lq_sld_val").val(document.getElementById("custom_number_slider").value);
+        })
+
         $(".apprvebuttons").on("click",function(){
 
             var contractAddress=$(this).attr('data-address');
@@ -241,6 +250,12 @@
 
                     var oDD1 = $('#poolToToken').msDropDown().data("dd");
                     oDD1.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+
+                    var rmLqOutput1 = $('#rmLqOutput1').msDropDown().data("dd");
+                    rmLqOutput1.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+
+                    var rmLqOutput2 = $('#rmLqOutput2').msDropDown().data("dd");
+                    rmLqOutput2.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
                 }
 
             },
@@ -1618,6 +1633,40 @@
         });
     }
 
+    function changeRLNumber(number){
+        $("#pool_percent_number").text(number+"%");
+        $("#rm_lq_sld_val").val(number);
+        $("#custom_number_slider").val(number);
+    }
+
+    $(document).ready(function () {
+
+        $("#typeSimpleData").on("click",function(){
+            $("#simpleDataSection").show();
+            $("#detailsDataSection").hide();
+            $("#typeSimpleData").hide();
+            $("#typeDetailsData").show();
+        });
+
+        $("#typeDetailsData").on("click",function(){
+            $("#simpleDataSection").hide();
+            $("#detailsDataSection").show();
+            $("#typeSimpleData").show();
+            $("#typeDetailsData").hide();
+        });
+
+        $("#remove_liquidity_pop").on('shown.bs.modal', function () {
+
+            $("#simpleDataSection").show();
+            $("#detailsDataSection").hide();
+            $("#typeSimpleData").hide();
+            $("#typeDetailsData").show();
+
+        });
+    });
+    
+
+
 </script>
 <style type="text/css">
     #pool_loading{
@@ -1646,48 +1695,204 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="col-sm-12">
-                    <div class="row py-2">
+                
+                <div class="row py-2">
+                    <div class="col-md-12">
                         <p>
                             <b>Tip:</b> Removing pool tokens converts your position back into underlying tokens at the current rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive.
                         </p>
-                        <div class="col-lg-6 pull-left">
-                            <p>Amount</p>
-                        </div>
-                        <div class="col-lg-6 pull-right">
-                            <a class="pull-right" href="javascript:;">Simple</a>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <p style="box-sizing: border-box;margin: 0px;min-width: 0px;font-size: 72px;font-weight: 500;">
-                                100%
-                            </p>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <label for="slider-0" style="box-sizing: border-box;margin: 0px;min-width: 0px;font-size: 72px;font-weight: 500;">Input slider:</label>
-                            <input type="range" name="slider custom_number_slider" id="slider-0" value="25" min="0" max="100"  />
-                        </div>
-
-                        <div class="col-lg-6 pull-left">
-                            <p>Price</p>
-                        </div>
-                        <div class="col-lg-6 pull-right">
-                            <p class="pull-right">
-                                1 BAT = 0.00373513 ETH
-                            </p>
-                            <p class="pull-right">
-                                1 ETH = 267.729 BAT
-                            </p>
-                            
-                        </div>
-                        
                     </div>
                 </div>
+
+                <div class="row py-2">
+                    <div class="col-md-6 pull-left">
+                        <p>Amount</p>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <a class="pull-right" href="javascript:;" id="typeDetailsData">Detailed</a>
+                        <a class="pull-right" href="javascript:;" id="typeSimpleData">Simple</a>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-12">
+                        <p id="pool_percent_number">100%</p>
+                        <input type="hidden" name="rm_lq_sld_val" id="rm_lq_sld_val" value="0">
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="w-100" id="simpleDataSection">
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <input type="range" name="slider" id="custom_number_slider" value="0" min="0" max="100" step="1" class="form-control"  />
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <button class="btn btn-primary w-100" onclick="changeRLNumber(25);">25%</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-primary w-100" onclick="changeRLNumber(50);">50%</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-primary w-100" onclick="changeRLNumber(75);">75%</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-primary w-100" onclick="changeRLNumber(100);">Max</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3 py-2">
+                            <div class="col-md-12">
+                                <div class="col-md-6 pull-left">
+                                    <h4 id="fTokenValue">0.0446336</h4>
+                                </div>
+                                <div class="col-md-6 pull-left">
+                                    <img class="pull-right fTokenImage" alt="Token logo" src="images/bat.svg">
+                                    <h4 id="fTokenName" class="pull-right">BAT</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <div class="col-md-6 pull-left">
+                                    <h4 id="sTokenValue">0.000169904</h4>
+                                </div>
+                                <div class="col-md-6 pull-left">
+                                    <img class="pull-right sTokenImage" alt="Token logo" src="images/eth.png">
+                                    <h4 id="sTokenName" class="pull-right">ETH</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100" id="detailsDataSection">
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <div class="col-md-6 pull-left">
+                                    <label>Input</label>
+                                    <input type="text" class="form-control" name="rmlqbothtoken" id="rmlqbothtoken" value="0.0318169" />
+                                </div>
+                                <div class="col-md-6 pull-right">
+                                    <div class="pull-right" id="rmlqbothtokenBalance">Balance: <span>0.0318169</span></div>
+                                    <div class="pull-right">
+                                        <img class="" id="rmlqbothtokenImgf" alt="Token logo" src="images/bat.svg">
+                                        <img class="" id="rmlqbothtokenImgs" alt="Token logo" src="images/eth.png" >
+                                        <span>BAT/ETH</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <div class="col-md-6 pull-left">
+                                    <label>Output</label>
+                                    <input type="text" class="form-control" name="rmlqoutput1token" id="rmlqoutput1token" value="0.55792" />
+                                </div>
+                                <div class="col-md-6 pull-right text-right">
+                                    <br/>
+                                    <select name="rmLqOutput1" id="rmLqOutput1" class="form-control pull-right form-control-lg">
+                                        <option value='0' selected='true'> Select Token </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <div class="col-md-6 pull-left">
+                                    <label>Output</label>
+                                    <input type="text" class="form-control" name="rmlqoutput2token" id="rmlqoutput2token" value="0.0021238" />
+                                </div>
+                                <div class="col-md-6 pull-right text-right">
+                                    <br/>
+                                    <select name="rmLqOutput2" id="rmLqOutput2" class="form-control pull-right form-control-lg">
+                                        <option value='0' selected='true'> Select Token </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-6 pull-left">
+                        <p>Price</p>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <p class="pull-right">
+                            1 BAT = 0.00373513 ETH
+                        </p>
+                        <p class="pull-right">
+                            1 ETH = 267.729 BAT
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-6 pull-left">
+                        <button class="btn btn-primary w-100" disabled>Approve</button>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <button class="btn btn-danger pull-right w-100" disabled >Remove</button>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-12">
+                        <h5>Your position</h5>
+                    </div>
+                    <div class="col-md-6 pull-left">
+                        <div class="sc-dvCyap fDLamO">
+                            <img class="" alt="Token logo" src="images/bat.svg" style="max-width: 20px;">
+                            <img class="" alt="Token logo" src="images/eth.png" style="max-width: 20px;">
+                            <span>BAT/ETH</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <p class="pull-right">0.03181</p>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-6 pull-left">
+                        <p>Your pool share:</p>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <p class="pull-right">0.029480%</p>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-6 pull-left">
+                        <p>BAT:</p>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <p class="pull-right">0.55792</p>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-6 pull-left">
+                        <p>ETH:</p>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <p class="pull-right">0.0021238</p>
+                    </div>
+                </div>
+
                 <script type="text/javascript">
                     $('.custom_number_slider').slider();
                 </script>
             </div>
+
+            
         </div>
     </div>
 </div>

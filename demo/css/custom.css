@@ -10,3 +10,12 @@ table.dataTable tbody tr{ background-color: inherit; }
 .dataTables_wrapper .dataTables_paginate .paginate_button{
 	color: #fff !important;	
 }
+#typeSimpleData{display: none;}
+#pool_percent_number { box-sizing: border-box;margin: 0px;min-width: 0px;font-size: 72px;font-weight: 500; }
+.fTokenImage { margin-left: 10px;max-width: 35px; }
+.sTokenImage { margin-left: 10px;max-width: 35px; }
+#detailsDataSection { display: none; }
+#rmlqbothtokenImgf { max-width: 20px; }
+#rmlqbothtokenImgs { max-width: 20px; }
+#rmLqOutput1 { border-radius: 20px;width: 100%; }
+#rmLqOutput2 { border-radius: 20px;width: 100%; }

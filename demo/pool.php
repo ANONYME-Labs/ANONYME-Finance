@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="css/alertify.min.css" />
 <link rel="stylesheet" type="text/css" href="css/dd.css" />
 <link rel="stylesheet" type="text/css" href="css/custom.css" />
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/jquery-ui-slider@1.12.1/jquery-ui.min.css" />
 
 
 <style type="text/css">
@@ -128,6 +129,8 @@
 
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/pool_events_table.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/jquery-ui-slider@1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
 
@@ -808,10 +811,6 @@
             } else {
                 selectedtoken = [spnPoolFromToken,spnPoolToToken];
             }
-
-            console.log("*************");
-            console.log(selectedtoken);
-            console.log("*************");
 
             $.ajax({
                 type: "POST",
@@ -1514,6 +1513,11 @@
     }
 
     function removeLiquidity(dbid){
+        $('#remove_liquidity_pop').modal('show');
+    }
+
+
+    function removeLiquidityInSidePopup(dbid){
 
         $.ajax({
             type: "POST",
@@ -1556,7 +1560,7 @@
 
                     var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
 
-                    var removeLiqETH = routerContract.methods.removeLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
+                    var removeLiqETH = routerContract.methods.removeLiquidity(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
                             gasLimit: web3.utils.toHex(gasUsed),
                             gasPrice: web3.utils.toHex(gasPrice),
                             value: liquidity })
@@ -1631,7 +1635,63 @@
         top : 0;
     }
 </style>
-<!-- Modal 2 -->
+
+<div class="modal fade" id="remove_liquidity_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="to_token_popLabel">Remove Liquidity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="row py-2">
+                        <p>
+                            <b>Tip:</b> Removing pool tokens converts your position back into underlying tokens at the current rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive.
+                        </p>
+                        <div class="col-lg-6 pull-left">
+                            <p>Amount</p>
+                        </div>
+                        <div class="col-lg-6 pull-right">
+                            <a class="pull-right" href="javascript:;">Simple</a>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <p style="box-sizing: border-box;margin: 0px;min-width: 0px;font-size: 72px;font-weight: 500;">
+                                100%
+                            </p>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <label for="slider-0" style="box-sizing: border-box;margin: 0px;min-width: 0px;font-size: 72px;font-weight: 500;">Input slider:</label>
+                            <input type="range" name="slider custom_number_slider" id="slider-0" value="25" min="0" max="100"  />
+                        </div>
+
+                        <div class="col-lg-6 pull-left">
+                            <p>Price</p>
+                        </div>
+                        <div class="col-lg-6 pull-right">
+                            <p class="pull-right">
+                                1 BAT = 0.00373513 ETH
+                            </p>
+                            <p class="pull-right">
+                                1 ETH = 267.729 BAT
+                            </p>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $('.custom_number_slider').slider();
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="coin_option2" tabindex="-1" aria-labelledby="coin_option2Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg1">
         <div class="modal-content">

@@ -169,15 +169,64 @@
   </div>
   <!-- /.content-wrapper -->
 <input type="hidden" name="getamntoutdirectval" id="getamntoutdirectval" value="0" />
-  <!-- /.control-sidebar -->
 
-
-
-<script src="js/jquery-1.9.0.min.js"></script>
 <!-- <msdropdown> -->
+	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="css/alertify.min.css" />
 <link rel="stylesheet" type="text/css" href="css/dd.css" />
-<script src="js/jquery.dd.js"></script>
+<link rel="stylesheet" type="text/css" href="css/custom.css" />
 <!-- </msdropdown> -->
+  <!-- /.control-sidebar -->
+<div id="pool_loading"></div>
+<style type="text/css">
+    #pool_loading{
+        display : none;
+        position : fixed;
+        z-index: 100;
+        background-image : url('images/loader.gif');
+        background-color:#666;
+        opacity : 0.4;
+        background-repeat : no-repeat;
+        background-position : center;
+        left : 0;
+        bottom : 0;
+        right : 0;
+        top : 0;
+    }
+</style>
+<style type="text/css">
+    .selectCImage{
+        max-width: 25px;
+        margin-right: 5px;
+    }
+
+    .select2.select2-container{ width: 100% !important; }
+    .select2-container--default .select2-selection--single{
+        height: 40px;
+    }
+
+    .alertify .ajs-dialog{
+            background-color: #2b2d3c;
+    }
+
+    .alertify .ajs-header, .alertify .ajs-footer{
+        background-color: #000;
+    }
+    .dropdown-toggle{
+        width: 100% !important;
+        max-width: 150px;
+        /*overflow: hidden;*/
+    }
+    .ddChild.ddchild_.border.shadow {
+        width: 100%;
+    }
+</style>
+ <script src="js/jquery-1.9.0.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/jquery.dd.js"></script>
+<script src="js/alertify.min.js" type="text/javascript"></script>
+ 
+
 
 
 <script>
@@ -360,9 +409,9 @@ $(document).ready(function(){
               }
               else
               {
-              	$('#txtFromToken').val('');
-              	$('#txtToToken').val('');
-              	alert("Please connect with your wallet.")
+              	//$('#txtFromToken').val('');
+              	//$('#txtToToken').val('');
+              	//alert("Please connect with your wallet.")
               }
             });
   	}
@@ -474,7 +523,7 @@ $(document).ready(function(){
                         gasLimit: web3.utils.toHex(260000),
                         gasPrice: web3.utils.toHex(1000000000),
                         value: vFromTokenVal
-                      }).on("transactionHash", function (hash) {
+                     }).on("transactionHash", function (hash) {
                            //$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
                            console.log("transactionHash : " + hash);
                       }).on("receipt", function () {
@@ -486,6 +535,45 @@ $(document).ready(function(){
                       .on("error", async function () {
                           console.log("Error");
                       });
+
+                        // [========= Please wait popup ===========]
+                         var myPromise = MakeQuerablePromise(tx);
+
+                         if(myPromise.isPending()){
+                            alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                        }
+
+
+                        var timerID = setInterval(function() {
+
+                        if(myPromise.isFulfilled()){
+
+                            myPromise.then(function(result){
+                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                            });
+
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+
+                        if(myPromise.isFulfilled()){
+                            //resetAllFields();
+                            //loadSelectOptions();
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+
+                        if(myPromise.isRejected()){
+
+                            myPromise.then(response => {
+                            }).catch(error => {
+                                alertify.alert("Warning", error.message, function(){});
+                            });
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+
+                    }, 500);
 
                 	}
                 },
@@ -553,6 +641,40 @@ $(document).ready(function(){
                           console.log("Error");
                       });
 
+                           // [========= Please wait popup ===========]
+                         var myPromise = MakeQuerablePromise(tx);
+
+                         if(myPromise.isPending()){
+                            alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                        }
+                       var timerID = setInterval(function() {
+                        if(myPromise.isFulfilled()){
+
+                            myPromise.then(function(result){
+                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                            });
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+
+                        if(myPromise.isFulfilled()){
+                            //resetAllFields();
+                            //loadSelectOptions();
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+                        if(myPromise.isRejected()){
+
+                            myPromise.then(response => {
+                            }).catch(error => {
+                                alertify.alert("Warning", error.message, function(){});
+                            });
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+
+                    }, 500);
+
                  }
                 },
                 error: function (result) {
@@ -565,9 +687,6 @@ $(document).ready(function(){
           var spndrpToToken = drpToToken = $('#drpToToken option:selected').val();
           var selectedtoken =[spndrpFromToken,spndrpToToken];
           var vRountText=$(".rowroute #routefromto").text();
-         
-           
-          
 
           $.ajax({
               type: "POST",
@@ -689,6 +808,42 @@ $(document).ready(function(){
 	                      .on("error", async function () {
 	                          console.log("Error");
 	                      });
+
+	                           // [========= Please wait popup ===========]
+                         var myPromise = MakeQuerablePromise(tx);
+
+                         if(myPromise.isPending()){
+                            alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                        }
+                        var timerID = setInterval(function() {
+
+                        if(myPromise.isFulfilled()){
+
+                            myPromise.then(function(result){
+                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                            });
+
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+
+                        if(myPromise.isFulfilled()){
+                            //resetAllFields();
+                            //loadSelectOptions();
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+                        if(myPromise.isRejected()){
+
+                            myPromise.then(response => {
+                            }).catch(error => {
+                                alertify.alert("Warning", error.message, function(){});
+                            });
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+                    }, 500);
+
 			        }
 			        // if token1=fromaddress then call SWAP TOKENS FOR EXACT TOKENS function
 			        if(vtoken1 == contractAddress1)
@@ -761,6 +916,39 @@ $(document).ready(function(){
                           console.log("Error");
                       });
 
+                           // [========= Please wait popup ===========]
+                         var myPromise = MakeQuerablePromise(tx);
+
+                         if(myPromise.isPending()){
+                            alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                        }
+                        var timerID = setInterval(function() {
+                        if(myPromise.isFulfilled()){
+
+                            myPromise.then(function(result){
+                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                            });
+
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+                        if(myPromise.isFulfilled()){
+                            //resetAllFields();
+                            //loadSelectOptions();
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+                        if(myPromise.isRejected()){
+
+                            myPromise.then(response => {
+                            }).catch(error => {
+                                alertify.alert("Warning", error.message, function(){});
+                            });
+                            $(".ajs-ok").click();
+                            clearInterval(timerID);
+                        }
+                    }, 500);
+
                       console.log(" in token1 = "+vtoken1);
 	                      console.log("keypress from = " + vFromTokenKeyPress);
 	                      console.log("keypress to = " + vToTokenKeyPress);
@@ -791,6 +979,36 @@ $(document).ready(function(){
 
 		});
   	});
+
+	function MakeQuerablePromise(promise) {
+        // Don't modify any promise that has been already modified.
+        if (promise.isResolved) return promise;
+
+        // Set initial state
+        var isPending = true;
+        var isRejected = false;
+        var isFulfilled = false;
+
+        // Observe the promise, saving the fulfillment in a closure scope.
+        var result = promise.then(
+            function(v) {
+                isFulfilled = true;
+                isPending = false;
+                return v;
+            },
+            function(e) {
+                isRejected = true;
+                isPending = false;
+                throw e;
+            }
+        );
+
+        result.isFulfilled = function() { return isFulfilled; };
+        result.isPending = function() { return isPending; };
+        result.isRejected = function() { return isRejected; };
+
+        return result;
+    }
 
   	function changeFromToken(change = '') {
 

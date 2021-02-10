@@ -38,6 +38,7 @@
                     <input type="text" id="txtFromToken" class="form-control clsfromtoken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
                     <div class="input-group-append">
                     	<select  name="drpFromToken" id="drpFromToken" style="width:100px;">
+                    		<option value="">Select Token</option>
 							<option value="ETH" data-image="images/eth.png">ETH</option>
 						</select>
 
@@ -105,7 +106,7 @@
                     <div class="css-10ob8xa">Invalid pair</div>
                 </button>
               </div>
-                <button id="btnAmount" class="btn btn-info btn-block btn-lg">Connect Wallet</button>
+                <button id="btnAmount" class="btn btn-info btn-block btn-lg">Enter an Amount</button>
               </div>
               <div class="col-sm-12 py-3 row">
                 <div class="col-md-6">
@@ -309,21 +310,28 @@ $(document).ready(function(){
   	{
   		var vFromAmount = $('#txtFromToken').val();
   		var vFromCurrencyType = $('#drpFromToken option:selected').text();
+  		var vCurrencyType = '';
+    	if(drpType=='from')
+  		{
+    		vCurrencyType=$('#drpFromToken option:selected').text();
+    	}
+    	else
+    	{
+    		vCurrencyType=$('#drpToToken option:selected').text();
+    	}
+ 
+    	if($('#drpFromToken option:selected').val()=="" || $('#drpToToken option:selected').val()=="")
+    	{
+    		$("#btnAmount").prop('disabled', true);
+    		return false;
+    	}
 
   		 window.web3 = new Web3(ethereum);
   		 web3.eth.getAccounts(async function(error, result) {
             if(!error && typeof(result[0]) !== 'undefined')
                {
                 	metaMaskAddress=""+result[0];
-                	var vCurrencyType = '';
-                	if(drpType=='from')
-              		{
-                		vCurrencyType=$('#drpFromToken option:selected').text();
-                	}
-                	else
-                	{
-                		vCurrencyType=$('#drpToToken option:selected').text();
-                	}
+                	
               		var vAvailableBalance =0;
               		var vCurrentbalance=0;
 					var vContractAddress ='';
@@ -409,9 +417,9 @@ $(document).ready(function(){
               }
               else
               {
-              	//$('#txtFromToken').val('');
-              	//$('#txtToToken').val('');
-              	//alert("Please connect with your wallet.")
+              	$('#txtFromToken').val('');
+              	$('#txtToToken').val('');
+              	alert("Please connect with your wallet.")
               }
             });
   	}
@@ -458,11 +466,12 @@ $(document).ready(function(){
    $("#btnAmount").click(function(){
 		var vFromVal = $('#drpFromToken option:selected').text();
 		var vToVal = $('#drpToToken option:selected').text();
-    var vFromTokenVal = $('#txtFromToken').val();
+    	var vFromTokenVal = $('#txtFromToken').val();
 		var vToTokenVal = $('#txtToToken').val();
 		var contractABI = '';
     	var contractAddress = '';
     	var devide_to = '';
+
 
       window.web3 = new Web3(ethereum);
       web3.eth.getAccounts(async function (error, result) {

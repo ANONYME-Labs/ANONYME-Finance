@@ -63,3 +63,12 @@ CREATE TABLE `events_poolpairs` (
 ALTER TABLE `events_poolpairs` ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `events_poolpairs` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `events_poolpairs` ADD `pair_address` VARCHAR(255) NULL AFTER `blockNumber`, ADD `token_from` VARCHAR(255) NULL AFTER `pair_address`, ADD `token_to` VARCHAR(255) NULL AFTER `token_from`;
+
+ALTER TABLE `events_poolpairs` ADD `token_from_address` VARCHAR(255) NULL AFTER `token_to`, ADD `token_to_address` VARCHAR(255) NULL AFTER `token_from_address`;
+
+ALTER TABLE `getpairdata` ADD `user_wallet` VARCHAR(255) NULL AFTER `to_token_address`;
+
+ALTER TABLE `events_poolpairs` ADD `user_wallet` VARCHAR(255) NULL AFTER `id`;
+

@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="css/dd.css" />
 <link rel="stylesheet" type="text/css" href="css/custom.css" />
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/jquery-ui-slider@1.12.1/jquery-ui.min.css" />
-
+<input type="hidden" name="login_user_wallet" id="login_user_wallet" value="<?php echo $_COOKIE['userWallet']; ?>" />
 
 <style type="text/css">
     .selectCImage{
@@ -143,6 +143,11 @@
         window.web3 = new Web3(ethereum);
         web3.eth.getAccounts(async function (error, result) {
 
+            myAccountAddress = result[0];
+            if($("#login_user_wallet").val() == ''){
+                $("#login_user_wallet").val(myAccountAddress);
+            }
+
             if(WETHAddress == ''){
                 var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
                 var WETHobj = routerContract.methods.WETH().call();
@@ -200,6 +205,9 @@
             web3.eth.getAccounts(async function (error, result) {
 
                 myAccountAddress = result[0];
+                if($("#login_user_wallet").val() == ''){
+                    $("#login_user_wallet").val(myAccountAddress);
+                }
 
                 var tknContract = new web3.eth.Contract(contractABI_json, contractAddress);
                 var value= 1000*parseInt(contract_dec);
@@ -945,7 +953,8 @@
                                                             from_token_name: from_token_name,
                                                             to_token_name: to_token_name,
                                                             from_token_address: from_token_address,
-                                                            to_token_address: to_token_address
+                                                            to_token_address: to_token_address,
+                                                            user_wallet: myAccountAddress
                                                         },
                                                         success: function (resp) {
                                                             console.log(resp);

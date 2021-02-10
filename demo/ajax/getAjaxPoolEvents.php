@@ -6,10 +6,8 @@ error_reporting(E_ALL);
 */
 
 include '../connection.php';
-
-  $sel_qry = "SELECT * FROM `events_poolpairs` ";
-  $result = mysqli_query($conn, $sel_qry);
-  $count = mysqli_num_rows($result);
+  
+  $user_wallet = $_POST['user_wallet'];
 
   $totalCol = $_POST['iColumns'];
   $search = $_POST['sSearch'];
@@ -21,8 +19,8 @@ include '../connection.php';
   $iSortCol_0 = $_POST['iSortCol_0'];
   $sSortDir_0 = $_POST['sSortDir_0'];
 
-  $selQuery = "SELECT * FROM events_poolpairs";
-  $selQuery .= " WHERE is_delete = '0' ";
+  $selQuery = "SELECT * FROM events_poolpairs WHERE user_wallet = '".$user_wallet."'";
+  $selQuery .= " AND is_delete = '0' ";
 
   $result = mysqli_query($conn, $selQuery);
   $totalRecords = mysqli_num_rows($result);

@@ -1537,7 +1537,36 @@
     }
 
     function removeLiquidity(dbid){
-        $('#remove_liquidity_pop').modal('show');
+
+        $.ajax({
+            type: "POST",
+            url: 'ajax/getSinglePoolEvent.php',
+            data: { dbid:dbid },
+            dataType: "json",
+            success: function (resp) {
+                
+                console.log(resp);
+
+                var pair_address = resp.pair_address;
+                var token_from = resp.token_from;
+                var token_to = resp.token_to;
+                
+                var gasPrice = resp.gasPrice;
+                var gasUsed = resp.gasUsed;
+
+                web3.eth.getAccounts(async function (error, result) {
+
+                    myAccountAddress = result[0];
+                    console.log(myAccountAddress);
+
+                    $('#remove_liquidity_pop').modal('show');
+
+                });
+            },
+            error: function (res_error) {
+                console.log(res_error);
+            }
+        });
     }
 
 

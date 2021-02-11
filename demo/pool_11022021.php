@@ -665,17 +665,13 @@
             var token_reserv0 = parseInt(_reserve0) / devide_to;
             var token_reserv1 = parseInt(_reserve1) / devide_to;
 
-            var share_of_pool = 0;
             var total_token= ((parseFloat(txtPoolFromToken)+parseFloat(txtPoolToToken)).toFixed(2));
-            if(!isNaN(total_token)){
-            
-                console.log(total_token);
-                var total_pool_amount = token_reserv0 + token_reserv1 + parseFloat(total_token);
-                var share_of_pool = ((total_token * 100) / total_pool_amount).toFixed(2);
+            console.log(total_token);
+            var total_pool_amount = token_reserv0 + token_reserv1 + parseFloat(total_token);
+            var share_of_pool = ((total_token * 100) / total_pool_amount).toFixed(2);
 
-                if(share_of_pool > 100){
-                    share_of_pool = 100;
-                }
+            if(share_of_pool > 100){
+                share_of_pool = 100;
             }
 
             if(parseFloat(share_of_pool) <= 0.01) { 
@@ -807,6 +803,8 @@
                             var WETHAddress = $("#WETHAddress").val();
                             if(WETHAddress){
 
+                                var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
+
                                 var contractABI = res.data.contractABI;
                                 var contractAddress = res.data.contractAddress;
                                 var devide_to = '1e'+res.data.desimals;
@@ -819,8 +817,8 @@
                                     $("#txtPoolToToken").val("");
                                 }
 
-                                var from_token_name = $('#poolFromToken option:selected').val();
-                                var to_token_name = $('#poolToToken option:selected').val();
+                                var from_token_name = $('#poolFromToken option:selected').val();;
+                                var to_token_name = $('#poolToToken option:selected').val();;
 
                                 $.ajax({
                                     type: "POST",
@@ -861,8 +859,6 @@
                                             });
 
                                         } else {
-
-                                            var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
 
                                             var token0 = WETHAddress;
                                             var token1 = contractAddress;
@@ -962,204 +958,184 @@
 
                         amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
                         //get quote
+                        var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
+                        var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
+                        getPairObj.then(function(getPairAddress){
+                            console.log(getPairAddress);
+                            if(getPairAddress!='0')
+                            {
+                              var vPairABI='[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
 
+                              var pairContract = new web3.eth.Contract(JSON.parse(vPairABI), getPairAddress);
+                              var vtoken0=pairContract.methods.token0().call();
+                              vtoken0.then(function(res) {
+                                vtoken0=res;
+                              });
+                              var vtoken1=pairContract.methods.token1().call();
+                              vtoken1.then(function(res) {
+                                vtoken1=res;
+                              });
+                              setTimeout(function(){
+                              console.log("vtoken0 : " + vtoken0);
+                              console.log("vtoken1 : " + vtoken1);
+                              var getreserves = pairContract.methods.getReserves().call();
+                              getreserves.then(function(response) {
+                                
+                                var vReverse1=response[0];
+                                var vReverse2=response[1];
 
-                        var from_token_name = $('#poolFromToken option:selected').val();
-                        var to_token_name = $('#poolToToken option:selected').val();
+                                getShareOfPoolCalculations(vReverse1, vReverse2, devide_to1);
 
-                        $.ajax({
-                            type: "POST",
-                            url: 'ajax/getFactoryContract.php',
-                            data: {
-                                from_token_name:from_token_name,
-                                to_token_name:to_token_name
-                            },
-                            dataType: "json",
-                            success: function (resp) {
-
-                                console.log(resp);
-                                if(resp != ''){
-
-                                    var getPairAddress = resp.getPairAddress;
-                                    var getPairABI = resp.getPairABI;
-                                    var getPairABI_JSON = JSON.parse(getPairABI);
-
-                                    
-                                    var pairContract = new web3.eth.Contract(getPairABI_JSON, getPairAddress);
-
+                                var share_of_pool=0;
+                                if(vtoken0==contractAddress1) {
+                                  var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
+                                  vReverse1 = vReverse1/devide_to1;
+                                  if(txtPoolFromToken > 0){
+                                      console.log("aaa: "+ parseFloat(txtPoolFromToken).toFixed(2));
+                                      console.log("vReverse1: "+ vReverse1);
+                                      share_of_pool = (parseFloat(txtPoolFromToken).toFixed(2)/vReverse1)*100;
+                                  } else {
+                                    share_of_pool = 0;
+                                  }
+                                  if(share_of_pool > 100){
+                                    share_of_pool = 100;
+                                  }
                                 } else {
-                                    var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
-                                    var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
-                                    getPairObj.then(function(getPairAddress){
-
-                                        console.log(getPairAddress);
-                                        if(getPairAddress != '0') {
-
-                                            $.get(etherscan_api_url + "api?module=contract&action=getabi&address="+getPairAddress+"&format=raw", function( getPairABI ) {
-
-                                                var getPairABI_JSON = jQuery.parseJSON(JSON.stringify(getPairABI));
-                                                var getPairABI_JSON = JSON.parse(getPairABI_JSON);
-
-                                                var pairContract = new web3.eth.Contract(getPairABI_JSON, getPairAddress);
-
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: 'ajax/saveFactoryContract.php',
-                                                    data: {
-                                                        getPairAddress:getPairAddress,
-                                                        getPairABI:getPairABI,
-                                                        from_token_name: from_token_name,
-                                                        to_token_name: to_token_name,
-                                                        from_token_address: contractAddress1,
-                                                        to_token_address: contractAddress2,
-                                                        user_wallet: myAccountAddress
-                                                    },
-                                                    success: function (resp) {
-                                                        console.log(resp);
-                                                    },
-                                                    error: function (result) {
-                                                        alert("Error");
-                                                    }
-                                                });
-                                            });
-                                        }
-                                    });
-
+                                  var vQuote = routerContract.methods.quote(amountOut,vReverse2,vReverse1).call();
+                                  vReverse2 = vReverse2 / devide_to2;
+                                  console.log("aaa: "+ parseFloat(txtPoolFromToken).toFixed(2));
+                                  console.log("vReverse1: "+ vReverse2 );
+                                  if(txtPoolFromToken > 0){
+                                    share_of_pool = (parseFloat(txtPoolFromToken).toFixed(2)/vReverse2)*100;
+                                  } else {
+                                    share_of_pool = 0;
+                                  }
+                                  if(share_of_pool > 100){
+                                    share_of_pool = 100;
+                                  }
                                 }
-                                var vtoken0 = pairContract.methods.token0().call();
-                                var vtoken1 = pairContract.methods.token1().call();
 
-                                setTimeout(function(){
+                                /*if(parseFloat(share_of_pool) <= 0.01) {
+                                  $("#share_of_pool").html('<0.01%');
+                                } else {
+                                    if(share_of_pool < 0){
 
-                                    vtoken0.then(function(res) {
-                                        vtoken0 = res;
-                                    });
-                                    
-                                    vtoken1.then(function(res) {
-                                        vtoken1 = res;
-                                        var getreserves = pairContract.methods.getReserves().call();
-                                        
-                                        getreserves.then(function(response) {
-                                        
-                                            var vReverse1 = response[0];
-                                            var vReverse2 = response[1];
+                                    }
+                                    $("#share_of_pool").html(share_of_pool.toFixed(2) + '%');
+                                }*/
 
-                                            getShareOfPoolCalculations(vReverse1, vReverse2, devide_to1);
-                                            
-                                            var share_of_pool = 0;
-                                            if(vtoken0 == contractAddress1) {
+                                vQuote.then(function(vQuote) {
+                                  console.log("vQuote : " + vQuote);
 
-                                                var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
-                                                vReverse1 = vReverse1 / devide_to1;
-                                            } else {
+                                  tokenAount = vQuote;
+                                  //ETHValue = getAmtVal[0];
+                                    //var inpDevide = (amountOut / tokenAount).toFixed(8);
+                                   console.log("tokenAount : " + tokenAount);
+                                   if(change=='to_change') {
+                                     //var inpDevide = (tokenAount/devide_to1).toFixed(8);
+                                     console.log("devide_to2 : " +devide_to2);
+                                     var inpDevide = (tokenAount/devide_to2).toFixed(8);
+                                   }
+                                   else {
+                                       var inpDevide = (tokenAount/devide_to2).toFixed(8);
+                                   }
 
-                                                var vQuote = routerContract.methods.quote(amountOut,vReverse2,vReverse1).call();
-                                                vReverse2 = vReverse2 / devide_to2;
-                                            }
+                                   var getInpSingle = parseFloat(inpDevide).toFixed(8);
+                                     console.log("getInpSingle : " + getInpSingle);
 
-                                            vQuote.then(function(vQuote) {
-                                            
-                                                tokenAount = vQuote;
-                                                
-                                                if(change=='to_change') {
-                                                    console.log("devide_to2 : " +devide_to2);
-                                                    var inpDevide = (tokenAount / devide_to2).toFixed(8);
-                                                } else {
-                                                   var inpDevide = (tokenAount / devide_to2).toFixed(8);
-                                                }
+                                   var forFirst =  getInpSingle;
+                                   console.log("forFirst : " + forFirst);
+                                   var forSecond =((1 / forFirst)).toFixed(8);
+                                   console.log("*txtPoolFromToken : " + txtPoolFromToken);
+                                   console.log("forSecond : " + forSecond);
+                                   if(change=='to_change')
+                                   {
+                                     $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
+                                     //$("#txtPoolFromToken").focus();
+                                   }
+                                   else {
+                                     $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
+                                   //$("#txtPoolToToken").focus();
+                                   }
+                                   forFirst =  getInpSingle/txtPoolFromToken;
+                                   forSecond =((1 / forFirst)).toFixed(8);
+                                   $(".firstTokenRate").html(parseFloat(forSecond));
+                                   $(".secondTokenRate").html(parseFloat(forFirst));
+                                   $(".startTwoTokens #first1").html(spnPoolFromToken);
+                                   $(".startTwoTokens #first2").html(spnPoolToToken);
+                                   $(".endTwoTokens #second1").html(spnPoolToToken);
+                                   $(".endTwoTokens #second2").html(spnPoolFromToken);
+                                   if(parseFloat($("#txtPoolFromToken").val()) > parseFloat($("#pairWalletFromBalance").html())) {
+                                       $("#create_pair_btn").prop('disabled', true);
+                                       var vtoken=$('#poolFromToken option:selected').val();
+                                       $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
+                                   } else if(parseFloat($("#txtPoolToToken").val()) > parseFloat($("#pairWalletToBalance").html())) {
+                                       $("#create_pair_btn").prop('disabled', true);
+                                       var vtoken=$('#poolToToken option:selected').val();
+                                       $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
+                                   } else {
 
-                                                var getInpSingle = parseFloat(inpDevide).toFixed(8);
-                                                var forFirst =  getInpSingle;
-                                                var forSecond =((1 / forFirst)).toFixed(8);
-                                               
-                                                if(change=='to_change') {
-                                                    $("#txtPoolFromToken").val(parseFloat(forFirst).toFixed(8));
-                                                } else {
-                                                    $("#txtPoolToToken").val(parseFloat(forFirst).toFixed(8));
-                                                }
+                                       $("#create_pair_btn").html('Supply');
+                                       //check approval into ERC-20 token for router contract
+                                       contractABI_json1 = JSON.parse(contractABI1);
 
-                                                forFirst =  getInpSingle / txtPoolFromToken;
-                                                forSecond =((1 / forFirst)).toFixed(8);
-                                               
-                                                $(".firstTokenRate").html(parseFloat(forSecond));
-                                                $(".secondTokenRate").html(parseFloat(forFirst));
-                                                $(".startTwoTokens #first1").html(spnPoolFromToken);
-                                                $(".startTwoTokens #first2").html(spnPoolToToken);
-                                                $(".endTwoTokens #second1").html(spnPoolToToken);
-                                                $(".endTwoTokens #second2").html(spnPoolFromToken);
-                                                
-                                                if(parseFloat($("#txtPoolFromToken").val()) > parseFloat($("#pairWalletFromBalance").html())) {
-                                                   $("#create_pair_btn").prop('disabled', true);
-                                                   var vtoken=$('#poolFromToken option:selected').val();
-                                                   $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
-                                                } else if(parseFloat($("#txtPoolToToken").val()) > parseFloat($("#pairWalletToBalance").html())) {
-                                                   $("#create_pair_btn").prop('disabled', true);
-                                                   var vtoken=$('#poolToToken option:selected').val();
-                                                   $("#create_pair_btn").html('Insufficient ' + vtoken +' Token');
-                                                } else {
+                                       var tknContract1 = new web3.eth.Contract(contractABI_json1, contractAddress1);
+                                       var getallowance1 = tknContract1.methods.allowance(myAccountAddress, routerContractAddress).call();
+                                       getallowance1.then(function(getallowance1) {
+                                           console.log("getallowance1 : " + getallowance1);
+                                           if(parseInt(getallowance1)<= 0) {
+                                               $("#approve1").show();
+                                               var vtoken1=$('#poolFromToken option:selected').val();
+                                               $("#approve1").html('Approve '+vtoken1);
+                                               $("#approve1").attr('data-address',contractAddress1);
+                                               $("#approve1").attr('data-abi',contractABI1);
+                                               $("#approve1").attr('data-decimal',devide_to1);
+                                               $("#create_pair_btn").prop('disabled', true);
+                                           } else {
+                                               $("#approve1").hide();
+                                               $("#approve1").attr('data-address','');
+                                               $("#approve1").attr('data-abi','');
+                                               $("#approve1").attr('data-decimal',0);
+                                               $("#create_pair_btn").prop('disabled', false);
+                                               $("#create_pair_btn").html('Supply');
+                                           }
+                                       });
 
-                                                    $("#create_pair_btn").html('Supply');
-                                                    //check approval into ERC-20 token for router contract
-                                                    contractABI_json1 = JSON.parse(contractABI1);
 
-                                                    var tknContract1 = new web3.eth.Contract(contractABI_json1, contractAddress1);
-                                                    var getallowance1 = tknContract1.methods.allowance(myAccountAddress, routerContractAddress).call();
-                                                    getallowance1.then(function(getallowance1) {
-                                                        console.log("getallowance1 : " + getallowance1);
-                                                        if(parseInt(getallowance1)<= 0) {
-                                                            $("#approve1").show();
-                                                            var vtoken1=$('#poolFromToken option:selected').val();
-                                                            $("#approve1").html('Approve '+vtoken1);
-                                                            $("#approve1").attr('data-address',contractAddress1);
-                                                            $("#approve1").attr('data-abi',contractABI1);
-                                                            $("#approve1").attr('data-decimal',devide_to1);
-                                                            $("#create_pair_btn").prop('disabled', true);
-                                                        } else {
-                                                            $("#approve1").hide();
-                                                            $("#approve1").attr('data-address','');
-                                                            $("#approve1").attr('data-abi','');
-                                                            $("#approve1").attr('data-decimal',0);
-                                                            $("#create_pair_btn").prop('disabled', false);
-                                                            $("#create_pair_btn").html('Supply');
-                                                        }
-                                                    });
 
-                                                    contractABI_json2 = JSON.parse(contractABI2);
+                                             contractABI_json2 = JSON.parse(contractABI2);
 
-                                                    var tknContract2 = new web3.eth.Contract(contractABI_json2, contractAddress2);
-                                                    var getallowance2 = tknContract2.methods.allowance(myAccountAddress, routerContractAddress).call();
-                                                    getallowance2.then(function(getallowance2) {
-                                                        
-                                                        if(parseInt(getallowance2)<= 0) {
-                                                            $("#approve2").show();
-                                                            var vtoken=$('#poolToToken option:selected').val();
-                                                            $("#approve2").html('Approve '+vtoken);
-                                                            $("#approve2").attr('data-address',contractAddress1);
-                                                            $("#approve2").attr('data-abi',contractABI2);
-                                                            $("#approve2").attr('data-decimal',devide_to2);
-                                                            $("#create_pair_btn").prop('disabled', true);
-                                                        } else {
-                                                            $("#approve2").hide();
-                                                            $("#approve2").attr('data-address','');
-                                                            $("#approve2").attr('data-abi','');
-                                                            $("#approve2").attr('data-decimal',0);
-                                                            if($("#approve1").is(':hidden')){
-                                                                $("#create_pair_btn").prop('disabled', false);
-                                                            }
-                                                            $("#create_pair_btn").html('Supply');
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        });
-                                    });
-                                }, 500);
-                                            
-                            },
-                            error: function (result) {
-                                alert("Error");
+                                             var tknContract2 = new web3.eth.Contract(contractABI_json2, contractAddress2);
+                                             var getallowance2 = tknContract2.methods.allowance(myAccountAddress, routerContractAddress).call();
+                                             getallowance2.then(function(getallowance2) {
+                                                 console.log("getallowance2 : " + getallowance2);
+                                                 if(parseInt(getallowance2)<= 0) {
+                                                     $("#approve2").show();
+                                                     var vtoken=$('#poolToToken option:selected').val();
+                                                     $("#approve2").html('Approve '+vtoken);
+                                                     $("#approve2").attr('data-address',contractAddress1);
+                                                     $("#approve2").attr('data-abi',contractABI2);
+                                                     $("#approve2").attr('data-decimal',devide_to2);
+                                                     $("#create_pair_btn").prop('disabled', true);
+                                                 } else {
+                                                     $("#approve2").hide();
+                                                     $("#approve2").attr('data-address','');
+                                                     $("#approve2").attr('data-abi','');
+                                                     $("#approve2").attr('data-decimal',0);
+                                                     if($("#approve1").is(':hidden')){
+                                                       $("#create_pair_btn").prop('disabled', false);
+                                                     }
+                                                     $("#create_pair_btn").html('Supply');
+                                                 }
+                                             });
+                                   }
+                                });
+                              });
+                              },100);
                             }
-                        });
+                          });
+
+                        
                     }
                 },
                 error: function (result) {
@@ -1246,434 +1222,263 @@
             data: {tokenname: selectedtoken},
             dataType: "json",
             success: function (resp) {
-                if(resp.length == 1){
-                    
-                    var res = resp[0];
-                    if (res.status == '1') {
+              if(resp.length == 1){
+                var res = resp[0];
+                if (res.status == '1') {
 
-                        console.log(res);
+                    console.log(res);
 
-                        var contractABI = res.data.contractABI;
-                        var contractAddress = res.data.contractAddress;
-                        var multiply_to = '1e'+res.data.desimals;
-                        contractABI = JSON.parse(contractABI);
+                    var contractABI = res.data.contractABI;
+                    var contractAddress = res.data.contractAddress;
+                    var multiply_to = '1e'+res.data.desimals;
+                    contractABI = JSON.parse(contractABI);
 
-                        web3.eth.getAccounts(async function (error, result) {
+                    web3.eth.getAccounts(async function (error, result) {
 
-                            myAccountAddress = result[0];
+                        myAccountAddress = result[0];
 
-                            if ((startToken != '' && endToken != '') && (startToken != 'Select Token' && endToken != 'Select Token')) {
+                        if ((startToken != '' && endToken != '') && (startToken != 'Select Token' && endToken != 'Select Token')) {
 
-                                var txtPoolFromToken = $("#txtPoolFromToken").val();
-                                var txtPoolToToken = $("#txtPoolToToken").val();
+                            var txtPoolFromToken = $("#txtPoolFromToken").val();
+                            var txtPoolToToken = $("#txtPoolToToken").val();
 
-                                var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress, {
-                                    from: myAccountAddress, // default from address
-                                });
+                            var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress, {
+                                from: myAccountAddress, // default from address
+                            });
 
-                                const userInputEthValue = web3.utils.toHex( toFixedNumber(multiply_to / txtPoolFromToken));
-                                var WETHobj = routerContract.methods.WETH().call();
+                            const userInputEthValue = web3.utils.toHex( toFixedNumber(multiply_to / txtPoolFromToken));
+                            var WETHobj = routerContract.methods.WETH().call();
 
-                                const WETHval = WETHobj.then(function(result){
+                            const WETHval = WETHobj.then(function(result){
 
-                                    var amountOut = ( txtPoolFromToken * multiply_to);
-                                    var decimals = (txtPoolFromToken!=Math.floor(txtPoolFromToken))?(txtPoolFromToken.toString()).split('.')[1].length:0;
+                                var amountOut = ( txtPoolFromToken * multiply_to);
+                                var decimals = (txtPoolFromToken!=Math.floor(txtPoolFromToken))?(txtPoolFromToken.toString()).split('.')[1].length:0;
 
-                                    if(endToken=='ETH') {
-                                        amountOut = ( multiply_to * txtPoolFromToken);
+                                if(endToken=='ETH') {
+                                    amountOut = ( multiply_to * txtPoolFromToken);
+                                }
+
+                                var path = [result, contractAddress];
+                                var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+
+                                getamntin.then(function(getAmtVal) {
+
+                                    var tokenAount = getAmtVal[0];
+                                    var ETHValue = getAmtVal[1];
+                                    var inpDevide = (tokenAount/ETHValue).toFixed(8);
+                                    var getInpSingle = parseFloat(inpDevide).toFixed(8);
+
+                                    var tokenAount =  ((1 / getInpSingle)*ETHValue);
+                                    var token_percent = Math.ceil((tokenAount * 1) / 100);
+                                    var ETH_percent = Math.ceil((ETHValue * 1) / 100);
+
+                                    var addLiquidityETH = ETHValue;
+                                    var token = contractAddress;
+                                    var amountTokenDesired = tokenAount;
+                                    var amountTokenMin = (tokenAount - token_percent);
+                                    var amountETHMin = (ETHValue - ETH_percent);
+                                    var to = myAccountAddress;
+                                    var milliseconds = 300 * 1000;
+                                    var deadline = new Date().getTime() + milliseconds;
+
+                                    console.log('==================');
+                                    console.log('addLiquidityETH ' + addLiquidityETH);
+                                    console.log('token ' + token);
+                                    console.log('amountTokenDesired ' + amountTokenDesired);
+                                    console.log('amountTokenMin ' + amountTokenMin);
+                                    console.log('amountETHMin ' + amountETHMin);
+                                    console.log('to ' + to);
+                                    console.log('deadline ' + deadline);
+                                    console.log('==================');
+
+                                    var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
+                                        gasLimit: web3.utils.toHex(560000),
+                                        gasPrice: web3.utils.toHex(10000000000),
+                                        value: addLiquidityETH });
+
+                                    var myPromise = MakeQuerablePromise(addLiqETH);
+
+                                    if(myPromise.isPending()){
+                                        alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
                                     }
 
-                                    var path = [result, contractAddress];
-                                    var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+                                    var timerID = setInterval(function() {
 
-                                    getamntin.then(function(getAmtVal) {
+                                        if(myPromise.isFulfilled()){
 
-                                        var tokenAount = getAmtVal[0];
-                                        var ETHValue = getAmtVal[1];
-                                        var inpDevide = (tokenAount/ETHValue).toFixed(8);
-                                        var getInpSingle = parseFloat(inpDevide).toFixed(8);
-
-                                        var tokenAount =  ((1 / getInpSingle)*ETHValue);
-                                        var token_percent = Math.ceil((tokenAount * 1) / 100);
-                                        var ETH_percent = Math.ceil((ETHValue * 1) / 100);
-
-                                        var addLiquidityETH = ETHValue;
-                                        var token = contractAddress;
-                                        var amountTokenDesired = tokenAount;
-                                        var amountTokenMin = (tokenAount - token_percent);
-                                        var amountETHMin = (ETHValue - ETH_percent);
-                                        var to = myAccountAddress;
-                                        var milliseconds = 300 * 1000;
-                                        var deadline = new Date().getTime() + milliseconds;
-
-                                        console.log('==================');
-                                        console.log('addLiquidityETH ' + addLiquidityETH);
-                                        console.log('token ' + token);
-                                        console.log('amountTokenDesired ' + amountTokenDesired);
-                                        console.log('amountTokenMin ' + amountTokenMin);
-                                        console.log('amountETHMin ' + amountETHMin);
-                                        console.log('to ' + to);
-                                        console.log('deadline ' + deadline);
-                                        console.log('==================');
-
-                                        var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                            gasLimit: web3.utils.toHex(560000),
-                                            gasPrice: web3.utils.toHex(10000000000),
-                                            value: addLiquidityETH });
-
-                                        var myPromise = MakeQuerablePromise(addLiqETH);
-
-                                        if(myPromise.isPending()){
-                                            alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
-                                        }
-
-                                        var timerID = setInterval(function() {
-
-                                            if(myPromise.isFulfilled()){
-
-                                                myPromise.then(function(result){
-                                                    alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
-                                                });
-
-                                                $(".ajs-ok").click();
-                                                clearInterval(timerID);
-                                            }
-
-                                            if(myPromise.isFulfilled()){
-                                                resetAllFields();
-                                                loadSelectOptions();
-                                                $(".ajs-ok").click();
-                                                clearInterval(timerID);
-                                            }
-
-                                            if(myPromise.isRejected()){
-
-                                                myPromise.then(response => {
-                                                }).catch(error => {
-                                                    alertify.alert("Warning", error.message, function(){});
-                                                });
-                                                $(".ajs-ok").click();
-                                                clearInterval(timerID);
-                                            }
-
-                                        }, 500);
-                                    });
-                                });
-                            }
-                        });
-                    }
-
-                } else {
-
-                    var contractABI1,contractAddress1,devide_to1;
-                    var contractABI2,contractAddress2,devide_to2;
-
-                    for(i=0;i<resp.length;i++) {
-                        var res=resp[i];
-
-                        if (res.status == '1') {
-                            if(i==0){
-                                contractABI1 = res.data.contractABI;
-                                contractAddress1 = res.data.contractAddress;
-                                devide_to1 = '1e'+res.data.desimals;
-                            } else {
-                                contractABI2 = res.data.contractABI;
-                                contractAddress2 = res.data.contractAddress;
-                                devide_to2 = '1e'+res.data.desimals;
-                            }
-                        }
-                    }
-
-                    var txtPoolFromToken = $("#txtPoolFromToken").val();
-                    var txtPoolToToken = $("#txtPoolToToken").val();
-
-                    var amountOut = (devide_to1 * txtPoolFromToken);
-                    var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
-
-                    amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
-                    console.log("amountOut : " +amountOut);
-
-                    var from_token_name = $('#poolFromToken option:selected').val();
-                    var to_token_name = $('#poolToToken option:selected').val();
-
-                    $.ajax({
-                        type: "POST",
-                        url: 'ajax/getFactoryContract.php',
-                        data: {
-                            from_token_name:from_token_name,
-                            to_token_name:to_token_name
-                        },
-                        dataType: "json",
-                        success: function (resp) {
-
-                            console.log(resp);
-                            if(resp != ''){
-
-                                var getPairAddress = resp.getPairAddress;
-                                var getPairABI = resp.getPairABI;
-                                var getPairABI_JSON = JSON.parse(getPairABI);
-
-                                
-                                var pairContract = new web3.eth.Contract(getPairABI_JSON, getPairAddress);
-
-                            } else {
-                                var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
-                                var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
-                                getPairObj.then(function(getPairAddress){
-
-                                    console.log(getPairAddress);
-                                    if(getPairAddress != '0') {
-
-                                        $.get(etherscan_api_url + "api?module=contract&action=getabi&address="+getPairAddress+"&format=raw", function( getPairABI ) {
-
-                                            var getPairABI_JSON = jQuery.parseJSON(JSON.stringify(getPairABI));
-                                            var getPairABI_JSON = JSON.parse(getPairABI_JSON);
-
-                                            var pairContract = new web3.eth.Contract(getPairABI_JSON, getPairAddress);
-
-                                            $.ajax({
-                                                type: "POST",
-                                                url: 'ajax/saveFactoryContract.php',
-                                                data: {
-                                                    getPairAddress:getPairAddress,
-                                                    getPairABI:getPairABI,
-                                                    from_token_name: from_token_name,
-                                                    to_token_name: to_token_name,
-                                                    from_token_address: contractAddress1,
-                                                    to_token_address: contractAddress2,
-                                                    user_wallet: myAccountAddress
-                                                },
-                                                success: function (resp) {
-                                                    console.log(resp);
-                                                },
-                                                error: function (result) {
-                                                    alert("Error");
-                                                }
+                                            myPromise.then(function(result){
+                                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
                                             });
-                                        });
-                                    }
+
+                                            $(".ajs-ok").click();
+                                            clearInterval(timerID);
+                                        }
+
+                                        if(myPromise.isFulfilled()){
+                                            resetAllFields();
+                                            loadSelectOptions();
+                                            $(".ajs-ok").click();
+                                            clearInterval(timerID);
+                                        }
+
+                                        if(myPromise.isRejected()){
+
+                                            myPromise.then(response => {
+                                            }).catch(error => {
+                                                alertify.alert("Warning", error.message, function(){});
+                                            });
+                                            $(".ajs-ok").click();
+                                            clearInterval(timerID);
+                                        }
+
+                                    }, 500);
                                 });
-                            }
-
-                            var vtoken0=pairContract.methods.token0().call();
-                            var vtoken1=pairContract.methods.token1().call();
-
-                            vtoken0.then(function(res) {
-                                vtoken0 = res;
-                            });
-                            
-                            vtoken1.then(function(res) {
-                                vtoken1 = res;
-
-                                setTimeout(function(){
-                                  
-                                    console.log("vtoken0 : " + vtoken0);
-                                    console.log("vtoken1 : " + vtoken1);
-
-                                    var getreserves = pairContract.methods.getReserves().call();
-                                    getreserves.then(function(response) {
-                                        console.log("getreserves : " + response[0]);
-                                        var vReverse1=response[0];
-                                        var vReverse2=response[1];
-                                        if(vtoken0==contractAddress1) {
-                                            var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
-                                        } else {
-                                            var vQuote = routerContract.methods.quote(amountOut,vReverse2,vReverse1).call();
-                                        }
-
-                                        vQuote.then(function(vQuote) {
-                                            console.log("vQuote : " + vQuote);
-
-                                            var tokenAmount = vQuote/devide_to2;
-                                            var ETHValue=amountOut;
-
-                                            var inpDevide =  ((1 / tokenAmount));
-                                            var token_percent = (tokenAmount * 0.5) / 100;
-                                            var ETH_percent = (ETHValue * 0.5) / 100;
-                                            console.log('tokenAmount ' + tokenAmount);
-                                            console.log('token_percent ' + token_percent);
-                                            var addLiquidityETH = $(".firstTokenRate").html() *devide_to1;
-                                            var token = contractAddress;
-                                            var amountTokenADesired = amountOut;
-                                            var amountTokenBDesired =tokenAmount * devide_to2;
-                                            var amountTokenMin = (ETHValue - ETH_percent);
-                                            var amountETHMin = (tokenAmount - token_percent) *devide_to2 ;
-                                            var to = myAccountAddress;
-                                            var milliseconds = 300 * 1000;
-                                            var deadline = new Date().getTime() + milliseconds;
-
-                                            console.log('==================');
-                                            console.log('addLiquidityETH ' + addLiquidityETH);
-                                            console.log('amountTokenDesired ' + amountTokenADesired);
-                                            console.log('amountTokenBDesired ' + amountTokenBDesired);
-                                            console.log('amountTokenMin ' + amountTokenMin);
-                                            console.log('amountETHMin ' + amountETHMin);
-                                            console.log('to ' + to);
-                                            console.log('deadline ' + deadline);
-                                            console.log('==================');
-
-                                            var addLiqETH = routerContract.methods.addLiquidity(contractAddress1,contractAddress2, amountTokenADesired,amountTokenBDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                            from:to,
-                                            gasLimit: web3.utils.toHex(460000),
-                                            gasPrice: web3.utils.toHex(10000000000),
-                                            value: 0 });
-
-                                            var myPromise = MakeQuerablePromise(addLiqETH);
-
-                                            if(myPromise.isPending()){
-                                                alertify.alert("<div class='text-center'><b>Please wait</b>","<center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
-                                            }
-
-                                            var timerID = setInterval(function() {
-                                            console.log("Initial fulfilled:", myPromise.isFulfilled());//false
-                                            console.log("Initial rejected:", myPromise.isRejected());//false
-                                            console.log("Initial pending:", myPromise.isPending());//true
-
-                                            if(myPromise.isFulfilled()){
-
-                                              myPromise.then(function(result){
-                                                  alertify.alert("Transacton Recorded","Thanks for Supplying liquidity to <?=$siteName;?>. You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can check your added liquidity.", function(){});
-                                              });
-
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            if(myPromise.isFulfilled()){
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            if(myPromise.isRejected()){
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            }, 500);
-
-                                            return false;
-                                        });
-                                    });
-                                },500);
-                            });
-                        },
-                    error: function (result) {
-                        alert("Error");
-                    }
-                });
-                    /*//get quote
-                    var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
-                    var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
-                    getPairObj.then(function(getPairAddress){
-                    
-                        if(getPairAddress!='0') {
-                            var vPairABI='[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
-
-                            var pairContract = new web3.eth.Contract(JSON.parse(vPairABI), getPairAddress);
-                            var vtoken0=pairContract.methods.token0().call();
-                            var vtoken1=pairContract.methods.token1().call();
-
-                            vtoken0.then(function(res) {
-                                vtoken0 = res;
-                            });
-                            
-                            vtoken1.then(function(res) {
-                                vtoken1 = res;
-
-                                setTimeout(function(){
-                                  
-                                    console.log("vtoken0 : " + vtoken0);
-                                    console.log("vtoken1 : " + vtoken1);
-
-                                    var getreserves = pairContract.methods.getReserves().call();
-                                    getreserves.then(function(response) {
-                                        console.log("getreserves : " + response[0]);
-                                        var vReverse1=response[0];
-                                        var vReverse2=response[1];
-                                        if(vtoken0==contractAddress1) {
-                                            var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
-                                        } else {
-                                            var vQuote = routerContract.methods.quote(amountOut,vReverse2,vReverse1).call();
-                                        }
-
-                                        vQuote.then(function(vQuote) {
-                                            console.log("vQuote : " + vQuote);
-
-                                            var tokenAmount = vQuote/devide_to2;
-                                            var ETHValue=amountOut;
-
-                                            var inpDevide =  ((1 / tokenAmount));
-                                            var token_percent = (tokenAmount * 0.5) / 100;
-                                            var ETH_percent = (ETHValue * 0.5) / 100;
-                                            console.log('tokenAmount ' + tokenAmount);
-                                            console.log('token_percent ' + token_percent);
-                                            var addLiquidityETH = $(".firstTokenRate").html() *devide_to1;
-                                            var token = contractAddress;
-                                            var amountTokenADesired = amountOut;
-                                            var amountTokenBDesired =tokenAmount * devide_to2;
-                                            var amountTokenMin = (ETHValue - ETH_percent);
-                                            var amountETHMin = (tokenAmount - token_percent) *devide_to2 ;
-                                            var to = myAccountAddress;
-                                            var milliseconds = 300 * 1000;
-                                            var deadline = new Date().getTime() + milliseconds;
-
-                                            console.log('==================');
-                                            console.log('addLiquidityETH ' + addLiquidityETH);
-                                            console.log('amountTokenDesired ' + amountTokenADesired);
-                                            console.log('amountTokenBDesired ' + amountTokenBDesired);
-                                            console.log('amountTokenMin ' + amountTokenMin);
-                                            console.log('amountETHMin ' + amountETHMin);
-                                            console.log('to ' + to);
-                                            console.log('deadline ' + deadline);
-                                            console.log('==================');
-
-                                            var addLiqETH = routerContract.methods.addLiquidity(contractAddress1,contractAddress2, amountTokenADesired,amountTokenBDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                            from:to,
-                                            gasLimit: web3.utils.toHex(460000),
-                                            gasPrice: web3.utils.toHex(10000000000),
-                                            value: 0 });
-
-                                            var myPromise = MakeQuerablePromise(addLiqETH);
-
-                                            if(myPromise.isPending()){
-                                                alertify.alert("<div class='text-center'><b>Please wait</b>","<center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
-                                            }
-
-                                            var timerID = setInterval(function() {
-                                            console.log("Initial fulfilled:", myPromise.isFulfilled());//false
-                                            console.log("Initial rejected:", myPromise.isRejected());//false
-                                            console.log("Initial pending:", myPromise.isPending());//true
-
-                                            if(myPromise.isFulfilled()){
-
-                                              myPromise.then(function(result){
-                                                  alertify.alert("Transacton Recorded","Thanks for Supplying liquidity to <?=$siteName;?>. You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can check your added liquidity.", function(){});
-                                              });
-
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            if(myPromise.isFulfilled()){
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            if(myPromise.isRejected()){
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            }, 500);
-
-                                            return false;
-                                        });
-                                    });
-                                },500);
                             });
                         }
-                    });*/
+                    });
+
                 }
+
+              }  else {
+
+                var contractABI1,contractAddress1,devide_to1;
+                var contractABI2,contractAddress2,devide_to2;
+                for(i=0;i<resp.length;i++) {
+                  var res=resp[i];
+
+                  if (res.status == '1') {
+                    if(i==0){
+                       contractABI1 = res.data.contractABI;
+                       contractAddress1 = res.data.contractAddress;
+                       devide_to1 = '1e'+res.data.desimals;
+                    }
+                    else {
+                       contractABI2 = res.data.contractABI;
+                       contractAddress2 = res.data.contractAddress;
+                       devide_to2 = '1e'+res.data.desimals;
+                    }
+                  }
+                }
+                var txtPoolFromToken = $("#txtPoolFromToken").val();
+                var txtPoolToToken = $("#txtPoolToToken").val();
+
+                var amountOut = (devide_to1 * txtPoolFromToken);
+                var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
+
+                amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
+                console.log("amountOut : " +amountOut);
+
+                //get quote
+                var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
+                var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
+                getPairObj.then(function(getPairAddress){
+                    console.log(getPairAddress);
+                    if(getPairAddress!='0')
+                    {
+                      var vPairABI='[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
+
+                      var pairContract = new web3.eth.Contract(JSON.parse(vPairABI), getPairAddress);
+                      var vtoken0=pairContract.methods.token0().call();
+                      vtoken0.then(function(res) {
+                        vtoken0=res;
+                      });
+                      var vtoken1=pairContract.methods.token1().call();
+                      vtoken1.then(function(res) {
+                        vtoken1=res;
+                      });
+                      setTimeout(function(){
+                      console.log("vtoken0 : " + vtoken0);
+                      console.log("vtoken1 : " + vtoken1);
+                      var getreserves = pairContract.methods.getReserves().call();
+                      getreserves.then(function(response) {
+                        console.log("getreserves : " + response[0]);
+                        var vReverse1=response[0];
+                        var vReverse2=response[1];
+                        if(vtoken0==contractAddress1) {
+                          var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
+                        }
+                        else {
+                          var vQuote = routerContract.methods.quote(amountOut,vReverse2,vReverse1).call();
+                        }
+
+                        vQuote.then(function(vQuote) {
+                          console.log("vQuote : " + vQuote);
+
+                          var tokenAmount = vQuote/devide_to2;
+                          var ETHValue=amountOut;
+
+                          var inpDevide =  ((1 / tokenAmount));
+                          var token_percent = (tokenAmount * 0.5) / 100;
+                          var ETH_percent = (ETHValue * 0.5) / 100;
+                          console.log('tokenAmount ' + tokenAmount);
+                            console.log('token_percent ' + token_percent);
+                          var addLiquidityETH = $(".firstTokenRate").html() *devide_to1;
+                          var token = contractAddress;
+                          var amountTokenADesired = amountOut;
+                          var amountTokenBDesired =tokenAmount * devide_to2;
+                          var amountTokenMin = (ETHValue - ETH_percent);
+                          var amountETHMin = (tokenAmount - token_percent) *devide_to2 ;
+                          var to = myAccountAddress;
+                          var milliseconds = 300 * 1000;
+                          var deadline = new Date().getTime() + milliseconds;
+
+                          console.log('==================');
+                          console.log('addLiquidityETH ' + addLiquidityETH);
+                          console.log('amountTokenDesired ' + amountTokenADesired);
+                          console.log('amountTokenBDesired ' + amountTokenBDesired);
+                          console.log('amountTokenMin ' + amountTokenMin);
+                          console.log('amountETHMin ' + amountETHMin);
+                          console.log('to ' + to);
+                          console.log('deadline ' + deadline);
+                          console.log('==================');
+
+                          var addLiqETH = routerContract.methods.addLiquidity(contractAddress1,contractAddress2, amountTokenADesired,amountTokenBDesired, amountTokenMin, amountETHMin, to, deadline).send({
+                              from:to,
+                              gasLimit: web3.utils.toHex(460000),
+                              gasPrice: web3.utils.toHex(10000000000),
+                              value: 0 });
+
+                          var myPromise = MakeQuerablePromise(addLiqETH);
+
+                          if(myPromise.isPending()){
+                              alertify.alert("<div class='text-center'><b>Please wait</b>","<center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                          }
+
+                          var timerID = setInterval(function() {
+                              console.log("Initial fulfilled:", myPromise.isFulfilled());//false
+                              console.log("Initial rejected:", myPromise.isRejected());//false
+                              console.log("Initial pending:", myPromise.isPending());//true
+
+                              if(myPromise.isFulfilled()){
+
+                                  myPromise.then(function(result){
+                                      alertify.alert("Transacton Recorded","Thanks for Supplying liquidity to <?=$siteName;?>. You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can check your added liquidity.", function(){});
+                                  });
+
+                                  $(".ajs-ok").click();
+                                  clearInterval(timerID);
+                              }
+
+                              if(myPromise.isFulfilled()){
+                                  $(".ajs-ok").click();
+                                  clearInterval(timerID);
+                              }
+
+                              if(myPromise.isRejected()){
+                                  $(".ajs-ok").click();
+                                  clearInterval(timerID);
+                              }
+
+                          }, 500);
+
+                          return false;
+
+                        });
+                      });
+                    },500);
+                  }
+                });
+              }
             },
             error: function (result) {
                 alert("Error");
@@ -1704,9 +1509,6 @@
                     myAccountAddress = result[0];
                     console.log(myAccountAddress);
 
-                    $("#pool_percent_number").text("100%");
-                    $("#custom_number_slider").val(100);
-
                     $("#fTokenName").text(token_from);
                     $("#sTokenName").text(token_to);
 
@@ -1718,7 +1520,7 @@
 
                     var token_pair_blnc = 0.00311811;
                     $("#token_pair_blnc").text(token_pair_blnc);
-
+                    
                     $("#rmlqbothtoken").val(token_pair_blnc);
                     $("#rmlqoutput1token").val(fTokenValue);
                     $("#rmlqoutput2token").val(sTokenValue);
@@ -1727,8 +1529,8 @@
                     var token_price_ftt = "1 "+token_from+" = 0.00373513 "+token_to;
                     $("#token_price_ftt").text(token_price_ftt);
 
-                    var token_price_ttf = "1 "+token_to+" = 276.4545 "+token_from;
-                    $("#token_price_ttf").text(token_price_ttf);
+                    var token_price_ttf = "1 "+token_to+" = 0.00373513 "+token_from;
+                    $("#token_price_ftt").text(token_price_ftt);
 
                     $('#remove_liquidity_pop').modal('show');
 
@@ -1944,10 +1746,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row py-2">
                     <div class="col-md-12">
                         <p id="pool_percent_number">100%</p>
-                        <input type="hidden" name="rm_lq_sld_val" id="rm_lq_sld_val" value="100">
+                        <input type="hidden" name="rm_lq_sld_val" id="rm_lq_sld_val" value="0">
                     </div>
                 </div>
 
@@ -1955,7 +1757,7 @@
                     <div class="w-100" id="simpleDataSection">
                         <div class="row py-2">
                             <div class="col-md-12">
-                                <input type="range" name="slider" id="custom_number_slider" value="100" min="0" max="100" step="1" class="form-control"  />
+                                <input type="range" name="slider" id="custom_number_slider" value="0" min="0" max="100" step="1" class="form-control"  />
                             </div>
                             <div class="col-md-12">
                                 <div class="row">

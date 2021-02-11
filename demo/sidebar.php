@@ -22,12 +22,17 @@
       </div>
 
 
+    <?php  
+    $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);  
+    $cpage_name = explode('.', $curPageName)[0];  
+    ?>   
+
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+          <li class="nav-item <?php if($cpage_name == 'home') { echo 'menu-open'; } ?>">
             <a href="home.php" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
@@ -36,7 +41,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <?php if($cpage_name == 'dashboard') { echo 'menu-open'; } ?>">
             <a href="dashboard.php" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -44,7 +49,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <?php if($cpage_name == 'swap') { echo 'menu-open'; } ?>">
             <a href="swap.php" class="nav-link">
               <i class="nav-icon fa fa-retweet"></i>
               <p>
@@ -52,7 +57,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <?php if($cpage_name == 'pool') { echo 'menu-open'; } ?>">
             <a href="pool.php" class="nav-link">
               <i class="nav-icon fa fa-users"></i>
               <p>
@@ -61,7 +66,7 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item <?php if($cpage_name == 'chart') { echo 'menu-open'; } ?>">
             <a href="dashboard.php" class="nav-link">
               <i class="nav-icon fa fa-line-chart"></i>
               <p>
@@ -69,7 +74,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <?php if($cpage_name == 'alldeposit') { echo 'menu-open'; } ?>">
             <a href="alldeposit.php" class="nav-link">
               <i class="nav-icon fas fa-wallet"></i>
               <p>
@@ -85,7 +90,7 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <li class="nav-item <?php if($cpage_name == 'staking') { echo 'menu-open'; } ?>">
             <a href="staking.php" class="nav-link">
               <i class="nav-icon fa fa-user"></i>
               <p>
@@ -93,7 +98,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <?php if($cpage_name == 'gov') { echo 'menu-open'; } ?>">
             <a href="gov.php" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
@@ -101,7 +106,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <?php if($cpage_name == 'allborrows') { echo 'menu-open'; } ?>">
             <a href="allborrows.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>

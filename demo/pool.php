@@ -8,34 +8,6 @@
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/jquery-ui-slider@1.12.1/jquery-ui.min.css" />
 <input type="hidden" name="login_user_wallet" id="login_user_wallet" value="<?php echo $_COOKIE['userWallet']; ?>" />
 
-<style type="text/css">
-    .selectCImage{
-        max-width: 25px;
-        margin-right: 5px;
-    }
-
-    .select2.select2-container{ width: 100% !important; }
-    .select2-container--default .select2-selection--single{
-        height: 40px;
-    }
-
-    .alertify .ajs-dialog{
-            background-color: #2b2d3c;
-    }
-
-    .alertify .ajs-header, .alertify .ajs-footer{
-        background-color: #000;
-    }
-    .dropdown-toggle{
-        width: 100% !important;
-        max-width: 150px;
-        /*overflow: hidden;*/
-    }
-    .ddChild.ddchild_.border.shadow {
-        width: 100%;
-    }
-</style>
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="min-height: 1363.2px;">
     <!-- Content Header (Page header) -->
@@ -342,55 +314,33 @@
         });
 
         $('#txtPoolToToken').on('keyup paste input change', function () {
-
             while (($(this).val().split(".").length - 1) > 1) {
-
                 $(this).val($(this).val().slice(0, -1));
-
                 if (($(this).val().split(".").length - 1) > 1) {
                     continue;
                 } else {
                     return false;
                 }
-
             }
-
-            // replace any character that's not a digit or a dot
             $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-
-            // now cut the string with the allowed number for the integer and float parts
-            // integer part controlled with the int_num_allow variable
-            // float (or decimal) part controlled with the float_num_allow variable
-
-            // var int_num_allow = 15;
-            // var float_num_allow = 6;
-
-            // var iof = $(this).val().indexOf(".");
-
-            // if ( iof != -1 ) {
-
-            //     // this case is a mouse paste (probably also other events) with more numbers before the dot than is allowed
-            //     // the number can't be "sanitized" because we can't "cut" the integer part, so we just empty the element and optionally change the placeholder attribute to something meaningful
-
-            //     if ( $(this).val().substring(0, iof).length > int_num_allow ) {
-            //         $(this).val('');
-            //         // you can remove the placeholder modification if you like
-            //         $(this).attr('placeholder', 'invalid number');
-            //     }
-
-            //     // cut the decimal part
-
-            //     $(this).val($(this).val().substring(0, iof + float_num_allow + 1));
-
-            // } else {
-
-            //     $(this).val($(this).val().substring(0, int_num_allow));
-            // }
-
             changeFromToken('to_change');
-
             return true;
         });
+
+        $('#rmlqbothtoken, #rmlqoutput1token, #rmlqoutput2token').on('keyup paste input change', function () {
+            while (($(this).val().split(".").length - 1) > 1) {
+                $(this).val($(this).val().slice(0, -1));
+                if (($(this).val().split(".").length - 1) > 1) {
+                    continue;
+                } else {
+                    return false;
+                }
+            }
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+            changeFromToken('to_change');
+            return true;
+        });
+
     });
 
     function resetAllFields(not = '') {
@@ -1559,8 +1509,52 @@
                     myAccountAddress = result[0];
                     console.log(myAccountAddress);
 
+                    $("#fTokenName").text(token_from);
+                    $("#sTokenName").text(token_to);
+
+                    var fTokenValue = 0.0056;
+                    $("#fTokenValue").text(fTokenValue);
+
+                    var sTokenValue = 0.0025;
+                    $("#sTokenValue").text(sTokenValue);
+
+                    var token_pair_blnc = 0.00311811;
+                    $("#token_pair_blnc").text(token_pair_blnc);
+                    
+                    $("#rmlqbothtoken").val(token_pair_blnc);
+                    $("#rmlqoutput1token").val(fTokenValue);
+                    $("#rmlqoutput2token").val(sTokenValue);
+
+
+                    var token_price_ftt = "1 "+token_from+" = 0.00373513 "+token_to;
+                    $("#token_price_ftt").text(token_price_ftt);
+
+                    var token_price_ttf = "1 "+token_to+" = 0.00373513 "+token_from;
+                    $("#token_price_ftt").text(token_price_ftt);
+
                     $('#remove_liquidity_pop').modal('show');
 
+                    var token_pair_label = token_from +"/"+ token_to;
+                    $("#token_pair_label, #token_pair_labels").text(token_pair_label);
+
+                    var rmlqbothtokenImgf = "images/"+token_from.toLowerCase()+".png";
+                    $("#rmlqbothtokenImgf, #rmlqbothtokenImgsf, .fTokenImage").attr("src", rmlqbothtokenImgf);
+
+                    var rmlqbothtokenImgs = "images/"+token_to.toLowerCase()+".png";
+                    $("#rmlqbothtokenImgs, #rmlqbothtokenImgss, .sTokenImage").attr("src", rmlqbothtokenImgs);
+
+                    var yl_from_token_blnc = 0.656565;
+                    $("#yl_from_token").text(token_from+":");
+                    $("#yl_from_token_blnc").text(yl_from_token_blnc);
+
+                    var yl_to_token_blnc = 0.565656;
+                    $("#yl_to_token").text(token_to+":");
+                    $("#yl_to_token_blnc").text(yl_to_token_blnc);
+
+                    var rmlqd_pool_share = 0.002999;
+                    $("#rmlqd_pool_share").text(rmlqd_pool_share + "%");
+
+                    
                 });
             },
             error: function (res_error) {
@@ -1817,10 +1811,10 @@
                                 </div>
                                 <div class="col-md-6 pull-right">
                                     <div class="pull-right" id="rmlqbothtokenBalance">Balance: <span>0.0318169</span></div>
-                                    <div class="pull-right">
+                                    <div class="pull-right mt-3">
                                         <img class="" id="rmlqbothtokenImgf" alt="Token logo" src="images/bat.svg">
                                         <img class="" id="rmlqbothtokenImgs" alt="Token logo" src="images/eth.png" >
-                                        <span>BAT/ETH</span>
+                                        <span id="token_pair_label">BAT/ETH</span>
                                     </div>
                                 </div>
                             </div>
@@ -1864,12 +1858,8 @@
                         <p>Price</p>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p class="pull-right">
-                            1 BAT = 0.00373513 ETH
-                        </p>
-                        <p class="pull-right">
-                            1 ETH = 267.729 BAT
-                        </p>
+                        <p class="pull-right" id="token_price_ftt">1 BAT = 0.00373513 ETH</p>
+                        <p class="pull-right" id="token_price_ttf">1 ETH = 267.729 BAT</p>
                     </div>
                 </div>
 
@@ -1887,14 +1877,12 @@
                         <h5>Your position</h5>
                     </div>
                     <div class="col-md-6 pull-left">
-                        <div class="sc-dvCyap fDLamO">
-                            <img class="" alt="Token logo" src="images/bat.svg" style="max-width: 20px;">
-                            <img class="" alt="Token logo" src="images/eth.png" style="max-width: 20px;">
-                            <span>BAT/ETH</span>
-                        </div>
+                        <img class="" id="rmlqbothtokenImgsf" alt="Token logo" src="images/bat.svg" style="max-width: 20px;">
+                        <img class="" id="rmlqbothtokenImgss" alt="Token logo" src="images/eth.png" style="max-width: 20px;">
+                        <span id="token_pair_labels">BAT/ETH</span>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p class="pull-right">0.03181</p>
+                        <p id="token_pair_blnc" class="pull-right">0.03181</p>
                     </div>
                 </div>
 
@@ -1903,25 +1891,25 @@
                         <p>Your pool share:</p>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p class="pull-right">0.029480%</p>
+                        <p id="rmlqd_pool_share" class="pull-right">0.029480%</p>
                     </div>
                 </div>
 
                 <div class="row py-2">
                     <div class="col-md-6 pull-left">
-                        <p>BAT:</p>
+                        <p id="yl_from_token">BAT:</p>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p class="pull-right">0.55792</p>
+                        <p id="yl_from_token_blnc" class="pull-right">0.55792</p>
                     </div>
                 </div>
 
                 <div class="row py-2">
                     <div class="col-md-6 pull-left">
-                        <p>ETH:</p>
+                        <p id="yl_to_token">ETH:</p>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p class="pull-right">0.0021238</p>
+                        <p id="yl_to_token_blnc" class="pull-right">0.0021238</p>
                     </div>
                 </div>
 

@@ -1,12 +1,20 @@
-<?php include 'header.php'; ?>
-<?php include 'sidebar.php'; ?>
+<?php 
+
+include 'header.php';
+include 'sidebar.php';
+
+$userWallet = '';
+if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
+    $userWallet = $_COOKIE['userWallet'];
+}
+?>
 
 <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="css/alertify.min.css" />
 <link rel="stylesheet" type="text/css" href="css/dd.css" />
 <link rel="stylesheet" type="text/css" href="css/custom.css" />
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/jquery-ui-slider@1.12.1/jquery-ui.min.css" />
-<input type="hidden" name="login_user_wallet" id="login_user_wallet" value="<?php echo $_COOKIE['userWallet']; ?>" />
+<input type="hidden" name="login_user_wallet" id="login_user_wallet" value="<?php echo $userWallet; ?>" />
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="min-height: 1363.2px;">
@@ -115,32 +123,38 @@
         window.web3 = new Web3(ethereum);
         web3.eth.getAccounts(async function (error, result) {
 
-            myAccountAddress = result[0];
-            if($("#login_user_wallet").val() == ''){
-                $("#login_user_wallet").val(myAccountAddress);
-            }
+            if(result.length > 0){
 
-            if(WETHAddress == ''){
-                var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
-                var WETHobj = routerContract.methods.WETH().call();
-                const WETHval = WETHobj.then(function(WETHAddress){
+                myAccountAddress = result[0];
 
-                    $("#WETHAddress").val(WETHAddress);
+                if($("#login_user_wallet").val() == ''){
+                    $("#login_user_wallet").val(myAccountAddress);
+                }
 
-                    $.ajax({
-                        type: "POST",
-                        url: 'ajax/saveWETHAddress.php',
-                        data: {
-                            WETHAddress:WETHAddress
-                        },
-                        success: function (resp) {
-                            console.log(resp);
-                        },
-                        error: function (res_error) {
-                            console.log(res_error);
-                        }
+                if(WETHAddress == ''){
+                    var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
+                    var WETHobj = routerContract.methods.WETH().call();
+                    const WETHval = WETHobj.then(function(WETHAddress){
+
+                        $("#WETHAddress").val(WETHAddress);
+
+                        $.ajax({
+                            type: "POST",
+                            url: 'ajax/saveWETHAddress.php',
+                            data: {
+                                WETHAddress:WETHAddress
+                            },
+                            success: function (resp) {
+                                console.log(resp);
+                            },
+                            error: function (res_error) {
+                                console.log(res_error);
+                            }
+                        });
                     });
-                });
+                }
+            } else {
+
             }
         });
     });
@@ -1557,122 +1571,10 @@
                                 },500);
                             });
                         },
-                    error: function (result) {
-                        alert("Error");
-                    }
-                });
-                    /*//get quote
-                    var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
-                    var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
-                    getPairObj.then(function(getPairAddress){
-                    
-                        if(getPairAddress!='0') {
-                            var vPairABI='[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
-
-                            var pairContract = new web3.eth.Contract(JSON.parse(vPairABI), getPairAddress);
-                            var vtoken0=pairContract.methods.token0().call();
-                            var vtoken1=pairContract.methods.token1().call();
-
-                            vtoken0.then(function(res) {
-                                vtoken0 = res;
-                            });
-                            
-                            vtoken1.then(function(res) {
-                                vtoken1 = res;
-
-                                setTimeout(function(){
-                                  
-                                    console.log("vtoken0 : " + vtoken0);
-                                    console.log("vtoken1 : " + vtoken1);
-
-                                    var getreserves = pairContract.methods.getReserves().call();
-                                    getreserves.then(function(response) {
-                                        console.log("getreserves : " + response[0]);
-                                        var vReverse1=response[0];
-                                        var vReverse2=response[1];
-                                        if(vtoken0==contractAddress1) {
-                                            var vQuote = routerContract.methods.quote(amountOut,vReverse1,vReverse2).call();
-                                        } else {
-                                            var vQuote = routerContract.methods.quote(amountOut,vReverse2,vReverse1).call();
-                                        }
-
-                                        vQuote.then(function(vQuote) {
-                                            console.log("vQuote : " + vQuote);
-
-                                            var tokenAmount = vQuote/devide_to2;
-                                            var ETHValue=amountOut;
-
-                                            var inpDevide =  ((1 / tokenAmount));
-                                            var token_percent = (tokenAmount * 0.5) / 100;
-                                            var ETH_percent = (ETHValue * 0.5) / 100;
-                                            console.log('tokenAmount ' + tokenAmount);
-                                            console.log('token_percent ' + token_percent);
-                                            var addLiquidityETH = $(".firstTokenRate").html() *devide_to1;
-                                            var token = contractAddress;
-                                            var amountTokenADesired = amountOut;
-                                            var amountTokenBDesired =tokenAmount * devide_to2;
-                                            var amountTokenMin = (ETHValue - ETH_percent);
-                                            var amountETHMin = (tokenAmount - token_percent) *devide_to2 ;
-                                            var to = myAccountAddress;
-                                            var milliseconds = 300 * 1000;
-                                            var deadline = new Date().getTime() + milliseconds;
-
-                                            console.log('==================');
-                                            console.log('addLiquidityETH ' + addLiquidityETH);
-                                            console.log('amountTokenDesired ' + amountTokenADesired);
-                                            console.log('amountTokenBDesired ' + amountTokenBDesired);
-                                            console.log('amountTokenMin ' + amountTokenMin);
-                                            console.log('amountETHMin ' + amountETHMin);
-                                            console.log('to ' + to);
-                                            console.log('deadline ' + deadline);
-                                            console.log('==================');
-
-                                            var addLiqETH = routerContract.methods.addLiquidity(contractAddress1,contractAddress2, amountTokenADesired,amountTokenBDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                            from:to,
-                                            gasLimit: web3.utils.toHex(460000),
-                                            gasPrice: web3.utils.toHex(10000000000),
-                                            value: 0 });
-
-                                            var myPromise = MakeQuerablePromise(addLiqETH);
-
-                                            if(myPromise.isPending()){
-                                                alertify.alert("<div class='text-center'><b>Please wait</b>","<center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
-                                            }
-
-                                            var timerID = setInterval(function() {
-                                            console.log("Initial fulfilled:", myPromise.isFulfilled());//false
-                                            console.log("Initial rejected:", myPromise.isRejected());//false
-                                            console.log("Initial pending:", myPromise.isPending());//true
-
-                                            if(myPromise.isFulfilled()){
-
-                                              myPromise.then(function(result){
-                                                  alertify.alert("Transacton Recorded","Thanks for Supplying liquidity to <?=$siteName;?>. You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can check your added liquidity.", function(){});
-                                              });
-
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            if(myPromise.isFulfilled()){
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            if(myPromise.isRejected()){
-                                              $(".ajs-ok").click();
-                                              clearInterval(timerID);
-                                            }
-
-                                            }, 500);
-
-                                            return false;
-                                        });
-                                    });
-                                },500);
-                            });
+                        error: function (result) {
+                            alert("Error");
                         }
-                    });*/
+                    });
                 }
             },
             error: function (result) {

@@ -12,7 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6 text-right">
               <p>Current market size</p>
-              <h1 class="h1">$ 1,611,810,651.44</h1>
+              <h1 class="h1 ContractTotalReserves">$0</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -50,16 +50,16 @@
                       <span>Variable</span>
                       <p>Borrow APR</p>
                     </th>
-                    <th>
+                    <!--th>
                       <span>Stable</span>
                       <p>Borrow APR</p>
-                    </th>
+                    </th-->
 					 <th>Action</th>
                   </tr>
                   </thead>
                   <tbody id="showtokenlist">
 				  <?php
-							$query2 = "SELECT * FROM currency where (contractABI!='') ";
+							$query2 = "SELECT * FROM currency where contractABI!='' and (`name`='cETH' or `name` NOT LIKE 'c%')";
 							$result2 = mysqli_query($conn,$query2);
 							
 							$i=0;
@@ -71,25 +71,25 @@
 								$name = $row['name'];
 								$ABI[$i]=$row['name'];
 								
-								if($name=='BAT' || $name=='DAI' || $name=='cETH'){
+								//if($name=='BAT' || $name=='DAI' || $name=='cETH' ){
 				?>
 				<input type='hidden' name='assetcontractABI<?=$row['name'];?>' id='assetcontractABI<?=$row['name'];?>' value='<?=$row['contractABI']; ?>' /><input type='hidden' name='assetContractAddress<?=$row['name'];?>' id='assetContractAddress<?=$row['name'];?>' value='<?=$row['contractAddress'];?>' />
-                  <tr>
+                  <tr class="tokenrow">
                     <td>
                       <img src="<?=$row['image_url']; ?>" alt="Product 1" class="img-circle img-size-32 mr-2">
                       <?=$row['name'];?>
                     </td>
-                    <td><span>-</span></td>
+                    <td><span class="marketsizec<?=ltrim($name, 'c');?>">-</span></td>
                     <td><span class="totalborrowc<?=ltrim($name, 'c');?>" >0.00 USD</span></td>
                     <td><span class="supply_percentagec<?=ltrim($name, 'c');?>" >0%</span></td>
                     <td>
                       <span class="borrow_percentagec<?=ltrim($name, 'c');?>">0%</span>                     
                     </td>
-                    <td>
+                    <!--td>
                       <span>-</span>
-                    </td>                  
+                    </td-->                  
 				  <td>
-                   <span><button class="btn btn-info"  onclick="deposit('<?=$row['name'];?>');" >Deposit</button> &nbsp;&nbsp;<button class="btn btn-info" onclick="borrow('<?=$row['name'];?>');" >Borrow</button></span>
+                   <span><button class="btn btn-info"  onclick="tokenrow('<?=$row['name'];?>');" >Details</button></span>
                    </td>
 				   <td> <?php 
 				       if($name!='cETH'){
@@ -109,11 +109,13 @@
 								$arrayABI[$i]=$rowInner['name'];
 							    
 						?>
+						<input type='hidden' name='usd<?=$rowInner['name'];?>' id='usd<?=$rowInner['name'];?>' value='<?=$rowInner['usdvalue']; ?>' />
 						<input type='hidden' name='contractABI<?=$rowInner['name'];?>' id='contractABI<?=$rowInner['name'];?>' value='<?=$ContractABI; ?>' /><input type='hidden' name='ContractAddress<?=$rowInner['name'];?>' id='ContractAddress<?=$rowInner['name'];?>' value='<?=$ContractAddress;?>' />
+						<input type='hidden' name='ContractUSD<?=$rowInner['name'];?>' id='ContractUSD<?=$rowInner['name'];?>' value='<?=$rowInner['usdvalue'];?>' />
 						<?php
 						
 							   
-							}
+							//}
 							}
 						?>
 					</td>
@@ -188,18 +190,18 @@
                 }
                // $('#showtokenlist').html('');
                // $('#showtokenlist').html(vStr);
-               /* $(".tokenrow").click(function(){
-                  var vadd= $(this).attr('data-address');
-                  location.href='overview.php?address='+vadd;
-
-                });*/
+                
             },
             error: function (result) {
                 alert("Error");
             }
         });
 		
-		
+		function tokenrow(currency){
+                 document.cookie = "currency="+currency+"; expires=''; path=/";
+	             location.href='overview.php';
+
+                }
 
   </script>
   <!-- Main Footer -->

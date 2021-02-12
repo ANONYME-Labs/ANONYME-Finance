@@ -1,3 +1,5 @@
+note: In testnet we can't see TotalReserves.. It's showing 0
+
 Supply
 ------------------------------------
 if assets ETH:-
@@ -9,6 +11,13 @@ if assets ETH:-
 else
 
 1)check condition for wallet balance not 0 or -
-2)check Max value it's 92% of your wallet
+2)check Max value it's 92% of your wallet ---- Left to do
 3)Approve your wallet address for other assets transection
 4)check supply value not high then wallet
+
+
+borrow
+--------------------------------------
+
+
+

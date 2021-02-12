@@ -179,6 +179,8 @@ $(".btn-group-toggle").twbsToggleButtons();
   window.addEventListener('load', async () => {
   $(document).ready(async function(){
 	
+	$("#Loading").addClass('show');
+	$("#Loading").show();
 	
 	 if (window.ethereum) {
         window.web3 = new Web3(ethereum);
@@ -226,14 +228,19 @@ $(".btn-group-toggle").twbsToggleButtons();
     }
     // Non-dapp browsers...
     else {
-
-        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+			
+		$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Please Wait...</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Non-Ethereum browser detected. You should consider trying MetaMask!</span>');	
+       
     }
 	
 	var userWallet=getCookie('userWallet');
   	//alert(userWallet);
 
   	if(userWallet!=""){
+		
+	   $("#Loading").removeClass('show');
+	   $("#Loading").hide();
+		
        var vWallet=userWallet.substring(0, 6) + '...' + userWallet.substring(userWallet.length - 6, userWallet.length);
        $(".btnwalletaddress").html(vWallet);
   	}
@@ -335,6 +342,9 @@ $(document).ready(async function(){
 				  gasPrice: web3.utils.toHex(1000000000) // use ethgasstation.info (mainnet only)
 			  };
 				
+				
+				
+				  
 				// main instance 
 				var myContract = new web3.eth.Contract(mainContractABI, mainContractAddress, {
 					from: myAccountAddress, // default from address
@@ -356,7 +366,7 @@ $(document).ready(async function(){
 				//liquidity
 				let {1:liquidity} = await marketcontract.methods.getAccountLiquidity(myAccountAddress).call();
                 liquidity = web3.utils.fromWei(liquidity).toString();
-				console.log('liquidity '+liquidity); 
+				console.log('Account liquidity '+liquidity); 
 				
 				
 				//balanceOfUnderlying
@@ -378,12 +388,13 @@ $(document).ready(async function(){
 				  var balance = await myContract.methods.balanceOf(myAccountAddress).call({from: myAccountAddress}) /Math.pow(10, ctokendesimal);
 				  $('.supply_blalnce').html( balance.toFixed(3)+' <?php echo $_COOKIE['currency'];?>');
 				 } 
-				 */
+				*/ 
 				 
 				// checkMembership for allowed user assets to enter compound market
 				var checkMembership = await marketcontract.methods.checkMembership(myAccountAddress,mainContractAddress).call({from: myAccountAddress});
 				console.log(checkMembership); 
-				$('#ether-basic-switch').attr('checked', checkMembership);
+				$('#ether-basic-switch').prop('checked', checkMembership);
+				$('.testcollateral').html(checkMembership);
 				
 				//allowance	
 				if(asset!="" && asset!='ETH' && asset!='cETH'){ 
@@ -427,6 +438,31 @@ $(document).ready(async function(){
 				//console.log('new'+5760 * supplyRatePerBlock / Math.pow(10, underlyingDecimals));
 				
 				
+				//market Info
+				var totB = await myContract.methods.totalBorrows().call()/1e18;
+				var totBorrUsd=totB*usd_value;
+				console.log("totBorrows "+totB+" "+asset);
+				var totR = await myContract.methods.totalReserves().call()/1e18;
+				var totResUsd=totR*usd_value;
+				
+				console.log("Market Size $"+totResUsd);
+				
+				if(totResUsd!=0)
+					var UtilizationRate=(totBorrUsd/totResUsd)*100;
+				else
+					var UtilizationRate=0;
+				
+				var totC = await myContract.methods.getCash().call()/1e18;
+				var availableLiqUSD=totC*usd_value;
+				console.log("Market Liquidity "+totC+" "+asset);
+				$("#UtilizationRate").html(UtilizationRate+'%');  
+				$("#availableLiq").html(totC.toFixed(2)+' '+asset);  
+				$("#availableLiqUSD").html('$'+availableLiqUSD.toFixed(2));  
+				$("#assetPrice").html("$ "+usd_value);  
+				$("#totResUsd").html("$ "+totResUsd);  
+				$("#totBorrUsd").html("$ "+totBorrUsd);  
+				$("#totB").html(totB);  
+				  
 				const logBalances = () => {
 				  return new Promise(async (resolve, reject) => {
 					let myWalletEthBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
@@ -483,7 +519,8 @@ $(document).ready(async function(){
 			  console.log('Fetching cETH collateral factor...');
               let { 1:collateralFactor } = await marketcontract.methods.markets(mainContractAddress).call();
               collateralFactor = (collateralFactor / 1e18) * 100; // Convert to percent
-              console.log("mainContractAddress % "+collateralFactor); // Convert to percent
+              console.log("collateralFactor % "+collateralFactor); // Convert to percent
+              $("#collateralFactor").html(collateralFactor+"%"); // Convert to percent
 			  
 			  // borrow balance  Data
 			  const borrowBalanceStored= await myContract.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
@@ -508,8 +545,10 @@ $(document).ready(async function(){
 				  
 					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your borrow balance is <span id="borrowbalanceUSD"> $0</span></h3><p class="text-center">You need to collateral first to unlock your borrowing power</span>.</p><div class="go-back text-center my-3"><div class="text-center btn btn-info"><a href="deposit.php">Collateral</a></div></div>');
 					
-					if($('#TokensToborrow').val()=="")
-					  $("#Borrowing").attr("disabled", "disabled");
+					
+				$("#Borrowing").attr("disabled", "disabled");
+				  
+				$("#BorrowDes").attr("disabled", "disabled");
 				   
 				
 			  }	 
@@ -536,16 +575,30 @@ $(document).ready(async function(){
 				// check Collateral
 				 $('#ether-basic-switch').click( async function(){
 					
+				
+				
 				if($(this).prop('checked')==true){
+						 
+				$("#Loading").addClass('show');
+	            $("#Loading").show();		 
 						 
 				var markets = await marketcontract.methods.enterMarkets(arrayMrk).send({from: myAccountAddress});
 				console.log(myAccountAddress);
-				console.log(markets);  
+				console.log(markets);
+				
+				$("#Loading").removeClass('show');
+	            $("#Loading").hide();
+				
 				 }else{
 					 
-					 var markets = await marketcontract.methods.exitMarket(mainContractAddress).send({from: myAccountAddress});
+				$("#Loading").addClass('show');
+	            $("#Loading").show();	 
+					 
+				var markets = await marketcontract.methods.exitMarket(mainContractAddress).send({from: myAccountAddress});
 				console.log(myAccountAddress);
-				console.log(markets); 
+				console.log(markets);
+				$("#Loading").removeClass('show');
+	            $("#Loading").hide();				
 				 }
 
 				 });
@@ -599,7 +652,7 @@ $(document).ready(async function(){
 			 //popup borrow Max
 				$('#max_button_addon_borrow').click( async function(){
 					
-					const borrowlimit=(liquidity*80)/100;
+					const borrowlimit=(liquidity*collateralFactor)/100;
 					 var maxborrow=borrowlimit*usd_value;
 					 var newbalance=parseFloat(maxborrow).toFixed(4);
 					 $('#TokensToborrow').val(maxborrow);
@@ -1009,7 +1062,7 @@ $('.close').click( async function(){ $('#supplyWithdraw').hide();   $('#borrowRe
  
 
 // Assets loop
-
+var ContractTotalReserves=0;
 var arrayABI=$('#arrayABI').val();
 var ABI=$('#ABI').val();
 
@@ -1026,6 +1079,7 @@ for (var i=0;i<totassets;i++){
 	
 					var contractABI=$('#contractABI'+arrayABI[i]).val();
 					var ContractAddress=$('#ContractAddress'+arrayABI[i]).val();
+					var ContractUSD=$('#ContractUSD'+arrayABI[i]).val();
 					const abi = JSON.parse(contractABI);
 					const Token= new web3.eth.Contract(abi, ContractAddress, {
 						from: myAccountAddress, // default from address
@@ -1038,7 +1092,10 @@ for (var i=0;i<totassets;i++){
 					
 					const borrowBalanceStoredBAT= await Token.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
 			        const borrowBalanceBAT=borrowBalanceStoredBAT/Math.pow(10, underlyingDecimals);
-					const borrowbalanceUSDBAT= (2 *((borrowBalanceBAT * borrowApyBAT)/100))* usd_value;
+					const borrowbalanceUSDBAT= (2 *((borrowBalanceBAT * borrowApyBAT)/100))* ContractUSD;
+					
+					const totalContractBlance=await Token.methods.getCash().call();
+					console.log("totalContractBlance/8"+totalContractBlance/1000000000000000000);
 					console.log(arrayABI[i]);
 					console.log(ABI[i]);
 					var underlyingContractAddress =$('#assetContractAddress'+ABI[i]).val();
@@ -1047,6 +1104,13 @@ for (var i=0;i<totassets;i++){
 					console.log(underlyingContractAddress);
 					console.log(erc20AbiJson);
 					
+					var TokentotR = await Token.methods.totalReserves().call()/1e18;
+					var TokentotResUsd=TokentotR*ContractUSD;
+					console.log("Market "+arrayABI[i]+" Size $"+TokentotResUsd);
+					$('.marketsize'+arrayABI[i]).html(TokentotResUsd+' USD');
+					
+					ContractTotalReserves=ContractTotalReserves+TokentotResUsd;
+					$('.ContractTotalReserves').html(ContractTotalReserves+" USD");
 					const assetabi = JSON.parse(erc20AbiJson);
 					const underlying = new web3.eth.Contract(assetabi, underlyingContractAddress);  
 					if(arrayABI[i]!="" && arrayABI[i]!='ETH' && arrayABI[i]!='cETH'){ 
@@ -1472,4 +1536,16 @@ window.ethereum.on('networkChanged', function (networkId) {
 </div>
 
 <!-- modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="Loading" tabindex="-1" aria-labelledby="LoadingLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Please Wait...</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" style="width: 20%;" alt="loading" /></span>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+
 </body></html>

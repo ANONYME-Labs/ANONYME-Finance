@@ -46,32 +46,6 @@ UPDATE `adminsetting` SET `factoryContractAddress` = '0x5c69bee701ef814a2b6a3edd
 
 ALTER TABLE `adminsetting` ADD `WETHAddress` VARCHAR(255) NULL AFTER `factoryContractABI`;
 
--- new updates 10-02-21 by Lalji
-
-CREATE TABLE `events_poolpairs` (
-  `id` int(11) NOT NULL,
-  `gasPrice` varchar(255) DEFAULT NULL,
-  `gasUsed` varchar(255) DEFAULT NULL,
-  `transactionHash` varchar(255) DEFAULT NULL,
-  `timeStamp` varchar(255) DEFAULT NULL,
-  `topic0` varchar(255) DEFAULT NULL,
-  `topic1` varchar(255) DEFAULT NULL,
-  `blockNumber` varchar(255) DEFAULT NULL,
-  `is_delete` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-ALTER TABLE `events_poolpairs` ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `events_poolpairs` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
-ALTER TABLE `events_poolpairs` ADD `pair_address` VARCHAR(255) NULL AFTER `blockNumber`, ADD `token_from` VARCHAR(255) NULL AFTER `pair_address`, ADD `token_to` VARCHAR(255) NULL AFTER `token_from`;
-
-ALTER TABLE `events_poolpairs` ADD `token_from_address` VARCHAR(255) NULL AFTER `token_to`, ADD `token_to_address` VARCHAR(255) NULL AFTER `token_from_address`;
-
-ALTER TABLE `getpairdata` ADD `user_wallet` VARCHAR(255) NULL AFTER `to_token_address`;
-
-ALTER TABLE `events_poolpairs` ADD `user_wallet` VARCHAR(255) NULL AFTER `id`;
-
 
 --12-2-2021 by jinal
 

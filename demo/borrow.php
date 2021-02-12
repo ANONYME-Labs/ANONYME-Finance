@@ -107,24 +107,24 @@
               </div>
               <div class="card-footer p-0">
                 <ul class="nav flex-column">
-                  <!--li class="nav-item">
+                  <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Utilization rate <span class="float-right badge">73.81%</span>
+                      Utilization rate <span class="float-right badge" id="UtilizationRate" >73.81%</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Available liquidity <span class="float-right badge">10,031,194.99094 DAI</span>
+                      Available liquidity <span class="float-right badge" id="availableLiq" >0</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Asset price <span class="float-right badge">$ 1</span>
+                      Asset price <span class="float-right badge" id="assetPrice" >0</span>
                     </a>
-                  </li-->
+                  </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Borrow APY <span class="borrow_percentage float-right badge text-danger">5.56%</span>
+                      Borrow APR <span class="borrow_percentage float-right badge text-danger">0%</span>
                     </a>
                   </li>
 				  <!--li class="nav-item">
@@ -139,15 +139,15 @@
                   </li> 
 				  <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Borrow Limit Used <span class="float-right badge borrow_limit_used">0 %</span>
-                    </a>
-                  </li>
-                  <!--li class="nav-item">
-                    <a href="#" class="nav-link">
-                      Maximum LTV <span class="float-right badge">75%</span>
+                      Borrow Limit Used <span class="float-right badge borrow_limit_used">0%</span>
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Maximum LTV <span class="float-right badge" id="collateralFactor" >0%</span>
+                    </a>
+                  </li>
+                  <!--li class="nav-item">
                     <a href="#" class="nav-link">
                       Liquidation threshold <span class="float-right badge">80%</span>
                     </a>
@@ -156,12 +156,12 @@
                     <a href="#" class="nav-link">
                      Liquidation threshold <span class="float-right badge">5%</span>
                     </a>
-                  </li>
+                  </li-->
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                     Historical rates <span class="float-right badge ">APY</span>
+                     Historical rates <span class="float-right badge ">APR</span>
                     </a>
-                  </li-->
+                  </li>
                 </ul>
               </div>
 

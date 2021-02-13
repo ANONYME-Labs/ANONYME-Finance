@@ -26,13 +26,14 @@ include '../connection.php';
   $totalRecords = mysqli_num_rows($result);
   
   if($search != ''){
-    $selQuery .= " AND (transactionHash LIKE '%".$search."%' ";
-    $selQuery .= " OR gasPrice LIKE '%".$search."%' ";
-    $selQuery .= " OR gasUsed LIKE '%".$search."%' ";
-    $selQuery .= " OR transactionHash LIKE '%".$search."%' ";
-    $selQuery .= " OR timeStamp LIKE '%".strtotime($search)."%' ";
-    $selQuery .= " OR topic0 LIKE '%".$search."%' ";
-    $selQuery .= " OR topic1 LIKE '%".$search."%') ";
+    $selQuery .= " AND (`transactionHash` LIKE '%".$search."%' ";
+    $selQuery .= " OR `gasPrice` LIKE '%".$search."%' ";
+    $selQuery .= " OR `gasUsed` LIKE '%".$search."%' ";
+    if(strtotime($search) != ''){
+      $selQuery .= " OR `timeStamp` LIKE '%".strtotime($search)."%' ";
+    }
+    $selQuery .= " OR `topic0` LIKE '%".$search."%' ";
+    $selQuery .= " OR `topic1` LIKE '%".$search."%') ";
   }
 
   $order_by = " ORDER BY timeStamp ";

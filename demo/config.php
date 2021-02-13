@@ -8,7 +8,7 @@ $result = mysqli_query($conn,$query);
 $row = mysqli_fetch_array($result);
 
 if($row != NULL){
-
+	
     $comptrollerAddress = $row['comptrollerAddress'];
     $marketAddress = $row['marketAddress'];
     $priceAddress = $row['priceAddress'];
@@ -28,10 +28,10 @@ if($row != NULL){
     }
 
     $priceABI = $row['priceABI'];
-    if($priceABI == ''){
+   	if($priceABI == ''){
         $priceABI = "''";
     }
-
+   
     $gasPriceAverage = $row['gasPriceAverage'];
     $gasPriceFast = $row['gasPriceFast'];
     $siteName=$row['siteName'];
@@ -46,6 +46,7 @@ if($row != NULL){
     $infuraAPITestnet  = $row['infuraAPITestnet'];
     $network=$row['network'];
 	$usdvalue = $row['usdvalue'];
+
 	$routerContractAddress = $row['routerContractAddress'];
 	$routerContractABI = $row['routerContractABI'];
     if($routerContractABI == ''){
@@ -58,6 +59,7 @@ if($row != NULL){
         $factoryContractABI = "''";
     }
     $WETHAddress = $row['WETHAddress'];
+
 }
 
 // 0 = rinkeby testnet and 1 = mainnet
@@ -66,56 +68,56 @@ if($network==0){
     $mainContractAddress1 = $row['testnetContractAddress'];
 
     $etherscanAddress = $row['etherscanAddressTestnet'];
-
+   
     $etherscanTx  = $row['etherscanTxTestnet'];
-
+    
     $infuraAPI  = $row['infuraAPITestnet'];
 
     $etherscanAPIurl = $row['etherscanAPIurlTestnet'];
-
-
-
-
+    
+   
+   
+    
 }else {
-
+        
     $mainContractAddress1 = $row['mainContractAddress'];
 
     $etherscanAddress = $row['etherscanAddressMain'];
-
+    
     $etherscanTx  = $row['etherscanTxMain'];
-
+    
     $infuraAPI  = $row['infuraAPIMainnet'];
 
    $etherscanAPIurl = $row['etherscanAPIurlMainnet'];
-
-
+    
+    
 }
 
 if(isset($_COOKIE['currency'])){
 	if($_COOKIE['currency']!='ETH' AND $_COOKIE['currency']!='cETH'){
-          $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";
-	}else{
+       	$query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";
+	}else{	
 		  $query2 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'";
 	}
     $result2 = mysqli_query($conn,$query2);
     $row = mysqli_fetch_array($result2);
     if($row != NULL){
-
+    	
     	 $currency_full_name = $row['full_name'];
     	 $mainContractAddress = $row['contractAddress'];
     	 $mainContractABI = $row['contractABI'];
     	 $usd_value  = $row['usdvalue'];
-
-
-
+    	
+		 
+		 
 		 if($_COOKIE['currency']!='ETH' and $_COOKIE['currency']!='cETH'){
 		 $query3 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'";
-
+		 
 							$result3 = mysqli_query($conn,$query3);
-
+							
 							if($result3){
 								while($row = mysqli_fetch_array($result3)){
-
+									
 									$assetsContractAddress=$row['contractAddress'];
 									$assetsContractABI=$row['contractABI'];
 									$underlaying_desimal = $row['desimals'];
@@ -134,7 +136,7 @@ if(isset($_COOKIE['currency'])){
 								$currency_full_name = 'Ether';
 		}
     }else {
-
+		 
 		 $mainContractAddress = $mainContractAddress1;
     	 $mainContractABI = $mainContractABI1;
 		 $assetsContractAddress='null';
@@ -143,8 +145,8 @@ if(isset($_COOKIE['currency'])){
 		 $currency_full_name = 'Ether';
 	}
 }else{
-
-
+	
+		 
     	 $mainContractAddress = $mainContractAddress1;
     	 $mainContractABI = $mainContractABI1;
 		 $assetsContractAddress='null';
@@ -153,3 +155,6 @@ if(isset($_COOKIE['currency'])){
 		 $underlaying_desimal =18;
 		 $currency_full_name = 'Ether';
 }
+
+
+

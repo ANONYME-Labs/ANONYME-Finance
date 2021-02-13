@@ -19,3 +19,34 @@ table.dataTable tbody tr{ background-color: inherit; }
 #rmlqbothtokenImgs { max-width: 20px; }
 #rmLqOutput1 { border-radius: 20px;width: 100%; }
 #rmLqOutput2 { border-radius: 20px;width: 100%; }
+
+.selectCImage{
+    max-width: 25px;
+    margin-right: 5px;
+}
+
+.select2.select2-container{ width: 100% !important; }
+.select2-container--default .select2-selection--single{
+    height: 40px;
+}
+
+.alertify .ajs-dialog{
+        background-color: #2b2d3c;
+}
+
+.alertify .ajs-header, .alertify .ajs-footer{
+    background-color: #000;
+}
+.hover-select-token .dropdown-toggle{
+    width: 100% !important;
+    max-width: 150px;
+    /*overflow: hidden;*/
+}
+.ddChild.ddchild_.border.shadow {
+    width: 100%;
+}
+
+#remove_liquidity_pop .dropdown-toggle{
+    width: auto !important;
+    min-width: 60%;
+}

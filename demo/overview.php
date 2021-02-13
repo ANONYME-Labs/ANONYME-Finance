@@ -19,27 +19,27 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-            <!-- /.card -->
+          <!--<div class="col-lg-4 col-md-4 col-sm-12 col-12">
+            <!-- /.card >
             <div class="card p-3">
               <canvas id="visitors-chart" height="200"></canvas>
             </div>
-            <!-- /.card -->
+            <!-- /.card >
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-            <!-- /.card -->
+            <!-- /.card >
             <div class="card p-3">
               <canvas id="visitors-chart1" height="200"></canvas>
             </div>
-            <!-- /.card -->
+            <!-- /.card >
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-            <!-- /.card -->
+            <!-- /.card >
             <div class="card p-3">
               <canvas id="visitors-chart2" height="200"></canvas>
             </div>
-            <!-- /.card -->
-          </div>
+            <!-- /.card >
+          </div-->
         </div>
         <!-- /.row -->
         <div class="row">
@@ -52,15 +52,15 @@
                     <span style="">
                       Reserve size
                     </span>
-                    <span style="float: right;margin-left: 20px; font-weight: 800;">
-                      $ 38,621,415.74
+                    <span style="float: right;margin-left: 20px; font-weight: 800;" id="totResUsd" >
+                      -
                     </span>
                   </div>
                 </div>
               </div>
               <div class="row justify-content-center">
                 <div class="col-md-4 col-sm-12 text-center">
-                  <h5>61.53%</h5>
+                  <h5 id="UtilizationRate" >-</h5>
                   <p>
                     Utilisation rate
                   </p>
@@ -69,20 +69,20 @@
               <div class="row mb-3">
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12 text-center">
                   <p class="mb-0" style="font-size: 16px;">Available Liquidity</p>
-                  <h3 style="font-weight: 800;">14,44,55,6666</h3>
-                  <p class="mb-0">$ 14,876,290.01</p>
+                  <h3 style="font-weight: 800;" id="availableLiq" >-</h3>
+                  <p class="mb-0" id="availableLiqUSD">-</p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                   <canvas id="pieChart" height="147" width="296" class="chartjs-render-monitor" style="display: block; height: 118px; width: 237px;"></canvas>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12 text-center">
-                  <p class="mb-0" style="font-size: 16px;">Available Liquidity</p>
-                  <h3 style="font-weight: 800;">14,44,55,6666</h3>
-                  <p class="mb-0">$ 14,876,290.01</p>
+                  <p class="mb-0" style="font-size: 16px;">Total Borrowed</p>
+                  <h3 style="font-weight: 800;" id="totB" >-</h3>
+                  <p class="mb-0" id="totBorrUsd" >-</p>
                 </div>
               </div>
               <div class="row justify-content-center mb-3">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="card card-widget widget-user-2 shadow-sm">
                       <!-- Add the bg color to the header using any of the bg-* classes -->
                       <div class="widget-user-header bg-danger pt-2 pb-0">
@@ -92,7 +92,7 @@
                         <ul class="nav flex-column">
                           <li class="nav-item">
                             <a href="#" class="nav-link">
-                              Deposit APY <span class="float-right badge bg-primary">4.11%</span>
+                              Deposit APY <span class="supply_percentage float-right badge bg-primary">-</span>
                             </a>
                           </li>
                           <li class="nav-item">
@@ -104,9 +104,9 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <!--div class="col-md-3">
                   <div class="card card-widget widget-user-2 shadow-sm">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
+                      <!-- Add the bg color to the header using any of the bg-* classes >
                       <div class="widget-user-header bg-success pt-2 pb-0">
                         <h5 class="text-center" style="font-size: 16px; color: white;">Stable borrowing</h5>
                       </div>
@@ -125,8 +125,8 @@
                         </ul>
                       </div>
                     </div>
-                </div>
-                <div class="col-md-3">
+                </div-->
+                <div class="col-md-4">
                   <div class="card card-widget widget-user-2 shadow-sm">
                       <!-- Add the bg color to the header using any of the bg-* classes -->
                       <div class="widget-user-header bg-info pt-2 pb-0">
@@ -136,7 +136,7 @@
                         <ul class="nav flex-column">
                           <li class="nav-item">
                             <a href="#" class="nav-link">
-                              Borrow APR <span class="float-right badge bg-primary">6.22%</span>
+                              Borrow APR <span class="borrow_percentage float-right badge bg-primary">-</span>
                             </a>
                           </li>
                           <li class="nav-item">
@@ -146,7 +146,7 @@
                           </li>
                           <li class="nav-item">
                             <a href="#" class="nav-link">
-                              % over total <span class="float-right badge bg-success">12%</span>
+                              % over total <span class="float-right badge bg-success">-</span>
                             </a>
                           </li>
                         </ul>
@@ -157,30 +157,30 @@
               <div class="row">
                   <div class="col-sm-3 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">3,200</h5>
-                      <span class="description-text">Maximum LTV</span>
+                      <h5 class="description-header" id="collateralFactor" >-</h5>
+                      <span class="description-text"   >Maximum LTV</span>
                     </div>
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
-                  <div class="col-sm-3 border-right">
+                  <!--div class="col-sm-3 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">13,000</h5>
+                      <h5 class="description-header">-</h5>
                       <span class="description-text">Liquidation threshold</span>
                     </div>
-                    <!-- /.description-block -->
+                    <!-- /.description-block >
                   </div>
                   <div class="col-sm-3 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">13,000</h5>
+                      <h5 class="description-header">-</h5>
                       <span class="description-text">Liquidation penalty</span>
                     </div>
-                    <!-- /.description-block -->
-                  </div>
+                    <!-- /.description-block >
+                  </div-->
                   <!-- /.col -->
                   <div class="col-sm-3">
                     <div class="description-block">
-                      <h5 class="description-header">35</h5>
+                      <h5 class="description-header testcollateral">-</h5>
                       <span class="description-text">Used as collateral</span>
                     </div>
                     <!-- /.description-block -->
@@ -202,7 +202,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Borrowed <span class="float-right badge">10,031,194.99094 DAI</span>
+                      Borrowed <span class="float-right badge" id="totborrow" >-</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -212,12 +212,12 @@
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Loan to value<span class="float-right badge text-danger">0%</span>
+                      Loan to value<span class="float-right badge text-danger borrow_limit_used">0%</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Available to you <span class="float-right badge">0000</span>
+                      Available to you <span class="float-right badge borrow_limit">-</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -225,18 +225,18 @@
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Your wallet balance <span class="float-right badge">0000</span>
+                      Your wallet balance <span class="float-right badge walletbalance">-</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                     You already deposited<span class="float-right badge">0000</span>
+                     You already deposited<span class="float-right badge supply_blalnce">-</span>
                     </a>
                   </li>
                 </ul>
                 <div class="text-center py-3">
-                  <button type="button" class="btn btn-primary btn-sm ml-2">Deposit</button>
-                  <button type="button" class="btn btn-default btn-sm ml-2">Borrow</button>
+                  <button type="button" class="btn btn-primary btn-sm ml-2" onclick="deposit('<?=$_COOKIE['currency'];?>');" >Deposit</button>
+                  <button type="button" class="btn btn-default btn-sm ml-2" onclick="borrow('<?=$_COOKIE['currency'];?>');" id="BorrowDes" >Borrow</button>
                   <button type="button" class="btn btn-outline-secondary btn-sm ml-2">Withdraw</button>
                   <button type="button" class="btn btn-outline-secondary btn-sm">Repay</button>
                 </div>

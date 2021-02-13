@@ -1,97 +1,108 @@
 var oTable="";
 $(document).ready(function () {
 
-    setTimeout(function(){
-        var user_wallet = $("#login_user_wallet").val();
-        console.log("user_wallet " + user_wallet);
+    window.web3 = new Web3(ethereum);
+    web3.eth.getAccounts(async function (error, result) {
 
-        oTable = $('#tbl_pool_events').dataTable({
-            //"dom": '<"top">rt<"bottom"flpi><"clear">', // Place pagination and Record filter to bottom
-            "bStateSave": true, //
-            "processing": true,
-            "bPaginate": true,
-            "serverSide": true,
-            "bProcessing": true,
-            "iDisplayLength": 10,
-            "bServerSide": true,
-            "sAjaxSource": "ajax/getAjaxPoolEvents.php",
-            'bPaginate': true,
-            "fnServerParams": function (aoData) {
+        if(result.length > 0){
+            
+            myAccountAddress = result[0];
 
-                var acolumns = this.fnSettings().aoColumns,
-                    columns = [];
+            var user_wallet = $("#login_user_wallet").val();
+            if(user_wallet == ""){
+                user_wallet = myAccountAddress;
+            }
+            console.log("user_wallet " + user_wallet);
 
-                $.each(acolumns, function (i, item) {
-                    columns.push(item.data);
-                });
+            oTable = $('#tbl_pool_events').dataTable({
+                //"dom": '<"top">rt<"bottom"flpi><"clear">', // Place pagination and Record filter to bottom
+                "bStateSave": true, //
+                "processing": true,
+                "bPaginate": true,
+                "serverSide": true,
+                "bProcessing": true,
+                "iDisplayLength": 10,
+                "bServerSide": true,
+                "sAjaxSource": "ajax/getAjaxPoolEvents.php",
+                'bPaginate': true,
+                "fnServerParams": function (aoData) {
 
-                aoData.push({name: 'columns', value: columns});
+                    var acolumns = this.fnSettings().aoColumns,
+                        columns = [];
 
-                aoData.push( { "name": "user_wallet", "value": user_wallet } );
+                    $.each(acolumns, function (i, item) {
+                        columns.push(item.data);
+                    });
 
-            },
+                    aoData.push({name: 'columns', value: columns});
 
-            "columns": [
-                {"data": "gasPrice"},
-                {"data": "gasUsed"},
-                {"data": "transactionHash"},
-                {"data": "timeStamp"},
-            ],
+                    aoData.push( { "name": "user_wallet", "value": user_wallet } );
 
-            "order": [[3, "desc"]],
-            "lengthpool_events": [
-                [5,10, 25, 50, 100],
-                [5,10, 25, 50, 100]
-            ],
-        
+                },
 
-            'fnServerData': function (sSource, aoData, fnCallback) {
-                $.ajax
-                ({
-                    'dataType': 'json',
-                    'type': 'POST',
-                    'url': sSource,
-                    'data': aoData,
-                    'success': fnCallback
-                });
-            },
+                "columns": [
+                    {"data": "gasPrice"},
+                    {"data": "gasUsed"},
+                    {"data": "transactionHash"},
+                    {"data": "timeStamp"},
+                ],
 
-            "fnDrawCallback": function () {
-                $(window).trigger('resize');
-            },
+                "order": [[3, "desc"]],
+                "lengthpool_events": [
+                    [5,10, 25, 50, 100],
+                    [5,10, 25, 50, 100]
+                ],
+            
 
-            "columnDefs": [
-                {
-                   "render": function (data, type, row) {
-                        var st='<button onClick="removeLiquidity('+row.id+')"  type="button" class=" btn btn-xs btn-danger">Remove</button>';
-                        
-                        return [st].join('');
-                    },
-                    "targets": $('#tbl_pool_events th#action').index(),
-                    /*"orderable": false,
-                    "searchable": false */                 
-                }
-            ]
-        });
-        
-        // ON CHANGE SEARCH FIELD REBUIT DATATABLE
-        $('#search').on('click',function(evt){
-            evt.preventDefault();
-            oTable.fnDraw();
-           
-        });
+                'fnServerData': function (sSource, aoData, fnCallback) {
+                    $.ajax
+                    ({
+                        'dataType': 'json',
+                        'type': 'POST',
+                        'url': sSource,
+                        'data': aoData,
+                        'success': fnCallback
+                    });
+                },
 
-        // ADDING CSS TO WIDGET DIV
-        $('select[name=tbl_pool_events_length]').addClass('form-control');
-        $('.dataTables_paginate').addClass('pagination pagination-md justify-content-center');
-        $('.dataTables_paginate a').addClass('page-link');
-        $('.paginate_button a').addClass('page-link');
-        $('#widgent_content_teacher').css('padding-bottom','30px');
-        $('#widgent_content_teacher').css('padding-top','none');
-        //$('#tbl_pool_events_filter').css('display','none');
-        $('#tbl_pool_events_filter input').addClass("form-control");
-    }, 300);
+                "fnDrawCallback": function () {
+                    $(window).trigger('resize');
+                },
 
+                "columnDefs": [
+                    {
+                       "render": function (data, type, row) {
+                            var st='<button onClick="removeLiquidity('+row.id+')"  type="button" class=" btn btn-xs btn-danger">Remove</button>';
+                            
+                            return [st].join('');
+                        },
+                        "targets": $('#tbl_pool_events th#action').index(),
+                        /*"orderable": false,
+                        "searchable": false */                 
+                    }
+                ]
+            });
+            
+            // ON CHANGE SEARCH FIELD REBUIT DATATABLE
+            $('#search').on('click',function(evt){
+                evt.preventDefault();
+                oTable.fnDraw();
+               
+            });
+
+            // ADDING CSS TO WIDGET DIV
+            $('select[name=tbl_pool_events_length]').addClass('form-control');
+            $('.dataTables_paginate').addClass('pagination pagination-md justify-content-center');
+            $('.dataTables_paginate a').addClass('page-link');
+            $('.paginate_button a').addClass('page-link');
+            $('#widgent_content_teacher').css('padding-bottom','30px');
+            $('#widgent_content_teacher').css('padding-top','none');
+            //$('#tbl_pool_events_filter').css('display','none');
+            $('#tbl_pool_events_filter input').addClass("form-control");
+
+        }
+
+    });
 });
 
     

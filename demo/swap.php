@@ -260,12 +260,10 @@ $(document).ready(function(){
 	$("#drpFromToken").change(function(){
 		var vFromVal = $('#drpFromToken option:selected').text();
 		var vToVal = $('#drpToToken option:selected').text();
-
-
 		if( vFromVal== vToVal)
 		{
 			alert("Both tokens can not be same");
-      $('#txtWalletFromBalance').text('0.00');
+      		$('#txtWalletFromBalance').text('0.00');
 			$("#drpFromToken").val('');
 			return false;
 		}
@@ -274,16 +272,6 @@ $(document).ready(function(){
 			CheckBalanceInWallet('from');
 			changeFromToken("from_change");
 		}
-		// if($('#drpFromToken option:selected').text() == "ETH")
-		// {
-		// 	alert(" Etherum selected ");
-		// }
-		// else
-		// {
-		// 	alert(" Etherum NOT selected ");
-		// }
-      //$("select option[value*='"+vFromVal+"']").prop('disabled',true);
-
   	});
 
   	$("#drpToToken").change(function(){
@@ -320,11 +308,7 @@ $(document).ready(function(){
     		vCurrencyType=$('#drpToToken option:selected').text();
     	}
  
-    	if($('#drpFromToken option:selected').val()=="" || $('#drpToToken option:selected').val()=="")
-    	{
-    		$("#btnAmount").prop('disabled', true);
-    		return false;
-    	}
+    	
 
   		 window.web3 = new Web3(ethereum);
   		 web3.eth.getAccounts(async function(error, result) {
@@ -337,6 +321,12 @@ $(document).ready(function(){
 					var vContractAddress ='';
 					var vContractABI ='';
 					var vContract='';
+
+					if($('#drpFromToken option:selected').val()=="")
+			    	{
+			    		$("#btnAmount").prop('disabled', true);
+			    		return false;
+			    	}
 
 					if($('#txt_mc_'+vCurrencyType).val()!=undefined)
 					{
@@ -558,7 +548,7 @@ $(document).ready(function(){
                         if(myPromise.isFulfilled()){
 
                             myPromise.then(function(result){
-                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
                             });
 
                             $(".ajs-ok").click();
@@ -638,7 +628,6 @@ $(document).ready(function(){
                         gasPrice: web3.utils.toHex(1000000000),
                         value: vToTokenVal
                       }).on("transactionHash", function (hash) {
-                           //$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
                            console.log("transactionHash : " + hash);
                       }).on("receipt", function () {
                           console.log("Receipt");
@@ -660,7 +649,7 @@ $(document).ready(function(){
                         if(myPromise.isFulfilled()){
 
                             myPromise.then(function(result){
-                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
                             });
                             $(".ajs-ok").click();
                             clearInterval(timerID);
@@ -746,29 +735,9 @@ $(document).ready(function(){
  			
 			        // if token0 = fromaddress then call SWAP EXACT TOKENS FOR TOKENS function
 			         setTimeout(function(){
-			        if(vtoken0 == contractAddress1)
-			        {
+			        	var  tx;
+			        	var amountout=0;
 			        	var txtboxinputvalue=0;
-
-			        	if(vFromTokenKeyPress==true && vToTokenKeyPress==false)
-			        	{
-			        		vFromTokenVal = vFromTokenVal* 1e18;
-			        		vFromTokenVal = vFromTokenVal.toLocaleString('fullwide', {useGrouping:false});
-	                      	var amountout=vToTokenVal*devide_to2;
-	                      	amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
-
-	                      	txtboxinputvalue=vFromTokenVal;
-			        	}
-			        	else if(vFromTokenKeyPress==false && vToTokenKeyPress==true)
-			        	{
-			        		vToTokenVal = vToTokenVal* 1e18;
-                      		vToTokenVal = vToTokenVal.toLocaleString('fullwide', {useGrouping:false});
-                      		var amountout=vFromTokenVal*devide_to1;
-                      		amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
-
-                      		txtboxinputvalue=vToTokenVal;
-			        	}
-			        		
 	                      var path = [];
 	                      if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
 				        	{
@@ -776,6 +745,7 @@ $(document).ready(function(){
 				        	}
 				        	else
 				        	{
+				        		console.log( " else path ");
 				        		path = [contractAddress1, contractAddress2];
 				        	}
 	                     
@@ -797,16 +767,23 @@ $(document).ready(function(){
 
 
 	                      */
-	                      console.log(" in token0 = "+ vtoken0);
-	                      console.log("keypress from = " + vFromTokenKeyPress);
-	                      console.log("keypress to = " + vToTokenKeyPress);
-	                      const tx = routerContract.methods.swapExactTokensForTokens(txtboxinputvalue,amountout,path,addressFrom,deadline).send({
+	                      
+	                    if(vFromTokenKeyPress==true && vToTokenKeyPress==false)
+			        	{
+			        		console.log(" iffffff if ififf ");
+			        		vFromTokenVal = vFromTokenVal* 1e18;
+			        		vFromTokenVal = vFromTokenVal.toLocaleString('fullwide', {useGrouping:false});
+	                      	 amountout=vToTokenVal*devide_to1;
+	                      	amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
+
+	                      	txtboxinputvalue=vFromTokenVal;
+
+	                      	tx = routerContract.methods.swapExactTokensForTokens(txtboxinputvalue,amountout,path,addressFrom,deadline).send({
 	                        from:addressFrom,
-	                        gasLimit: web3.utils.toHex(260000),
+	                        gasLimit: web3.utils.toHex(760000),
 	                        gasPrice: web3.utils.toHex(1000000000),
 	                        value: 0
 	                      }).on("transactionHash", function (hash) {
-	                           //$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
 	                           console.log("transactionHash : " + hash);
 	                      }).on("receipt", function () {
 	                          console.log("Receipt");
@@ -817,6 +794,41 @@ $(document).ready(function(){
 	                      .on("error", async function () {
 	                          console.log("Error");
 	                      });
+
+			        	}
+			        	else if(vFromTokenKeyPress==false && vToTokenKeyPress==true)
+			        	{
+			        		console.log(" else iffffff  else if else ififf ");
+			        		vToTokenVal = vToTokenVal* 1e18;
+                      		vToTokenVal = vToTokenVal.toLocaleString('fullwide', {useGrouping:false});
+                      		amountout=vFromTokenVal*devide_to1;
+                      		amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
+
+                      		txtboxinputvalue=vToTokenVal;
+
+                      		tx = routerContract.methods.swapTokensForExactTokens(txtboxinputvalue,amountout,path,addressFrom,deadline).send({
+		                        from:addressFrom,
+		                        gasLimit: web3.utils.toHex(760000),
+		                        gasPrice: web3.utils.toHex(1000000000),
+		                        value: 0
+		                      }).on("transactionHash", function (hash) {
+		                           console.log("transactionHash : " + hash);
+		                      }).on("receipt", function () {
+		                          console.log("Receipt");
+		                      })
+		                      .on("confirmation", function () {
+		                          console.log("Confirmed");
+		                      })
+		                      .on("error", async function () {
+		                          console.log("Error");
+		                      });
+			        	}
+			        	console.log(" in token0 = "+ vtoken0);
+	                      console.log("keypress from = " + vFromTokenKeyPress);
+	                      console.log("keypress to = " + vToTokenKeyPress);
+
+	                      console.log(" txtboxinputvalue = " + txtboxinputvalue);
+	                      console.log(" amount out  = " + amountout);
 
 	                           // [========= Please wait popup ===========]
                          var myPromise = MakeQuerablePromise(tx);
@@ -829,7 +841,7 @@ $(document).ready(function(){
                         if(myPromise.isFulfilled()){
 
                             myPromise.then(function(result){
-                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
                             });
 
                             $(".ajs-ok").click();
@@ -852,116 +864,6 @@ $(document).ready(function(){
                             clearInterval(timerID);
                         }
                     }, 500);
-
-			        }
-			        // if token1=fromaddress then call SWAP TOKENS FOR EXACT TOKENS function
-			        if(vtoken1 == contractAddress1)
-			        {
-			        	var txtboxinputvalue=0;
-			        	if(vFromTokenKeyPress==true && vToTokenKeyPress==false)
-			        	{
-			        		vFromTokenVal = vFromTokenVal* 1e18;
-			        		vFromTokenVal = vFromTokenVal.toLocaleString('fullwide', {useGrouping:false});
-	                      	var amountout=vToTokenVal*devide_to2;
-	                      	amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
-
-	                      	console.log(" from token vslue = "+vFromTokenVal);
-	                      	console.log(" TO token vslue = "+vToTokenVal);
-	                      	console.log(" amountout = "+amountout);
-	                      	console.log(" devide_to = "+devide_to1);
-
-	                      	txtboxinputvalue=vFromTokenVal;
-			        	}
-			        	else if(vFromTokenKeyPress==false && vToTokenKeyPress==true)
-			        	{
-			        		vToTokenVal = vToTokenVal* 1e18;
-                      		vToTokenVal = vToTokenVal.toLocaleString('fullwide', {useGrouping:false});
-                      		var amountout=vFromTokenVal*devide_to1;
-                      		amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
-                      		txtboxinputvalue = vToTokenVal
-			        	}
-			        	/*
-
-			        	function swapTokensForExactTokens(
-						  uint amountOut,
-						  uint amountInMax,
-						  address[] calldata path,
-						  address to,
-						  uint deadline
-						) external returns (uint[] memory amounts);
-
-						for swapTokensForExactTokens :
-						amountOut =  textbox input value
-						amountInMax= estimated value
-	
-						*/
-                      var path = [];
-	                    if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
-			        	{
-			            	path= [contractAddress1,WETHContract, contractAddress2];
-			        	}
-			        	else
-			        	{
-			        		path = [contractAddress1, contractAddress2];
-			        	}
-                      var milliseconds = 300 * 1000;
-                      var deadline = new Date().getTime() + milliseconds;
-                      var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
-                      const tx = routerContract.methods.swapTokensForExactTokens(txtboxinputvalue,amountout,path,addressFrom,deadline).send({
-                        from:addressFrom,
-                        gasLimit: web3.utils.toHex(260000),
-                        gasPrice: web3.utils.toHex(1000000000),
-                        value: 0
-                      }).on("transactionHash", function (hash) {
-                           //$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
-                           console.log("transactionHash : " + hash);
-                      }).on("receipt", function () {
-                          console.log("Receipt");
-                      })
-                      .on("confirmation", function () {
-                          console.log("Confirmed");
-                      })
-                      .on("error", async function () {
-                          console.log("Error");
-                      });
-
-                           // [========= Please wait popup ===========]
-                         var myPromise = MakeQuerablePromise(tx);
-
-                         if(myPromise.isPending()){
-                            alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
-                        }
-                        var timerID = setInterval(function() {
-                        if(myPromise.isFulfilled()){
-
-                            myPromise.then(function(result){
-                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
-                            });
-
-                            $(".ajs-ok").click();
-                            clearInterval(timerID);
-                        }
-                        if(myPromise.isFulfilled()){
-                            //resetAllFields();
-                            //loadSelectOptions();
-                            $(".ajs-ok").click();
-                            clearInterval(timerID);
-                        }
-                        if(myPromise.isRejected()){
-
-                            myPromise.then(response => {
-                            }).catch(error => {
-                                alertify.alert("Warning", error.message, function(){});
-                            });
-                            $(".ajs-ok").click();
-                            clearInterval(timerID);
-                        }
-                    }, 500);
-
-                      console.log(" in token1 = "+vtoken1);
-	                      console.log("keypress from = " + vFromTokenKeyPress);
-	                      console.log("keypress to = " + vToTokenKeyPress);
-			        }
 				}, 1500);
 
                 });
@@ -1474,8 +1376,8 @@ $(document).ready(function(){
                                       //$("#txtToToken").focus();
                                       }
 
-                                      $(".firstTokenRate").html(parseFloat(forFirst/$("#txtFromToken").val()));
-                                      $(".secondTokenRate").html(parseFloat(forSecond));
+                                      $(".secondTokenRate").html(parseFloat(forFirst/$("#txtFromToken").val()));
+                                      $(".firstTokenRate").html(parseFloat(forSecond));
                                       $(".startTwoTokens #first1").html(spndrpFromToken);
                                       $(".startTwoTokens #first2").html(spndrpToToken);
                                       $(".endTwoTokens #second1").html(spndrpToToken);

@@ -47,14 +47,13 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                         <div class="col-lg-6">
                             <h3>Your liquidity</h3>
                         </div>
-                        <div class="col-lg-6">
-                            <a href="javascript:;" class="btn btn-outline-info" role="button" aria-pressed="true" data-toggle="modal" data-target="#coin_option2">Create a pair</a>
-                            <a href="javascript:;" class="btn btn-info" role="button" aria-pressed="true">Add Liquidity</a>
+                        <div class="col-lg-6 text-right">
+                            <a href="javascript:;" class="btn btn-info" role="button" aria-pressed="true" data-toggle="modal" data-target="#coin_option2">Add Liquidity</a>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12 text-center">
-                            <p>Connect to a wallet to view your liquidity.</p>
+                            <p id="wallet_connected">Connect to a wallet to view your liquidity.</p>
                         </div>
                     </div>
                     <div class="row">
@@ -125,6 +124,7 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
 
             if(result.length > 0){
 
+                $("#wallet_connected").hide();
                 myAccountAddress = result[0];
 
                 if($("#login_user_wallet").val() == ''){
@@ -570,6 +570,7 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
 
             var totalLiquidity = (reserve0 + reserve1 + numOfToken);
             var share = ((numOfToken * 100) / totalLiquidity).toFixed(2);
+            console.log(share);
 
             $(".firstTokenRate").html((token0Price));
             $(".secondTokenRate").html((token1Price));
@@ -683,7 +684,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
             var total_token= ((parseFloat(txtPoolFromToken)+parseFloat(txtPoolToToken)).toFixed(2));
             if(!isNaN(total_token)){
             
-                console.log(total_token);
                 var total_pool_amount = token_reserv0 + token_reserv1 + parseFloat(total_token);
                 var share_of_pool = ((total_token * 100) / total_pool_amount).toFixed(2);
 
@@ -775,9 +775,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
 
         $("#approve1").hide();
         $("#approve2").hide();
-
-        /*console.log("rrrrr : " + web3.utils.toHex(0.00005*1e18) );
-        console.log("1111 : " + web3.utils.fromWei(web3.utils.toHex(5*10**16) ));*/
 
         var spnPoolFromToken = poolFromToken = $('#poolFromToken option:selected').val();
         var spnPoolToToken = poolToToken = $('#poolToToken option:selected').val();
@@ -991,13 +988,11 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                             dataType: "json",
                             success: function (resp) {
 
-                                console.log(resp);
                                 if(resp != ''){
 
                                     var getPairAddress = resp.getPairAddress;
                                     var getPairABI = resp.getPairABI;
                                     var getPairABI_JSON = JSON.parse(getPairABI);
-
                                     
                                     var pairContract = new web3.eth.Contract(getPairABI_JSON, getPairAddress);
 
@@ -1006,7 +1001,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                                     var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
                                     getPairObj.then(function(getPairAddress){
 
-                                        console.log(getPairAddress);
                                         if(getPairAddress != '0') {
 
                                             $.get(etherscan_api_url + "api?module=contract&action=getabi&address="+getPairAddress+"&format=raw", function( getPairABI ) {
@@ -1076,7 +1070,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                                                 tokenAount = vQuote;
                                                 
                                                 if(change=='to_change') {
-                                                    console.log("devide_to2 : " +devide_to2);
                                                     var inpDevide = (tokenAount / devide_to2).toFixed(8);
                                                 } else {
                                                    var inpDevide = (tokenAount / devide_to2).toFixed(8);
@@ -1119,7 +1112,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                                                     var tknContract1 = new web3.eth.Contract(contractABI_json1, contractAddress1);
                                                     var getallowance1 = tknContract1.methods.allowance(myAccountAddress, routerContractAddress).call();
                                                     getallowance1.then(function(getallowance1) {
-                                                        console.log("getallowance1 : " + getallowance1);
                                                         if(parseInt(getallowance1)<= 0) {
                                                             $("#approve1").show();
                                                             var vtoken1=$('#poolFromToken option:selected').val();
@@ -1265,8 +1257,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                     var res = resp[0];
                     if (res.status == '1') {
 
-                        console.log(res);
-
                         var contractABI = res.data.contractABI;
                         var contractAddress = res.data.contractAddress;
                         var multiply_to = '1e'+res.data.desimals;
@@ -1405,8 +1395,7 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                     var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
 
                     amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
-                    console.log("amountOut : " +amountOut);
-
+                    
                     var from_token_name = $('#poolFromToken option:selected').val();
                     var to_token_name = $('#poolToToken option:selected').val();
 
@@ -1420,7 +1409,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                         dataType: "json",
                         success: function (resp) {
 
-                            console.log(resp);
                             if(resp != ''){
 
                                 var getPairAddress = resp.getPairAddress;
@@ -1435,7 +1423,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                                 var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
                                 getPairObj.then(function(getPairAddress){
 
-                                    console.log(getPairAddress);
                                     if(getPairAddress != '0') {
 
                                         $.get(etherscan_api_url + "api?module=contract&action=getabi&address="+getPairAddress+"&format=raw", function( getPairABI ) {
@@ -1481,12 +1468,9 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
 
                                 setTimeout(function(){
                                   
-                                    console.log("vtoken0 : " + vtoken0);
-                                    console.log("vtoken1 : " + vtoken1);
-
                                     var getreserves = pairContract.methods.getReserves().call();
                                     getreserves.then(function(response) {
-                                        console.log("getreserves : " + response[0]);
+                                        
                                         var vReverse1=response[0];
                                         var vReverse2=response[1];
                                         if(vtoken0==contractAddress1) {
@@ -1496,16 +1480,14 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                                         }
 
                                         vQuote.then(function(vQuote) {
-                                            console.log("vQuote : " + vQuote);
-
+                                            
                                             var tokenAmount = vQuote/devide_to2;
                                             var ETHValue=amountOut;
 
                                             var inpDevide =  ((1 / tokenAmount));
                                             var token_percent = (tokenAmount * 0.5) / 100;
                                             var ETH_percent = (ETHValue * 0.5) / 100;
-                                            console.log('tokenAmount ' + tokenAmount);
-                                            console.log('token_percent ' + token_percent);
+                                            
                                             var addLiquidityETH = $(".firstTokenRate").html() *devide_to1;
                                             var token = contractAddress;
                                             var amountTokenADesired = amountOut;
@@ -1592,8 +1574,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
             dataType: "json",
             success: function (resp) {
                 
-                console.log(resp);
-
                 var pair_address = resp.pair_address;
                 var token_from = resp.token_from;
                 var token_to = resp.token_to;
@@ -1604,7 +1584,6 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
                 web3.eth.getAccounts(async function (error, result) {
 
                     myAccountAddress = result[0];
-                    console.log(myAccountAddress);
 
                     $("#pool_percent_number").text("100%");
                     $("#custom_number_slider").val(100);
@@ -1673,16 +1652,13 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
             dataType: "json",
             success: function (resp) {
                 
-                console.log(resp);
-
                 var gasPrice = resp.gasPrice;
                 var gasUsed = resp.gasUsed;
 
                 web3.eth.getAccounts(async function (error, result) {
 
                     myAccountAddress = result[0];
-                    console.log(myAccountAddress);
-
+                    
                     /* Remove Liquidity Method Call - Start  */
                     var contractAddress = '0xbF7A7169562078c96f0eC1A8aFD6aE50f12e5A99'; //resp.topic1;
 
@@ -2028,6 +2004,9 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
                 <h5 class="modal-title" id="coin_option2Label">Create a pair<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
+
+                <button id="open-settings-dialog-button" class="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sc-gbOuXE daxFHC"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -2158,6 +2137,48 @@ if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
 
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Your position</h5>
+                        </div>
+                        <div class="col-md-6 pull-left">
+                            <img class="" id="adlqbothtokenImgsf" alt="Token logo" src="images/bat.svg" style="max-width: 20px;">
+                            <img class="" id="adlqbothtokenImgss" alt="Token logo" src="images/eth.png" style="max-width: 20px;">
+                            <span id="adlq_token_pair_labels">BAT/ETH</span>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <span id="adlq_token_pair_blnc" class="pull-right">0.03181</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 pull-left">
+                            <span>Your pool share:</span>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <span id="adlqd_pool_share" class="pull-right">0.029480%</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 pull-left">
+                            <span id="yl_from_token">BAT:</span>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <span id="yl_from_token_blnc" class="pull-right">0.55792</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 pull-left">
+                            <span id="yl_to_token">ETH:</span>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <span id="yl_to_token_blnc" class="pull-right">0.0021238</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

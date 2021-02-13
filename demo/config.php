@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 
@@ -13,17 +13,31 @@ if($row != NULL){
     $marketAddress = $row['marketAddress'];
     $priceAddress = $row['priceAddress'];
     $mainContractABI1 = $row['mainContractABI'];
+    if($mainContractABI1 == ''){
+        $mainContractABI1 = "''";
+    }
+
     $comptrollerABI = $row['comptrollerABI'];
+    if($comptrollerABI == ''){
+        $comptrollerABI = "''";
+    }
+
     $marketABI = $row['marketABI'];
+    if($marketABI == ''){
+        $marketABI = "''";
+    }
+
     $priceABI = $row['priceABI'];
-   
+   	if($priceABI == ''){
+        $priceABI = "''";
+    }
    
     $gasPriceAverage = $row['gasPriceAverage'];
     $gasPriceFast = $row['gasPriceFast'];
     $siteName=$row['siteName'];
-    $siteURL=$row['siteURL'];   
-    $siteLogo=$row['siteLogo'];   
-    $siteFavicon=$row['siteFavicon'];   
+    $siteURL=$row['siteURL'];
+    $siteLogo=$row['siteLogo'];
+    $siteFavicon=$row['siteFavicon'];
     $etherscanAddressMain = $row['etherscanAddressMain'];
     $etherscanAddressTestnet = $row['etherscanAddressTestnet'];
     $etherscanTxMain  = $row['etherscanTxMain'];
@@ -33,12 +47,25 @@ if($row != NULL){
     $network=$row['network'];
 	$usdvalue = $row['usdvalue'];
 
+	$routerContractAddress = $row['routerContractAddress'];
+	$routerContractABI = $row['routerContractABI'];
+    if($routerContractABI == ''){
+        $routerContractABI = "''";
+    }
+
+    $factoryContractAddress = $row['factoryContractAddress'];
+    $factoryContractABI = $row['factoryContractABI'];
+    if($factoryContractABI == ''){
+        $factoryContractABI = "''";
+    }
+    $WETHAddress = $row['WETHAddress'];
+
 }
 
 // 0 = rinkeby testnet and 1 = mainnet
 if($network==0){
 
-    $mainContractAddress1 = $row['testnetContractAddress'];  
+    $mainContractAddress1 = $row['testnetContractAddress'];
 
     $etherscanAddress = $row['etherscanAddressTestnet'];
    
@@ -68,7 +95,7 @@ if($network==0){
 
 if(isset($_COOKIE['currency'])){
 	if($_COOKIE['currency']!='ETH' AND $_COOKIE['currency']!='cETH'){
-       $query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";
+       	$query2 = "SELECT * FROM currency where name='c".$_COOKIE['currency']."'";
 	}else{	
 		  $query2 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'";
 	}
@@ -78,7 +105,7 @@ if(isset($_COOKIE['currency'])){
     	
     	 $currency_full_name = $row['full_name'];
     	 $mainContractAddress = $row['contractAddress'];
-    	 $mainContractABI = $row['contractABI'];    	 
+    	 $mainContractABI = $row['contractABI'];
     	 $usd_value  = $row['usdvalue'];
     	
 		 
@@ -86,7 +113,7 @@ if(isset($_COOKIE['currency'])){
 		 if($_COOKIE['currency']!='ETH' and $_COOKIE['currency']!='cETH'){
 		 $query3 = "SELECT * FROM currency where name='".$_COOKIE['currency']."'";
 		 
-							$result3 = mysqli_query($conn,$query3);							
+							$result3 = mysqli_query($conn,$query3);
 							
 							if($result3){
 								while($row = mysqli_fetch_array($result3)){

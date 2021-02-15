@@ -1083,10 +1083,12 @@ $(document).ready(function(){
                                         if(change=='to_change')
                                         {
                                           $("#txtFromToken").val(parseFloat(forFirst).toFixed(8));
+                                          $("#minmax").html('Maximum sold');
                                           //$("#txtFromToken").focus();
                                         }
                                         else {
                                           $("#txtToToken").val(parseFloat(forFirst).toFixed(3));
+                                           $("#minmax").html('Minimum received');
                                         //$("#txtToToken").focus();
                                         }
 

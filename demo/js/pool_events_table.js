@@ -72,7 +72,7 @@ $(document).ready(function () {
                 "columnDefs": [
                     {
                        "render": function (data, type, row) {
-                            var st='<button onClick="removeLiquidity('+row.id+')"  type="button" class=" btn btn-xs btn-danger">Remove</button>';
+                            var st='<button onClick="removeLiquidity('+row.id+')"  type="button" class=" btn btn-xs btn-danger">Remove Liquidity</button>';
                             
                             return [st].join('');
                         },

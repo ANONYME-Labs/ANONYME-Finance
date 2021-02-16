@@ -74,7 +74,10 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </div>
                     <div class="row">
                         <div class="col-sm-12 text-center">
-                            <p>Don't see a pool you joined? <a href="javascript:;"> Import it.</a></p>
+                            <p>
+                                Don't see a pool you joined? 
+                                <a href="javascript:;" id="import_pool_link"> Import it.</a>
+                            </p>
                         </div>
                     </div>
 
@@ -240,6 +243,13 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
         });
 
+        $("#open_settings_dialog_pop").on('hide.bs.modal', function () {
+            var toggle_expert_mode = $.cookie("toggle_expert_mode");
+            if(toggle_expert_mode == ''){
+                $("#to_ex_md_chk").prop('checked', false);
+            }
+        });
+
         loadSelectOptions();
         /*jQuery.noConflict();*/
 
@@ -268,6 +278,12 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
                     var rmLqOutput2 = $('#rmLqOutput2').msDropDown().data("dd");
                     rmLqOutput2.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+
+                    var importPoolFrom = $('#importPoolFrom').msDropDown().data("dd");
+                    importPoolFrom.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+
+                    var importPoolTo = $('#importPoolTo').msDropDown().data("dd");
+                    importPoolTo.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
                 }
 
             },
@@ -588,7 +604,6 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
             var totalLiquidity = (reserve0 + reserve1 + numOfToken);
             var share = ((numOfToken * 100) / totalLiquidity).toFixed(2);
-            console.log(share);
 
             $(".firstTokenRate").html((token0Price));
             $(".secondTokenRate").html((token1Price));
@@ -943,7 +958,7 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                                                             console.log(resp);
                                                         },
                                                         error: function (result) {
-                                                            alert("Error");
+                                                            console.log(result);
                                                         }
                                                     });
                                                 });
@@ -1466,7 +1481,7 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                                                     console.log(resp);
                                                 },
                                                 error: function (result) {
-                                                    alert("Error");
+                                                    console.log(result);
                                                 }
                                             });
                                         });
@@ -1539,12 +1554,7 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                                             }
 
                                             var timerID = setInterval(function() {
-                                            console.log("Initial fulfilled:", myPromise.isFulfilled());//false
-                                            console.log("Initial rejected:", myPromise.isRejected());//false
-                                            console.log("Initial pending:", myPromise.isPending());//true
-
                                             if(myPromise.isFulfilled()){
-
                                               myPromise.then(function(result){
                                                   alertify.alert("Transacton Recorded","Thanks for Supplying liquidity to <?=$siteName;?>. You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can check your added liquidity.", function(){});
                                               });
@@ -1719,11 +1729,6 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     }
 
                     var timerRliqID = setInterval(function() {
-
-                        console.log("Initial fulfilled:", removeLiqdPromise.isFulfilled()); //false
-                        console.log("Initial rejected:", removeLiqdPromise.isRejected()); //false
-                        console.log("Initial pending:", removeLiqdPromise.isPending()); //true
-
                         if(removeLiqdPromise.isFulfilled()){
                             $(".ajs-ok").click();
                             clearInterval(timerRliqID);
@@ -1763,6 +1768,28 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
         $("#pool_percent_number").text(number+"%");
         $("#rm_lq_sld_val").val(number);
         $("#custom_number_slider").val(number);
+    }
+
+    function transactionPercent(obj = '', number){
+        
+        $("#slip_tlrance_txt").val(number);
+        $(".transactionPercent").css("background-color", "inherit");
+        $(obj).css("background-color", "");
+        $.cookie("slip_tlrance_txt", number, { expires: 30 });
+
+        if(number == 0.1){
+            $("#slip_warning").hide();
+
+            $(".y_tr_mfail span").show();
+            $(".y_tr_mfail span").text("Your transaction may fail");
+
+        } else if(number == 0.5){
+            $("#slip_warning").hide();
+            $(".y_tr_mfail span").hide();
+        } else if(number == 1){
+            $("#slip_warning").hide();
+            $(".y_tr_mfail span").hide();
+        }
     }
 
     $(document).ready(function () {
@@ -1837,10 +1864,8 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
         $("#dis_mult_chk").change(function(){
             if($(this).prop("checked") == true) {
-               console.log("ON");
                $.cookie("disable_multihops", "yes", { expires: 30 });
             } else {
-               console.log("OFF");
                $.cookie("disable_multihops", "", { expires: 30 });
             }
         });
@@ -1911,47 +1936,101 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
             }
         });
+
+        $(document).on("click", "#import_pool_link",function(){
+            $('#open_import_pool_pop').modal('show');
+        });
     });
 
-    function transactionPercent(obj = '', number){
-        
-        $("#slip_tlrance_txt").val(number);
-        $(".transactionPercent").css("background-color", "inherit");
-        $(obj).css("background-color", "");
-        $.cookie("slip_tlrance_txt", number, { expires: 30 });
-
-        if(number == 0.1){
-            $("#slip_warning").hide();
-
-            $(".y_tr_mfail span").show();
-            $(".y_tr_mfail span").text("Your transaction may fail");
-
-        } else if(number == 0.5){
-            $("#slip_warning").hide();
-            $(".y_tr_mfail span").hide();
-        } else if(number == 1){
-            $("#slip_warning").hide();
-            $(".y_tr_mfail span").hide();
-        }
-    }
+    
 
 </script>
 <style type="text/css">
-    #pool_loading{
-        display : none;
-        position : fixed;
-        z-index: 100;
-        background-image : url('images/loader.gif');
-        background-color:#666;
-        opacity : 0.4;
-        background-repeat : no-repeat;
-        background-position : center;
-        left : 0;
-        bottom : 0;
-        right : 0;
-        top : 0;
-    }
+    
 </style>
+
+<div class="modal fade" id="open_import_pool_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-md modal-dialog-top">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="coin_option2Label">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>Import Pool
+                </h5>
+
+                <button id="open_settings_dialog_button" class="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sc-gbOuXE daxFHC"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
+                <span id="exp_md_ison" <?php if($toggle_expert_mode == '') { ?> style="display: none;" <?php } ?> >🧙</span>
+            </div>
+            <div class="modal-body">
+                <div class="row py-2">
+                    <div class="col-md-12">
+                        <p>
+                            <b>Tip:</b> Use this tool to find pairs that don't automatically appear in the interface.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-12 mt-2">
+                        <select name="importPoolFrom" id="importPoolFrom" class="form-control form-control-lg">
+                            <option value='0' selected='true'> Select Token </option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 mt-2 mb-2 text-center">
+                        <span><strong>+</strong></span>
+                    </div>
+                    <div class="col-md-12">
+                        <select name="importPoolTo" id="importPoolTo" class="form-control form-control-lg">
+                            <option value='0' selected='true'> Select Token </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-12 text-center">
+                        <div><span>Pool Found!</span></div>
+                        <div><span><strong>Manage this pool.</strong></span></div>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <hr/>
+                    <div class="col-md-12">
+                        <h5>Your position</h5>
+                    </div>
+                    <div class="col-md-6 pull-left">
+                        <img class="" id="impbothtokenImgsf" alt="Token logo" src="images/bat.svg">
+                        <img class="" id="impbothtokenImgss" alt="Token logo" src="images/eth.png">
+                        <span id="imp_pair_labels">BAT/ETH</span>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <span id="imp_pair_blnc" class="pull-right">0.03181</span>
+                    </div>
+                    <div class="col-md-6 pull-left">
+                        <span>Your pool share:</span>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <span id="imp_pool_share" class="pull-right">0.029480%</span>
+                    </div>
+                    <div class="col-md-6 pull-left">
+                        <span id="imp_from_token">BAT:</span>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <span id="imp_from_token_blnc" class="pull-right">0.55792</span>
+                    </div>
+                    <div class="col-md-6 pull-left">
+                        <span id="imp_to_token">ETH:</span>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <span id="imp_to_token_blnc" class="pull-right">0.0021238</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="open_settings_dialog_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-md modal-dialog-top">
@@ -2208,6 +2287,7 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                 </div>
 
                 <div class="row py-2">
+                    <hr/>
                     <div class="col-md-12">
                         <h5>Your position</h5>
                     </div>
@@ -2397,6 +2477,7 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </div>
 
                     <div class="row">
+                        <hr/>
                         <div class="col-md-12">
                             <h5>Your position</h5>
                         </div>

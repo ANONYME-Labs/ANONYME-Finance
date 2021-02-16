@@ -80,7 +80,7 @@
 									
 			?>
 			<input type='hidden' name='assetcontractABI<?=$row['name'];?>' id='assetcontractABI<?=$row['name'];?>' value='<?=$row['contractABI']; ?>' /><input type='hidden' name='assetContractAddress<?=$row['name'];?>' id='assetContractAddress<?=$row['name'];?>' value='<?=$row['contractAddress'];?>' />
-            <div class="card TableItem">
+            <div class="card TableItem <?=$row['name'];?>">
               <div class="card-body" style="padding: 1rem!important;">
                 <div class="row">
                   <div class="col-lg-3 col-md-3 col-sm-3 col-12">
@@ -92,7 +92,7 @@
                   </div>
                   <div class="col-lg-3 col-md-3 col-sm-3 col-12">
                     <div>
-                      <span><b class="mr-1 ">-</b></span>
+                      <span><b class="mr-1 borrow_limitc<?=ltrim($name, 'c');?>">-</b></span>
                     </div>
                   </div>                  
                   <div class="col-lg-3 col-md-3 col-sm-3 col-12">
@@ -123,6 +123,7 @@
 							    
 						?>
 						<input type='hidden' name='contractABI<?=$rowInner['name'];?>' id='contractABI<?=$rowInner['name'];?>' value='<?=$ContractABI; ?>' /><input type='hidden' name='ContractAddress<?=$rowInner['name'];?>' id='ContractAddress<?=$rowInner['name'];?>' value='<?=$ContractAddress;?>' />
+						<input type='hidden' name='ContractUSD<?=$rowInner['name'];?>' id='ContractUSD<?=$rowInner['name'];?>' value='<?=$rowInner['usdvalue'];?>' />
 						<?php
 						
 							   

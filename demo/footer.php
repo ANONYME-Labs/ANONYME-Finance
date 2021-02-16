@@ -458,10 +458,10 @@ $(document).ready(async function(){
 				$("#UtilizationRate").html(UtilizationRate+'%');  
 				$("#availableLiq").html(totC.toFixed(2)+' '+asset);  
 				$("#availableLiqUSD").html('$'+availableLiqUSD.toFixed(2));  
-				$("#assetPrice").html("$ "+usd_value);  
-				$("#totResUsd").html("$ "+totResUsd);  
-				$("#totBorrUsd").html("$ "+totBorrUsd);  
-				$("#totB").html(totB);  
+				$("#assetPrice").html("$ "+usd_value.toFixed(2));  
+				$("#totResUsd").html("$ "+totResUsd.toFixed(2));  
+				$("#totBorrUsd").html("$ "+totBorrUsd.toFixed(2));  
+				$("#totB").html(totB.toFixed(2));  
 				  
 				const logBalances = () => {
 				  return new Promise(async (resolve, reject) => {
@@ -470,23 +470,23 @@ $(document).ready(async function(){
 					if(asset!="" && asset!='ETH' && asset!='cETH'){ 
 						var myWalletUnderlyingBalance = await underlying.methods.balanceOf(myAccountAddress).call() / Math.pow(10, underlyingDecimals); // if you supply in compound otherwise it show you 0.
 						console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
-						$('.walletbalance').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
+						$('.walletbalance').html(myWalletUnderlyingBalance.toFixed(4)+''+asset);
 						myWalletUnderlyingBalance=(myWalletUnderlyingBalance*97)/100;
-						$('.walletbalancepop').html(myWalletUnderlyingBalance.toFixed(3)+''+asset);
+						$('.walletbalancepop').html(myWalletUnderlyingBalance.toFixed(4)+''+asset);
 
 						 if(myWalletUnderlyingBalance > 0 )
 								$('#supplying').html('Supply');
-						$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
+						$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(4)+' '+asset);
 					}else{
 						let myWalletUnderlyingBalance = await myContract.methods.balanceOf(myAccountAddress).call() / Math.pow(10, ctokendesimal); // if you supply in compound otherwise it show you 0.
 						console.log("My Wallet's  ${"+asset+"} Balance:", myWalletUnderlyingBalance);
-						$('.walletbalance').html(parseFloat(myWalletEthBalance).toFixed(3)+' '+asset);
+						$('.walletbalance').html(parseFloat(myWalletEthBalance).toFixed(4)+' '+asset);
 						myWalletEthBalance=(myWalletEthBalance*97)/100;
-						$('.walletbalancepop').html(parseFloat(myWalletEthBalance).toFixed(3)+' '+asset);
+						$('.walletbalancepop').html(parseFloat(myWalletEthBalance).toFixed(4)+' '+asset);
 						 if(myWalletUnderlyingBalance > 0 )
 								$('#supplying').html('Supply');
 						       // $("#supplying").attr("disabled", "disabled"); 
-						$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(3)+' '+asset);
+						$('.borrow_blalnce').html(myWalletUnderlyingBalance.toFixed(4)+' '+asset);
 					}
 					 $("#supplying").attr("disabled", "disabled"); 
 					console.log("My Wallet's  ETH Balance:", myWalletEthBalance);
@@ -560,7 +560,7 @@ $(document).ready(async function(){
 				  const borrowbalanceUSD= (2 *((borrowBalance * borrowApy)/100))* usd_value;
 				  const borrow_limit_used=(borrowbalanceUSD*100)/ borrow_limit;
 
-					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance is <span id="totborrow">'+borrowBalance.toFixed(3)+' '+asset+'</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowRepay" >Borrow</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-info" id="go-back" >Go Back</button></div>');
+					$('#borrow_wrapper').html('<h3 class="text-center text-info">Your balance is <span id="borrowbalanceUSD"> $ '+borrowbalanceUSD.toFixed(2)+'</span></h3><p class="text-center">Your balance is <span id="totborrow">'+borrowBalance.toFixed(3)+' '+asset+'</span>.</p><div class="go-back text-center my-3"><button class="btn btn-info"  data-toggle="modal" data-target="#borrowRepay" >Borrow</button>&nbsp;&nbsp;&nbsp;<a href="home.php">Go back</a></div>');
 				  $('#borrowbalanceUSD').html('$ '+borrowbalanceUSD.toFixed(2));
 				  $('.borrow_limit_used').html(borrow_limit_used.toFixed(2)+' %');
 				  $('#totborrow').html(borrowBalance.toFixed(4));
@@ -631,7 +631,7 @@ $(document).ready(async function(){
 				 }else{
 						var myWalletUnderlyingBalance = web3.utils.fromWei(await web3.eth.getBalance(myAccountAddress));
 				 }
-					 var newbalance=parseFloat(myWalletUnderlyingBalance).toFixed(3);
+					 var newbalance=parseFloat(myWalletUnderlyingBalance).toFixed(4);
 					 newbalance=newbalance*97/100;
 					 $('#TokensToSupply').val(parseFloat(newbalance).toFixed(4));
 					 if(TokensToSupply > myWalletUnderlyingBalance){
@@ -667,7 +667,7 @@ $(document).ready(async function(){
 				
 			//popup repay Max
 				$('#max_button_addon_repay').click( async function(){
-					 var newbalance=parseFloat(borrowBalance).toFixed(3);
+					 var newbalance=parseFloat(borrowBalance).toFixed(4);
 					 $('#TokensTorepay').val(newbalance);
 					
 				 });
@@ -819,7 +819,7 @@ $(document).ready(async function(){
  // supply
  $('#supplying').click( async function(){
 	 const TokensToSupply=$('#TokensToSupply').val();
-  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" alt="loading" style="width: 20%;" /></span>');
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/ripple-loader.gif" alt="loading" style="width: 20%;" /></span>');
  // Mint cTokens by supplying underlying tokens to the Compound Protocol
   
   
@@ -840,16 +840,16 @@ $(document).ready(async function(){
 		console.log('Supplying ${'+asset+'} to the Compound Protocol...');
 		console.log('\nSupplying ETH to the protocol as collateral (you will get cETH in return)...\n');
 		await myContract.methods.mint(web3.utils.toBN(ethToSupplyAsCollateral.toString()) ).send(fromMyWallet).on("transactionHash", function (hash) {
-      
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
     .on("confirmation", function (hash) {
-         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+        
     })
     .on("error", async function (hash) {
-        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! </span>');
     });
 	  
 	  
@@ -860,18 +860,18 @@ $(document).ready(async function(){
     gasPrice: web3.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
     value: web3.utils.toHex(web3.utils.toWei(TokensToSupply.toString(), 'ether'))
   }).on("transactionHash", function (hash) {
-       
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
     .on("confirmation", function (hash) {
         console.log("Confirmed");
-		$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for supplying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+		
     })
     .on("error", async function (hash) {
         console.log("Error");
-		$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"> Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+		$('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"> Transection fail! </span>');
     });
   }
 
@@ -935,7 +935,7 @@ $(document).ready(async function(){
  // Borrow
   $('#Borrowing').click( async function(){
   const ethToBorrow = $('#TokensToborrow').val();	 
-  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" alt="loading" style="width: 20%;" /></span>');	 
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/ripple-loader.gif" alt="loading" style="width: 20%;" /></span>');	 
 
   let underlyingAsCollateral = 15;
 
@@ -948,16 +948,16 @@ $(document).ready(async function(){
   
   console.log('\nNow attempting to borrow ${ethToBorrow} ETH...');
   await myContract.methods.borrow(web3.utils.toWei(ethToBorrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
-       
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for borrowing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
     .on("confirmation", function (hash) {
-        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for borrowing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+       
     })
     .on("error", async function (hash) {
-         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! </span>');
     });
 	
   console.log('\nNow attempting to borrow ${ethToBorrow} ETH...successful');	
@@ -972,36 +972,36 @@ $(document).ready(async function(){
 
   const ethTowithdrow = $('#TokensTowithdraw').val();
   
-  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" style="width: 20%;" alt="loading" /></span>');	 
+  $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/ripple-loader.gif" style="width: 20%;" alt="loading" /></span>');	 
   if(checkMembership!=false && balanceOfUnderlying > 0){
 	  
   
   console.log('\nNow attempting to borrow ${'+ethTowithdrow+'} ETH...');
   if(asset!="" && asset!='ETH' && asset!='cETH'){
 	var withdrowResult = await myContract.methods.redeem(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
-       
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
     .on("confirmation", function (hash) {
-         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+         
     })
     .on("error", async function (hash) {
-        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail!</span>');
     });
   }else{
 	var withdrowResult = await myContract.methods.redeemUnderlying(web3.utils.toWei(ethTowithdrow.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
-       
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
     .on("confirmation", function (hash) {
-       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for withdrawing! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+      console.log("confirmation");
     })
     .on("error", async function (hash) {
-        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+        $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! </span>');
     }); 
   }
   
@@ -1015,7 +1015,7 @@ $(document).ready(async function(){
   $('#repaying').click( async function(){
    
    const ethTorepay = $('#TokensTorepay').val();
-   $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" style="width: 20%;" alt="loading" /></span>');	
+   $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/ripple-loader.gif" style="width: 20%;" alt="loading" /></span>');	
   
   if(checkMembership!=false && borrowBalance > 0){
 	  
@@ -1023,16 +1023,17 @@ $(document).ready(async function(){
   console.log('\nNow attempting to repay ${'+ethTorepay+'} ETH...');
   if(asset!="" && asset!='ETH' && asset!='cETH'){
 	var repayResult = await myContract.methods.repayBorrow(web3.utils.toWei(ethTorepay.toString(), 'ether')).send(fromMyWallet).on("transactionHash", function (hash) {
+		 $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
       
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
     .on("confirmation", function (hash) {
-         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+        console.log("confirmation");
     })
     .on("error", async function (hash) {
-         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail!</span>');
     });
   }else{
 	var repayResult = await myContract.methods.repayBorrow().send({
@@ -1041,16 +1042,16 @@ $(document).ready(async function(){
 	gasPrice: web3.utils.toHex(1000000000), // use ethgasstation.info (mainnet only)
     value: web3.utils.toWei(ethTorepay.toString(), 'ether')
     }).on("transactionHash", function (hash) {
-      
+       $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
     })
     .on("receipt", function () {
         console.log("Receipt");
     })
     .on("confirmation", function (hash) {
-         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel">Confirm Transaction</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Thank you for repaying! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+        
     })
     .on("error", async function (hash) {
-         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! You can check the status at <a href="<?php echo $etherscanTx;?>'+hash+'" target="_blank" style="text-decoration:underline;" >etherscan.io</a></span>');
+         $('.modal-content').html('<div class="modal-header"><h5 class="modal-title" id="borrowRepayLabel"> Transaction Error</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center">Transection fail! </span>');
     }); 
   }
  
@@ -1065,7 +1066,8 @@ $('.close').click( async function(){ $('#supplyWithdraw').hide();   $('#borrowRe
 var ContractTotalReserves=0;
 var arrayABI=$('#arrayABI').val();
 var ABI=$('#ABI').val();
-
+var assetsborrow=false;
+$.cookie('assetsborrow', 'false');
 if(arrayABI){
 arrayABI=arrayABI.split(',');
 var totassets=arrayABI.length;
@@ -1089,6 +1091,8 @@ for (var i=0;i<totassets;i++){
 					const borrowRatePerBlockBAT = await Token.methods.borrowRatePerBlock().call();
 					const supplyApyBAT = (((Math.pow((supplyRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100;
 					const borrowApyBAT = (((Math.pow((borrowRatePerBlockBAT / ethMantissa * blocksPerDay) + 1, daysPerYear - 1))) - 1) * 100; 
+					
+					
 					
 					const borrowBalanceStoredBAT= await Token.methods.borrowBalanceStored(myAccountAddress).call({from: myAccountAddress});
 			        const borrowBalanceBAT=borrowBalanceStoredBAT/Math.pow(10, underlyingDecimals);
@@ -1126,13 +1130,33 @@ for (var i=0;i<totassets;i++){
 					const balanceOfUnderlying = web3.utils.toBN(await Token.methods.balanceOfUnderlying(myAccountAddress).call()) / Math.pow(10, underlyingDecimals);
 				    console.log('balanceOfUnderlying'+balanceOfUnderlying);	
 				    $('.supply_balance_Anonyme'+arrayABI[i]).html( balanceOfUnderlying.toFixed(3)+' '+arrayABI[i]);
-				
+					
+					
 					$('.totalborrow'+arrayABI[i]).html(borrowbalanceUSDBAT.toFixed(2)+' USD');
 					$('.supply_percentage'+arrayABI[i]).html(supplyApyBAT.toFixed(2)+' %');
 
 					$('.borrow_percentage'+arrayABI[i]).html(borrowApyBAT.toFixed(2)+' %');
 					
-					
+					if(arrayABI[i]!='cETH'){
+						if(borrowBalanceStoredBAT > 0){
+							//document.cookie = "assetsborrow=true; expires=''; path=/";
+							$.cookie('assetsborrow', 'true');
+						}
+					}
+					assetsborrow=$.cookie("assetsborrow");
+					if(arrayABI[i]=='cETH' || balanceOfUnderlying > 0){
+						if(assetsborrow==true || borrowBalanceStoredBAT==0){
+							if(liquidity>0)
+								$("."+arrayABI[i]).hide();
+						
+					   }
+					}
+					const supplybalanceUSD= (2 *((balanceOfUnderlying * supplyApyBAT)/100))* ContractUSD;
+				    const borrow_limit=(supplybalanceUSD*80)/100;
+					console.log("(2 *(("+balanceOfUnderlying+" * "+supplyApyBAT+")/100))* "+ContractUSD);
+					$('.borrow_limit'+arrayABI[i]).html(' $'+borrow_limit.toFixed(4));
+				
+					console.log(arrayABI[i]+" "+balanceOfUnderlying+" "+assetsborrow+" "+borrowBalanceStoredBAT);
 
 					
 }
@@ -1541,11 +1565,12 @@ window.ethereum.on('networkChanged', function (networkId) {
 <div class="modal fade" id="Loading" tabindex="-1" aria-labelledby="LoadingLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-     <div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Please Wait...</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/Curve-Loading.gif" style="width: 20%;" alt="loading" /></span>
+     <div class="modal-header"><h5 class="modal-title" id="supplyWithdrawLabel">Please Wait...</h5><button type="button" class="btn-close" data-dismiss="modal"></button></div><span style="padding:20% 30%;text-align:center"><img src="images/ripple-loader.gif" style="width: 20%;" alt="loading" /></span>
     </div>
   </div>
 </div>
 
 <!-- modal -->
-
+<script type="text/javascript"
+ src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 </body></html>

@@ -17,6 +17,12 @@ $disable_multihops = '';
 if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') {
     $disable_multihops = $_COOKIE['disable_multihops'];
 }
+
+$slip_tlrance_txt = '';
+if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
+    $slip_tlrance_txt = $_COOKIE['slip_tlrance_txt'];
+}
+
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
@@ -1839,7 +1845,95 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
             }
         });
 
-     });
+        var slip_tlrance_txt = "<?php echo $slip_tlrance_txt; ?>";
+        if(slip_tlrance_txt < 0.1){
+            $("#slip_warning").show();
+        } else if(slip_tlrance_txt == 0.1){
+            $("#slip_warning").hide();
+            $("#slip_tlrance_txt").val(0.1);
+            $(".transactionPercent").css("background-color", "inherit");
+            $(".trx_perc_0_1").css("background-color", "");
+        } else if(slip_tlrance_txt == 0.5){
+            $("#slip_warning").hide();
+            $("#slip_tlrance_txt").val(0.5);
+            $(".transactionPercent").css("background-color", "inherit");
+            $(".trx_perc_0_5").css("background-color", "");
+        } else if(slip_tlrance_txt == 1){
+            $("#slip_warning").hide();
+            $("#slip_tlrance_txt").val(1);
+            $(".transactionPercent").css("background-color", "inherit");
+            $(".trx_perc_1").css("background-color", "");
+        } else if(slip_tlrance_txt > 5){
+            $(".y_tr_mfail span").show();
+            $(".y_tr_mfail span").text("Your transaction may be frontrun");
+            $("#slip_warning").show();
+            $(".transactionPercent").css("background-color", "inherit");
+        } else {
+            $("#slip_warning").hide();
+            $("#slip_tlrance_txt").val(0.1);
+            $(".transactionPercent:not(.active)").css("background-color", "inherit");
+        }
+
+        $(document).on("change keyup paste", "#slip_tlrance_txt",function(){
+            var vl = $(this).val();
+            if(vl <= 0.1){
+                $(".y_tr_mfail span").show();
+                $(".y_tr_mfail span").text("Your transaction may fail");
+                $("#slip_warning").show();
+                $(".transactionPercent").css("background-color", "inherit");
+                $(".trx_perc_0_1").css("background-color", "");
+                $.cookie("slip_tlrance_txt", vl, { expires: 30 });
+
+            } else if(vl == 0.5){
+                $(".y_tr_mfail span").hide();
+                $("#slip_warning").hide();
+                $(".transactionPercent").css("background-color", "inherit");
+                $(".trx_perc_0_5").css("background-color", "");
+                $.cookie("slip_tlrance_txt", vl, { expires: 30 });
+
+            } else if(vl == 1){
+                $(".y_tr_mfail span").hide();
+                $("#slip_warning").hide();
+                $(".transactionPercent").css("background-color", "inherit");
+                $(".trx_perc_1").css("background-color", "");
+                $.cookie("slip_tlrance_txt", vl, { expires: 30 });
+
+            } else if(vl <= 5){
+                $(".y_tr_mfail span").hide();
+                $("#slip_warning").hide();
+
+            } else if(vl > 5){
+                $(".y_tr_mfail span").show();
+                $(".y_tr_mfail span").text("Your transaction may be frontrun");
+                $("#slip_warning").show();
+                $(".transactionPercent:not(.active)").css("background-color", "inherit");
+                $.cookie("slip_tlrance_txt", vl, { expires: 30 });
+
+            }
+        });
+    });
+
+    function transactionPercent(obj = '', number){
+        
+        $("#slip_tlrance_txt").val(number);
+        $(".transactionPercent").css("background-color", "inherit");
+        $(obj).css("background-color", "");
+        $.cookie("slip_tlrance_txt", number, { expires: 30 });
+
+        if(number == 0.1){
+            $("#slip_warning").hide();
+
+            $(".y_tr_mfail span").show();
+            $(".y_tr_mfail span").text("Your transaction may fail");
+
+        } else if(number == 0.5){
+            $("#slip_warning").hide();
+            $(".y_tr_mfail span").hide();
+        } else if(number == 1){
+            $("#slip_warning").hide();
+            $(".y_tr_mfail span").hide();
+        }
+    }
 
 </script>
 <style type="text/css">
@@ -1880,16 +1974,17 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-3">
-                                <button class="btn btn-primary w-100" onclick="changeRLNumber(0.1);">0.1%</button>
+                                <button class="btn btn-primary w-100 transactionPercent active trx_perc_0_1" onclick="transactionPercent(this, 0.1);">0.1%</button>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary w-100" onclick="changeRLNumber(0.5);">0.5%</button>
+                                <button class="btn btn-primary w-100 transactionPercent trx_perc_0_5" onclick="transactionPercent(this, 0.5);">0.5%</button>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary w-100" onclick="changeRLNumber(1);">1%</button>
+                                <button class="btn btn-primary w-100 transactionPercent trx_perc_1" onclick="transactionPercent(this, 1);">1%</button>
                             </div>
                             <div class="col-md-3 slip_tlrance_main">
-                                <input type="text" class="form-control" name="slip_tlrance_txt" id="slip_tlrance_txt" value="" placeholder="0.10"><span>%</span>
+                                <span id="slip_warning" aria-label="warning">⚠️</span>
+                                <input type="text" class="form-control" name="slip_tlrance_txt" id="slip_tlrance_txt" value="<?php echo $slip_tlrance_txt; ?>" placeholder="0.10"><span>%</span>
                             </div>
                         </div>
                     </div>
@@ -1897,7 +1992,13 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
 
                 <div class="row mt-2">
                     <div class="col-md-12 y_tr_mfail">
-                        <span>Your transaction may fail</span>
+                        <?php if($slip_tlrance_txt <= 0.1){ ?>
+                            <span>Your transaction may fail</span>
+                        <?php } else if($slip_tlrance_txt > 5){ ?>
+                            <span>Your transaction may frontrun</span>
+                        <?php } else { ?>
+                            <span></span>
+                        <?php } ?>
                     </div>
 
                     <div class="col-md-12 mt-2 tr_ddline">
@@ -1908,7 +2009,7 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                 <div class="row">
                     <div class="col-md-12 mt-2">
                         <div class="txn_ddline_main">
-                            <input type="text" class="form-control" name="txn_ddline_txt" id="txn_ddline_txt" value="" placeholder="50"><span>minutes</span>
+                            <input type="text" class="form-control" name="txn_ddline_txt" id="txn_ddline_txt" value="20" placeholder="50"><span>minutes</span>
                         </div>
                     </div>
                 </div>
@@ -2111,8 +2212,8 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                         <h5>Your position</h5>
                     </div>
                     <div class="col-md-6 pull-left">
-                        <img class="" id="rmlqbothtokenImgsf" alt="Token logo" src="images/bat.svg" style="max-width: 20px;">
-                        <img class="" id="rmlqbothtokenImgss" alt="Token logo" src="images/eth.png" style="max-width: 20px;">
+                        <img class="" id="rmlqbothtokenImgsf" alt="Token logo" src="images/bat.svg">
+                        <img class="" id="rmlqbothtokenImgss" alt="Token logo" src="images/eth.png">
                         <span id="token_pair_labels">BAT/ETH</span>
                     </div>
                     <div class="col-md-6 pull-right">
@@ -2200,16 +2301,12 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                     <div class="row py-2 hover-select-token">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="txtPoolFromToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                                <input type="text" class="form-control" id="txtPoolFromToken" aria-label="Text input with dropdown button" placeholder="0.0">
                                 <div class="input-group-append">
-
-                                    <select  name="drpFromToken" id="poolFromToken" style="width:100px;">
+                                    <select  name="drpFromToken" id="poolFromToken">
                                         <option value="" data-image="">Select Token</option>
                                         <option value="ETH" data-image="images/eth.png">ETH</option>
                                     </select>
-
-                                    <!-- <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolFromToken" type="button" data-toggle="modal" data-target="#from_token_pop">
-                                      <img src="images/eth.png" id="imgPoolFromToken" style="width: 20px;margin-right: 10px;display: none;"><span id="spnPoolFromToken">Select Token</span></button> -->
                                 </div>
                             </div>
                         </div>
@@ -2234,16 +2331,12 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="txtPoolToToken" aria-label="Text input with dropdown button" style="border-radius: 50px 0 0 53px;" placeholder="0.0">
+                                <input type="text" class="form-control" id="txtPoolToToken" aria-label="Text input with dropdown button" placeholder="0.0">
                                 <div class="input-group-append">
-
-                                    <select  name="poolToToken" id="poolToToken" style="width:100px;">
+                                    <select  name="poolToToken" id="poolToToken">
                                         <option value="" data-image="">Select Token</option>
                                         <option value="ETH" data-image="images/eth.png">ETH</option>
                                     </select>
-
-                                    <!-- <button class="btn btn-outline-secondary dropdown-toggle" id="btnPoolToToken" type="button" data-toggle="modal" data-target="#to_token_pop">
-                                      <img src="images/eth.png" id="imgPoolToToken" style="width: 20px;margin-right: 10px;display: none;"><span id="spnPoolToToken">Select Token</span></button> -->
                                 </div>
                             </div>
                         </div>
@@ -2282,12 +2375,12 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                     <div class="row py-4 hover-select-token">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                           <div class="col-md-12">
-                          <button style="display:none" class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve1" >
+                          <button class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve1" >
                               <div class="css-10ob8xa">Invalid pair</div>
                           </button>
                         </div>
                         <div class="col-md-12">
-                          <button style="display:none" class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve2" >
+                          <button class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve2" >
                               <div class="css-10ob8xa">Invalid pair</div>
                           </button>
                         </div>
@@ -2308,8 +2401,8 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                             <h5>Your position</h5>
                         </div>
                         <div class="col-md-6 pull-left">
-                            <img class="" id="adlqbothtokenImgsf" alt="Token logo" src="images/bat.svg" style="max-width: 20px;">
-                            <img class="" id="adlqbothtokenImgss" alt="Token logo" src="images/eth.png" style="max-width: 20px;">
+                            <img class="" id="adlqbothtokenImgsf" alt="Token logo" src="images/bat.svg">
+                            <img class="" id="adlqbothtokenImgss" alt="Token logo" src="images/eth.png">
                             <span id="adlq_token_pair_labels">BAT/ETH</span>
                         </div>
                         <div class="col-md-6 pull-right">
@@ -2369,7 +2462,7 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                             <i class="fa fa-arrow-down" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <select name="displayTokenFrom" id="displayTokenFrom" class="form-control form-control-lg" style="border-radius: 20px;width: 100%;">
+                    <select name="displayTokenFrom" id="displayTokenFrom" class="form-control form-control-lg">
                         <option value='0' selected='true'> Select Token </option>
                     </select>
                 </div>
@@ -2407,7 +2500,7 @@ if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') 
                             <i class="fa fa-arrow-down" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <select name="displayTokenTo" id="displayTokenTo" class="form-control form-control-lg" style="border-radius: 20px;width: 100%;">
+                    <select name="displayTokenTo" id="displayTokenTo" class="form-control form-control-lg">
                         <option value='0' selected='true'> Select Token </option>
                     </select>
                 </div>

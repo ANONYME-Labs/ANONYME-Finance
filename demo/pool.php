@@ -1,28 +1,26 @@
-<?php 
-
+<?php
 include 'header.php';
 include 'sidebar.php';
 
 $userWallet = '';
-if(isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
+if (isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
     $userWallet = $_COOKIE['userWallet'];
 }
 
 $toggle_expert_mode = '';
-if(isset($_COOKIE['toggle_expert_mode']) && $_COOKIE['toggle_expert_mode'] != '') {
+if (isset($_COOKIE['toggle_expert_mode']) && $_COOKIE['toggle_expert_mode'] != '') {
     $toggle_expert_mode = $_COOKIE['toggle_expert_mode'];
 }
 
 $disable_multihops = '';
-if(isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') {
+if (isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') {
     $disable_multihops = $_COOKIE['disable_multihops'];
 }
 
 $slip_tlrance_txt = '';
-if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
+if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
     $slip_tlrance_txt = $_COOKIE['slip_tlrance_txt'];
 }
-
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
@@ -32,26 +30,21 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/jquery-ui-slider@1.12.1/jquery-ui.min.css" />
 <input type="hidden" name="login_user_wallet" id="login_user_wallet" value="<?php echo $userWallet; ?>" />
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="min-height: 1363.2px;">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 class="m-0 text-uppercase">POOL</h1>
                 </div>
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
+    
     <div class="content" id="poolpage">
         <div class="container-fluid">
             <div class="row justify-content-md-center">
                 <div class="col-lg-6">
-                    <!-- /.card -->
 
                     <div class="card p-3 mb-3">
                         <p>Liquidity provider rewards</p>
@@ -80,45 +73,34 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                             </p>
                         </div>
                     </div>
-
-                    
-                    <!-- /.card -->
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-
                     <table class="table tbl_pool_events-striped" id="tbl_pool_events" >
-                     <thead>
-                        <tr>
-                           <th>Gas Price</th>
-                           <th>Gas Used</th>
-                           <th>Transaction Hash</th>
-                           <th>Time Stamp</th>
-                           <th id="action">Action</th>
-                        </tr>
-                     <tbody>
-                     </tbody>
-                     </thead>
-                  </table>
-
-                    
+                        <thead>
+                            <tr>
+                                <th>Gas Price</th>
+                                <th>Gas Used</th>
+                                <th>Transaction Hash</th>
+                                <th>Time Stamp</th>
+                                <th id="action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /.content -->
 </div>
 
-
-<!-- /.content-wrapper -->
-<!-- /.control-sidebar -->
 <input type="hidden" name="WETHAddress" id="WETHAddress" value="<?php echo $WETHAddress; ?>">
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<!-- <msdropdown> -->
+
 <?php include 'footer.php'; ?>
 
 <script src="js/jquery.dd.js"></script>
@@ -144,15 +126,19 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
     var network = <?php echo $network; ?>;
 
     var etherscan_api_url = '';
-    if(network == 0){
+    if (network == 0) {
         etherscan_api_url = "http://api-rinkeby.etherscan.io/";
     } else {
         etherscan_api_url = "http://api.etherscan.io/";
     }
+
+    var slip_tlrance_txt = "<?php echo $slip_tlrance_txt; ?>";
+
+    var etherscanTx = "<?= $etherscanTx; ?>";
+
 </script>
 
 <script type="text/javascript" src="js/pool_custom.js"></script>
-
 
 <div class="modal fade" id="open_import_pool_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-md modal-dialog-top">
@@ -163,9 +149,8 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                         <span aria-hidden="true">&times;</span>
                     </button>Import Pool
                 </h5>
-
                 <button id="open_settings_dialog_button" class="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sc-gbOuXE daxFHC"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
-                <span class="exp_md_ison" <?php if($toggle_expert_mode == '') { ?> style="display: none;" <?php } ?> >🧙</span>
+                <span class="exp_md_ison" <?php if ($toggle_expert_mode == '') { ?> style="display: none;" <?php } ?> >🧙</span>
             </div>
             <div class="modal-body">
                 <div class="row py-2">
@@ -202,6 +187,10 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
                     <div class="col-md-12 text-center" id="imp_sel_token">
                         <div>Select a token to find your liquidity.</div>
+                    </div>
+                    <div class="col-md-12 text-center" id="imp_pool_notfound" style="display: none;">
+                        <div>You don’t have liquidity in this pool yet.</div>
+                        <div><a href="javascript:;"><strong>Add liquidity.</strong></a></div>
                     </div>
                 </div>
 
@@ -253,7 +242,7 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                 </button>
             </div>
             <div class="modal-body">
-                
+
                 <div class="row">
                     <div class="col-md-12 tr_tlrnce">
                         <span>Slippage tolerance</span> &nbsp; <a href="javascript:;" title="Your transaction will revert if the price changes unfavorably by more than this percentage."><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></a>
@@ -282,9 +271,9 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
                 <div class="row mt-2">
                     <div class="col-md-12 y_tr_mfail">
-                        <?php if($slip_tlrance_txt <= 0.1){ ?>
+                        <?php if ($slip_tlrance_txt <= 0.1) { ?>
                             <span>Your transaction may fail</span>
-                        <?php } else if($slip_tlrance_txt > 5){ ?>
+                        <?php } else if ($slip_tlrance_txt > 5) { ?>
                             <span>Your transaction may frontrun</span>
                         <?php } else { ?>
                             <span></span>
@@ -305,9 +294,7 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                 </div>
 
                 <div class="row mt-2">
-                    
                     <div class="col-md-12 inter_stng">
-
                         <div class="mt-2"><strong>Interface Settings</strong></div>
                     </div>
                 </div>
@@ -317,8 +304,12 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </div>
                     <div class="col-md-6 to_ex_md_right text-right pull-right">
                         <label class="switch">
-                          <input type="checkbox" id="to_ex_md_chk" <?php if($toggle_expert_mode != '') { echo 'checked'; } ?> >
-                          <div class="slider"></div>
+                            <input type="checkbox" id="to_ex_md_chk" <?php
+                            if ($toggle_expert_mode != '') {
+                                echo 'checked';
+                            }
+                            ?> >
+                            <div class="slider"></div>
                         </label>
                     </div>
                 </div>
@@ -328,16 +319,16 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </div>
                     <div class="col-md-6 dis_mult_right text-right pull-right">
                         <label class="switch">
-                          <input type="checkbox" id="dis_mult_chk" <?php if($disable_multihops != '') { echo 'checked'; } ?>>
-                          <div class="slider"></div>
+                            <input type="checkbox" id="dis_mult_chk" <?php
+                            if ($disable_multihops != '') {
+                                echo 'checked';
+                            }
+                            ?>>
+                            <div class="slider"></div>
                         </label>
                     </div>
-
                 </div>
-
             </div>
-
-            
         </div>
     </div>
 </div>
@@ -352,7 +343,7 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                 </button>
             </div>
             <div class="modal-body">
-                
+
                 <div class="row py-2">
                     <div class="col-md-12">
                         <p>
@@ -474,7 +465,6 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -543,8 +533,6 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     $('.custom_number_slider').slider();
                 </script>
             </div>
-
-            
         </div>
     </div>
 </div>
@@ -560,13 +548,8 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </button>
                     Create a pair<i class="fa fa-question-circle ml-2" aria-hidden="true"></i>
                 </h5>
-
                 <button id="open_settings_dialog_button" class="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sc-gbOuXE daxFHC"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
-                <span class="exp_md_ison" <?php if($toggle_expert_mode == '') { ?> style="display: none;" <?php } ?> >🧙</span>
-
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button> -->
+                <span class="exp_md_ison" <?php if ($toggle_expert_mode == '') { ?> style="display: none;" <?php } ?> >🧙</span>
             </div>
             <div class="modal-body">
                 <div id="pool_loading"></div>
@@ -665,29 +648,23 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
                     <div class="row py-4 hover-select-token">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                          <div class="col-md-12">
-                          <button class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve1" >
-                              <div class="css-10ob8xa">Invalid pair</div>
-                          </button>
-                        </div>
-                        <div class="col-md-12">
-                          <button class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve2" >
-                              <div class="css-10ob8xa">Invalid pair</div>
-                          </button>
-                        </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve1" >
+                                    <div class="css-10ob8xa">Invalid pair</div>
+                                </button>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-danger w-100 mb-3 apprvebuttons" id="approve2" >
+                                    <div class="css-10ob8xa">Invalid pair</div>
+                                </button>
+                            </div>
                             <button disabled="" class="btn btn-primary w-100 mb-3" id="create_pair_btn" onclick="createPairBtnClick();">
                                 <div class="css-10ob8xa">Invalid pair</div>
                             </button>
-
-                            <!-- <button disabled="" class="btn btn-primary w-100 mb-3">
-                              Insufficient ETH balance
-                            </button>
-                            <button class="btn btn-primary w-100 mb-3">Approve BAT</button> -->
-
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="create_found_pair" style="display: none;">
                         <hr/>
                         <div class="col-md-12">
                             <h5>Your position</h5>
@@ -700,27 +677,21 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                         <div class="col-md-6 pull-right">
                             <span id="adlq_token_pair_blnc" class="pull-right">0.03181</span>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-md-6 pull-left">
                             <span>Your pool share:</span>
                         </div>
                         <div class="col-md-6 pull-right">
                             <span id="adlqd_pool_share" class="pull-right">0.029480%</span>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-md-6 pull-left">
                             <span id="yl_from_token">BAT:</span>
                         </div>
                         <div class="col-md-6 pull-right">
                             <span id="yl_from_token_blnc" class="pull-right">0.55792</span>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-md-6 pull-left">
                             <span id="yl_to_token">ETH:</span>
                         </div>
@@ -728,7 +699,6 @@ if(isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                             <span id="yl_to_token_blnc" class="pull-right">0.0021238</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

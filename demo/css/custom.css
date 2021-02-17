@@ -63,4 +63,4 @@ input:checked + .slider:after { content:'ON'; }
 #impbothtokenImgss, #impbothtokenImgsf { max-width: 20px; }
 #open_import_pool_pop .dd .ddTitle .ddTitleText{ text-align: left; }
 #open_import_pool_pop .ddcommon .ddTitle{ width: 90%; }
-#import_pool_link { color: red; font-weight: bold; }
+#import_pool_link { color: #17a2b8; font-weight: bold; }

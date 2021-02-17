@@ -14,7 +14,7 @@ $(document).ready(function () {
             }
             console.log("user_wallet " + user_wallet);
 
-            oTable = $('#tbl_pool_events').dataTable({
+            oTable = $('#tbl_pool_events').DataTable({
                 //"dom": '<"top">rt<"bottom"flpi><"clear">', // Place pagination and Record filter to bottom
                 "bStateSave": true, //
                 "processing": true,
@@ -33,11 +33,8 @@ $(document).ready(function () {
                     $.each(acolumns, function (i, item) {
                         columns.push(item.data);
                     });
-
                     aoData.push({name: 'columns', value: columns});
-
                     aoData.push( { "name": "user_wallet", "value": user_wallet } );
-
                 },
 
                 "columns": [
@@ -90,7 +87,7 @@ $(document).ready(function () {
                
             });
 
-            // ADDING CSS TO WIDGET DIV
+            /*// ADDING CSS TO WIDGET DIV
             $('select[name=tbl_pool_events_length]').addClass('form-control');
             $('.dataTables_paginate').addClass('pagination pagination-md justify-content-center');
             $('.dataTables_paginate a').addClass('page-link');
@@ -98,7 +95,7 @@ $(document).ready(function () {
             $('#widgent_content_teacher').css('padding-bottom','30px');
             $('#widgent_content_teacher').css('padding-top','none');
             //$('#tbl_pool_events_filter').css('display','none');
-            $('#tbl_pool_events_filter input').addClass("form-control");
+            $('#tbl_pool_events_filter input').addClass("form-control");*/
 
         }
 

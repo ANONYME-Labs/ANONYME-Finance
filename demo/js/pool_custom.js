@@ -125,9 +125,14 @@ $(document).ready(function () {
                 var importPoolFrom = $('#importPoolFrom').msDropDown().data("dd");
                 importPoolFrom.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
 
+
                 var importPoolTo = $('#importPoolTo').msDropDown().data("dd");
                 importPoolTo.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
             }
+
+            $("#rmLqOutput1 option[value='ETH']").attr("selected", "selected");
+            console.log("dfdsfsdfsdf");
+            //$('#importPoolFrom option:contains("ETH")').prop('selected',true);
 
         },
         error: function (result) {
@@ -1776,10 +1781,16 @@ function getFromToTokenPercentValue(number){
 
     var token_pair_blnc = 0.00311811;
     $("#token_pair_blnc").text(token_pair_blnc);
-                
+
     $("#rmlqbothtoken").val(token_pair_blnc);
     $("#rmlqoutput1token").val(fTokenValue);
     $("#rmlqoutput2token").val(sTokenValue);
+
+    if(fTokenValue <= 0){
+        $("#rmlq_aprv_btn").prop('disabled', true);
+    } else {
+        $("#rmlq_aprv_btn").prop('disabled', false);
+    }
 }
 
 function transactionPercent(obj = '', number) {

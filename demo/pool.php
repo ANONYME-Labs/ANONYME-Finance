@@ -49,7 +49,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     <div class="card p-3 mb-3">
                         <h3>Liquidity provider rewards</h3>
                         <p>Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.</p>
-                        <a class="read_more_liq" href="javascript:;">Read more about providing liquidity</a>
+                        <a class="read_more_liq" href="https://uniswap.org/docs/v2/core-concepts/pools/" target="_blank">Read more about providing liquidity</a>
                     </div>
 
                     <div class="row mb-2">
@@ -435,7 +435,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                                     <input type="text" class="form-control" name="rmlqbothtoken" id="rmlqbothtoken" value="" readonly />
                                 </div>
                                 <div class="col-md-6 pull-right">
-                                    <div class="pull-right" id="rmlqbothtokenBalance">Balance: <span></span></div>
+                                    <div class="pull-right" id="rmlqbothtokenBalance">Balance: <span>123</span></div>
                                     <div class="pull-right mt-3">
                                         <img class="" id="rmlqbothtokenImgf" alt="Token logo" src="images/bat.svg">
                                         <img class="" id="rmlqbothtokenImgs" alt="Token logo" src="images/eth.png" >
@@ -455,6 +455,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                                     <br/>
                                     <select name="rmLqOutput1" id="rmLqOutput1" class="form-control pull-right form-control-lg">
                                         <option value='0' selected='true'> Select Token </option>
+                                        <option value="ETH" data-image="images/eth.png">ETH</option>
                                     </select>
                                 </div>
                             </div>
@@ -470,6 +471,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                                     <br/>
                                     <select name="rmLqOutput2" id="rmLqOutput2" class="form-control pull-right form-control-lg">
                                         <option value='0' selected='true'> Select Token </option>
+                                        <option value="ETH" data-image="images/eth.png">ETH</option>
                                     </select>
                                 </div>
                             </div>
@@ -489,7 +491,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
                 <div class="row py-2">
                     <div class="col-md-6 pull-left">
-                        <button class="btn btn-primary w-100" >Approve</button>
+                        <button class="btn btn-primary w-100" id="rmlq_aprv_btn" >Approve</button>
                     </div>
                     <div class="col-md-6 pull-right">
                         <button class="btn btn-danger pull-right w-100" disabled >Remove</button>

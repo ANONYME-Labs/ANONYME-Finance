@@ -39,10 +39,12 @@ $(document).ready(function () {
         }
     });
 
-
     $("#custom_number_slider").mousemove(function () {
         $("#pool_percent_number").text(document.getElementById("custom_number_slider").value + "%");
-        $("#rm_lq_sld_val").val(document.getElementById("custom_number_slider").value);
+        var number = document.getElementById("custom_number_slider").value;
+        $("#rm_lq_sld_val").val(number);
+
+        getFromToTokenPercentValue(number);
     })
 
     $(".apprvebuttons").on("click", function () {
@@ -230,7 +232,6 @@ $(document).ready(function () {
         return true;
     });
 
-
     $("#typeSimpleData").on("click", function () {
         $("#simpleDataSection").show();
         $("#detailsDataSection").hide();
@@ -255,6 +256,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", "#open_settings_dialog_button", function () {
+        
         $("#open_settings_dialog_pop").modal('show');
 
     });
@@ -374,6 +376,11 @@ $(document).ready(function () {
 
     $(document).on("click", "#import_pool_link", function () {
         $('#open_import_pool_pop').modal('show');
+        
+        $("#imp_sel_token").show();
+        $("#imp_pool_found").hide();
+        $("#imp_pool_found_details").hide();
+        $("#imp_pool_notfound").hide();
     });
 
     $("#open_import_pool_pop").on('hide.bs.modal', function () {
@@ -1615,19 +1622,7 @@ function removeLiquidity(dbid) {
                 $("#fTokenName").text(token_from);
                 $("#sTokenName").text(token_to);
 
-                var fTokenValue = 0.0056;
-                $("#fTokenValue").text(fTokenValue);
-
-                var sTokenValue = 0.0025;
-                $("#sTokenValue").text(sTokenValue);
-
-                var token_pair_blnc = 0.00311811;
-                $("#token_pair_blnc").text(token_pair_blnc);
-
-                $("#rmlqbothtoken").val(token_pair_blnc);
-                $("#rmlqoutput1token").val(fTokenValue);
-                $("#rmlqoutput2token").val(sTokenValue);
-
+                getFromToTokenPercentValue(100);
 
                 var token_price_ftt = "1 " + token_from + " = 0.00373513 " + token_to;
                 $("#token_price_ftt").text(token_price_ftt);
@@ -1759,9 +1754,32 @@ function removeLiquidityInSidePopup(dbid) {
 }
 
 function changeRLNumber(number) {
+
     $("#pool_percent_number").text(number + "%");
     $("#rm_lq_sld_val").val(number);
     $("#custom_number_slider").val(number);
+
+    getFromToTokenPercentValue(number);
+    
+}
+
+function getFromToTokenPercentValue(number){
+
+    var from_token_val = 0.00342903;
+    var to_token_val = 0.784524;
+
+    var fTokenValue = (from_token_val * number) / 100;
+    var sTokenValue = (to_token_val * number) / 100;
+
+    $("#fTokenValue").text(fTokenValue);
+    $("#sTokenValue").text(sTokenValue);
+
+    var token_pair_blnc = 0.00311811;
+    $("#token_pair_blnc").text(token_pair_blnc);
+                
+    $("#rmlqbothtoken").val(token_pair_blnc);
+    $("#rmlqoutput1token").val(fTokenValue);
+    $("#rmlqoutput2token").val(sTokenValue);
 }
 
 function transactionPercent(obj = '', number) {

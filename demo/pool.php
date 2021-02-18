@@ -34,7 +34,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-md-12">
                     <h1 class="m-0 text-uppercase">POOL</h1>
                 </div>
             </div>
@@ -47,26 +47,34 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                 <div class="col-lg-6">
 
                     <div class="card p-3 mb-3">
-                        <p>Liquidity provider rewards</p>
+                        <h3>Liquidity provider rewards</h3>
                         <p>Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.</p>
-                        <a href="javascript:;">Read more about providing liquidity</a>
+                        <a class="read_more_liq" href="javascript:;">Read more about providing liquidity</a>
                     </div>
 
-                    <div class="row mb-5">
+                    <div class="row mb-2">
                         <div class="col-lg-6">
                             <h3>Your liquidity</h3>
                         </div>
                         <div class="col-lg-6 text-right">
                             <a href="javascript:;" class="btn btn-info" role="button" aria-pressed="true" data-toggle="modal" data-target="#coin_option2">Add Liquidity</a>
                         </div>
+
+                        <div class="col-md-12 text-left mt-3">
+                            <div class="account_accured_fees">
+                                <a target="_blank" rel="noopener noreferrer" href="https://uniswap.info/account/<?php echo $userWallet; ?>" class="sc-jKJlTe cEMwVc">Account analytics and accrued fees <span> ↗</span></a>
+
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row mb-3">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-md-12 text-center">
                             <p id="wallet_connected">Connect to a wallet to view your liquidity.</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-md-12 text-center">
                             <p>
                                 Don't see a pool you joined? 
                                 <a href="javascript:;" id="import_pool_link"> Import it.</a>
@@ -75,6 +83,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </div>
                 </div>
             </div>
+            <hr/>
 
             <div class="row">
                 <div class="col-md-12">
@@ -423,10 +432,10 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                             <div class="col-md-12">
                                 <div class="col-md-6 pull-left">
                                     <label>Input</label>
-                                    <input type="text" class="form-control" name="rmlqbothtoken" id="rmlqbothtoken" value="0.0318169" />
+                                    <input type="text" class="form-control" name="rmlqbothtoken" id="rmlqbothtoken" value="" readonly />
                                 </div>
                                 <div class="col-md-6 pull-right">
-                                    <div class="pull-right" id="rmlqbothtokenBalance">Balance: <span>0.0318169</span></div>
+                                    <div class="pull-right" id="rmlqbothtokenBalance">Balance: <span></span></div>
                                     <div class="pull-right mt-3">
                                         <img class="" id="rmlqbothtokenImgf" alt="Token logo" src="images/bat.svg">
                                         <img class="" id="rmlqbothtokenImgs" alt="Token logo" src="images/eth.png" >
@@ -440,7 +449,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                             <div class="col-md-12">
                                 <div class="col-md-6 pull-left">
                                     <label>Output</label>
-                                    <input type="text" class="form-control" name="rmlqoutput1token" id="rmlqoutput1token" value="0.55792" />
+                                    <input type="text" class="form-control" name="rmlqoutput1token" id="rmlqoutput1token" value="" readonly />
                                 </div>
                                 <div class="col-md-6 pull-right text-right">
                                     <br/>
@@ -455,7 +464,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                             <div class="col-md-12">
                                 <div class="col-md-6 pull-left">
                                     <label>Output</label>
-                                    <input type="text" class="form-control" name="rmlqoutput2token" id="rmlqoutput2token" value="0.0021238" />
+                                    <input type="text" class="form-control" name="rmlqoutput2token" id="rmlqoutput2token" value="" readonly />
                                 </div>
                                 <div class="col-md-6 pull-right text-right">
                                     <br/>
@@ -480,17 +489,17 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
                 <div class="row py-2">
                     <div class="col-md-6 pull-left">
-                        <button class="btn btn-primary w-100" disabled>Approve</button>
+                        <button class="btn btn-primary w-100" >Approve</button>
                     </div>
                     <div class="col-md-6 pull-right">
                         <button class="btn btn-danger pull-right w-100" disabled >Remove</button>
                     </div>
                 </div>
 
-                <div class="row py-2">
+                <div class="row mt-2">
                     <hr/>
                     <div class="col-md-12">
-                        <h5>Your position</h5>
+                        <h5 class="mb-0">Your position</h5>
                     </div>
                     <div class="col-md-6 pull-left">
                         <img class="" id="rmlqbothtokenImgsf" alt="Token logo" src="images/bat.svg">
@@ -498,34 +507,34 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                         <span id="token_pair_labels">BAT/ETH</span>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p id="token_pair_blnc" class="pull-right">0.03181</p>
+                        <span id="token_pair_blnc" class="pull-right">0.03181</span>
                     </div>
                 </div>
 
-                <div class="row py-2">
+                <div class="row">
                     <div class="col-md-6 pull-left">
-                        <p>Your pool share:</p>
+                        <span>Your pool share:</span>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p id="rmlqd_pool_share" class="pull-right">0.029480%</p>
+                        <span id="rmlqd_pool_share" class="pull-right">0.029480%</span>
                     </div>
                 </div>
 
-                <div class="row py-2">
+                <div class="row">
                     <div class="col-md-6 pull-left">
-                        <p id="yl_from_token">BAT:</p>
+                        <span id="yl_from_token">BAT:</span>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p id="yl_from_token_blnc" class="pull-right">0.55792</p>
+                        <span id="yl_from_token_blnc" class="pull-right">0.55792</span>
                     </div>
                 </div>
 
-                <div class="row py-2">
+                <div class="row">
                     <div class="col-md-6 pull-left">
-                        <p id="yl_to_token">ETH:</p>
+                        <span id="yl_to_token">ETH:</span>
                     </div>
                     <div class="col-md-6 pull-right">
-                        <p id="yl_to_token_blnc" class="pull-right">0.0021238</p>
+                        <span id="yl_to_token_blnc" class="pull-right">0.0021238</span>
                     </div>
                 </div>
 
@@ -553,14 +562,14 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
             </div>
             <div class="modal-body">
                 <div id="pool_loading"></div>
-                <div class="col-sm-12 mb-3">
+                <div class="col-md-12 mb-3">
                     <div class="alert alert-danger">
                         You are the first liquidity provider.<br>
                         The ratio of tokens you add will set the price of this pool.<br>
                         Once you are happy with the rate click supply to review.
                     </div>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-md-12">
                     <div class="row py-2 hover-select-token">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <span>Input</span>
@@ -573,7 +582,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </div>
 
                     <div class="row py-2 hover-select-token">
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="txtPoolFromToken" aria-label="Text input with dropdown button" placeholder="0.0">
                                 <div class="input-group-append">
@@ -587,13 +596,13 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </div>
 
                     <div class="row py-2 hover-select-token">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-md-12 text-center">
                             <p class="m-0"><i class="fa fa-plus" aria-hidden="true"></i></p>
                         </div>
                     </div>
 
                     <div class="row py-2 hover-select-token">
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6">
                                     <span>Input</span>
@@ -617,7 +626,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                     </div>
 
                     <div class="row py-2 hover-select-token">
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
                             <div class="sc-gqjmRU sc-fMiknA sc-dVhcbM iwiYPV">
                                 <div class="sc-gqjmRU sc-jTzLTM sc-fjdhpX bdIUOu">
                                     <div class="sc-kkGfuU hyvXgi css-1aekuku">
@@ -715,7 +724,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                 </button>
             </div>
             <div class="modal-body">
-                <div class="col-sm-12">
+                <div class="col-md-12">
                     <div class="row py-2">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <button class="btn btn-primary" id="pairETHButtonFrom">ETH</button>
@@ -753,7 +762,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                 </button>
             </div>
             <div class="modal-body">
-                <div class="col-sm-12">
+                <div class="col-md-12">
                     <div class="row py-2">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <button class="btn btn-primary" id="pairETHButtonTo">ETH</button>

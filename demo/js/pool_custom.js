@@ -1535,18 +1535,21 @@ function createPairBtnClick() {
                                         var amountTokenBDesired = tokenAmount * devide_to2;
                                         var amountTokenMin = (ETHValue - ETH_percent);
                                         var amountETHMin = (tokenAmount - token_percent) * devide_to2;
+                                        var amountETHMin = parseInt(amountETHMin); //amountETHMin.toLocaleString('fullwide', {useGrouping: false});
                                         var to = myAccountAddress;
                                         var milliseconds = 300 * 1000;
                                         var deadline = new Date().getTime() + milliseconds;
 
                                         console.log('==================');
-                                        console.log('addLiquidityETH ' + addLiquidityETH);
+                                        console.log('contractAddress1 ' + contractAddress1);
+                                        console.log('contractAddress2 ' + contractAddress2);
                                         console.log('amountTokenDesired ' + amountTokenADesired);
                                         console.log('amountTokenBDesired ' + amountTokenBDesired);
                                         console.log('amountTokenMin ' + amountTokenMin);
                                         console.log('amountETHMin ' + amountETHMin);
                                         console.log('to ' + to);
                                         console.log('deadline ' + deadline);
+                                        console.log('value 0');
                                         console.log('==================');
 
                                         var addLiqETH = routerContract.methods.addLiquidity(contractAddress1, contractAddress2, amountTokenADesired, amountTokenBDesired, amountTokenMin, amountETHMin, to, deadline).send({

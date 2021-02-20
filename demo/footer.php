@@ -403,9 +403,13 @@ $(document).ready(async function(){
 				if(checkallowance==0){
 					$('#approve').show();
 					$('#checkMembership').hide();
+					$('.faucet-link').hide();
 				}else {
 					$('#checkMembership').show();
 					$('#approve').hide();
+					 if(asset!="" && asset!='ETH' && asset!='cETH'){ 
+						$('.faucet-link').show();
+					 }
 				}
 
 				}
@@ -816,6 +820,16 @@ $(document).ready(async function(){
 			$('#approve').hide();
  });
  
+ //faucet-link
+
+
+ $('.faucet-link').click( async function(){
+			
+			const underlyingTokensToSupply = 10 * Math.pow(10, underlyingDecimals);
+			await underlying.methods.allocateTo(myAccountAddress, underlyingTokensToSupply).send(fromMyWallet);
+			
+ });
+ 
  // supply
  $('#supplying').click( async function(){
 	 const TokensToSupply=$('#TokensToSupply').val();
@@ -1060,7 +1074,6 @@ $(document).ready(async function(){
  });
 
 $('.close').click( async function(){ $('#supplyWithdraw').hide();   $('#borrowRepay').hide();});
- 
 
 // Assets loop
 var ContractTotalReserves=0;
@@ -1160,9 +1173,47 @@ for (var i=0;i<totassets;i++){
 
 					
 }
+
+
 }
 
- 
+// home page pie chart
+ var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "dark2",
+	exportFileName: "Doughnut Chart",
+	exportEnabled: false,
+	animationEnabled: true,
+	title:{
+		text: ""
+	},
+	legend:{
+		cursor: "pointer",
+		itemclick: explodePie
+	},
+	data: [{
+		type: "doughnut",
+		innerRadius: 30,
+		showInLegend: true,
+		toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
+		indexLabel: false,
+		dataPoints: [
+			{ y: totC, name: "Available Liquidity" },
+			{ y: totB, name: "Total Borrowed"}
+			
+		]
+	}]
+});
+chart.render();
+
+function explodePie (e) {
+	if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+		e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+	} else {
+		e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+	}
+	e.chart.render();
+}
+
 
             }
           });
@@ -1188,6 +1239,10 @@ window.ethereum.on('accountsChanged', function (accounts) {
 window.ethereum.on('networkChanged', function (networkId) {
   location.reload();
 })
+
+
+
+
 
   });
   });
@@ -1227,6 +1282,9 @@ window.ethereum.on('networkChanged', function (networkId) {
 	      location.href='borrow.php';
        }   
 	   
+window.onload = function () {
+
+}
 </script>
 
 <!-- modal -->
@@ -1314,6 +1372,7 @@ window.ethereum.on('networkChanged', function (networkId) {
               <div class="row mb-3">
                 <div class="col-sm-12">
                   <button class="btn btn-secondary btn-block" id="supplying" >NO FUNDS AVAILABLE</button>
+				  
                 </div>
               </div>
 			 </div>
@@ -1322,6 +1381,7 @@ window.ethereum.on('networkChanged', function (networkId) {
 			  <div class="row mb-3">
                 <div class="col-sm-12">
                   <button class="btn btn-secondary btn-block" id="approve" >Enable</button>
+
                 </div>
                </div>
 			  </div>
@@ -1330,6 +1390,7 @@ window.ethereum.on('networkChanged', function (networkId) {
                 <div class="col-sm-12">
                   <span>Wallet Balance</span>
                   <span style="float: right;" class="walletbalancepop" >0 ETH</span>
+				  <a class="faucet-link" style="display: none;" >Faucet</a>
                 </div>
               </div>  
             </div>
@@ -1379,12 +1440,14 @@ window.ethereum.on('networkChanged', function (networkId) {
               <div class="row mb-3">
                 <div class="col-sm-12">
                   <button class="btn btn-secondary btn-block"  id="withdrawing" >NO BALANCE TO WITHDRAW</button>
+				  
                 </div>
               </div>
               <div class="row ">
                 <div class="col-sm-12">
                   <span>Currenctly Supplying</span>
                   <span style="float: right;" class="supply_blalnce" >0 ETH</span>
+				  <a class="faucet-link" style="display: none;">Faucet</a>
                 </div>
               </div>
             </div>
@@ -1571,6 +1634,16 @@ window.ethereum.on('networkChanged', function (networkId) {
 </div>
 
 <!-- modal -->
+<script src="js/canvasjs.min.js"></script>
 <script type="text/javascript"
  src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+ <style>
+ .faucet-link {
+    text-align: center;
+    max-width: 100%;
+    display: block;
+    color: #00c3ff;
+	cursor: pointer;
+}
+ </style>
 </body></html>

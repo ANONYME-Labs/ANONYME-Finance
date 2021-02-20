@@ -1,11 +1,13 @@
-note: In testnet we can't see TotalReserves.. It's showing 0
+note: 
+In testnet we can't see TotalReserves.. It's showing 0.
+If we supply in ETH but not borrow in ETH, then ETH borrow option left out from the borrow list.
 
 Supply
 ------------------------------------
 if assets ETH:-
 
 1)check condition for wallet balance not 0 or -
-2)check Max value it's 92% of your wallet
+2)check Max value same as wallet
 3)check supply value not high then wallet
 
 else
@@ -18,6 +20,20 @@ else
 
 borrow
 --------------------------------------
+1)check condition for supply balance not 0 
+2)we can borrow bellow our Liquidty %
+3)check user account Membership
 
 
+withdraw
+------------------------------------------
+1)balanceOfUnderlying is grater then 0 means need to supply balance
+2)check user account Membership
+3)max value same as balanceOfUnderlying 
 
+
+repay
+------------------------------------------
+1)borrowBalance is grater then 0 means need to borrew balance
+2)check user account Membership 
+3)max value same as borrowBalance 

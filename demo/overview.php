@@ -73,7 +73,8 @@
                   <p class="mb-0" id="availableLiqUSD">-</p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                  <canvas id="pieChart" height="147" width="296" class="chartjs-render-monitor" style="display: block; height: 118px; width: 237px;"></canvas>
+				  <div id="chartContainer" style="height: 147px; max-width: 296px; margin: 0px auto;"></div>
+                  <!--canvas id="pieChart" height="147" width="296" class="chartjs-render-monitor" style="display: block; height: 118px; width: 237px;"></canvas-->
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12 text-center">
                   <p class="mb-0" style="font-size: 16px;">Total Borrowed</p>
@@ -95,11 +96,11 @@
                               Deposit APY <span class="supply_percentage float-right badge bg-primary">-</span>
                             </a>
                           </li>
-                          <li class="nav-item">
+                          <!--li class="nav-item">
                             <a href="#" class="nav-link">
                               Past 30D Avg. <span class="float-right badge bg-info">-</span>
                             </a>
-                          </li>
+                          </li-->
                         </ul>
                       </div>
                     </div>
@@ -139,7 +140,7 @@
                               Borrow APR <span class="borrow_percentage float-right badge bg-primary">-</span>
                             </a>
                           </li>
-                          <li class="nav-item">
+                          <!--li class="nav-item">
                             <a href="#" class="nav-link">
                               Past 30D Avg. <span class="float-right badge bg-info">-</span>
                             </a>
@@ -148,7 +149,7 @@
                             <a href="#" class="nav-link">
                               % over total <span class="float-right badge bg-success">-</span>
                             </a>
-                          </li>
+                          </li-->
                         </ul>
                       </div>
                     </div>
@@ -257,3 +258,4 @@
   <!-- /.control-sidebar -->
 
   <?php include 'footer.php';?>
+

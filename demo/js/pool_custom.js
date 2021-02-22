@@ -143,18 +143,47 @@ $(document).ready(function () {
     $(document.body).on("change", "#poolFromToken", function () {
 
         var poolFromToken = $('#poolFromToken option:selected').val();
-        getSelectedWalletBalance(poolFromToken, 'fromwallet');
+        var poolToToken = $('#poolToToken option:selected').val();
 
-        changeFromToken("from_change");
+        if( poolFromToken== poolToToken) {
+            
+            alertify.alert('Warning', 'Both tokens should not be the same.');
+            setTimeout(function(){
+                $("#pairWalletFromBalance").html("0.00");
+                $("#poolFromToken_title .ddlabel").html("Select Token");
+                $("#poolFromToken_title img").remove();
+                $("#poolFromToken_child .enabled._msddli_").removeClass("selected");
+            }, 500);
+
+            return false;
+        } else {
+            getSelectedWalletBalance(poolFromToken, 'fromwallet');
+            changeFromToken("from_change");
+        }
 
     });
 
     $(document.body).on("change", "#poolToToken", function () {
 
+        var poolFromToken = $('#poolFromToken option:selected').val();
         var poolToToken = $('#poolToToken option:selected').val();
-        getSelectedWalletBalance(poolToToken, 'towallet');
 
-        changeFromToken("from_change");
+        if( poolFromToken == poolToToken) {
+            
+            alertify.alert('Warning', 'Both tokens should not be the same.');
+            
+            setTimeout(function(){
+                $("#pairWalletToBalance").html("0.00");
+                $("#poolToToken_title .ddlabel").html("Select Token");
+                $("#poolToToken_title img").remove();
+                $("#poolToToken_child .enabled._msddli_").removeClass("selected");
+            }, 500);
+
+            return false;
+        } else {
+            getSelectedWalletBalance(poolToToken, 'towallet');
+            changeFromToken("from_change");
+        }
 
     });
 

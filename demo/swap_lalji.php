@@ -734,43 +734,26 @@ $(document).ready(function(){
 			        });
  			
 			        // if token0 = fromaddress then call SWAP EXACT TOKENS FOR TOKENS function
-			         setTimeout(function(){
+		          setTimeout(function(){
 			        	var  tx;
 			        	var amountout=0;
 			        	var txtboxinputvalue=0;
-	                      var path = [];
-	                      if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
-				        	{
-				            	path= [contractAddress1,WETHContract, contractAddress2];
-				        	}
-				        	else
-				        	{
-				        		console.log( " else path ");
-				        		path = [contractAddress1, contractAddress2];
-				        	}
+                var path = [];
+                if (vRountText.toLocaleLowerCase().indexOf(">")!=-1) {
+	            	  path= [contractAddress1,WETHContract, contractAddress2];
+		        	  } else {
+			        		console.log( " else path ");
+			        		path = [contractAddress1, contractAddress2];
+			        	}
 	                     
-	                        var milliseconds = 300 * 1000;
-	                      var deadline = new Date().getTime() + milliseconds;
-	                      var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
-	                      /*
-							function swapExactTokensForTokens(
-							  uint amountIn,
-							  uint amountOutMin,
-							  address[] calldata path,
-							  address to,
-							  uint deadline
-							) external returns (uint[] memory amounts);
+                var milliseconds = 300 * 1000;
+                var deadline = new Date().getTime() + milliseconds;
+                var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
 
-							for swapExactTokensForTokens  
-							amountIn = textbox input value
-							amountOutMin = estimated value
+                if(vFromTokenKeyPress==true && vToTokenKeyPress==false) {
 
-
-	                      */
-	                      
-	                    if(vFromTokenKeyPress==true && vToTokenKeyPress==false)
-			        	{
 			        		console.log(" iffffff if ififf ");
+
 			        		vFromTokenVal = vFromTokenVal* devide_to1;
 			        		vFromTokenVal = vFromTokenVal.toLocaleString('fullwide', {useGrouping:false});
               	  amountout=vToTokenVal*devide_to1;
@@ -784,15 +767,14 @@ $(document).ready(function(){
                     
                     var gamout = getAmtVal[0];
                     var getAmout = gamout.toLocaleString('fullwide', {useGrouping:false});
-                    var getAmoutInt = BigInt(getAmout);
+                    console.log(getAmoutInt);
                     
-                    var x = (getAmout * 0.5); // BigInt('1');
+                    var x = (getAmout * 0.5);
                     var y = x.toLocaleString('fullwide', {useGrouping:false});
                     var z = (y / 100);
                     var p = z.toLocaleString('fullwide', {useGrouping:false});
                     var mns_percent = (BigInt(getAmout) - BigInt(p));
                     var getAmountOut = mns_percent.toLocaleString('fullwide', {useGrouping:false});
-                    console.log(getAmountOut);
 
                     console.log("=====================");
                     console.log("txtboxinputvalue: " + txtboxinputvalue);
@@ -807,96 +789,109 @@ $(document).ready(function(){
                       gasLimit: web3.utils.toHex(460000),
                       gasPrice: web3.utils.toHex(10000000000),
                       value: 0
-                    }).on("transactionHash", function (hash) {
-                       console.log("transactionHash : " + hash);
-                    }).on("receipt", function () {
-                      console.log("Receipt");
-                    })
-                    .on("confirmation", function (hash) {
-                        $(".ajs-ok").click();
-                        console.log("Confirmed");
-                        alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+hash+"' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
-
-                    })
-                    .on("error", async function (error) {
-                        $(".ajs-ok").click();
-                        console.log("Error");
-                        alertify.alert("Warning", error, function(){});
                     });
 
+                    var myPromise = MakeQuerablePromise(tx);
+
+                    if(myPromise.isPending()){
+                      alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                    }
+                    var timerID = setInterval(function() {
+                      
+                      if(myPromise.isFulfilled()){
+
+                        myPromise.then(function(result){
+                          alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                        });
+                        $(".ajs-ok").click();
+                        clearInterval(timerID);
+                      }
+
+                      if(myPromise.isFulfilled()){
+                        $(".ajs-ok").click();
+                        clearInterval(timerID);
+                      }
+
+                      if(myPromise.isRejected()){
+                        myPromise.then(response => { }).catch(error => {
+                            alertify.alert("Warning", error.message, function(){});
+                        });
+                        $(".ajs-ok").click();
+                        clearInterval(timerID);
+                      }
+                    }, 500);
                   });
 
-			        	}
-			        	else if(vFromTokenKeyPress==false && vToTokenKeyPress==true)
-			        	{
+			        	} else if(vFromTokenKeyPress==false && vToTokenKeyPress==true) {
+
 			        		console.log(" else iffffff  else if else ififf ");
 			        		vToTokenVal = vToTokenVal* 1e18;
-                      		vToTokenVal = vToTokenVal.toLocaleString('fullwide', {useGrouping:false});
-                      		amountout=vFromTokenVal*devide_to1;
-                      		amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
+              		vToTokenVal = vToTokenVal.toLocaleString('fullwide', {useGrouping:false});
+              		amountout=vFromTokenVal*devide_to1;
+              		amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
 
-                      		txtboxinputvalue = vToTokenVal;
+              		txtboxinputvalue = vToTokenVal;
 
-                      		tx = routerContract.methods.swapTokensForExactTokens(txtboxinputvalue,amountout,path,addressFrom,deadline).send({
-		                        from:addressFrom,
-		                        gasLimit: web3.utils.toHex(760000),
-		                        gasPrice: web3.utils.toHex(1000000000),
-		                        value: 0
-		                      }).on("transactionHash", function (hash) {
-		                           console.log("transactionHash : " + hash);
-		                      }).on("receipt", function () {
-		                          console.log("Receipt");
-		                      })
-		                      .on("confirmation", function () {
-		                          console.log("Confirmed");
-		                      })
-		                      .on("error", async function () {
-		                          console.log("Error");
-		                      });
-			        	}
+              		tx = routerContract.methods.swapTokensForExactTokens(txtboxinputvalue,amountout,path,addressFrom,deadline).send({
+                    from:addressFrom,
+                    gasLimit: web3.utils.toHex(760000),
+                    gasPrice: web3.utils.toHex(1000000000),
+                    value: 0
+                  }).on("transactionHash", function (hash) {
+                    console.log(result); 
+                    console.log("transactionHash : " + hash);
+                  }).on("receipt", function (result) {
+                    console.log(result);
+                    console.log("Receipt");
+                  })
+                  .on("confirmation", function (result) {
+                    console.log(result);
+                    console.log("Confirmed");
+                  })
+                  .on("error", async function (result) {
+                      console.log(result);
+                      console.log("Error");
+                  });
+			        	
           
-                        console.log(" in token0 = "+ vtoken0);
-	                      console.log("keypress from = " + vFromTokenKeyPress);
-	                      console.log("keypress to = " + vToTokenKeyPress);
+                  console.log(" in token0 = "+ vtoken0);
+                  console.log("keypress from = " + vFromTokenKeyPress);
+                  console.log("keypress to = " + vToTokenKeyPress);
 
-	                      console.log(" txtboxinputvalue = " + txtboxinputvalue);
-	                      console.log(" amount out  = " + amountout);
+                  console.log(" txtboxinputvalue = " + txtboxinputvalue);
+                  console.log(" amount out  = " + amountout);
 
-	                           // [========= Please wait popup ===========]
-                         //var myPromise = MakeQuerablePromise(tx);
+                       // [========= Please wait popup ===========]
+                    var myPromise = MakeQuerablePromise(tx);
 
-                         //if(myPromise.isPending()){
-                            alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
-                        //}
-                        var timerID = setInterval(function() {
-                          var myPromise = MakeQuerablePromise(tx);
-                        if(myPromise.isFulfilled()){
+                    if(myPromise.isPending()){
+                      alertify.alert("<b>Please wait</b>","<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function(){});
+                    }
 
-                            myPromise.then(function(result){
-                                alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
-                            });
+                    var timerID = setInterval(function() {
+                    if(myPromise.isFulfilled()){
+                      myPromise.then(function(result){
+                        alertify.alert("Transacton Recorded","Thanks for joining <?=$siteName;?> You can check the status at <a href='<?=$etherscanTx;?>"+result.transactionHash+"' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function(){});
+                      });
 
-                            $(".ajs-ok").click();
-                            clearInterval(timerID);
-                        }
+                      $(".ajs-ok").click();
+                      clearInterval(timerID);
+                    }
 
-                        if(myPromise.isFulfilled()){
-                            //resetAllFields();
-                            //loadSelectOptions();
-                            $(".ajs-ok").click();
-                            clearInterval(timerID);
-                        }
-                        if(myPromise.isRejected()){
-
-                            myPromise.then(response => {
-                            }).catch(error => {
-                                alertify.alert("Warning", error.message, function(){});
-                            });
-                            $(".ajs-ok").click();
-                            clearInterval(timerID);
-                        }
-                    }, 500);
-				}, 1500);
+                    if(myPromise.isFulfilled()){
+                      $(".ajs-ok").click();
+                      clearInterval(timerID);
+                    }
+                    if(myPromise.isRejected()){
+                      myPromise.then(response => { }).catch(error => {
+                        alertify.alert("Warning", error.message, function(){});
+                      });
+                      $(".ajs-ok").click();
+                      clearInterval(timerID);
+                    }
+                  }, 500);
+                }
+		          }, 1500);
 
                 });
 

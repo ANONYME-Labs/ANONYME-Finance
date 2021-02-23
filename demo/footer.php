@@ -1749,4 +1749,8 @@ window.onload = function () {
 	cursor: pointer;
 }
  </style>
-</body></html>
+
+ <script type="text/javascript" src="js/pool_custom.js"></script>
+
+</body>
+</html>

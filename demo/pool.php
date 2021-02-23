@@ -142,8 +142,6 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
 </script>
 
-<script type="text/javascript" src="js/pool_custom.js"></script>
-
 <div class="modal fade" id="open_import_pool_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-md modal-dialog-top">
         <div class="modal-content">

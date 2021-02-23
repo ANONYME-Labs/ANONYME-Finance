@@ -110,29 +110,38 @@ $(document).ready(function () {
 
             for (i = 0; i < data.length; i++) {
 
-                var oDD = $('#poolFromToken').msDropDown().data("dd");
-                oDD.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                if($('#poolFromToken').length > 0){
+                    var oDD = $('#poolFromToken').msDropDown().data("dd");
+                    oDD.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                }
 
-                var oDD1 = $('#poolToToken').msDropDown().data("dd");
-                oDD1.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                if($('#poolToToken').length > 0){
+                    var oDD1 = $('#poolToToken').msDropDown().data("dd");
+                    oDD1.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                }
 
-                var rmLqOutput1 = $('#rmLqOutput1').msDropDown().data("dd");
-                rmLqOutput1.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                if($('#rmLqOutput1').length > 0){
+                    var rmLqOutput1 = $('#rmLqOutput1').msDropDown().data("dd");
+                    rmLqOutput1.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                }
 
-                var rmLqOutput2 = $('#rmLqOutput2').msDropDown().data("dd");
-                rmLqOutput2.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                if($('#rmLqOutput2').length > 0){
+                    var rmLqOutput2 = $('#rmLqOutput2').msDropDown().data("dd");
+                    rmLqOutput2.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                }
 
-                var importPoolFrom = $('#importPoolFrom').msDropDown().data("dd");
-                importPoolFrom.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                if($('#importPoolFrom').length > 0){
+                    var importPoolFrom = $('#importPoolFrom').msDropDown().data("dd");
+                    importPoolFrom.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                }
 
-
-                var importPoolTo = $('#importPoolTo').msDropDown().data("dd");
-                importPoolTo.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                if($('#importPoolTo').length > 0){
+                    var importPoolTo = $('#importPoolTo').msDropDown().data("dd");
+                    importPoolTo.add({text: data[i].cCode, value: data[i].cCode, image: data[i].cURL});
+                }
             }
 
             $("#rmLqOutput1 option[value='ETH']").attr("selected", "selected");
-            console.log("dfdsfsdfsdf");
-            //$('#importPoolFrom option:contains("ETH")').prop('selected',true);
 
         },
         error: function (result) {
@@ -1041,6 +1050,8 @@ function changeFromToken(change = '') {
                     var from_token_name = $('#poolFromToken option:selected').val();
                     var to_token_name = $('#poolToToken option:selected').val();
 
+                    $("#pool_loading").show();
+
                     $.ajax({
                         type: "POST",
                         url: 'ajax/getFactoryContract.php',
@@ -1097,6 +1108,9 @@ function changeFromToken(change = '') {
                                 });
 
                             }
+
+                            $("#pool_loading").hide();
+
                             var vtoken0 = pairContract.methods.token0().call();
                             var vtoken1 = pairContract.methods.token1().call();
 

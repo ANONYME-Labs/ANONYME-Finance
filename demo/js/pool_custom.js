@@ -141,8 +141,6 @@ $(document).ready(function () {
                 }
             }
 
-            $("#rmLqOutput1 option[value='ETH']").attr("selected", "selected");
-
         },
         error: function (result) {
             console.log(result);
@@ -427,14 +425,18 @@ $(document).ready(function () {
     });
 
     $("#open_import_pool_pop").on('hide.bs.modal', function () {
-        $("#open_import_pool_pop select").msDropdown({roundedBorder: false});
-        if ($("#open_import_pool_pop .enabled._msddli_").hasClass("selected")) {
-            $("#open_import_pool_pop .enabled._msddli_").removeClass("selected");
-            $("#importPoolFrom_title .ddlabel").html("Select Token");
-            $("#importPoolFrom_title img").remove();
-            $("#importPoolTo_title .ddlabel").html("Select Token");
-            $("#importPoolTo_title img").remove();
-        }
+
+        setTimeout(function(){
+            $("#open_import_pool_pop select").msDropdown({roundedBorder: false});
+            if ($("#open_import_pool_pop .enabled._msddli_").hasClass("selected")) {
+                $("#open_import_pool_pop .enabled._msddli_").removeClass("selected");
+                $("#importPoolFrom_title .ddlabel").html("Select Token");
+                $("#importPoolFrom_title img").remove();
+                $("#importPoolTo_title .ddlabel").html("Select Token");
+                $("#importPoolTo_title img").remove();
+            }
+        }, 600);
+
     });
 
     $(document.body).on("change", "#importPoolFrom", function () {
@@ -462,6 +464,40 @@ $(document).ready(function () {
     $(document.body).on("click", "#imp_pool_notfound a", function () {
         $("#open_import_pool_pop").modal('hide');
         $("#coin_option2").modal('show');
+
+        var ddlabelFrom = $("#importPoolFrom_title .ddlabel").text();
+        var ddlabelTo = $("#importPoolTo_title .ddlabel").text();
+
+        setTimeout(function(){
+            
+
+            var from_img = "images/" + ddlabelFrom.toLowerCase() + ".png";
+            var to_img = "images/" + ddlabelTo.toLowerCase() + ".png";
+
+            $("#poolFromToken_title .ddlabel").html(ddlabelFrom);
+            $("#poolFromToken_title .ddlabel").before("<img src='"+from_img+"' class='fnone' />");
+
+            $("#poolToToken_title .ddlabel").html(ddlabelTo);
+            $("#poolToToken_title .ddlabel").before("<img src='"+to_img+"' class='fnone' />");
+
+            $("#poolFromToken_child ul li").each(function () {
+                var ddlabel = $(this).find('.ddlabel').text();
+                if(ddlabel == ddlabelFrom){
+                    $(this).addClass('selected');
+                    getSelectedWalletBalance(ddlabelFrom, 'fromwallet');
+                    changeFromToken("from_change");
+                }
+            });
+
+            $("#poolToToken_child ul li").each(function () {
+                var ddlabel = $(this).find('.ddlabel').text();
+                if(ddlabel == ddlabelTo){
+                    $(this).addClass('selected');
+                    getSelectedWalletBalance(ddlabelTo, 'towallet');
+                    changeFromToken("to_change");
+                }
+            });
+        }, 500);
     });
 
 });
@@ -1703,6 +1739,26 @@ function removeLiquidity(dbid) {
                 var rmlqd_pool_share = 0.002999;
                 $("#rmlqd_pool_share").text(rmlqd_pool_share + "%");
 
+
+                $("#rmLqOutput1_title .ddlabel").html(token_from);
+                $("#rmLqOutput1_title .ddlabel").before("<img src='"+rmlqbothtokenImgf+"' class='fnone' />");
+
+                $("#rmLqOutput2_title .ddlabel").html(token_to);
+                $("#rmLqOutput2_title .ddlabel").before("<img src='"+rmlqbothtokenImgs+"' class='fnone' />");
+
+                $("#rmLqOutput1_child ul li").each(function () {
+                    var ddlabel = $(this).find('.ddlabel').text();
+                    if(ddlabel == token_from){
+                        $(this).addClass('selected');
+                    }
+                });
+
+                $("#rmLqOutput2_child ul li").each(function () {
+                    var ddlabel = $(this).find('.ddlabel').text();
+                    if(ddlabel == token_to){
+                        $(this).addClass('selected');
+                    }
+                });
             });
         },
         error: function (res_error) {

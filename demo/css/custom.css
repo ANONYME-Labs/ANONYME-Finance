@@ -69,3 +69,4 @@ input:checked + .slider:after { content:'ON'; }
 .read_more_liq { text-decoration: underline; }
 .account_accured_fees { border: 1px solid #fff; border-radius: 6px; padding: 10px 10px; }
 .account_accured_fees a span { float: right; }
+.clearfix { clear: both; }

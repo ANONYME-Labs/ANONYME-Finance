@@ -328,7 +328,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                                 </div>
                                 <div class="col-md-6 pull-right">
                                     <div class="pull-right" id="rmlqbothtokenBalance">Balance: <span>123</span></div>
-                                    <div class="pull-right mt-3">
+                                    <div class="pull-right mt-3 clearfix">
                                         <img class="" id="rmlqbothtokenImgf" alt="Token logo" src="images/bat.svg">
                                         <img class="" id="rmlqbothtokenImgs" alt="Token logo" src="images/eth.png" >
                                         <span id="token_pair_label">BAT/ETH</span>

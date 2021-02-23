@@ -864,18 +864,18 @@ $(document).ready(function(){
 			        	else if(vFromTokenKeyPress==false && vToTokenKeyPress==true)
 			        	{
 			        		console.log(" else iffffff  else if else ififf ");
-			        		vToTokenVal = vToTokenVal* 1e18;
-                      		vToTokenVal = vToTokenVal.toLocaleString('fullwide', {useGrouping:false});
-                      		amountout=vFromTokenVal*devide_to1;
+			        		vFromTokenVal = vFromTokenVal* 1e18;
+                      		vFromTokenVal = vFromTokenVal.toLocaleString('fullwide', {useGrouping:false});
+                      		amountout=vToTokenVal*devide_to1;
                       		amountout = amountout.toLocaleString('fullwide', {useGrouping:false});
 
-                      		txtboxinputvalue=vToTokenVal;
+                      		txtboxinputvalue=vFromTokenVal;
 
                       		var getamntout = routerContract.methods.getAmountsOut(amountout, path).call();
                       		getamntout.then(function (getAmtVal) {
 
 
-                      			txtboxinputvalue = vToTokenVal;
+                      			txtboxinputvalue = vFromTokenVal;
 		                    var gamout = getAmtVal[0];
 		                    var getAmout = gamout.toLocaleString('fullwide', {useGrouping:false});
 		                    console.log(getAmout);
@@ -895,7 +895,7 @@ $(document).ready(function(){
 		                    console.log("deadline: " + deadline);
 		                    console.log("=====================");
 
-                      		tx = routerContract.methods.swapTokensForExactTokens(txtboxinputvalue,getAmountOut,path,addressFrom,deadline).send({
+                      		tx = routerContract.methods.swapTokensForExactTokens(getAmountOut,txtboxinputvalue,path,addressFrom,deadline).send({
 		                        from:addressFrom,
 		                        gasLimit: web3.utils.toHex(760000),
 		                        gasPrice: web3.utils.toHex(1000000000),

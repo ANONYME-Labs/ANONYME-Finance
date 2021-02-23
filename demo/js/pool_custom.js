@@ -289,7 +289,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#open_settings_dialog_button", function () {
+    $(document).on("click", ".open_settings_dialog_button", function () {
         
         $("#open_settings_dialog_pop").modal('show');
 

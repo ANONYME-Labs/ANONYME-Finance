@@ -274,6 +274,17 @@ $(document).ready(function(){
 
 	var routerContractAddress = "<?php echo $routerContractAddress; ?>";
     var routerContractABI = <?php echo $routerContractABI; ?>;
+    var WETHAddress = "<?php echo $WETHAddress; ?>";
+     var network = <?php echo $network; ?>;
+
+    var etherscan_api_url = '';
+    if (network == 0) {
+        etherscan_api_url = "http://api-rinkeby.etherscan.io/";
+    } else {
+        etherscan_api_url = "http://api.etherscan.io/";
+    }
+    var slip_tlrance_txt = "<?php echo $slip_tlrance_txt; ?>";
+    var etherscanTx = "<?= $etherscanTx; ?>";
 
 	CheckBalanceInWallet('from');
 
@@ -496,9 +507,7 @@ $(document).ready(function(){
        let vExchangeAddress='';
        console.log(" my wallet address =" + ETHmetaMaskAddress + vFromVal);
        const addressFrom =ETHmetaMaskAddress; //'0x0e364eb0ad6eb5a4fc30fc3d2c2ae8ebe75f245c'
-       var WETHContract="<?php echo $WETHAddress; ?>";
-       var factaddress='<?php echo $factoryContractAddress ?>';
-       var factoryabi='<?php echo $factoryContractABI ?>';
+       
 
         var slipTolerance = $.cookie("slip_tlrance_txt");
         if (slipTolerance == '') {
@@ -1076,6 +1085,7 @@ $(document).ready(function(){
             /*var startToken = $("#drpFromToken_title .ddlabel").html();
             var endToken = $("#drpToToken_title .ddlabel").html();*/
 
+             var slipTolerance = $.cookie("slip_tlrance_txt");
 
             $.ajax({
                 type: "POST",
@@ -1211,11 +1221,17 @@ $(document).ready(function(){
                                         {
                                           $("#txtFromToken").val(parseFloat(forFirst).toFixed(8));
                                           $("#minmax").html('Maximum sold');
+                                			var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
+                                        var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
+                                         var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(4);
                                           //$("#txtFromToken").focus();
                                         }
                                         else {
                                           $("#txtToToken").val(parseFloat(forFirst).toFixed(3));
                                            $("#minmax").html('Minimum received');
+                                           var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
+                                        var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
+                                         var minrec = parseFloat( parseFloat($("#txtToToken").val()) -parseFloat( divMinrec)).toFixed(2);
                                         //$("#txtToToken").focus();
                                         }
 
@@ -1272,13 +1288,13 @@ $(document).ready(function(){
                                               var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(2);
                                               console.log("11!: " + vPriceImpact);
                                               //vLiqProviderFee = vLiqProviderFee/10;
-                                              var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
+                                              //var minrec=parseFloat($("#txtFromToken").val() * slipTolerance-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);/100;
                                             }
                                             else {
-                                              var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
+                                              
                                               var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(2);
                                               console.log("2222!: " + vPriceImpact);
-                                              var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
+                                              //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
                                             }
                                             if(parseFloat(vPriceImpact)<0)
                                             {
@@ -1502,10 +1518,16 @@ $(document).ready(function(){
                                       if(change=='to_change')
                                       {
                                         $("#txtFromToken").val(parseFloat(forFirst).toFixed(10));
-                                        //$("#txtFromToken").focus();
+                                        //$("#txtFromToken").focus();sold
+                                        var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
+                                        var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
+                                         var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(4);;
                                       }
                                       else {
                                         $("#txtToToken").val(parseFloat(forFirst).toFixed(10));
+                                        var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
+                                         var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
+                                        var minrec = parseFloat( parseFloat($("#txtToToken").val()) -  parseFloat(divMinrec)).toFixed(4);
                                       //$("#txtToToken").focus();
                                       }
 
@@ -1560,13 +1582,13 @@ $(document).ready(function(){
                                                  var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(2);
                                                  console.log("11!: " + vPriceImpact);
                                                  //vLiqProviderFee = vLiqProviderFee/10;
-                                                 var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
+                                                 //var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
                                                }
                                                else {
-                                                 var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
+                                                  
                                                  var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(2);
                                                  console.log("2222!: " + vPriceImpact);
-                                                 var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
+                                                 //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
                                                }
                                                if(parseFloat(vPriceImpact)<=0.01)
                                                {

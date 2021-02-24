@@ -39,6 +39,8 @@ $(document).ready(function () {
         }
     });
 
+    $('.custom_number_slider').slider();
+
     $("#custom_number_slider").mousemove(function () {
         $("#pool_percent_number").text(document.getElementById("custom_number_slider").value + "%");
         var number = document.getElementById("custom_number_slider").value;
@@ -462,6 +464,7 @@ $(document).ready(function () {
     });
 
     $(document.body).on("click", "#imp_pool_notfound a", function () {
+
         $("#open_import_pool_pop").modal('hide');
         $("#coin_option2").modal('show');
 
@@ -469,7 +472,9 @@ $(document).ready(function () {
         var ddlabelTo = $("#importPoolTo_title .ddlabel").text();
 
         setTimeout(function(){
-            
+
+            $('#poolFromToken').val(ddlabelFrom);
+            $('#poolToToken').val(ddlabelTo);
 
             var from_img = "images/" + ddlabelFrom.toLowerCase() + ".png";
             var to_img = "images/" + ddlabelTo.toLowerCase() + ".png";
@@ -885,6 +890,10 @@ function changeFromToken(change = '') {
 
     var spnPoolFromToken = poolFromToken = $('#poolFromToken option:selected').val();
     var spnPoolToToken = poolToToken = $('#poolToToken option:selected').val();
+
+    console.log(spnPoolFromToken);
+    console.log(spnPoolToToken);
+
     if (change == 'to_change') {
         spnPoolToToken = poolToToken = $('#poolFromToken option:selected').val();
         spnPoolFromToken = poolFromToken = $('#poolToToken option:selected').val();
@@ -1739,10 +1748,11 @@ function removeLiquidity(dbid) {
                 var rmlqd_pool_share = 0.002999;
                 $("#rmlqd_pool_share").text(rmlqd_pool_share + "%");
 
-
+                $("#rmLqOutput1").val(token_from);
                 $("#rmLqOutput1_title .ddlabel").html(token_from);
                 $("#rmLqOutput1_title .ddlabel").before("<img src='"+rmlqbothtokenImgf+"' class='fnone' />");
 
+                $("#rmLqOutput2").val(token_to);
                 $("#rmLqOutput2_title .ddlabel").html(token_to);
                 $("#rmLqOutput2_title .ddlabel").before("<img src='"+rmlqbothtokenImgs+"' class='fnone' />");
 

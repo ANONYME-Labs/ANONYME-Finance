@@ -23,6 +23,31 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 }
 ?>
 
+<script type="text/javascript">
+
+    var routerContractAddress = "<?php echo $routerContractAddress; ?>";
+    var routerContractABI = <?php echo $routerContractABI; ?>;
+    var WETHAddress = "<?php echo $WETHAddress; ?>";
+
+    var factoryContractAddress = "<?php echo $factoryContractAddress; ?>";
+    var factoryContractABI = <?php echo $factoryContractABI; ?>;
+
+    var network = <?php echo $network; ?>;
+
+    var etherscan_api_url = '';
+    if (network == 0) {
+        etherscan_api_url = "http://api-rinkeby.etherscan.io/";
+    } else {
+        etherscan_api_url = "http://api.etherscan.io/";
+    }
+
+    var slip_tlrance_txt = "<?php echo $slip_tlrance_txt; ?>";
+
+    var etherscanTx = "<?= $etherscanTx; ?>";
+
+</script>
+
+<input type="hidden" name="WETHAddress" id="WETHAddress" value="<?php echo $WETHAddress; ?>">
 <input type="hidden" name="login_user_wallet" id="login_user_wallet" value="<?php echo $userWallet; ?>" />
 
 <div class="content-wrapper" style="min-height: 1363.2px;">
@@ -54,14 +79,12 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                         <div class="col-lg-6 text-right">
                             <a href="javascript:;" class="btn btn-info" role="button" aria-pressed="true" data-toggle="modal" data-target="#coin_option2">Add Liquidity</a>
                         </div>
-
                         <div class="col-md-12 text-left mt-3">
                             <div class="account_accured_fees">
                                 <a target="_blank" rel="noopener noreferrer" href="https://uniswap.info/account/<?php echo $userWallet; ?>" class="sc-jKJlTe cEMwVc">Account analytics and accrued fees <span> ↗</span></a>
 
                             </div>
                         </div>
-
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-12 text-center">
@@ -101,47 +124,18 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
     </div>
 </div>
 
-<input type="hidden" name="WETHAddress" id="WETHAddress" value="<?php echo $WETHAddress; ?>">
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <?php include 'footer.php'; ?>
 
 <script src="js/jquery.dd.js"></script>
-
 <script src="js/alertify.min.js" type="text/javascript"></script>
-
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/pool_events_table.js"></script>
-
 <script src="//cdn.jsdelivr.net/npm/jquery-ui-slider@1.12.1/jquery-ui.js"></script>
-
 <script type="application/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
-<script type="text/javascript">
-
-    var routerContractAddress = "<?php echo $routerContractAddress; ?>";
-    var routerContractABI = <?php echo $routerContractABI; ?>;
-    var WETHAddress = "<?php echo $WETHAddress; ?>";
-
-    var factoryContractAddress = "<?php echo $factoryContractAddress; ?>";
-    var factoryContractABI = <?php echo $factoryContractABI; ?>;
-
-    var network = <?php echo $network; ?>;
-
-    var etherscan_api_url = '';
-    if (network == 0) {
-        etherscan_api_url = "http://api-rinkeby.etherscan.io/";
-    } else {
-        etherscan_api_url = "http://api.etherscan.io/";
-    }
-
-    var slip_tlrance_txt = "<?php echo $slip_tlrance_txt; ?>";
-
-    var etherscanTx = "<?= $etherscanTx; ?>";
-
-</script>
-
+<!-- Import Pool Popup - Start -->
 <div class="modal fade" id="open_import_pool_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-md modal-dialog-top">
         <div class="modal-content">
@@ -233,7 +227,9 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
         </div>
     </div>
 </div>
+<!-- Import Pool Popup - End -->
 
+<!-- Remove Liquidity Pool Popup - Start -->
 <div class="modal fade" id="remove_liquidity_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
@@ -431,15 +427,13 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
                         <span id="yl_to_token_blnc" class="pull-right">0.0021238</span>
                     </div>
                 </div>
-
-                <script type="text/javascript">
-                    $('.custom_number_slider').slider();
-                </script>
             </div>
         </div>
     </div>
 </div>
+<!-- Remove Liquidity Pool Popup - End -->
 
+<!-- Add Liquidity/ Add Liquidity / Create Pair Pool Popup - Start -->
 <div class="modal fade" id="coin_option2" tabindex="-1" aria-labelledby="coin_option2Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg1">
         <div class="modal-content">
@@ -607,69 +601,4 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="from_token_pop" tabindex="-1" aria-labelledby="from_token_popLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-bottom-0">
-                <h5 class="modal-title" id="from_token_popLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-12">
-                    <div class="row py-2">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <button class="btn btn-primary" id="pairETHButtonFrom">ETH</button>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 text-right">
-                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <select name="displayTokenFrom" id="displayTokenFrom" class="form-control form-control-lg">
-                        <option value='0' selected='true'> Select Token </option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer border-top-0">
-                <div class="row" style="width: 100%;">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <span>Uniswap Default List</span>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-                        <a href="javascript:;">Change</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="to_token_pop" tabindex="-1" aria-labelledby="to_token_popLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-bottom-0">
-                <h5 class="modal-title" id="to_token_popLabel">Select Token<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-12">
-                    <div class="row py-2">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <button class="btn btn-primary" id="pairETHButtonTo">ETH</button>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 text-right">
-                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <select name="displayTokenTo" id="displayTokenTo" class="form-control form-control-lg">
-                        <option value='0' selected='true'> Select Token </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Add Liquidity/ Add Liquidity / Create Pair Pool Popup - End -->

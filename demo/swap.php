@@ -196,7 +196,8 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
   </div>
   <!-- /.content-wrapper -->
 <input type="hidden" name="getamntoutdirectval" id="getamntoutdirectval" value="0" />
-
+<input type="hidden" name="WETHAddress" id="WETHAddress" value="<?php echo $WETHAddress; ?>">
+<input type="hidden" name="login_user_wallet" id="login_user_wallet" value="<?php echo $userWallet; ?>" />
 <!-- <msdropdown> -->
 	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="css/alertify.min.css" />
@@ -1885,6 +1886,7 @@ $(document).ready(function(){
         });
  });
   </script>
+  <script src="//cdn.jsdelivr.net/npm/jquery-ui-slider@1.12.1/jquery-ui.js"></script>
 <script type="text/javascript"
  src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 

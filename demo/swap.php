@@ -1186,12 +1186,20 @@ $(document).ready(function(){
                                           $("#minmax").html('Maximum sold');
                                           $(".firstTokenRate").html(parseFloat(forFirst/$("#txtToToken").val()));
                                           $(".secondTokenRate").html(parseFloat(forSecond*$("#txtToToken").val()));
+                                          var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
+                                        var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
+                                         var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(4);
                                           //$("#txtFromToken").focus();
                                         } else {
                                           $("#txtToToken").val(parseFloat(forFirst).toFixed(8));
                                           $(".firstTokenRate").html(parseFloat(forFirst/$("#txtFromToken").val()));
                                           $(".secondTokenRate").html(parseFloat(forSecond*$("#txtFromToken").val()));
+
                                           $("#minmax").html('Minimum received');
+
+                                          var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
+                                        var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
+                                         var minrec = parseFloat( parseFloat($("#txtToToken").val()) -parseFloat( divMinrec)).toFixed(4);
                                           //$("#txtToToken").focus();
                                         }
 

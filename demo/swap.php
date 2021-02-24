@@ -1519,11 +1519,13 @@ $(document).ready(function(){
                                       {
                                         $("#txtFromToken").val(parseFloat(forFirst).toFixed(10));
                                         //$("#txtFromToken").focus();sold
+                                        $("#minmax").html('Maximum sold');
                                         var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
                                         var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
                                          var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(4);;
                                       }
                                       else {
+                                      	$("#minmax").html('Minimum received');
                                         $("#txtToToken").val(parseFloat(forFirst).toFixed(10));
                                         var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
                                          var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);

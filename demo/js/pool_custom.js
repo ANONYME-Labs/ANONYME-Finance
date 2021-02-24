@@ -39,15 +39,17 @@ $(document).ready(function () {
         }
     });
 
-    $('.custom_number_slider').slider();
+    if($('.custom_number_slider').length > 0){
+        $('.custom_number_slider').slider();
 
-    $("#custom_number_slider").mousemove(function () {
-        $("#pool_percent_number").text(document.getElementById("custom_number_slider").value + "%");
-        var number = document.getElementById("custom_number_slider").value;
-        $("#rm_lq_sld_val").val(number);
+        $("#custom_number_slider").mousemove(function () {
+            $("#pool_percent_number").text(document.getElementById("custom_number_slider").value + "%");
+            var number = document.getElementById("custom_number_slider").value;
+            $("#rm_lq_sld_val").val(number);
 
-        getFromToTokenPercentValue(number);
-    })
+            getFromToTokenPercentValue(number);
+        });
+    }
 
     $(".apprvebuttons").on("click", function () {
 

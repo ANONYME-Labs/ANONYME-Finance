@@ -370,6 +370,10 @@ $(document).ready(function () {
         $("#slip_tlrance_txt").val(1);
         $(".transactionPercent").css("background-color", "inherit");
         $(".trx_perc_1").css("background-color", "");
+    } else if (slip_tlrance_txt < 5) {
+        $(".y_tr_mfail span").hide();
+        $("#slip_warning").hide();
+        $(".transactionPercent").css("background-color", "inherit");
     } else if (slip_tlrance_txt > 5) {
         $(".y_tr_mfail span").show();
         $(".y_tr_mfail span").text("Your transaction may be frontrun");
@@ -408,6 +412,8 @@ $(document).ready(function () {
         } else if (vl <= 5) {
             $(".y_tr_mfail span").hide();
             $("#slip_warning").hide();
+            $(".transactionPercent").css("background-color", "inherit");
+            $.cookie("slip_tlrance_txt", vl, {expires: 30});
 
         } else if (vl > 5) {
             $(".y_tr_mfail span").show();
@@ -420,12 +426,20 @@ $(document).ready(function () {
     });
 
     $(document).on("click", "#import_pool_link", function () {
-        $('#open_import_pool_pop').modal('show');
-        
+                
         $("#imp_sel_token").show();
         $("#imp_pool_found").hide();
         $("#imp_pool_found_details").hide();
         $("#imp_pool_notfound").hide();
+
+        $("#importPoolFrom_title .ddlabel").html("Select Token");
+        $("#importPoolFrom_title img").remove();
+
+        $("#importPoolTo_title .ddlabel").html("Select Token");
+        $("#importPoolTo_title img").remove();
+
+        $('#open_import_pool_pop').modal('show');
+
     });
 
     $("#open_import_pool_pop").on('hide.bs.modal', function () {
@@ -513,10 +527,7 @@ function getCheckImportPoolPair(importPoolFrom, importPoolTo, fromto) {
 
 
     if ((importPoolFrom != '' && importPoolFrom != 0) && (importPoolTo != '' && importPoolTo != 0)) {
-        console.log(importPoolFrom);
-        console.log(importPoolTo);
-        console.log(fromto);
-
+        
         var pairFount = 'no';
         if (pairFount == 'yes') {
             $("#imp_pool_found").show();
@@ -570,7 +581,9 @@ function resetAllFields(not = '') {
 
 function loadSelectOptions() {
 
-    $("select").msDropdown({roundedBorder: false});
+    if($("select").length > 0){
+        $("select").msDropdown({roundedBorder: false});
+    }
 
     if ($(".enabled._msddli_").hasClass("selected")) {
         $(".enabled._msddli_").removeClass("selected");
@@ -892,9 +905,6 @@ function changeFromToken(change = '') {
 
     var spnPoolFromToken = poolFromToken = $('#poolFromToken option:selected').val();
     var spnPoolToToken = poolToToken = $('#poolToToken option:selected').val();
-
-    console.log(spnPoolFromToken);
-    console.log(spnPoolToToken);
 
     if (change == 'to_change') {
         spnPoolToToken = poolToToken = $('#poolFromToken option:selected').val();

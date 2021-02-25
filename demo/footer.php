@@ -1178,32 +1178,36 @@ for (var i=0;i<totassets;i++){
 }
 
 // home page pie chart
- var chart = new CanvasJS.Chart("chartContainer", {
-	theme: "dark2",
-	exportFileName: "Doughnut Chart",
-	exportEnabled: false,
-	animationEnabled: true,
-	title:{
-		text: ""
-	},
-	legend:{
-		cursor: "pointer",
-		itemclick: explodePie
-	},
-	data: [{
-		type: "doughnut",
-		innerRadius: 30,
-		showInLegend: true,
-		toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
-		indexLabel: false,
-		dataPoints: [
-			{ y: totC, name: "Available Liquidity" },
-			{ y: totB, name: "Total Borrowed"}
-			
-		]
-	}]
-});
-chart.render();
+
+if($("#chartContainer").length > 0){
+  var chart = new CanvasJS.Chart("chartContainer", {
+      theme: "dark2",
+      exportFileName: "Doughnut Chart",
+      exportEnabled: false,
+      animationEnabled: true,
+      title:{
+      text: ""
+    },
+    legend:{
+      cursor: "pointer",
+      itemclick: explodePie
+    },
+    data: [{
+      type: "doughnut",
+      innerRadius: 30,
+      showInLegend: true,
+      toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
+      indexLabel: false,
+      dataPoints: [
+        { y: totC, name: "Available Liquidity" },
+        { y: totB, name: "Total Borrowed"}
+      ]
+    }]
+  });
+
+  chart.render();
+}
+
 
 function explodePie (e) {
 	if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {

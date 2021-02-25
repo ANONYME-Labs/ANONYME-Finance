@@ -2,53 +2,7 @@
 include 'header.php';
 include 'sidebar.php';
 
-$userWallet = '';
-if (isset($_COOKIE['userWallet']) && $_COOKIE['userWallet'] != '') {
-    $userWallet = $_COOKIE['userWallet'];
-}
-
-$toggle_expert_mode = '';
-if (isset($_COOKIE['toggle_expert_mode']) && $_COOKIE['toggle_expert_mode'] != '') {
-    $toggle_expert_mode = $_COOKIE['toggle_expert_mode'];
-}
-
-$disable_multihops = '';
-if (isset($_COOKIE['disable_multihops']) && $_COOKIE['disable_multihops'] != '') {
-    $disable_multihops = $_COOKIE['disable_multihops'];
-}
-
-$slip_tlrance_txt = '';
-if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
-    $slip_tlrance_txt = $_COOKIE['slip_tlrance_txt'];
-}
 ?>
-
-<script type="text/javascript">
-
-    var routerContractAddress = "<?php echo $routerContractAddress; ?>";
-    var routerContractABI = <?php echo $routerContractABI; ?>;
-    var WETHAddress = "<?php echo $WETHAddress; ?>";
-
-    var factoryContractAddress = "<?php echo $factoryContractAddress; ?>";
-    var factoryContractABI = <?php echo $factoryContractABI; ?>;
-
-    var network = <?php echo $network; ?>;
-
-    var etherscan_api_url = '';
-    if (network == 0) {
-        etherscan_api_url = "http://api-rinkeby.etherscan.io/";
-    } else {
-        etherscan_api_url = "http://api.etherscan.io/";
-    }
-
-    var slip_tlrance_txt = "<?php echo $slip_tlrance_txt; ?>";
-
-    var etherscanTx = "<?= $etherscanTx; ?>";
-
-</script>
-
-<input type="hidden" name="WETHAddress" id="WETHAddress" value="<?php echo $WETHAddress; ?>">
-<input type="hidden" name="login_user_wallet" id="login_user_wallet" value="<?php echo $userWallet; ?>" />
 
 <div class="content-wrapper" style="min-height: 1363.2px;">
     <div class="content-header">
@@ -442,8 +396,7 @@ if (isset($_COOKIE['slip_tlrance_txt']) && $_COOKIE['slip_tlrance_txt'] != '') {
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
-                    Create a pair<i class="fa fa-question-circle ml-2" aria-hidden="true"></i>
+                    </button> Create a pair
                 </h5>
                 <button class="open_settings_dialog_button close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sc-gbOuXE daxFHC"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
                 <span class="exp_md_ison" <?php if ($toggle_expert_mode == '') { ?> style="display: none;" <?php } ?> >🧙</span>

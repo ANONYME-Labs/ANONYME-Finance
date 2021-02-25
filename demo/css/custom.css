@@ -70,3 +70,27 @@ input:checked + .slider:after { content:'ON'; }
 .account_accured_fees { border: 1px solid #fff; border-radius: 6px; padding: 10px 10px; }
 .account_accured_fees a span { float: right; }
 .clearfix { clear: both; }
+#coin_option2Label button.close { color: #fff; font-size: 35px; padding-top: 15px; }
+
+/* Chart.js - Start */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}
+.border-bottom { border-bottom: 1px solid #dee2e659!important; }
+#supplyWithdraw .modal-body span{ color: #dee2e69c; }
+.h1{ font-size: 40px; background: -webkit-linear-gradient(#c101ff, #dd13a8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+a { color: #ffffff; }
+.card-1:hover { box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
+.badge { font-size: 100%; }
+[class*=sidebar-dark-] { background-color: rgb(56, 61, 81); }
+.card-min-height{ min-height: 280px; }
+.btn{ border-radius: 30px; }
+.dark-mode .card .card { background-color: #2b2d3c; color: #fff; }
+.dark-mode .content-wrapper { background-color: #2b2d3c; color: #fff; }
+.dark-mode .card { color: #fff; background: #383d51; }
+.PoolSelectButton.jsx-3197832361 { background: rgb(241, 241, 243); }
+.SwitchMarketPanel__button { margin: 10px; }
+.switch-market{ padding: 0 30px 0 30px; font-size: 16px; border-radius: 4px; background: white; color: #686565; }
+.card-header1 .btn-group { border-radius: 30px!important; background-color: var(--gray-dark); padding: 6px; }
+.card-header1,.btn-group .btn{ transition: all 0.4s ease 0s; padding: 6px 15px 6px 15px; width: 140px; }
+.card-header1 .form-control { border: none; }
+.control-label { margin: .5em 1em 0; }
+/* Chart.js - End */

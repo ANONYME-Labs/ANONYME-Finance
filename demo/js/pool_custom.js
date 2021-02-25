@@ -1477,7 +1477,7 @@ function createPairBtnClick() {
                                         if (myPromise.isFulfilled()) {
 
                                             myPromise.then(function (result) {
-                                                alertify.alert("Transacton Recorded", "Thanks for joining. You can check the status at <a href='" + etherscanTx + result.transactionHash + "' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function () {});
+                                                alertify.alert("Transacton Recorded", "Thanks for joining. You can check the status at <a href='" + etherscanTx + result.transactionHash + "' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function () {});
                                             });
 
                                             $(".ajs-ok").click();
@@ -1667,7 +1667,7 @@ function createPairBtnClick() {
                                         var timerID = setInterval(function () {
                                             if (myPromise.isFulfilled()) {
                                                 myPromise.then(function (result) {
-                                                    alertify.alert("Transacton Recorded", "Thanks for Supplying liquidity to. You can check the status at <a href='" + etherscanTx + result.transactionHash + "' target='_blank'>Tronscan</a><br><br> Once transaction is confirmed in Blockchain, you can check your added liquidity.", function () {});
+                                                    alertify.alert("Transacton Recorded", "Thanks for Supplying liquidity to. You can check the status at <a href='" + etherscanTx + result.transactionHash + "' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can check your added liquidity.", function () {});
                                                 });
 
                                                 $(".ajs-ok").click();
@@ -1862,7 +1862,7 @@ function removeLiquidityInSidePopup(dbid) {
                     if (removeLiqdPromise.isFulfilled()) {
 
                         removeLiqdPromise.then(function (result) {
-                            alertify.alert("Transacton Recorded", "Removed liquidity. You can check the status at <a href='" + etherscanTx + result + "' target='_blank'>Tronscan</a>.", function () {});
+                            alertify.alert("Transacton Recorded", "Removed liquidity. You can check the status at <a href='" + etherscanTx + result + "' target='_blank'>Etherscan</a>.", function () {});
                         });
 
                         $(".ajs-ok").click();

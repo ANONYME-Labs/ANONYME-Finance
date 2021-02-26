@@ -353,13 +353,14 @@ $(document).ready(function () {
         }
     });
 
-    if (slip_tlrance_txt < 0.1) {
+    if (slip_tlrance_txt < 0.1 && slip_tlrance_txt > 0) {
         $("#slip_warning").show();
     } else if (slip_tlrance_txt == 0.1) {
         $("#slip_warning").hide();
         $("#slip_tlrance_txt").val(0.1);
         $(".transactionPercent").css("background-color", "inherit");
         $(".trx_perc_0_1").css("background-color", "");
+        console.log("2");
     } else if (slip_tlrance_txt == 0.5) {
         $("#slip_warning").hide();
         $("#slip_tlrance_txt").val(0.5);
@@ -370,7 +371,7 @@ $(document).ready(function () {
         $("#slip_tlrance_txt").val(1);
         $(".transactionPercent").css("background-color", "inherit");
         $(".trx_perc_1").css("background-color", "");
-    } else if (slip_tlrance_txt < 5) {
+    } else if (slip_tlrance_txt < 5 && slip_tlrance_txt > 0) {
         $(".y_tr_mfail span").hide();
         $("#slip_warning").hide();
         $(".transactionPercent").css("background-color", "inherit");
@@ -380,9 +381,11 @@ $(document).ready(function () {
         $("#slip_warning").show();
         $(".transactionPercent").css("background-color", "inherit");
     } else {
+        var vl = 0.5;
         $("#slip_warning").hide();
-        $("#slip_tlrance_txt").val(0.1);
-        $(".transactionPercent:not(.active)").css("background-color", "inherit");
+        $("#slip_tlrance_txt").val(vl);
+        $(".transactionPercent:not(.trx_perc_0_5)").css("background-color", "inherit");
+        $.cookie("slip_tlrance_txt", vl, {expires: 30});
     }
 
     $(document).on("change keyup paste", "#slip_tlrance_txt", function () {
@@ -419,7 +422,7 @@ $(document).ready(function () {
             $(".y_tr_mfail span").show();
             $(".y_tr_mfail span").text("Your transaction may be frontrun");
             $("#slip_warning").show();
-            $(".transactionPercent:not(.active)").css("background-color", "inherit");
+            $(".transactionPercent:not(.trx_perc_0_5)").css("background-color", "inherit");
             $.cookie("slip_tlrance_txt", vl, {expires: 30});
 
         }

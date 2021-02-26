@@ -1661,7 +1661,7 @@ window.onload = function () {
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-3">
-                                <button class="btn btn-primary w-100 transactionPercent active trx_perc_0_1" onclick="transactionPercent(this, 0.1);">0.1%</button>
+                                <button class="btn btn-primary w-100 transactionPercent trx_perc_0_1" onclick="transactionPercent(this, 0.1);">0.1%</button>
                             </div>
                             <div class="col-md-3">
                                 <button class="btn btn-primary w-100 transactionPercent trx_perc_0_5" onclick="transactionPercent(this, 0.5);">0.5%</button>

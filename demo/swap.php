@@ -1518,8 +1518,17 @@ function changeFromToken(change = '') {
                                    }
                                 //var inpDevide = (amountOut / tokenAount).toFixed(8);
                                       
-                                      var inpDevideETH = (ETHValue/devide_to1).toFixed(8);
+                                      	
+                                      	var vLiqProviderFee=0.003;
+                                    	if($(".rowroute").is(":visible"))
+                                    	{
+                                    	vLiqProviderFee=0.005991;
+                                    	}
 
+                                     if(multiHops=="no")
+                                      {
+
+                                      	var inpDevideETH = (ETHValue/devide_to1).toFixed(8);
                                       //============ Route 1 Pairing ERC20 to ETH =================
                                       	var vPairAddress='';
                                          var vgetpairR1='';
@@ -1548,7 +1557,12 @@ function changeFromToken(change = '') {
                                                  console.log("vReverse1 R1 : " + vReverse1R1);
                                                  console.log("vReverse2  R1 : " +$("#txtFromToken").val()+ " :: "+  vReverse2R1);
 
-                                                  var PriceImpactETH=parseFloat((inpDevideETH/vReverse2R1)*100).toFixed(2);
+                                                var trade_fee = parseFloat(vReverse2R1)*vLiqProviderFee;
+                                                var token_reserv = parseFloat(vReverse2R1)+parseFloat(trade_fee);
+                                                console.log("inpDevideETH : " + inpDevideETH);
+                                                 console.log("token_reserv R1 : " + token_reserv);
+                                                var PriceImpactETH=parseFloat((inpDevideETH/token_reserv)*100).toFixed(4);
+
 												console.log("PriceImpactETH R1 : " + PriceImpactETH);
 												$('#priceimpactR1').val(PriceImpactETH);
                                      		});
@@ -1582,17 +1596,17 @@ function changeFromToken(change = '') {
                                                  // }
                                                 console.log("vReverse1 R2 : " + vReverse1R2);
                                                 console.log("vReverse2  R2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2R2);
-
-                                                var PriceImpactR2=parseFloat((inpDevideETH/vReverse2R2)*100).toFixed(2);
+                                                var trade_fee = parseFloat(vReverse2R2)*vLiqProviderFee;
+                                                var token_reserv = parseFloat(vReverse2R2)+parseFloat(trade_fee);
+                                                var PriceImpactR2=parseFloat((inpDevideETH/token_reserv)*100).toFixed(4);
+                                                
 												console.log("PriceImpactETH R2 : " + PriceImpactR2);
 												$('#priceimpactR2').val(PriceImpactR2);
                                      		});
                                     	});
 
-                                        
-
-
-                                      console.log("inpDevideETH : " + inpDevideETH);
+                                      
+                                    }
 
                                       if(change=='to_change') {
                                         //var inpDevide = (tokenAount/devide_to1).toFixed(8);
@@ -1697,13 +1711,6 @@ function changeFromToken(change = '') {
                                                  console.log("vReverse1 : " + vReverse1);
                                                  console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
 
-
-                                                 var vLiqProviderFee=0.003;
-                                                 if($(".rowroute").is(":visible"))
-                                                {
-                                                   vLiqProviderFee=0.005991;
-                                                }
-
                                                 console.log("vLiqProviderFee 11 = " + vLiqProviderFee);
 
                                                  vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
@@ -1712,7 +1719,9 @@ function changeFromToken(change = '') {
                                                if(change=='to_change') {
 
                                                	console.log("ccccccccccccc");
-                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(2);
+                                               	//var trade_fee = parseFloat(vReverse2)*vLiqProviderFee;
+                                                //var token_reserv = parseFloat(vReverse2)+parseFloat(trade_fee);
+                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
                                                  console.log("111111  !: " + vPriceImpact);
                                                  //vLiqProviderFee = vLiqProviderFee/10;
                                                  //var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
@@ -1720,7 +1729,9 @@ function changeFromToken(change = '') {
                                                else {
                                                	console.log("aaaaaaaaa");
                                                  //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
-                                                 var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(2);
+                                                 //var trade_fee = parseFloat(vReverse1)*vLiqProviderFee;
+                                                //var token_reserv = parseFloat(vReverse1)+parseFloat(trade_fee);
+                                                 var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(4);
                                                  
                                                  console.log("2222!: " + vPriceImpact);
                                                  console.log(" dddd ! "+ $('#priceimpactR1').val());

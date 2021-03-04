@@ -171,6 +171,8 @@
   </div>
   <!-- /.content-wrapper -->
 <input type="hidden" name="getamntoutdirectval" id="getamntoutdirectval" value="0" />
+<input type="text" name="priceimpactR1" id="priceimpactR1" value="0" />
+<input type="text" name="priceimpactR2" id="priceimpactR2" value="0" />
 
 <!-- <msdropdown> -->
 	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
@@ -236,6 +238,8 @@
 $(document).ready(function(){
 
 	jQuery.noConflict();
+
+	var vPairABI='[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
 
 	var vFromTokenKeyPress=false;
 	var vToTokenKeyPress =false;
@@ -428,7 +432,7 @@ $(document).ready(function(){
 
         vFromTokenKeyPress=true;
         vToTokenKeyPress=false;
-
+        //GetPriceTokenForRoute("BAT","ETH",'0xbF7A7169562078c96f0eC1A8aFD6aE50f12e5A99');
         changeFromToken();
 
         return true;
@@ -1020,6 +1024,61 @@ $(document).ready(function(){
         return result;
     }
 
+
+ function GetPriceTokenForRoute(frmTkn, toTkn,ca)
+ {
+	var txtFromToken = $("#txtFromToken").val();
+	var txtToToken = $("#txtToToken").val();
+	var devide_to = 1e18;
+
+	if(txtFromToken=="")
+	{
+		return false;
+	}
+
+	console.log(" contract address of "+frmTkn+" = "  + ca);
+	var WETHContract="<?php echo $WETHAddress; ?>";
+	var amountOut = ( devide_to * txtFromToken);
+	amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
+	console.log(" amountOut   =  "  + amountOut);
+
+	console.log(" toTkn   =  "  + toTkn);
+
+	var path = [WETHContract, ca];
+ 
+	if(toTkn=='ETH')
+	{
+	  path = [ca,WETHContract];
+	  var getamntin = routerContract.methods.getAmountsOut(amountOut, path).call();
+	}
+	else{
+		var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+	}
+
+	getamntin.then(function(getAmtVal) {
+		if(getAmtVal){
+
+			console.log(" getAmtVal pppp  =  "  + getAmtVal);
+			devide_to = 1e18;
+			if(toTkn=='ETH')
+			{
+				var ETHValue = getAmtVal[1];
+				var  tokenAount= getAmtVal[0];
+			}
+			else {
+				var ETHValue = getAmtVal[0];
+				var  tokenAount= getAmtVal[1];
+			}
+			console.log(" ETHValue = "  + ETHValue);
+			console.log(" tokenAount = "  + tokenAount);
+
+			var inpDevide = (ETHValue/devide_to).toFixed(8);
+
+			console.log(" inpDevide = "  + inpDevide);
+		}
+	});
+}
+
 function changeFromToken(change = '') {
 
         var spndrpFromToken = drpFromToken = $('#drpFromToken option:selected').val();
@@ -1030,7 +1089,7 @@ function changeFromToken(change = '') {
           spndrpFromToken  = $('#drpToToken option:selected').val();
         }
 
-      var vPairABI='[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
+      
 
        var slipTolerance = $.cookie("slip_tlrance_txt");
         if (slipTolerance == '') {
@@ -1086,7 +1145,8 @@ function changeFromToken(change = '') {
                             amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
                             console.log("amountOut : " +amountOut);
                             var path = [WETHContract, contractAddress];
-                            console.log(WETHContract);
+                            console.log("WETHContract = " + WETHContract);
+                             console.log("contractAddress = " + contractAddress);
                             if(spndrpFromToken=='ETH'){
                               console.log("444" + drpToToken + " :: " + change);
                               	if(change=='to_change') 
@@ -1244,11 +1304,14 @@ function changeFromToken(change = '') {
                                         {
                                            vLiqProviderFee=0.005991;
                                         }
+                                        console.log("vLiqProviderFee 33 = " + vLiqProviderFee);
+
 										vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 
 										//vLiqProviderFee = parseFloat(vLiqProviderFee).toFixed(8);
 										//  console.log("ASA: "+ Math.floor($("#txtToToken").val()));
 										if(change=='to_change' && drpToToken!='ETH') {
+											console.log("ggggggggggg");
 	                                    	var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(2);
 	                                    	console.log("11!: " + vPriceImpact);
 	                                    	//vLiqProviderFee = vLiqProviderFee/10;
@@ -1256,6 +1319,7 @@ function changeFromToken(change = '') {
 	                                    }
 	                                    else 
 	                                    {
+	                                    	console.log("xxxxxxxx");
 	                                      //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
 	                                      var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(2);
 	                                      console.log("2222!: " + vPriceImpact);
@@ -1375,19 +1439,19 @@ function changeFromToken(change = '') {
                       var getamntoutdirectval=0;
                       if(change=='to_change')
                       {
-                          pathdirect = [contractAddress2,contractAddress1];
-                        var getamntoutdirect = routerContract.methods.getAmountsIn(amountOut, pathdirect).call();
-                        getamntoutdirect.then(function(getamntoutdirect) {
-                          console.log("getamntoutdirectval11 : " + getamntoutdirect);
-                            getamntoutdirectval=getamntoutdirect[0]/devide_to2;
-                            $("#getamntoutdirectval").val(getamntoutdirect[0]/devide_to2);
+                          	pathdirect = [contractAddress2,contractAddress1];
+                        	var getamntoutdirect = routerContract.methods.getAmountsIn(amountOut, pathdirect).call();
+                        	getamntoutdirect.then(function(getamntoutdirect) {
+                          	console.log("getamntoutdirectval 11 : " + getamntoutdirect);
+                            	getamntoutdirectval=getamntoutdirect[0]/devide_to2;
+                            	$("#getamntoutdirectval").val(getamntoutdirect[0]/devide_to2);
 
                           });
                       }
                       else {
                         var getamntoutdirect = routerContract.methods.getAmountsOut(amountOut, pathdirect).call();
                         getamntoutdirect.then(function(getamntoutdirect) {
-                          console.log("getamntoutdirectval22 : " + getamntoutdirect);
+                          console.log("getamntoutdirectval 22 : " + getamntoutdirect);
                             getamntoutdirectval=getamntoutdirect[1]/devide_to2;
                             $("#getamntoutdirectval").val(getamntoutdirect[1]/devide_to2);
 
@@ -1395,7 +1459,7 @@ function changeFromToken(change = '') {
                       }
 
                       getamntoutdirectval= $("#getamntoutdirectval").val();
-                      console.log("getamntoutdirectval33 : " + getamntoutdirectval);
+                      console.log("getamntoutdirectval 33 : " + getamntoutdirectval);
                       //get direct amountOut
                      
                         console.log(WETHContract);
@@ -1431,20 +1495,105 @@ function changeFromToken(change = '') {
                                   var getamntout = routerContract.methods.getAmountsOut(tokenAount, path).call();
                                 }
 
+                                console.log("tokenAount 11 path : " + tokenAount);
+                                console.log("ETHValue 11 path : " + ETHValue);
+
                                 getamntout.then(function(getAmtVal) {
                                   console.log("getamntout : " + getamntout);
                                   if(getamntout){
                                     if(change=='to_change')
                                     {
-                                      tokenAount = getAmtVal[0];
-                                      ETHValue = getAmtVal[1];
+                                    	tokenAount = getAmtVal[0];
+                                    	ETHValue = getAmtVal[1];
+
+                                    	console.log("tokenAount 22 path : " + tokenAount);
+                                      	console.log("ETHValue 22 path : " + ETHValue);
                                     }
                                     else {
-                                     tokenAount = getAmtVal[1];
-                                     ETHValue = getAmtVal[0];
+                                     	tokenAount = getAmtVal[1];
+                                     	ETHValue = getAmtVal[0];
+
+                                     	console.log("tokenAount 33 path : " + tokenAount);
+                                      	console.log("ETHValue 33 path : " + ETHValue);
                                    }
                                 //var inpDevide = (amountOut / tokenAount).toFixed(8);
-                                      console.log("tokenAount : " + tokenAount);
+                                      
+                                      var inpDevideETH = (ETHValue/devide_to1).toFixed(8);
+
+                                      //============ Route 1 Pairing ERC20 to ETH =================
+                                      	var vPairAddress='';
+                                         var vgetpairR1='';
+                                          	if(change=='to_change')
+                                            {
+                                          		vgetpairR1=factorycontract.methods.getPair(WETHContract,contractAddress1).call();
+                                      		}
+                                      		else
+                                      		{
+                                      			vgetpairR1=factorycontract.methods.getPair(contractAddress1,WETHContract).call();
+                                      		}
+                                         const vgetpairvalR1 = vgetpairR1.then(function(result1){
+                                           vPairAddress= result1;
+                             
+                                               var pairContractR1 = new web3.eth.Contract(JSON.parse(vPairABI), vPairAddress);
+                                               var getreservesR1 = pairContractR1.methods.getReserves().call();
+                                               getreservesR1.then(function(response) {
+                                                 console.log("getreserves : " + response[0]);
+                                                 var vReverse1R1=response[0]/devide_to1;
+                                                 var vReverse2R1=parseFloat(response[1]/devide_to2).toFixed(4);
+                                                 // if(change=='to_change')
+                                                 // {
+                                                 //   vReverse1R1=parseFloat(response[1]/devide_to1).toFixed(4);
+                                                 //   vReverse2R1=parseFloat(response[0]/devide_to2).toFixed(4);
+                                                 // }
+                                                 console.log("vReverse1 R1 : " + vReverse1R1);
+                                                 console.log("vReverse2  R1 : " +$("#txtFromToken").val()+ " :: "+  vReverse2R1);
+
+                                                  var PriceImpactETH=parseFloat((inpDevideETH/vReverse2R1)*100).toFixed(2);
+												console.log("PriceImpactETH R1 : " + PriceImpactETH);
+												$('#priceimpactR1').val(PriceImpactETH);
+                                     		});
+                                    	});
+
+                                        //============ Route 2 Pairing ETH to ERC20 =================
+
+                                        var vPairAddress='';
+                                        var vgetpairR2='';
+                                        if(change=='to_change')
+                                        {
+                                        	vgetpairR2=factorycontract.methods.getPair(contractAddress2,WETHContract).call();
+                                     	}
+                                 		else
+                                 		{
+                                 			vgetpairR2 = factorycontract.methods.getPair(WETHContract,contractAddress2).call();
+                                 		}
+                                        	const vgetpairvalR2 = vgetpairR2.then(function(result1){
+                                        	vPairAddress= result1;
+                             
+                                           	var pairContractR2 = new web3.eth.Contract(JSON.parse(vPairABI), vPairAddress);
+                                            var getreservesR2 = pairContractR2.methods.getReserves().call();
+                                            getreservesR2.then(function(response) {
+                                            	console.log("getreserves : " + response[0]);
+                                            	var vReverse1R2=response[0]/devide_to1;
+                                            	var vReverse2R2=parseFloat(response[1]/devide_to2).toFixed(4);
+                                                 // if(change=='to_change')
+                                                 // {
+                                                 //   vReverse1R1=parseFloat(response[1]/devide_to1).toFixed(4);
+                                                 //   vReverse2R1=parseFloat(response[0]/devide_to2).toFixed(4);
+                                                 // }
+                                                console.log("vReverse1 R2 : " + vReverse1R2);
+                                                console.log("vReverse2  R2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2R2);
+
+                                                var PriceImpactR2=parseFloat((inpDevideETH/vReverse2R2)*100).toFixed(2);
+												console.log("PriceImpactETH R2 : " + PriceImpactR2);
+												$('#priceimpactR2').val(PriceImpactR2);
+                                     		});
+                                    	});
+
+                                        
+
+
+                                      console.log("inpDevideETH : " + inpDevideETH);
+
                                       if(change=='to_change') {
                                         //var inpDevide = (tokenAount/devide_to1).toFixed(8);
                                         console.log("devide_to2 : " +devide_to2);
@@ -1535,22 +1684,37 @@ function changeFromToken(change = '') {
                                                 {
                                                    vLiqProviderFee=0.005991;
                                                 }
-                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 
+                                                console.log("vLiqProviderFee 11 = " + vLiqProviderFee);
+
+                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
                                                  //vLiqProviderFee = parseFloat(vLiqProviderFee).toFixed(8);
                                                //  console.log("ASA: "+ Math.floor($("#txtToToken").val()));
                                                if(change=='to_change') {
+
+                                               	console.log("ccccccccccccc");
                                                  var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(2);
                                                  console.log("11!: " + vPriceImpact);
                                                  //vLiqProviderFee = vLiqProviderFee/10;
                                                  //var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
                                                }
                                                else {
+                                               	console.log("aaaaaaaaa");
                                                  //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
                                                  var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(2);
+                                                 
                                                  console.log("2222!: " + vPriceImpact);
+                                                 console.log(" dddd ! "+ $('#priceimpactR1').val());
+                                                 
                                                  //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
                                                }
+                                               var vRountText=$(".rowroute #routefromto").text();
+
+                                               if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
+									        	{
+									            	var vPriceImpact = parseFloat($('#priceimpactR1').val()) +parseFloat( $('#priceimpactR2').val());
+									        	}
+
                                                if(parseFloat(vPriceImpact)<=0.01)
                                                {
                                                  $("#priceimpact").html('<0.01%');

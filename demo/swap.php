@@ -267,13 +267,11 @@ $(document).ready(function(){
   		{
   			return false;
   		}
-  		
-  		// $('#drpToToken option:contains("'+vFromVal+'")').prop("selected",true);
-  		// $('#drpFromToken option:contains("'+vToVal+'")').prop("selected",true);
-  		// $('#drpToToken').val(vFromVal);
-  		// $('#drpFromToken').val(vToVal);
+  	
   		$("#drpFromToken").msDropdown();
   		$("#drpToToken").msDropdown();
+
+  		//=========== From Token  ===========
   		var i = 0;
 	    var indexNumber = 0;
 	    $("#drpFromToken option").each(function(){
@@ -288,6 +286,7 @@ $(document).ready(function(){
 	        oHandler.set("selectedIndex", indexNumber);
 	    }
 
+	    //=========== To Token  ===========
 	    i = 0;
 	    indexNumber = 0;
 	    $("#drpToToken option").each(function(){
@@ -301,6 +300,7 @@ $(document).ready(function(){
 	        oHandler.set("selectedIndex", indexNumber);
 	    }
 
+	    //=========== get Token balance after interchange ===========
 	    CheckBalanceInWallet('from');
 	    CheckBalanceInWallet('to');
   		
@@ -1070,60 +1070,7 @@ $(document).ready(function(){
         return result;
     }
 
-
- function GetPriceTokenForRoute(frmTkn, toTkn,ca)
- {
-	var txtFromToken = $("#txtFromToken").val();
-	var txtToToken = $("#txtToToken").val();
-	var devide_to = 1e18;
-
-	if(txtFromToken=="")
-	{
-		return false;
-	}
-
-	console.log(" contract address of "+frmTkn+" = "  + ca);
-	var WETHContract="<?php echo $WETHAddress; ?>";
-	var amountOut = ( devide_to * txtFromToken);
-	amountOut = amountOut.toLocaleString('fullwide', {useGrouping:false});
-	console.log(" amountOut   =  "  + amountOut);
-
-	console.log(" toTkn   =  "  + toTkn);
-
-	var path = [WETHContract, ca];
  
-	if(toTkn=='ETH')
-	{
-	  path = [ca,WETHContract];
-	  var getamntin = routerContract.methods.getAmountsOut(amountOut, path).call();
-	}
-	else{
-		var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
-	}
-
-	getamntin.then(function(getAmtVal) {
-		if(getAmtVal){
-
-			console.log(" getAmtVal pppp  =  "  + getAmtVal);
-			devide_to = 1e18;
-			if(toTkn=='ETH')
-			{
-				var ETHValue = getAmtVal[1];
-				var  tokenAount= getAmtVal[0];
-			}
-			else {
-				var ETHValue = getAmtVal[0];
-				var  tokenAount= getAmtVal[1];
-			}
-			console.log(" ETHValue = "  + ETHValue);
-			console.log(" tokenAount = "  + tokenAount);
-
-			var inpDevide = (ETHValue/devide_to).toFixed(8);
-
-			console.log(" inpDevide = "  + inpDevide);
-		}
-	});
-}
 
 function changeFromToken(change = '') {
 
@@ -1141,6 +1088,13 @@ function changeFromToken(change = '') {
         if (slipTolerance == '') {
             slipTolerance=0.1;
         }
+
+        var multiHops = $.cookie("disable_multihops");
+        if (multiHops == '') {
+            multiHops='no';
+        }
+
+        console.log("disable_multihops =" + multiHops);
 
         window.web3 = new Web3(ethereum);
         web3.eth.getAccounts(async function (error, result) {
@@ -1664,6 +1618,17 @@ function changeFromToken(change = '') {
                                         $(".rowroute").show();
                                         $(".rowroute #routefromto").html(drpFromToken +' > ETH > ' + drpToToken );
                                       }
+                                      if(multiHops=="yes")
+                                      {
+                                      		getInpSingle= getamntoutdirectval;
+                                        	$(".rowroute").hide();
+                                        	$(".rowroute #routefromto").html('');
+                                      }
+                                      else
+                                      {
+                                      		$(".rowroute").show();
+                                      		$(".rowroute #routefromto").html(drpFromToken +' > ETH > ' + drpToToken );
+                                      }
                                       var forFirst =  getInpSingle;
                                       console.log("forFirst : " + forFirst);
                                       var forSecond =((1 / forFirst)).toFixed(8);
@@ -1706,7 +1671,15 @@ function changeFromToken(change = '') {
                                       }*/
                                       // else {
                                          var vPairAddress='';
-                                         var vgetpair= factorycontract.methods.getPair(contractAddress1,contractAddress2).call();
+                                         var vgetpair='';
+                                         if(change=='to_change')
+                                        {
+                                        	vgetpair=factorycontract.methods.getPair(contractAddress2,contractAddress1).call();
+                                        }
+                                        else
+                                        {
+                                        	vgetpair = factorycontract.methods.getPair(contractAddress1,contractAddress2).call();
+                                        }
                                          const vgetpairval = vgetpair.then(function(result1){
                                            vPairAddress= result1;
                              
@@ -1716,11 +1689,11 @@ function changeFromToken(change = '') {
                                                  console.log("getreserves : " + response[0]);
                                                  var vReverse1=response[0]/devide_to1;
                                                  var vReverse2=parseFloat(response[1]/devide_to2).toFixed(4);
-                                                 if(change=='to_change')
-                                                 {
-                                                   vReverse1=parseFloat(response[1]/devide_to1).toFixed(4);
-                                                   vReverse2=parseFloat(response[0]/devide_to2).toFixed(4);
-                                                 }
+                                                 // if(change=='to_change')
+                                                 // {
+                                                 //   vReverse1=parseFloat(response[1]/devide_to1).toFixed(4);
+                                                 //   vReverse2=parseFloat(response[0]/devide_to2).toFixed(4);
+                                                 // }
                                                  console.log("vReverse1 : " + vReverse1);
                                                  console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
 
@@ -1740,7 +1713,7 @@ function changeFromToken(change = '') {
 
                                                	console.log("ccccccccccccc");
                                                  var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(2);
-                                                 console.log("11!: " + vPriceImpact);
+                                                 console.log("111111  !: " + vPriceImpact);
                                                  //vLiqProviderFee = vLiqProviderFee/10;
                                                  //var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
                                                }
@@ -1758,6 +1731,7 @@ function changeFromToken(change = '') {
 
                                                if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
 									        	{
+									        		console.log(" in RountText");
 									            	var vPriceImpact = parseFloat($('#priceimpactR1').val()) +parseFloat( $('#priceimpactR2').val());
 									        	}
 

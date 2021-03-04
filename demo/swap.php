@@ -46,7 +46,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-sm-12 py-3 text-center">
+              <div id="btnarrow" class="col-sm-12 py-3 text-center">
                 <p class="m-0"><i class="fa fa-arrow-down" aria-hidden="true"></i></p>
               </div>
 
@@ -258,6 +258,52 @@ $(document).ready(function(){
 	$("#txtFromToken").change(function(){
 		CheckBalanceInWallet('from');
 		changeFromToken("from_change");
+  	});
+
+  	$("#btnarrow").click(function(){
+  		var vFromVal = $('#drpFromToken option:selected').val();
+		var vToVal = $('#drpToToken option:selected').val();
+  		if(vFromVal== "")
+  		{
+  			return false;
+  		}
+  		
+  		// $('#drpToToken option:contains("'+vFromVal+'")').prop("selected",true);
+  		// $('#drpFromToken option:contains("'+vToVal+'")').prop("selected",true);
+  		// $('#drpToToken').val(vFromVal);
+  		// $('#drpFromToken').val(vToVal);
+  		$("#drpFromToken").msDropdown();
+  		$("#drpToToken").msDropdown();
+  		var i = 0;
+	    var indexNumber = 0;
+	    $("#drpFromToken option").each(function(){
+	        if($(this).val() == vToVal){
+	            indexNumber = i;
+	        }
+	        i++;
+	    });
+
+	    var oHandler = $('#drpFromToken').msDropDown().data("dd");
+	    if(oHandler) {
+	        oHandler.set("selectedIndex", indexNumber);
+	    }
+
+	    i = 0;
+	    indexNumber = 0;
+	    $("#drpToToken option").each(function(){
+	        if($(this).val() == vFromVal){
+	            indexNumber = i;
+	        }
+	        i++;
+	    });
+	    var oHandler = $('#drpToToken').msDropDown().data("dd");
+	    if(oHandler) {
+	        oHandler.set("selectedIndex", indexNumber);
+	    }
+
+	    CheckBalanceInWallet('from');
+	    CheckBalanceInWallet('to');
+  		
   	});
 
 

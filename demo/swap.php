@@ -239,6 +239,8 @@ $(document).ready(function(){
 
 	jQuery.noConflict();
 
+	$(".rowroute").hide();
+
 	var vPairABI='[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]';
 
 	var vFromTokenKeyPress=false;
@@ -1072,7 +1074,7 @@ $(document).ready(function(){
 
  
 
-function changeFromToken(change = '') {
+	function changeFromToken(change = '') {
 
         var spndrpFromToken = drpFromToken = $('#drpFromToken option:selected').val();
         var spndrpToToken = drpToToken = $('#drpToToken option:selected').val();
@@ -1118,7 +1120,6 @@ function changeFromToken(change = '') {
 
             /*var startToken = $("#drpFromToken_title .ddlabel").html();
             var endToken = $("#drpToToken_title .ddlabel").html();*/
-
 
             $.ajax({
                 type: "POST",
@@ -1306,22 +1307,30 @@ function changeFromToken(change = '') {
                                         }
                                         console.log("vLiqProviderFee 33 = " + vLiqProviderFee);
 
-										vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
+										//vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 
 										//vLiqProviderFee = parseFloat(vLiqProviderFee).toFixed(8);
 										//  console.log("ASA: "+ Math.floor($("#txtToToken").val()));
 										if(change=='to_change' && drpToToken!='ETH') {
 											console.log("ggggggggggg");
-	                                    	var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(2);
+											var trade_fee = parseFloat(vReverse2)*vLiqProviderFee;                                        
+											var token_reserv= parseFloat(vReverse2) + parseFloat(trade_fee);
+											var vPriceImpact=parseFloat(($("#txtFromToken").val()*100/token_reserv)).toFixed(2);
+	                                    	//var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(2);
 	                                    	console.log("11!: " + vPriceImpact);
 	                                    	//vLiqProviderFee = vLiqProviderFee/10;
 	                                    	// var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
+	                                    	vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val(); 
 	                                    }
 	                                    else 
 	                                    {
 	                                    	console.log("xxxxxxxx");
 	                                      //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
-	                                      var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(2);
+	                                      	var trade_fee = parseFloat(vReverse1)*vLiqProviderFee;                                        
+											var token_reserv= parseFloat(vReverse1) + parseFloat(trade_fee);
+											var vPriceImpact=parseFloat(($("#txtToToken").val()*100/token_reserv)).toFixed(2);
+	                                      //var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(2);
+	                                      vLiqProviderFee = vLiqProviderFee*$("#txtToToken").val(); 
 	                                      console.log("2222!: " + vPriceImpact);
 	                                      //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
 	                                    }
@@ -1703,65 +1712,49 @@ function changeFromToken(change = '') {
                                                  console.log("getreserves : " + response[0]);
                                                  var vReverse1=response[0]/devide_to1;
                                                  var vReverse2=parseFloat(response[1]/devide_to2).toFixed(4);
-                                                 // if(change=='to_change')
-                                                 // {
-                                                 //   vReverse1=parseFloat(response[1]/devide_to1).toFixed(4);
-                                                 //   vReverse2=parseFloat(response[0]/devide_to2).toFixed(4);
-                                                 // }
-                                                 console.log("vReverse1 : " + vReverse1);
-                                                 console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
 
+                                                console.log("vReverse1 : " + vReverse1);
+                                                console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
                                                 console.log("vLiqProviderFee 11 = " + vLiqProviderFee);
 
-                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
-                                                 //vLiqProviderFee = parseFloat(vLiqProviderFee).toFixed(8);
-                                               //  console.log("ASA: "+ Math.floor($("#txtToToken").val()));
-                                               if(change=='to_change') {
-
-                                               	console.log("ccccccccccccc");
-                                               	//var trade_fee = parseFloat(vReverse2)*vLiqProviderFee;
-                                                //var token_reserv = parseFloat(vReverse2)+parseFloat(trade_fee);
-                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
-                                                 console.log("111111  !: " + vPriceImpact);
-                                                 //vLiqProviderFee = vLiqProviderFee/10;
-                                                 //var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
-                                               }
-                                               else {
-                                               	console.log("aaaaaaaaa");
-                                                 //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
-                                                 //var trade_fee = parseFloat(vReverse1)*vLiqProviderFee;
-                                                //var token_reserv = parseFloat(vReverse1)+parseFloat(trade_fee);
-                                                 var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(4);
-                                                 
-                                                 console.log("2222!: " + vPriceImpact);
-                                                 console.log(" dddd ! "+ $('#priceimpactR1').val());
-                                                 
-                                                 //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
-                                               }
-                                               var vRountText=$(".rowroute #routefromto").text();
-
-                                               if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
-									        	{
-									        		console.log(" in RountText");
-									            	var vPriceImpact = parseFloat($('#priceimpactR1').val()) +parseFloat( $('#priceimpactR2').val());
-									        	}
+                                                if(multiHops=="yes")
+                                      			{
+	                                               if(change=='to_change') {
+	                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
+	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
+	                                                 console.log("111111  !: " + vPriceImpact);
+	                                               }
+	                                               else {
+	                                                 var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(4);
+	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtToToken").val();
+	                                                 console.log("2222!: " + vPriceImpact);
+	                                               }
+	                                           }
+	                                           else
+	                                           {
+	                                               var vRountText=$(".rowroute #routefromto").text();
+	                                               if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
+										        	{
+										            	var vPriceImpact = parseFloat($('#priceimpactR1').val()) +parseFloat( $('#priceimpactR2').val());
+										        	}
+										        }
 
                                                if(parseFloat(vPriceImpact)<=0.01)
                                                {
-                                                 $("#priceimpact").html('<0.01%');
+                                                 	$("#priceimpact").html('<0.01%');
                                                }
                                                else {
-                                                   $("#priceimpact").html(vPriceImpact+'%');
+                                                   	$("#priceimpact").html(vPriceImpact+'%');
                                                }
                                                  $("#minrecamount").html(minrec+' ' + spndrpToToken);
                                                  $("#liqudityfee").html(vLiqProviderFee+' '+drpFromToken);
                                                  if(parseFloat(vPriceImpact)>5 && parseFloat(vPriceImpact)<=15 && Insuficient==0)
                                                  {
-                                                   $("#btnAmount").html('Swap Anyway');
+                                                	$("#btnAmount").html('Swap Anyway');
                                                  }
                                                  else if (parseFloat(vPriceImpact)>15) {
-                                                   $("#btnAmount").prop('disabled', true);
-                                                   $("#btnAmount").html('Price Impact is too high');
+                                                   	$("#btnAmount").prop('disabled', true);
+                                                   	$("#btnAmount").html('Price Impact is too high');
                                                  }
                                                  else {
                                                    if(Insuficient==0){
@@ -1800,14 +1793,10 @@ function changeFromToken(change = '') {
                                                   }
                                               }
                                           });
+                                        contractABI_json2 = JSON.parse(contractABI2);
 
-
-
-
-                                                contractABI_json2 = JSON.parse(contractABI2);
-
-                                                var tknContract2 = new web3.eth.Contract(contractABI_json2, contractAddress2);
-                                                var getallowance2 = tknContract2.methods.allowance(myAccountAddress, routerContractAddress).call();
+                                        var tknContract2 = new web3.eth.Contract(contractABI_json2, contractAddress2);
+                                        var getallowance2 = tknContract2.methods.allowance(myAccountAddress, routerContractAddress).call();
                                                 getallowance2.then(function(getallowance2) {
                                                     console.log("getallowance2 : " + getallowance2);
                                                     if(parseInt(getallowance2)<= 0) {

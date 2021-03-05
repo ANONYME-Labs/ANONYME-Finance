@@ -58,7 +58,9 @@ input:checked + .slider:after { content:'ON'; }
 #adlqbothtokenImgss { max-width: 20px; }
 #displayTokenFrom { border-radius: 20px;width: 100%; }
 #displayTokenTo { border-radius: 20px;width: 100%; }
-#pool_loading{ display : none; position : fixed; z-index: 100; background-image : url('../images/loader.gif'); background-color:#666; opacity : 0.4; background-repeat : no-repeat; background-position : center; left : 0; bottom : 0; right : 0; top : 0;}
+#pool_loading, #create_pair_loading
+{ display : none; position : fixed; z-index: 100; background-image : url('../images/loader.gif'); background-color:#666; opacity : 0.4; background-repeat : no-repeat; background-position : center; left : 0; bottom : 0; right : 0; top : 0;}
+#create_pair_loading { z-index: 1051; }
 #open_import_pool_pop .dropdown-toggle { width: 100% !important; }
 #impbothtokenImgss, #impbothtokenImgsf { max-width: 20px; }
 #open_import_pool_pop .dd .ddTitle .ddTitleText{ text-align: left; }

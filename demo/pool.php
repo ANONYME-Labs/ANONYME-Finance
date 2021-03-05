@@ -78,6 +78,7 @@ include 'sidebar.php';
     </div>
 </div>
 
+<div id="create_pair_loading"></div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <?php include 'footer.php'; ?>

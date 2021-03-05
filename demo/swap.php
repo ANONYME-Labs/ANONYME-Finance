@@ -1312,7 +1312,6 @@ $(document).ready(function(){
 										//vLiqProviderFee = parseFloat(vLiqProviderFee).toFixed(8);
 										//  console.log("ASA: "+ Math.floor($("#txtToToken").val()));
 										if(change=='to_change' && drpToToken!='ETH') {
-											console.log("ggggggggggg");
 											var trade_fee = parseFloat(vReverse2)*vLiqProviderFee;                                        
 											var token_reserv= parseFloat(vReverse2) + parseFloat(trade_fee);
 											var vPriceImpact=parseFloat(($("#txtFromToken").val()*100/token_reserv)).toFixed(2);
@@ -1320,11 +1319,10 @@ $(document).ready(function(){
 	                                    	console.log("11!: " + vPriceImpact);
 	                                    	//vLiqProviderFee = vLiqProviderFee/10;
 	                                    	// var minrec=parseFloat($("#txtFromToken").val()-($("#txtFromToken").val()*vLiqProviderFee)).toFixed(5);
-	                                    	vLiqProviderFee = vLiqProviderFee*$("#txtToToken").val(); 
+	                                    	vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val(); 
 	                                    }
 	                                    else 
 	                                    {
-	                                    	console.log("xxxxxxxx");
 	                                      //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
 	                                      	var trade_fee = parseFloat(vReverse1)*vLiqProviderFee;                                        
 											var token_reserv= parseFloat(vReverse1) + parseFloat(trade_fee);
@@ -1721,15 +1719,13 @@ $(document).ready(function(){
                                       			{
 	                                               if(change=='to_change') {
 	                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
-	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtToToken").val();
+	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 	                                                 console.log("111111  !: " + vPriceImpact);
-	                                                 console.log("vLiqProviderFee 222 = " + vLiqProviderFee);
 	                                               }
 	                                               else {
 	                                                 var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(4);
 	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 	                                                 console.log("2222!: " + vPriceImpact);
-	                                                 console.log("vLiqProviderFee 33 = " + vLiqProviderFee);
 	                                               }
 	                                           }
 	                                           else
@@ -1738,13 +1734,7 @@ $(document).ready(function(){
 	                                               if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
 										        	{
 										            	var vPriceImpact = parseFloat($('#priceimpactR1').val()) +parseFloat( $('#priceimpactR2').val());
-										            	if(change=='to_change') {
-										            		vLiqProviderFee = vLiqProviderFee*$("#txtToToken").val();
-										            	}
-										            	else
-										            	{
-										            		vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
-										            	}
+										            	vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 										        	}
 										        }
 

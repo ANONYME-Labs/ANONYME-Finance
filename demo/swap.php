@@ -1164,12 +1164,12 @@ $(document).ready(function(){
                                 //path = [contractAddress,result];
                                 if(drpToToken=='ETH')
                                 {
-                                  path = [contractAddress,WETHContract];
-                                  var getamntin = routerContract.methods.getAmountsOut(amountOut, path).call();
+                                  	path = [contractAddress,WETHContract];
+                                  	var getamntin = routerContract.methods.getAmountsOut(amountOut, path).call();
                                 }
                                 else{
-                                var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
-                              }
+                                	var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+                              	}
                             }
                             console.log(getamntin);
                             getamntin.then(function(getAmtVal) {
@@ -1202,7 +1202,6 @@ $(document).ready(function(){
                                         }
                                         var inpDevide = (ETHValue/devide_to).toFixed(8);
                                         var getInpSingle = parseFloat(inpDevide).toFixed(8);
-
 
                                         var forFirst = getInpSingle;
                                         var forSecond = (1 / forFirst).toFixed(8);
@@ -1243,13 +1242,11 @@ $(document).ready(function(){
 
                                         var inpDevide = (tokenAount/devide_to).toFixed(8);
                                         var getInpSingle = parseFloat(inpDevide).toFixed(8);
-                                          console.log("getInpSingle : " + getInpSingle);
+                                        console.log("getInpSingle : " + getInpSingle);
 
                                         var forFirst =  getInpSingle;
-                                        console.log("forFirst : " + forFirst);
                                         var forSecond =((1 / forFirst)).toFixed(8);
-                                        console.log("*txtFromToken : " + txtFromToken);
-                                        console.log("forSecond : " + forSecond);
+                                        
                                         if(change=='to_change')
                                         {
                                           $("#txtFromToken").val(parseFloat(forFirst).toFixed(8));
@@ -1279,6 +1276,8 @@ $(document).ready(function(){
                                     if(parseFloat($("#txtFromToken").val()) > parseFloat($("#txtWalletFromBalance").html())) {
                                         $("#btnAmount").prop('disabled', true);
                                         var vtoken=$('#drpFromToken option:selected').val();
+                                        $(".rowroute").hide();
+                                        $(".rowroute #routefromto").html('');
                                         $("#btnAmount").html('Insufficient ' + vtoken +' balance');
                                         Insuficient=1;
                                     } 
@@ -1337,11 +1336,11 @@ $(document).ready(function(){
 	                                    	$("#priceimpact").html('<0.01%');
 	                                    }
 	                                    else {
-	                                        $("#priceimpact").html(vPriceImpact+'%');
+	                                        $("#priceimpact").html(parseFloat(vPriceImpact).toFixed(2)+'%');
 	                                    }
 
 										$("#minrecamount").html(minrec+' ' + spndrpToToken);
-										$("#liqudityfee").html(vLiqProviderFee+' '+drpFromToken);
+										$("#liqudityfee").html(SetDecimalForLF(vLiqProviderFee)+' '+drpFromToken);
 										if(parseFloat(vPriceImpact)>5 && parseFloat(vPriceImpact)<=15 && Insuficient==0)
 										{
 											$("#btnAmount").html('Swap Anyway');
@@ -1524,7 +1523,9 @@ $(document).ready(function(){
                                       	console.log("ETHValue 33 path : " + ETHValue);
                                    }
                                 //var inpDevide = (amountOut / tokenAount).toFixed(8);
-                                      
+                                    if(parseFloat($("#txtFromToken").val()) > parseFloat($("#txtWalletFromBalance").html())) {
+                                    	$(".rowroute").hide();
+                                    }
                                       	
                                   	var vLiqProviderFee=0.003;
                                 	if($(".rowroute").is(":visible"))
@@ -1683,6 +1684,8 @@ $(document).ready(function(){
                                       if(parseFloat($("#txtFromToken").val()) > parseFloat($("#txtWalletFromBalance").html())) {
                                           $("#btnAmount").prop('disabled', true);
                                           var vtoken=$('#drpFromToken option:selected').val();
+                                          $(".rowroute").hide();
+                                        	$(".rowroute #routefromto").html('');
                                           $("#btnAmount").html('Insufficient ' + vtoken +' Token');
                                           Insuficient=1;
                                       } /*else if(parseFloat($("#txtToToken").val()) > parseFloat($("#txtWalletToBalance").html())) {
@@ -1715,8 +1718,8 @@ $(document).ready(function(){
                                                 console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
                                                 console.log("vLiqProviderFee 11 = " + vLiqProviderFee);
 
-                                                if(multiHops=="yes")
-                                      			{
+                                                //if(multiHops=="yes")
+                                      			//{
 	                                               if(change=='to_change') {
 	                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
 	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
@@ -1727,26 +1730,26 @@ $(document).ready(function(){
 	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 	                                                 console.log("2222!: " + vPriceImpact);
 	                                               }
-	                                           }
-	                                           else
-	                                           {
+	                                           //}
+	                                           //else
+	                                           //{
 	                                               var vRountText=$(".rowroute #routefromto").text();
-	                                               if (vRountText.toLocaleLowerCase().indexOf(">")!=-1)
+	                                               if($(".rowroute").is(":visible"))
 										        	{
 										            	var vPriceImpact = parseFloat($('#priceimpactR1').val()) +parseFloat( $('#priceimpactR2').val());
 										            	vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 										        	}
-										        }
-
+										        //} 
+										        	//93689
                                                if(parseFloat(vPriceImpact)<=0.01)
                                                {
                                                  	$("#priceimpact").html('<0.01%');
                                                }
                                                else {
-                                                   	$("#priceimpact").html(vPriceImpact+'%');
+                                                   	$("#priceimpact").html(parseFloat(vPriceImpact).toFixed(2)+'%');
                                                }
                                                  $("#minrecamount").html(minrec+' ' + spndrpToToken);
-                                                 $("#liqudityfee").html(vLiqProviderFee+' '+drpFromToken);
+                                                 $("#liqudityfee").html(SetDecimalForLF(vLiqProviderFee)+' '+drpFromToken);
                                                  if(parseFloat(vPriceImpact)>5 && parseFloat(vPriceImpact)<=15 && Insuficient==0)
                                                  {
                                                 	$("#btnAmount").html('Swap Anyway');
@@ -1841,6 +1844,39 @@ $(document).ready(function(){
                 }
             });
         });
+    }
+
+    function SetDecimalForLF(vLiqFee)
+    {
+    	if(vLiqFee<0.01)
+    	{
+    		return parseFloat(vLiqFee).toFixed(6);
+    	}
+    	else if(vLiqFee<0.1)
+    	{
+    		return parseFloat(vLiqFee).toFixed(5);
+    	}
+    	else if(vLiqFee<1)
+    	{
+    		return parseFloat(vLiqFee).toFixed(4);
+    	}
+    	else if(vLiqFee<10)
+    	{
+    		return parseFloat(vLiqFee).toFixed(3);
+    	}
+    	else if(vLiqFee<100)
+    	{
+    		return parseFloat(vLiqFee).toFixed(2);
+    	}
+    	else if(vLiqFee<1000)
+    	{
+    		return parseFloat(vLiqFee).toFixed(1);
+    	}
+    	else
+    	{
+    		return parseFloat(vLiqFee);
+    	}
+
     }
     
     $(".apprvebuttons").on("click",function(){

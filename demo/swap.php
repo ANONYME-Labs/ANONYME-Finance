@@ -1339,7 +1339,7 @@ $(document).ready(function(){
 	                                        $("#priceimpact").html(parseFloat(vPriceImpact).toFixed(2)+'%');
 	                                    }
 
-										$("#minrecamount").html(minrec+' ' + spndrpToToken);
+										$("#minrecamount").html(SetDecimalForMinMax(minrec)+' ' + spndrpToToken);
 										$("#liqudityfee").html(SetDecimalForLF(vLiqProviderFee,Insuficient)+' '+drpFromToken);
 										if(parseFloat(vPriceImpact)>5 && parseFloat(vPriceImpact)<=15 && Insuficient==0)
 										{
@@ -1718,8 +1718,8 @@ $(document).ready(function(){
                                                 console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
                                                 console.log("vLiqProviderFee 11 = " + vLiqProviderFee);
 
-                                                //if(multiHops=="yes")
-                                      			//{
+                                                if(multiHops=="yes" || Insuficient==1)
+                                      			{
 	                                               if(change=='to_change') {
 	                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
 	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
@@ -1730,16 +1730,16 @@ $(document).ready(function(){
 	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 	                                                 console.log("2222!: " + vPriceImpact);
 	                                               }
-	                                           //}
-	                                           //else
-	                                           //{
+	                                           }
+	                                           else
+	                                           {
 	                                               var vRountText=$(".rowroute #routefromto").text();
 	                                               if($(".rowroute").is(":visible"))
 										        	{
 										            	var vPriceImpact = parseFloat($('#priceimpactR1').val()) +parseFloat( $('#priceimpactR2').val());
 										            	vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 										        	}
-										        //} 
+										        } 
 										        	//93689
                                                if(parseFloat(vPriceImpact)<=0.01)
                                                {
@@ -1748,7 +1748,7 @@ $(document).ready(function(){
                                                else {
                                                    	$("#priceimpact").html(parseFloat(vPriceImpact).toFixed(2)+'%');
                                                }
-                                                 $("#minrecamount").html(minrec+' ' + spndrpToToken);
+                                                 $("#minrecamount").html(SetDecimalForMinMax(minrec)+' ' + spndrpToToken);
                                                  $("#liqudityfee").html(SetDecimalForLF(vLiqProviderFee,Insuficient)+' '+drpFromToken);
                                                  if(parseFloat(vPriceImpact)>5 && parseFloat(vPriceImpact)<=15 && Insuficient==0)
                                                  {
@@ -1763,9 +1763,7 @@ $(document).ready(function(){
                                                      $("#btnAmount").prop('disabled', false);
                                                      $("#btnAmount").html('Swap');
                                                    }
-                                                 }
-
-
+                                                }
                                                });
                                              });
                                           //$("#btnAmount").html('Swap');
@@ -1844,6 +1842,47 @@ $(document).ready(function(){
                 }
             });
         });
+    }
+
+    function SetDecimalForMinMax(vMinMax)
+    {
+    	console.log("vMinMax = "+vMinMax);
+    	if(vMinMax>=0.01 && vMinMax<=0.09)
+    	{
+    		console.log("vMinMax  11 = "+vMinMax);
+    		return parseFloat(vMinMax).toFixed(5);
+    	}
+    	else if(vMinMax>=0.1 && vMinMax<=0.9)
+    	{
+    		console.log("vMinMax  22 = "+vMinMax);
+    		return parseFloat(vMinMax).toFixed(4);
+    	}
+    	else if(vMinMax>=1 && vMinMax<=9)
+    	{
+    		console.log("vMinMax  33 = "+vMinMax);
+    		return parseFloat(vMinMax).toFixed(3);
+    	}
+    	else if(vMinMax>=10 && vMinMax<=99)
+    	{
+    		console.log("vMinMax  44 = "+vMinMax);
+    		return parseFloat(vMinMax).toFixed(2);
+    	}
+    	else if(vMinMax>=100 && vMinMax<=999)
+    	{
+    		console.log("vMinMax  55 = "+vMinMax);
+    		return parseFloat(vMinMax).toFixed(1);
+    	}
+    	else if(vMinMax>=1000 && vMinMax<=9999)
+    	{
+    		console.log("vMinMax  66 = "+Math.floor(vMinMax));
+    		return  Math.floor(vMinMax);
+    	}
+    	else if(vMinMax>=10000 && vMinMax<=99999)
+    	{
+    		console.log("vMinMax  66 = "+Math.floor(vMinMax));
+    		return  Math.floor(vMinMax);
+    	}
+    	
     }
 
     function SetDecimalForLF(vLiqFee, vInsuficient)

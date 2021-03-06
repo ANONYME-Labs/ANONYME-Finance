@@ -12,11 +12,11 @@ $(document).ready(function () {
                 $("#login_user_wallet").val(myAccountAddress);
             }
 
-            if (WETHAddress == '') {
-                var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
-                var WETHobj = routerContract.methods.WETH().call();
-                const WETHval = WETHobj.then(function (WETHAddress) {
+            var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
+            var WETHobj = routerContract.methods.WETH().call();
+            const WETHval = WETHobj.then(function (WETHAddress) {
 
+                if(WETHAddress != ''){
                     $("#WETHAddress").val(WETHAddress);
 
                     $.ajax({
@@ -32,8 +32,8 @@ $(document).ready(function () {
                             console.log(res_error);
                         }
                     });
-                });
-            }
+                }
+            });
         } else {
 
         }
@@ -82,6 +82,7 @@ $(document).ready(function () {
             });
         });
     });
+    
 
     $("#coin_option2").on('shown.bs.modal', function () {
 
@@ -1371,13 +1372,15 @@ function MakeQuerablePromise(promise) {
     return result;
 }
 
-function createPairBtnClick() {
+async function createPairBtnClick() {
 
     var startToken = $("#poolFromToken_title .ddlabel").html();
     var endToken = $("#poolToToken_title .ddlabel").html();
 
+    $("#create_pair_loading").show();
     if (startToken == endToken) {
         alertify.alert('Warning', 'Please select different token.');
+        $("#create_pair_loading").hide();
         return false;
     }
 
@@ -1390,16 +1393,23 @@ function createPairBtnClick() {
         selectedtoken = [startToken, endToken];
     }
 
+    $("#create_pair_loading").show();
+
     $.ajax({
         type: "POST",
         url: 'ajax/getCurrencyData1.php',
         data: {tokenname: selectedtoken},
         dataType: "json",
-        success: function (resp) {
+        success: async function (resp) {
+
+            $("#create_pair_loading").hide();
+
             if (resp.length == 1) {
 
                 var res = resp[0];
                 if (res.status == '1') {
+
+                    $("#create_pair_loading").show();
 
                     var contractABI = res.data.contractABI;
                     var contractAddress = res.data.contractAddress;
@@ -1408,21 +1418,50 @@ function createPairBtnClick() {
 
                     web3.eth.getAccounts(async function (error, result) {
 
-                        myAccountAddress = result[0];
+                        try{
 
-                        if ((startToken != '' && endToken != '') && (startToken != 'Select Token' && endToken != 'Select Token')) {
+                            myAccountAddress = result[0];
 
-                            var txtPoolFromToken = $("#txtPoolFromToken").val();
-                            var txtPoolToToken = $("#txtPoolToToken").val();
+                            if ((startToken != '' && endToken != '') && (startToken != 'Select Token' && endToken != 'Select Token')) {
 
-                            var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress, {
-                                from: myAccountAddress, // default from address
-                            });
+                                console.log("token = " + res.data.name);
+                                console.log("contract address = " + contractAddress);
+                                var vPairAddress='';
 
-                            const userInputEthValue = web3.utils.toHex(toFixedNumber(multiply_to / txtPoolFromToken));
-                            var WETHobj = routerContract.methods.WETH().call();
+                                var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
 
-                            const WETHval = WETHobj.then(function (result) {
+                                var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress, {
+                                    from: myAccountAddress, // default from address
+                                });
+                                var WETHobj = routerContract.methods.WETH().call();
+                                var WETHval = await WETHobj;
+
+                                console.log(WETHval);
+
+                                var getPairObj = UniswapV2Factory.methods.getPair(WETHval, contractAddress).call();
+                                var vPairAddress = await getPairObj;
+                                
+                                console.log(vPairAddress);
+
+                                if(vPairAddress == '') {
+                                    
+                                    const tx = UniswapV2Factory.methods.createPair(WETHval, contractAddress).send({
+                                            from: myAccountAddress,
+                                        });
+                                    var crtPair = await tx;
+
+                                    var getPairObj = UniswapV2Factory.methods.getPair(WETHval, contractAddress).call();
+                                    var vPairAddress = await getPairObj;
+                                }
+
+                                var txtPoolFromToken = $("#txtPoolFromToken").val();
+                                var txtPoolToToken = $("#txtPoolToToken").val();
+
+                                const userInputEthValue = web3.utils.toHex(toFixedNumber(multiply_to / txtPoolFromToken));
+                                
+                                //WETHval = WETHobj.then(function (result) {
+
+                                console.log(WETHval);
 
                                 var amountOut = (txtPoolFromToken * multiply_to);
                                 var decimals = (txtPoolFromToken != Math.floor(txtPoolFromToken)) ? (txtPoolFromToken.toString()).split('.')[1].length : 0;
@@ -1431,82 +1470,96 @@ function createPairBtnClick() {
                                     amountOut = (multiply_to * txtPoolFromToken);
                                 }
 
-                                var path = [result, contractAddress];
+                                var path = [WETHval, contractAddress];
+
+                                console.log(amountOut);
+                                console.log(path);
+                                
                                 var getamntin = routerContract.methods.getAmountsIn(amountOut, path).call();
+                                var getAmtVal = await getamntin;
 
-                                getamntin.then(function (getAmtVal) {
+                                //getamntin.then(function (getAmtVal) {
 
-                                    var tokenAount = getAmtVal[0];
-                                    var ETHValue = getAmtVal[1];
-                                    var inpDevide = (tokenAount / ETHValue).toFixed(8);
-                                    var getInpSingle = parseFloat(inpDevide).toFixed(8);
+                                var tokenAount = getAmtVal[0];
+                                var ETHValue = getAmtVal[1];
+                                var inpDevide = (tokenAount / ETHValue).toFixed(8);
+                                var getInpSingle = parseFloat(inpDevide).toFixed(8);
 
-                                    var tokenAount = ((1 / getInpSingle) * ETHValue);
-                                    var token_percent = Math.ceil((tokenAount * 1) / 100);
-                                    var ETH_percent = Math.ceil((ETHValue * 1) / 100);
+                                var tokenAount = ((1 / getInpSingle) * ETHValue);
+                                var token_percent = Math.ceil((tokenAount * 1) / 100);
+                                var ETH_percent = Math.ceil((ETHValue * 1) / 100);
 
-                                    var addLiquidityETH = ETHValue;
-                                    var token = contractAddress;
-                                    var amountTokenDesired = tokenAount;
-                                    var amountTokenMin = (tokenAount - token_percent);
-                                    var amountETHMin = (ETHValue - ETH_percent);
-                                    var to = myAccountAddress;
-                                    var milliseconds = 300 * 1000;
-                                    var deadline = new Date().getTime() + milliseconds;
+                                var addLiquidityETH = ETHValue;
+                                var token = contractAddress;
+                                var amountTokenDesired = tokenAount;
+                                var amountTokenMin = (tokenAount - token_percent);
+                                var amountETHMin = (ETHValue - ETH_percent);
+                                var to = myAccountAddress;
+                                var milliseconds = 300 * 1000;
+                                var deadline = new Date().getTime() + milliseconds;
 
-                                    console.log('==================');
-                                    console.log('addLiquidityETH ' + addLiquidityETH);
-                                    console.log('token ' + token);
-                                    console.log('amountTokenDesired ' + amountTokenDesired);
-                                    console.log('amountTokenMin ' + amountTokenMin);
-                                    console.log('amountETHMin ' + amountETHMin);
-                                    console.log('to ' + to);
-                                    console.log('deadline ' + deadline);
-                                    console.log('==================');
+                                console.log('==================');
+                                console.log('addLiquidityETH ' + addLiquidityETH);
+                                console.log('token ' + token);
+                                console.log('amountTokenDesired ' + amountTokenDesired);
+                                console.log('amountTokenMin ' + amountTokenMin);
+                                console.log('amountETHMin ' + amountETHMin);
+                                console.log('to ' + to);
+                                console.log('deadline ' + deadline);
+                                console.log('==================');
 
-                                    var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                        gasLimit: web3.utils.toHex(560000),
-                                        gasPrice: web3.utils.toHex(10000000000),
-                                        value: addLiquidityETH});
+                                var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
+                                    gasLimit: web3.utils.toHex(560000),
+                                    gasPrice: web3.utils.toHex(10000000000),
+                                    value: addLiquidityETH});
 
-                                    var myPromise = MakeQuerablePromise(addLiqETH);
+                                var myPromise = MakeQuerablePromise(addLiqETH);
 
-                                    if (myPromise.isPending()) {
-                                        alertify.alert("<b>Please wait</b>", "<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function () {});
+                                if (myPromise.isPending()) {
+                                    alertify.alert("<b>Please wait</b>", "<div class='text-center'><center><img src='images/ripple-loader.gif' style='width: 50px;' /></center> <br>Please wait...</div>", function () {});
+                                }
+
+                                var timerID = setInterval(function () {
+
+                                    if (myPromise.isFulfilled()) {
+
+                                        myPromise.then(function (result) {
+                                            alertify.alert("Transacton Recorded", "Thanks for joining. You can check the status at <a href='" + etherscanTx + result.transactionHash + "' target='_blank'>Etherscan</a><br><br> Once the transaction is confirmed in Blockchain, you can come back to this page and reload this page.", function () {});
+                                        });
+
+                                        $(".ajs-ok").click();
+                                        $("#create_pair_loading").hide();
+                                        clearInterval(timerID);
                                     }
 
-                                    var timerID = setInterval(function () {
+                                    if (myPromise.isFulfilled()) {
+                                        resetAllFields();
+                                        loadSelectOptions();
+                                        $(".ajs-ok").click();
+                                        $("#create_pair_loading").hide();
+                                        clearInterval(timerID);
+                                    }
 
-                                        if (myPromise.isFulfilled()) {
+                                    if (myPromise.isRejected()) {
 
-                                            myPromise.then(function (result) {
-                                                alertify.alert("Transacton Recorded", "Thanks for joining. You can check the status at <a href='" + etherscanTx + result.transactionHash + "' target='_blank'>Etherscan</a><br><br> Once transaction is confirmed in Blockchain, you can come back to this page and login into your account.", function () {});
-                                            });
+                                        myPromise.then(response => {
+                                        }).catch(error => {
+                                            alertify.alert("Warning", error.message, function () {});
+                                        });
+                                        $(".ajs-ok").click();
+                                        $("#create_pair_loading").hide();
+                                        clearInterval(timerID);
+                                    }
 
-                                            $(".ajs-ok").click();
-                                            clearInterval(timerID);
-                                        }
-
-                                        if (myPromise.isFulfilled()) {
-                                            resetAllFields();
-                                            loadSelectOptions();
-                                            $(".ajs-ok").click();
-                                            clearInterval(timerID);
-                                        }
-
-                                        if (myPromise.isRejected()) {
-
-                                            myPromise.then(response => {
-                                            }).catch(error => {
-                                                alertify.alert("Warning", error.message, function () {});
-                                            });
-                                            $(".ajs-ok").click();
-                                            clearInterval(timerID);
-                                        }
-
-                                    }, 500);
-                                });
-                            });
+                                }, 500);
+                                //});
+                                //});
+                            } else {
+                                $("#create_pair_loading").hide();
+                            }
+                        } catch (error) {
+                            alertify.alert("Warning", error.message, function () {});
+                            $("#create_pair_loading").hide();
                         }
                     });
                 }

@@ -1754,7 +1754,7 @@ window.onload = function () {
 }
  </style>
 
- <script type="text/javascript" src="js/pool_custom.js"></script>
+ <script type="text/javascript" src="js/pool_custom.js?<?php echo time(); ?>"></script>
 
 </body>
 </html>

@@ -1340,7 +1340,7 @@ $(document).ready(function(){
 	                                    }
 
 										$("#minrecamount").html(minrec+' ' + spndrpToToken);
-										$("#liqudityfee").html(SetDecimalForLF(vLiqProviderFee)+' '+drpFromToken);
+										$("#liqudityfee").html(SetDecimalForLF(vLiqProviderFee,Insuficient)+' '+drpFromToken);
 										if(parseFloat(vPriceImpact)>5 && parseFloat(vPriceImpact)<=15 && Insuficient==0)
 										{
 											$("#btnAmount").html('Swap Anyway');
@@ -1749,7 +1749,7 @@ $(document).ready(function(){
                                                    	$("#priceimpact").html(parseFloat(vPriceImpact).toFixed(2)+'%');
                                                }
                                                  $("#minrecamount").html(minrec+' ' + spndrpToToken);
-                                                 $("#liqudityfee").html(SetDecimalForLF(vLiqProviderFee)+' '+drpFromToken);
+                                                 $("#liqudityfee").html(SetDecimalForLF(vLiqProviderFee,Insuficient)+' '+drpFromToken);
                                                  if(parseFloat(vPriceImpact)>5 && parseFloat(vPriceImpact)<=15 && Insuficient==0)
                                                  {
                                                 	$("#btnAmount").html('Swap Anyway');
@@ -1846,37 +1846,52 @@ $(document).ready(function(){
         });
     }
 
-    function SetDecimalForLF(vLiqFee)
+    function SetDecimalForLF(vLiqFee, vInsuficient)
     {
-    	if(vLiqFee<0.01)
+    	console.log(" vLiqFee = "+vLiqFee);
+    	if(vInsuficient==1)
     	{
-    		return parseFloat(vLiqFee).toFixed(6);
-    	}
-    	else if(vLiqFee<0.1)
-    	{
-    		return parseFloat(vLiqFee).toFixed(5);
-    	}
-    	else if(vLiqFee<1)
-    	{
-    		return parseFloat(vLiqFee).toFixed(4);
-    	}
-    	else if(vLiqFee<10)
-    	{
-    		return parseFloat(vLiqFee).toFixed(3);
-    	}
-    	else if(vLiqFee<100)
-    	{
-    		return parseFloat(vLiqFee).toFixed(2);
-    	}
-    	else if(vLiqFee<1000)
-    	{
-    		return parseFloat(vLiqFee).toFixed(1);
+    		var vFirstDigitAfterDecimal = vLiqFee.toString().split('.')[1][0];
+    		if(vFirstDigitAfterDecimal>0)
+    		{
+    			return Math.floor(vLiqFee)+ "."+vFirstDigitAfterDecimal;
+    		}
+    		else
+    		{
+    			return  Math.floor(vLiqFee);
+    		}
     	}
     	else
     	{
-    		return parseFloat(vLiqFee);
+    		if(vLiqFee<0.01)
+	    	{
+	    		return parseFloat(vLiqFee).toFixed(6);
+	    	}
+	    	else if(vLiqFee<0.1)
+	    	{
+	    		return parseFloat(vLiqFee).toFixed(5);
+	    	}
+	    	else if(vLiqFee<1)
+	    	{
+	    		return parseFloat(vLiqFee).toFixed(4);
+	    	}
+	    	else if(vLiqFee<10)
+	    	{
+	    		return parseFloat(vLiqFee).toFixed(3);
+	    	}
+	    	else if(vLiqFee<100)
+	    	{
+	    		return parseFloat(vLiqFee).toFixed(2);
+	    	}
+	    	else if(vLiqFee<1000)
+	    	{
+	    		return parseFloat(vLiqFee).toFixed(1);
+	    	}
+	    	else
+	    	{
+	    		return parseFloat(vLiqFee);
+	    	}
     	}
-
     }
     
     $(".apprvebuttons").on("click",function(){

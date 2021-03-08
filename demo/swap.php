@@ -1523,9 +1523,9 @@ $(document).ready(function(){
                                       	console.log("ETHValue 33 path : " + ETHValue);
                                    }
                                 //var inpDevide = (amountOut / tokenAount).toFixed(8);
-                                    if(parseFloat($("#txtFromToken").val()) > parseFloat($("#txtWalletFromBalance").html())) {
-                                    	$(".rowroute").hide();
-                                    }
+                                    // if(parseFloat($("#txtFromToken").val()) > parseFloat($("#txtWalletFromBalance").html())) {
+                                    // 	$(".rowroute").hide();
+                                    // }
                                       	
                                   	var vLiqProviderFee=0.003;
                                 	if($(".rowroute").is(":visible"))
@@ -1631,12 +1631,14 @@ $(document).ready(function(){
 
                                       if((parseFloat(getamntoutdirectval)>parseFloat(getInpSingle) && parseFloat(getamntoutdirectval)>0.00000000 && change!='to_change') || (parseFloat(getamntoutdirectval)<parseFloat(getInpSingle) && parseFloat(getamntoutdirectval)>0.00000000 && change=='to_change'))
                                       {
+
+                                      	console.log(" route row hide ");
                                         getInpSingle= getamntoutdirectval;
                                         $(".rowroute").hide();
                                         $(".rowroute #routefromto").html('');
                                       }
                                       else {
-
+                                      	console.log(" route row show ");
                                         $(".rowroute").show();
                                         $(".rowroute #routefromto").html(drpFromToken +' > ETH > ' + drpToToken );
                                       }
@@ -1646,11 +1648,7 @@ $(document).ready(function(){
                                         	$(".rowroute").hide();
                                         	$(".rowroute #routefromto").html('');
                                       }
-                                      else
-                                      {
-                                      		$(".rowroute").show();
-                                      		$(".rowroute #routefromto").html(drpFromToken +' > ETH > ' + drpToToken );
-                                      }
+                                     
                                       var forFirst =  getInpSingle;
                                       console.log("forFirst : " + forFirst);
                                       var forSecond =((1 / forFirst)).toFixed(8);
@@ -1684,11 +1682,16 @@ $(document).ready(function(){
                                       if(parseFloat($("#txtFromToken").val()) > parseFloat($("#txtWalletFromBalance").html())) {
                                           $("#btnAmount").prop('disabled', true);
                                           var vtoken=$('#drpFromToken option:selected').val();
-                                          $(".rowroute").hide();
-                                        	$(".rowroute #routefromto").html('');
+                                          //$(".rowroute").hide();
+                                        	//$(".rowroute #routefromto").html('');
                                           $("#btnAmount").html('Insufficient ' + vtoken +' Token');
                                           Insuficient=1;
-                                      } /*else if(parseFloat($("#txtToToken").val()) > parseFloat($("#txtWalletToBalance").html())) {
+                                      }
+
+
+                                      console.log(" Insuficient = "+Insuficient);
+
+                                       /*else if(parseFloat($("#txtToToken").val()) > parseFloat($("#txtWalletToBalance").html())) {
                                           $("#btnAmount").prop('disabled', true);
                                           var vtoken=$('#drpToToken option:selected').val();
                                           $("#btnAmount").html('Insufficient ' + vtoken +' Token');
@@ -1718,28 +1721,31 @@ $(document).ready(function(){
                                                 console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
                                                 console.log("vLiqProviderFee 11 = " + vLiqProviderFee);
 
-                                                if(multiHops=="yes" || Insuficient==1)
+                                                
+	                                           
+										        if(multiHops=="yes" || Insuficient==1)
                                       			{
 	                                               if(change=='to_change') {
 	                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
-	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
+	                                                 
 	                                                 console.log("111111  !: " + vPriceImpact);
 	                                               }
 	                                               else {
 	                                                 var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(4);
-	                                                 vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 	                                                 console.log("2222!: " + vPriceImpact);
 	                                               }
 	                                           }
-	                                           else
+
+	                                           if(multiHops=="no")
 	                                           {
 	                                               var vRountText=$(".rowroute #routefromto").text();
 	                                               if($(".rowroute").is(":visible"))
 										        	{
 										            	var vPriceImpact = parseFloat($('#priceimpactR1').val()) +parseFloat( $('#priceimpactR2').val());
-										            	vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
+										            	console.log(" price impact total = "+vPriceImpact);
 										        	}
-										        } 
+										        }
+	                                           vLiqProviderFee = vLiqProviderFee*$("#txtFromToken").val();
 										        	//93689
                                                if(parseFloat(vPriceImpact)<=0.01)
                                                {

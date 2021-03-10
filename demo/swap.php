@@ -1656,7 +1656,7 @@ $(document).ready(function(){
                                       console.log("forSecond : " + forSecond);
                                       if(change=='to_change')
                                       {
-                                        $("#txtFromToken").val(parseFloat(forFirst).toFixed(10));
+                                        $("#txtFromToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(10)));
                                         //$("#txtFromToken").focus();
                                          $("#minmax").html('Maximum sold');
                                         var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
@@ -1664,7 +1664,7 @@ $(document).ready(function(){
                                           	var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(4);
                                       }
                                       else {
-                                        $("#txtToToken").val(parseFloat(forFirst).toFixed(10));
+                                        $("#txtToToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(10)));
                                       //$("#txtToToken").focus();
                                        $("#minmax").html('Minimum received');
                                       var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
@@ -1848,6 +1848,31 @@ $(document).ready(function(){
                 }
             });
         });
+    }
+
+    function SetDecimalForTokenValues(vTokenVal)
+    {
+    	if(vTokenVal<9)
+    	{
+    		return parseFloat(vTokenVal).toFixed(5);
+    	}
+    	else if(vTokenVal>9 && vTokenVal<99)
+    	{
+    		return parseFloat(vTokenVal).toFixed(4);
+    	}
+    	else if(vTokenVal>99 && vTokenVal<999)
+    	{
+    		return parseFloat(vTokenVal).toFixed(3);
+    	}
+    	else if(vTokenVal>999 && vTokenVal<9999)
+    	{
+    		return parseFloat(vTokenVal).toFixed(2);
+    	}
+    	else if(vTokenVal>9999 && vTokenVal<99999)
+    	{
+    		return parseFloat(vTokenVal).toFixed(1);
+    	}
+    	
     }
 
     function SetDecimalForMinMax(vMinMax)

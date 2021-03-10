@@ -96,3 +96,4 @@ a { color: #ffffff; }
 .card-header1 .form-control { border: none; }
 .control-label { margin: .5em 1em 0; }
 /* Chart.js - End */
+.alertify .ajs-body .ajs-content { overflow-wrap: break-word; }

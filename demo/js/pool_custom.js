@@ -20,7 +20,7 @@ $(document).ready(function () {
             var WETHobj = routerContract.methods.WETH().call();
             const WETHval = WETHobj.then(function (WETHAddress) {
 
-                if(WETHAddress != ''){
+                //if(WETHAddress != ''){
                     $("#WETHAddress").val(WETHAddress);
 
                     $.ajax({
@@ -36,7 +36,7 @@ $(document).ready(function () {
                             console.log(res_error);
                         }
                     });
-                }
+                //}
             });
         } else {
 
@@ -57,6 +57,7 @@ $(document).ready(function () {
 
     $(".apprvebuttons").on("click", function () {
 
+        $("#pool_loading").show();
         var contractAddress = $(this).attr('data-address');
         var contractABI_json = JSON.parse($(this).attr('data-abi'));
         var contract_dec = JSON.parse($(this).attr('data-decimal'));
@@ -68,7 +69,7 @@ $(document).ready(function () {
             }
 
             var tknContract = new web3.eth.Contract(contractABI_json, contractAddress);
-            var value = 1000 * parseInt(contract_dec);
+            var value = 100000 * parseInt(contract_dec);
             value = value.toLocaleString('fullwide', {useGrouping: false});
             var getapprove = tknContract.methods.approve(routerContractAddress, value).send({
                 from: myAccountAddress,
@@ -77,6 +78,8 @@ $(document).ready(function () {
                 value: 0
             }).on("confirmation", function () {
                 $(this).hide();
+
+                $("#pool_loading").hide();
 
                 $(".apprvebuttons").each(function () {
                     if ($(this).is(':hidden')) {
@@ -725,7 +728,7 @@ Number.prototype.toFixedSpecial = function (n) {
     return str;
 };
 
-function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to) {
+async function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to, manual = '') {
     if (_reserve0 > 0 && _reserve1 > 0) {
 
         var reserve0 = (_reserve0 / devide_to);
@@ -746,29 +749,32 @@ function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spn
             return false;
         }
 
-        var token0Price = (reserve0 / reserve1).toFixed(8);
-        var token1Price = (reserve1 / reserve0).toFixed(8);
+        var token0Price = (reserve0 / reserve1); // .toFixed(8)
+        var token1Price = (reserve1 / reserve0); // .toFixed(8)
 
         var forFirst = 0;
         var forSecond = 0;
 
-        if (change == 'from_change') {
-            forFirst = (txtPoolFromToken * token0Price);
-            if (forFirst > 0) {
-                forFirst = parseFloat(forFirst).toFixed(8);
-                $("#txtPoolToToken").val(forFirst);
-            }
-        } else if (change == 'to_change') {
-            forSecond = (txtPoolFromToken * token1Price);
-            if (forSecond > 0) {
-                forSecond = parseFloat(forSecond).toFixed(8);
-                $("#txtPoolFromToken").val(forSecond);
-            }
-        } else {
-            forFirst = (txtPoolFromToken * token0Price);
-            if (forFirst > 0) {
-                forFirst = parseFloat(forFirst).toFixed(8);
-                $("#txtPoolToToken").val(forFirst);
+        if(manual == ''){
+
+            if (change == 'from_change') {
+                forFirst = (txtPoolFromToken * token0Price);
+                if (forFirst > 0) {
+                    forFirst = parseFloat(forFirst); //.toFixed(8)
+                    $("#txtPoolToToken").val(forFirst);
+                }
+            } else if (change == 'to_change') {
+                forSecond = (txtPoolFromToken * token1Price);
+                if (forSecond > 0) {
+                    forSecond = parseFloat(forSecond); //.toFixed(8)
+                    $("#txtPoolFromToken").val(forSecond);
+                }
+            } else {
+                forFirst = (txtPoolFromToken * token0Price);
+                if (forFirst > 0) {
+                    forFirst = parseFloat(forFirst); // .toFixed(8)
+                    $("#txtPoolToToken").val(forFirst);
+                }
             }
         }
 
@@ -791,45 +797,54 @@ function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spn
 
         $("#pool_loading").hide();
 
+        var is_allow_supply = 'yes';
         if (parseFloat($("#txtPoolFromToken").val()) > parseFloat($("#pairWalletFromBalance").html())) {
             $("#create_pair_btn").prop('disabled', true);
             var vtoken = $('#poolFromToken option:selected').val();
             $("#create_pair_btn").html('Insufficient ' + vtoken + ' Token');
-        } else if (parseFloat($("#txtPoolToToken").val()) > parseFloat($("#pairWalletToBalance").html())) {
+            is_allow_supply = 'no';
+        }
+
+        if (parseFloat($("#txtPoolToToken").val()) > parseFloat($("#pairWalletToBalance").html())) {
             $("#create_pair_btn").prop('disabled', true);
             var vtoken = $('#poolToToken option:selected').val();
             $("#create_pair_btn").html('Insufficient ' + vtoken + ' Token');
-        } else {
+            is_allow_supply = 'no';
+        } 
+
+        if(is_allow_supply == 'yes'){
 
             $("#create_pair_btn").html('Supply');
             //check approval into ERC-20 token for router contract
             contractABI_json = JSON.parse(contractABI);
-
+            console.log("test1");
             var tknContract = new web3.eth.Contract(contractABI_json, contractAddress);
-            var getallowance = tknContract.methods.allowance(myAccountAddress, routerContractAddress).call();
-            getallowance.then(function (getallowance) {
+            var getAllowanceObj = tknContract.methods.allowance(myAccountAddress, routerContractAddress).call();
+            var getallowance = await getAllowanceObj;
+            
+            console.log(getallowance);
 
-                if (parseInt(getallowance) <= 0) {
-                    $("#approve2").show();
-                    if ($('#poolToToken option:selected').val() == 'ETH') {
-                        var vtoken = $('#poolFromToken option:selected').val();
-                    } else {
-                        var vtoken = $('#poolToToken option:selected').val();
-                    }
-                    $("#approve2").html('Approve ' + vtoken);
-                    $("#approve2").attr('data-address', contractAddress);
-                    $("#approve2").attr('data-abi', contractABI);
-                    $("#approve2").attr('data-decimal', devide_to);
-                    $("#create_pair_btn").prop('disabled', true);
+            if (parseInt(getallowance) <= 1000) {
+                $("#approve2").show();
+                if ($('#poolToToken option:selected').val() == 'ETH') {
+                    var vtoken = $('#poolFromToken option:selected').val();
                 } else {
-                    $("#approve2").hide();
-                    $("#approve2").attr('data-address', '');
-                    $("#approve2").attr('data-abi', '');
-                    $("#approve2").attr('data-decimal', 0);
-                    $("#create_pair_btn").prop('disabled', false);
-                    $("#create_pair_btn").html('Supply');
+                    var vtoken = $('#poolToToken option:selected').val();
                 }
-            });
+                $("#approve2").html('Approve ' + vtoken);
+                $("#approve2").attr('data-address', contractAddress);
+                $("#approve2").attr('data-abi', contractABI);
+                $("#approve2").attr('data-decimal', devide_to);
+                $("#create_pair_btn").prop('disabled', true);
+                $("#create_pair_btn").html('Create Pool & Supply');
+            } else {
+                $("#approve2").hide();
+                $("#approve2").attr('data-address', '');
+                $("#approve2").attr('data-abi', '');
+                $("#approve2").attr('data-decimal', 0);
+                $("#create_pair_btn").prop('disabled', false);
+                $("#create_pair_btn").html('Supply');
+            }
 
             if (spnPoolFromToken != 'ETH' && spnPoolToToken != 'ETH') {
                 var selectedtoken1 = spnPoolFromToken;
@@ -923,8 +938,7 @@ function changeFromToken(change = '') {
     if (change == 'to_change') {
         spnPoolToToken = poolToToken = $('#poolFromToken option:selected').val();
         spnPoolFromToken = poolFromToken = $('#poolToToken option:selected').val();
-
-        $("#txtPoolToToken").val("");
+        //$("#txtPoolToToken").val("");
     }
 
     if (spnPoolToToken == '' || spnPoolFromToken == '') {
@@ -961,7 +975,178 @@ function changeFromToken(change = '') {
             dataType: "json",
             success: function (resp) {
 
-                /* res=JSON.parse(res); */
+                if (resp.length == 1) {
+                    var res = resp[0];
+
+                    if (res.status == '1') {
+
+                        $("#pool_loading").show();
+
+                        var WETHAddress = $("#WETHAddress").val();
+                        if (WETHAddress) {
+
+                            var contractABI = res.data.contractABI;
+                            var contractAddress = res.data.contractAddress;
+                            var devide_to = '1e' + res.data.desimals;
+
+                            var txtPoolFromToken = $("#txtPoolFromToken").val();
+                            if (change == 'to_change') {
+                                txtPoolFromToken = $("#txtPoolToToken").val();
+                            }
+
+
+                            /*if (txtPoolFromToken <= 0) {
+                                $("#txtPoolToToken").val("");
+                            }*/
+
+                            var from_token_name = $('#poolFromToken option:selected').val();
+                            var to_token_name = $('#poolToToken option:selected').val();
+
+                            $.ajax({
+                                type: "POST",
+                                url: 'ajax/getFactoryContract.php',
+                                data: {
+                                    from_token_name: from_token_name,
+                                    to_token_name: to_token_name
+                                },
+                                dataType: "json",
+                                success: async function (resp) {
+
+                                    if (resp != '') {
+                                        
+                                        var contractAddress1 = WETHAddress;
+                                        var contractAddress2 = contractAddress;
+
+                                        var getPairAddress = resp.getPairAddress;
+                                        
+                                        console.log(getPairAddress);
+
+                                        var getPairABI = resp.getPairABI;
+                                        var getPairABI_JSON = JSON.parse(getPairABI);
+
+                                        var UniswapV2Pair = new web3.eth.Contract(getPairABI_JSON, getPairAddress);
+                                        var getReserve = UniswapV2Pair.methods.getReserves().call();
+                                        getReserve.then(function (getReserveResult) {
+
+                                            console.log(getReserveResult);
+
+                                            var vReverse1 = getReserveResult._reserve0;
+                                            var vReverse2 = getReserveResult._reserve1;
+
+                                            if(vReverse1 > 0 && vReverse2 > 0){
+
+                                                var poolFromTokenVl = $('#poolFromToken option:selected').val();
+                                                if (poolFromTokenVl == 'ETH') {
+                                                    var _reserve0 = getReserveResult._reserve0;
+                                                    var _reserve1 = getReserveResult._reserve1;
+                                                } else {
+                                                    var _reserve0 = getReserveResult._reserve1;
+                                                    var _reserve1 = getReserveResult._reserve0;
+                                                }
+
+                                                getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to);
+
+                                                // Share of Pool Calculation - Start
+                                                getShareOfPoolCalculations(_reserve0, _reserve1, devide_to);
+                                                //Share of Pool Calculation - End
+
+                                            } else {
+                                                $("#pool_loading").hide();
+                                                //$("#txtPoolToToken").val("");
+                                                //alertify.alert("Error", "Insufficient liquidity for this trade", function () {});
+                                                return false;
+                                            }
+                                        });
+
+                                    } else {
+
+                                        console.log(WETHAddress);
+                                        console.log(factoryContractAddress);
+
+                                        var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
+                                        var getPairObj = UniswapV2Factory.methods.getPair(WETHAddress, contractAddress).call();
+                                        var getPairAddress = await getPairObj;
+
+                                        console.log(getPairAddress);
+
+                                        var getPairABI = window.getPairABI;
+
+                                        if (getPairAddress == '' || getPairAddress == '0x0000000000000000000000000000000000000000') {
+                                            
+                                            var vReverse1 = $("#txtPoolFromToken").val();
+                                            var vReverse2 = $("#txtPoolToToken").val();
+
+                                            if(vReverse1 > 0 && vReverse2 > 0){
+
+                                                var poolFromTokenVl = $('#poolFromToken option:selected').val();
+                                                if (poolFromTokenVl == 'ETH') {
+                                                    var _reserve0 = vReverse1;
+                                                    var _reserve1 = vReverse2;
+                                                } else {
+                                                    var _reserve0 = vReverse2;
+                                                    var _reserve1 = vReverse1;
+                                                }
+
+                                                getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to, 'yes');
+
+                                                // Share of Pool Calculation - Start
+                                                getShareOfPoolCalculations(_reserve0, _reserve1, devide_to);
+                                                //Share of Pool Calculation - End
+
+                                            } else {
+                                                $("#pool_loading").hide();
+                                                //$("#txtPoolToToken").val("");
+                                                //alertify.alert("Error", "Insufficient liquidity for this trade", function () {});
+                                                return false;
+                                            }
+                                            
+                                        } else {
+
+                                            // Save Pair Details - Start 
+                                            var from_token_address = WETHAddress;
+                                            var to_token_address = contractAddress;
+                                            $.ajax({
+                                                type: "POST",
+                                                url: 'ajax/saveFactoryContract.php',
+                                                data: {
+                                                    getPairAddress: getPairAddress,
+                                                    getPairABI: getPairABI,
+                                                    from_token_name: from_token_name,
+                                                    to_token_name: to_token_name,
+                                                    from_token_address: from_token_address,
+                                                    to_token_address: to_token_address,
+                                                    user_wallet: myAccountAddress
+                                                },
+                                                success: function (resp) { console.log(resp); }
+                                            });
+                                            // Save Pair Details - End
+                                        }
+
+                                    }
+                                },
+                                error: function (result) {
+                                    alert("Error");
+                                    console.log(result);
+                                }
+                            });
+                        }
+                    }
+                }
+            },
+            error: function (result) {
+                alert("Error");
+                console.log(result);
+            }
+        });
+
+        /*
+        $.ajax({
+            type: "POST",
+            url: 'ajax/getCurrencyData1.php',
+            data: {tokenname: selectedtoken},
+            dataType: "json",
+            success: function (resp) {
+
                 if (resp.length == 1) {
                     var res = resp[0];
 
@@ -1026,9 +1211,9 @@ function changeFromToken(change = '') {
 
                                                 getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to);
 
-                                                /* Share of Pool Calculation - Start */
+                                                // Share of Pool Calculation - Start
                                                 getShareOfPoolCalculations(_reserve0, _reserve1, devide_to);
-                                                /* Share of Pool Calculation - End */
+                                                //Share of Pool Calculation - End
 
                                             } else {
                                                 $("#pool_loading").hide();
@@ -1099,9 +1284,9 @@ function changeFromToken(change = '') {
 
                                             getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to);
 
-                                            /* Share of Pool Calculation - Start */
+                                            // Share of Pool Calculation - Start
                                             getShareOfPoolCalculations(_reserve0, _reserve1, devide_to);
-                                            /* Share of Pool Calculation - End */
+                                            // Share of Pool Calculation - End
                                         });
 
                                         var from_token_name = $('#poolFromToken option:selected').val();
@@ -1282,12 +1467,10 @@ function changeFromToken(change = '') {
                                 $("#create_pair_btn").html('Enter an amount');
                                 return false;
                             }
-
-                            /*
-                            var minLiq = pairContract.methods.MINIMUM_LIQUIDITY().call();
-                            var min_liq = await minLiq;
-                            console.log(min_liq);
-                            */
+                            
+                            //var minLiq = pairContract.methods.MINIMUM_LIQUIDITY().call();
+                            //var min_liq = await minLiq;
+                            //console.log(min_liq);
 
                             var pairBalance = pairContract.methods.balanceOf(myAccountAddress).call();
                             var pairBalanceAwt = await pairBalance;
@@ -1459,7 +1642,7 @@ function changeFromToken(change = '') {
                 alert("Error");
             }
         });
-
+        */
         setTimeout(function () {
             $("#pool_loading").hide();
         }, 10000);
@@ -1592,8 +1775,9 @@ async function createPairBtnClick() {
                                 
                                 console.log(vPairAddress);
 
-                                if(vPairAddress == '') {
+                                if(vPairAddress == '' || vPairAddress == '0x0000000000000000000000000000000000000000') {
                                     
+                                    $("#create_pair_loading").show();
                                     const tx = UniswapV2Factory.methods.createPair(WETHval, contractAddress).send({
                                             from: myAccountAddress,
                                         });
@@ -1602,6 +1786,8 @@ async function createPairBtnClick() {
                                     var getPairObj = UniswapV2Factory.methods.getPair(WETHval, contractAddress).call();
                                     var vPairAddress = await getPairObj;
                                 }
+
+                                console.log(vPairAddress);
 
                                 var txtPoolFromToken = $("#txtPoolFromToken").val();
                                 var txtPoolToToken = $("#txtPoolToToken").val();

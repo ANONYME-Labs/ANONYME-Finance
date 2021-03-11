@@ -405,10 +405,13 @@ include 'sidebar.php';
             <div class="modal-body">
                 <div id="pool_loading"></div>
                 <div class="col-md-12 mb-3">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger liq_provider_first">
                         You are the first liquidity provider.<br>
                         The ratio of tokens you add will set the price of this pool.<br>
                         Once you are happy with the rate click supply to review.
+                    </div>
+                    <div class="alert alert-danger liq_tip_second" style="display: none;">
+                        <b>Tip:</b> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time.
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -490,7 +493,7 @@ include 'sidebar.php';
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="sc-kkGfuU kuSmHG css-1kt4f20" id="share_of_pool">100%</div>
+                                    <div class="sc-kkGfuU kuSmHG css-1kt4f20" id="share_of_pool">0%</div>
                                     <div class="css-1m402ei">Share of Pool</div>
                                 </div>
                             </div>

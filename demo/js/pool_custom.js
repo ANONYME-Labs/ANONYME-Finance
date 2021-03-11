@@ -665,7 +665,7 @@ function getSelectedWalletBalance(tokenname, walletLocation) {
                         var tknContract = new web3.eth.Contract(contractABI, contractAddress);
                         var balance = await tknContract.methods.balanceOf(myAccountAddress).call();
                         if(balance == 0){
-                            alertify.alert('Error', 'There is 0 balance found for the ' + tokenname + ' token.');
+                            //alertify.alert('Error', 'There is 0 balance found for the ' + tokenname + ' token.');
                             $("#create_pair_btn").prop('disabled', true);
                             $("#create_pair_btn").html('Invalid pair');
                             $("#pool_loading").hide();
@@ -926,8 +926,15 @@ function changeFromToken(change = '') {
     }
 
     if (spnPoolToToken == '' || spnPoolFromToken == '') {
+
+        $(".liq_provider_first").show();
+        $(".liq_tip_second").hide();
+
         $("#create_found_pair").hide();
         return false;
+    } else {
+        $(".liq_provider_first").hide();
+        $(".liq_tip_second").show();
     }
 
     $("#create_found_pair").show();
@@ -1150,6 +1157,29 @@ function changeFromToken(change = '') {
 
                                     if (getPairAddress == '' || getPairAddress == '0x0000000000000000000000000000000000000000') {
                                         $("#pool_loading").show();
+
+                                        console.log(routerContractAddress);
+
+                                        contractABI_json = JSON.parse(contractABI1);
+                                        var tknContract = new web3.eth.Contract(contractABI_json, contractAddress1);
+                                        var getAllowanceObj = tknContract.methods.allowance(myAccountAddress, routerContractAddress).call();
+                                        var getallowance = await getAllowanceObj;
+                                        
+                                        console.log(getallowance);
+                                        if (parseInt(getallowance) <= 1000) {
+                                            var value = (100000 * 1e18);
+                                            value = value.toLocaleString('fullwide', {useGrouping: false});
+                                            console.log(value);
+                                            var getapprove = tknContract.methods.approve(routerContractAddress, value).send({
+                                                from: myAccountAddress,
+                                                gasLimit: web3.utils.toHex(560000),
+                                                gasPrice: web3.utils.toHex(10000000000),
+                                                value: 0
+                                            }).on("confirmation", function () {
+                                                $("#pool_loading").hide();
+                                            });
+                                        }
+
                                         const tx = UniswapV2Factory.methods.createPair(contractAddress1, contractAddress2).send({
                                                 from: myAccountAddress,
                                             });
@@ -1157,8 +1187,10 @@ function changeFromToken(change = '') {
 
                                         var getPairObj = UniswapV2Factory.methods.getPair(contractAddress1, contractAddress2).call();
                                         var getPairAddress = await getPairObj;
-                                        $("#pool_loading").hide();
+                                        console.log(getPairAddress);
                                     }
+
+                                    console.log(getPairAddress);
 
                                     var getPairABI = window.getPairABI;
                                     var getPairABI_JSON = JSON.parse(getPairABI);
@@ -1188,8 +1220,13 @@ function changeFromToken(change = '') {
 
                             }
 
+                            console.log(amountOut);
+
                             if(amountOut <= 0){
+                                console.log("dfsdfsd");
                                 $("#pool_loading").hide();
+                                $("#create_pair_btn").prop('disabled', true);
+                                $("#create_pair_btn").html('Enter an amount');
                                 return false;
                             }
                             var minLiq = pairContract.methods.MINIMUM_LIQUIDITY().call();
@@ -1216,9 +1253,10 @@ function changeFromToken(change = '') {
                             var vReverse1 = reserves._reserve0;
                             var vReverse2 = reserves._reserve1;
 
-                            getShareOfPoolCalculations(vReverse1, vReverse2, devide_to1);
-
                             if(vReverse1 > 0 && vReverse2 > 0){
+
+                                getShareOfPoolCalculations(vReverse1, vReverse2, devide_to1);
+
                                 if (vtoken0 == contractAddress1) {
                                     var vQuote = routerContract.methods.quote(amountOut, vReverse1, vReverse2).call();
                                     vReverse1 = vReverse1 / devide_to1;
@@ -1233,16 +1271,15 @@ function changeFromToken(change = '') {
 
                             vQuote.then(function (vQuote) {
 
-                                console.log(vQuote);
-
                                 if(vQuote <= 0){
-                                    //resetAllFields('1');
                                     alertify.alert("Error", "Entered price is invalid, Please enter the correct token price to create pair.", function () {});
                                     $("#pool_loading").hide();
                                     $("#create_pair_btn").prop('disabled', true);
                                     $("#create_pair_btn").html('Insufficient token');
                                     return false;
                                 }
+
+                                $("#pool_loading").show();
 
                                 tokenAount = vQuote;
 
@@ -1259,17 +1296,15 @@ function changeFromToken(change = '') {
                                 
                                 var forFirst = toFixedNumber(parseFloat(forFirst));
 
-                                var forFirstLength = forFirst.toString().split(".")[1].length;
-                                console.log(forFirstLength);
+                                if(forFirst.toString().split(".").length > 1){
+                                    var forFirstLength = forFirst.toString().split(".")[1].length;
 
-                                if(forFirstLength > 18){
-                                    forFirst = Number(forFirst).toFixed(18).replace(/\.?0+$/,"");
+                                    console.log(forFirstLength);
+
+                                    if(forFirstLength > 18){
+                                        forFirst = Number(forFirst).toFixed(18).replace(/\.?0+$/,"");
+                                    }
                                 }
-
-                                //var forFirst = forFirst.toLocaleString('fullwide', {useGrouping: false});
-                                console.log(forFirst);
-                                
-                                //forFirst = parseFloat(forFirst).toFixedSpecial(18);
 
                                 if (change == 'to_change') {
                                     $("#txtPoolFromToken").val(forFirst); // .toFixed(8)

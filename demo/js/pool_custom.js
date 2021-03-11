@@ -774,7 +774,7 @@ function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spn
 
         if ($("#txtPoolFromToken").val() <= 0 || $("#txtPoolToToken").val() <= 0) {
             $("#create_pair_btn").prop('disabled', true);
-            $("#create_pair_btn").html('Invalid pair');
+            $("#create_pair_btn").html('Enter an amount');
             $("#pool_loading").hide();
             return false;
         }
@@ -937,7 +937,7 @@ function changeFromToken(change = '') {
         $(".liq_tip_second").show();
     }
 
-    $("#create_found_pair").show();
+    //$("#create_found_pair").show();
 
     web3.eth.getAccounts(async function (error, result) {
 

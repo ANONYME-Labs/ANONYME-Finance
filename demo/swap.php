@@ -1207,7 +1207,7 @@ $(document).ready(function(){
                                         var forSecond = (1 / forFirst).toFixed(8);
                                         if(change=='to_change') 
                                         {
-                                          $("#txtFromToken").val(parseFloat(forFirst).toFixed(8));
+                                          $("#txtFromToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(8)));
                                           $("#minmax").html('Maximum sold');
                                           $(".firstTokenRate").html(parseFloat(forFirst/$("#txtToToken").val()));
                                           $(".secondTokenRate").html(parseFloat(forSecond*$("#txtToToken").val()));
@@ -1217,7 +1217,7 @@ $(document).ready(function(){
                                           
                                           //$("#txtFromToken").focus();
                                         } else {
-                                          $("#txtToToken").val(parseFloat(forFirst).toFixed(8));
+                                          $("#txtToToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(8)));
                                           $(".firstTokenRate").html(parseFloat(forFirst/$("#txtFromToken").val()));
                                           $(".secondTokenRate").html(parseFloat(forSecond*$("#txtFromToken").val()));
                                           $("#minmax").html('Minimum received');
@@ -1249,7 +1249,7 @@ $(document).ready(function(){
                                         
                                         if(change=='to_change')
                                         {
-                                          $("#txtFromToken").val(parseFloat(forFirst).toFixed(8));
+                                          $("#txtFromToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(8)));
                                           //$("#txtFromToken").focus();
                                           $("#minmax").html('Maximum sold');
 	                                        var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
@@ -1257,7 +1257,7 @@ $(document).ready(function(){
 	                                        var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(4);
                                         }
                                         else {
-                                          $("#txtToToken").val(parseFloat(forFirst).toFixed(3));
+                                          $("#txtToToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(3)));
                                           $("#minmax").html('Minimum received');
                                           var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
 	                                         var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
@@ -1850,27 +1850,39 @@ $(document).ready(function(){
         });
     }
 
+    function ToFixedNoRounding(n,vNum)
+    {
+    	const reg = new RegExp("^-?\\d+(?:\\.\\d{0," + n + "})?", "g")
+	    const a = vNum.toString().match(reg)[0];
+	    const dot = a.indexOf(".");
+	    if (dot === -1) { // integer, insert decimal dot and pad up zeros
+	        return a + "." + "0".repeat(n);
+	    }
+	    const b = n - (a.length - dot) + 1;
+	    return b > 0 ? (a + "0".repeat(b)) : a;
+    }
+
     function SetDecimalForTokenValues(vTokenVal)
     {
     	if(vTokenVal<9)
     	{
-    		return parseFloat(vTokenVal).toFixed(5);
+    		return ToFixedNoRounding(5,parseFloat(vTokenVal));
     	}
     	else if(vTokenVal>9 && vTokenVal<99)
     	{
-    		return parseFloat(vTokenVal).toFixed(4);
+    		return ToFixedNoRounding(4,parseFloat(vTokenVal));
     	}
     	else if(vTokenVal>99 && vTokenVal<999)
     	{
-    		return parseFloat(vTokenVal).toFixed(3);
+    		return ToFixedNoRounding(3,parseFloat(vTokenVal));
     	}
     	else if(vTokenVal>999 && vTokenVal<9999)
     	{
-    		return parseFloat(vTokenVal).toFixed(2);
+    		return ToFixedNoRounding(2,parseFloat(vTokenVal));
     	}
     	else if(vTokenVal>9999 && vTokenVal<99999)
     	{
-    		return parseFloat(vTokenVal).toFixed(1);
+    		return ToFixedNoRounding(1,parseFloat(vTokenVal));
     	}
     	
     }

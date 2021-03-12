@@ -729,12 +729,14 @@ Number.prototype.toFixedSpecial = function (n) {
 };
 
 async function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, change, spnPoolFromToken, spnPoolToToken, contractAddress, contractABI, devide_to, manual = '') {
-    if (_reserve0 > 0 && _reserve1 > 0) {
+    
+    //if (_reserve0 > 0 && _reserve1 > 0) {
 
         var reserve0 = (_reserve0 / devide_to);
         var reserve1 = (_reserve1 / devide_to);
         var numOfToken = txtPoolFromToken;
 
+        /*
         if (reserve0 <= 0 && reserve1 <= 0) {
 
             $("#txtPoolFromToken").val("");
@@ -748,6 +750,7 @@ async function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, chang
 
             return false;
         }
+        */
 
         var token0Price = (reserve0 / reserve1); // .toFixed(8)
         var token1Price = (reserve1 / reserve0); // .toFixed(8)
@@ -885,6 +888,8 @@ async function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, chang
             }
         }
 
+    //}
+    /*
     } else {
         resetAllFields('1');
 
@@ -892,6 +897,7 @@ async function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, chang
         $("#create_pair_btn").prop('disabled', true);
         $("#create_pair_btn").html('Insufficient token');
     }
+    */
 }
 
 function getShareOfPoolCalculations(_reserve0, _reserve1, devide_to) {
@@ -906,7 +912,8 @@ function getShareOfPoolCalculations(_reserve0, _reserve1, devide_to) {
 
         var share_of_pool = 0;
         var total_token = ((parseFloat(txtPoolFromToken) + parseFloat(txtPoolToToken)).toFixed(2));
-        if (!isNaN(total_token)) {
+        console.log(total_token);
+        if (!isNaN(total_token) && total_token > 0) {
 
             var total_pool_amount = token_reserv0 + token_reserv1 + parseFloat(total_token);
             var share_of_pool = ((total_token * 100) / total_pool_amount).toFixed(2);
@@ -1033,7 +1040,7 @@ function changeFromToken(change = '') {
                                             var vReverse1 = getReserveResult._reserve0;
                                             var vReverse2 = getReserveResult._reserve1;
 
-                                            if(vReverse1 > 0 && vReverse2 > 0){
+                                            //if(vReverse1 > 0 && vReverse2 > 0){
 
                                                 var poolFromTokenVl = $('#poolFromToken option:selected').val();
                                                 if (poolFromTokenVl == 'ETH') {
@@ -1049,13 +1056,14 @@ function changeFromToken(change = '') {
                                                 // Share of Pool Calculation - Start
                                                 getShareOfPoolCalculations(_reserve0, _reserve1, devide_to);
                                                 //Share of Pool Calculation - End
-
+                                            /*
                                             } else {
                                                 $("#pool_loading").hide();
                                                 //$("#txtPoolToToken").val("");
                                                 //alertify.alert("Error", "Insufficient liquidity for this trade", function () {});
                                                 return false;
                                             }
+                                            */
                                         });
 
                                     } else {
@@ -1756,6 +1764,7 @@ async function createPairBtnClick() {
 
                             if ((startToken != '' && endToken != '') && (startToken != 'Select Token' && endToken != 'Select Token')) {
 
+                                /*
                                 console.log("token = " + res.data.name);
                                 console.log("contract address = " + contractAddress);
                                 var vPairAddress='';
@@ -1823,12 +1832,42 @@ async function createPairBtnClick() {
                                 var tokenAount = ((1 / getInpSingle) * ETHValue);
                                 var token_percent = Math.ceil((tokenAount * 1) / 100);
                                 var ETH_percent = Math.ceil((ETHValue * 1) / 100);
+                                */
+
+                                var UniswapV2Factory = new web3.eth.Contract(factoryContractABI, factoryContractAddress);
+                                var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress, {
+                                    from: myAccountAddress, // default from address
+                                });
+
+                                var txtPoolFromToken = $("#txtPoolFromToken").val();
+                                var txtPoolToToken = $("#txtPoolToToken").val();
+
+                                //const ETHValue = amountOut.toLocaleString('fullwide', {useGrouping: false});
+
+                                const ETHValue = web3.utils.toHex(toFixedNumber(multiply_to * txtPoolFromToken));
+                                const tokenAount = web3.utils.toHex(toFixedNumber(multiply_to * txtPoolToToken));
+
+                                //var tokenAount = ETHValue;
+
+                                var ETH_percent = Math.ceil((ETHValue * 1) / 100);
+                                var token_percent = Math.ceil((tokenAount * 1) / 100);
+                                
+                                console.log('==================');
+                                console.log("ETHValue " + ETHValue);
+                                console.log("ETH_percent " + ETH_percent);
+                                console.log("token_percent " + token_percent);
+
+                                console.log("tokenAount " + tokenAount);
+                                console.log("amountTokenMin " + (tokenAount - token_percent));
+                                console.log("amountETHMin " + (ETHValue - ETH_percent));
+
+                                console.log('==================');
 
                                 var addLiquidityETH = ETHValue;
                                 var token = contractAddress;
                                 var amountTokenDesired = tokenAount;
-                                var amountTokenMin = (tokenAount - token_percent);
-                                var amountETHMin = (ETHValue - ETH_percent);
+                                var amountTokenMin = web3.utils.toHex(toFixedNumber(tokenAount - token_percent));
+                                var amountETHMin = web3.utils.toHex(toFixedNumber(ETHValue - ETH_percent));
                                 var to = myAccountAddress;
                                 var milliseconds = 300 * 1000;
                                 var deadline = new Date().getTime() + milliseconds;

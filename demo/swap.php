@@ -1721,7 +1721,7 @@ $(document).ready(function(){
                                                 console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
                                                 console.log("vLiqProviderFee 11 = " + vLiqProviderFee);
 
-                                                
+                                                var vPriceImpact=0;
 	                                           
 										        if(multiHops=="yes" || Insuficient==1)
                                       			{
@@ -1890,32 +1890,32 @@ $(document).ready(function(){
     function SetDecimalForMinMax(vMinMax)
     {
     	console.log("vMinMax = "+vMinMax);
-    	if(vMinMax>=0.01 && vMinMax<=0.09)
+    	if(vMinMax>=0.01 && vMinMax<0.1)
     	{
     		console.log("vMinMax  11 = "+vMinMax);
     		return parseFloat(vMinMax).toFixed(5);
     	}
-    	else if(vMinMax>=0.1 && vMinMax<=0.9)
+    	else if(vMinMax>=0.1 && vMinMax<1)
     	{
     		console.log("vMinMax  22 = "+vMinMax);
     		return parseFloat(vMinMax).toFixed(4);
     	}
-    	else if(vMinMax>=1 && vMinMax<=9)
+    	else if(vMinMax>=1 && vMinMax<10)
     	{
     		console.log("vMinMax  33 = "+vMinMax);
     		return parseFloat(vMinMax).toFixed(3);
     	}
-    	else if(vMinMax>=10 && vMinMax<=99)
+    	else if(vMinMax>=10 && vMinMax<100)
     	{
     		console.log("vMinMax  44 = "+vMinMax);
     		return parseFloat(vMinMax).toFixed(2);
     	}
-    	else if(vMinMax>=100 && vMinMax<=999)
+    	else if(vMinMax>=100 && vMinMax<1000)
     	{
     		console.log("vMinMax  55 = "+vMinMax);
     		return parseFloat(vMinMax).toFixed(1);
     	}
-    	else if(vMinMax>=1000 && vMinMax<=9999)
+    	else if(vMinMax>=1000 && vMinMax<10000)
     	{
     		console.log("vMinMax  66 = "+Math.floor(vMinMax));
     		return  Math.floor(vMinMax);
@@ -1924,6 +1924,10 @@ $(document).ready(function(){
     	{
     		console.log("vMinMax  66 = "+Math.floor(vMinMax));
     		return  Math.floor(vMinMax);
+    	}
+    	else
+    	{
+    		return parseFloat(vMinMax).toFixed(6);
     	}
     	
     }

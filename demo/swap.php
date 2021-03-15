@@ -1083,7 +1083,9 @@ $(document).ready(function(){
           spndrpToToken = $('#drpFromToken option:selected').val();
           spndrpFromToken  = $('#drpToToken option:selected').val();
         }
+ console.log( " spndrpFromToken = "+ spndrpFromToken);
 
+  console.log( " spndrpToToken = "+ spndrpToToken);
       
 
        var slipTolerance = $.cookie("slip_tlrance_txt");
@@ -1115,6 +1117,8 @@ $(document).ready(function(){
               selectedtoken=[spndrpFromToken,spndrpToToken];
             }
 
+            console.log( " selectedtoken = "+ selectedtoken);
+
             var routerContract = new web3.eth.Contract(routerContractABI, routerContractAddress);
             var WETHContract="<?php echo $WETHAddress; ?>";
 
@@ -1130,6 +1134,8 @@ $(document).ready(function(){
 
                     //console.log(res.status);
                     if(resp.length==1){
+
+                    	console.log("iffffffffffffffff ");
                       var res=resp[0];
                       if (res.status == '1') {
                         var contractABI = res.data.contractABI;
@@ -1211,9 +1217,9 @@ $(document).ready(function(){
                                           $("#minmax").html('Maximum sold');
                                           $(".firstTokenRate").html(parseFloat(forFirst/$("#txtToToken").val()));
                                           $(".secondTokenRate").html(parseFloat(forSecond*$("#txtToToken").val()));
-                                           var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
-                                          	var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
-                                          	var minrec = parseFloat( parseFloat($("#txtFromToken").val()) + parseFloat( divMinrec)).toFixed(4);
+                                           var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(8);
+                                          	var divMinrec = parseFloat(calculateMinRec/100).toFixed(8);
+                                          	var minrec = parseFloat( parseFloat($("#txtFromToken").val()) + parseFloat( divMinrec)).toFixed(8);
                                           
                                           //$("#txtFromToken").focus();
                                         } else {
@@ -1221,9 +1227,9 @@ $(document).ready(function(){
                                           $(".firstTokenRate").html(parseFloat(forFirst/$("#txtFromToken").val()));
                                           $(".secondTokenRate").html(parseFloat(forSecond*$("#txtFromToken").val()));
                                           $("#minmax").html('Minimum received');
-                                          var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
-                                          	var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
-                                          	var minrec = parseFloat( parseFloat($("#txtToToken").val()) - parseFloat( divMinrec)).toFixed(4);
+                                          var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(8);
+                                          	var divMinrec = parseFloat(calculateMinRec/100).toFixed(8);
+                                          	var minrec = parseFloat( parseFloat($("#txtToToken").val()) - parseFloat( divMinrec)).toFixed(8);
                                           //$("#txtToToken").focus();
                                         }
                                         $(".startTwoTokens #first1").html(spndrpToToken);
@@ -1252,16 +1258,16 @@ $(document).ready(function(){
                                           $("#txtFromToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(8)));
                                           //$("#txtFromToken").focus();
                                           $("#minmax").html('Maximum sold');
-	                                        var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
-	                                        var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
-	                                        var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(4);
+	                                        var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(8);
+	                                        var divMinrec = parseFloat(calculateMinRec/100).toFixed(8);
+	                                        var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(8);
                                         }
                                         else {
-                                          $("#txtToToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(3)));
+                                          $("#txtToToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(8)));
                                           $("#minmax").html('Minimum received');
-                                          var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
-	                                         var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
-	                                        var minrec = parseFloat( parseFloat($("#txtToToken").val()) -  parseFloat(divMinrec)).toFixed(4);
+                                          var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(8);
+	                                         var divMinrec = parseFloat(calculateMinRec/100).toFixed(8);
+	                                        var minrec = parseFloat( parseFloat($("#txtToToken").val()) -  parseFloat(divMinrec)).toFixed(8);
                                         //$("#txtToToken").focus();
                                         }
 
@@ -1331,7 +1337,7 @@ $(document).ready(function(){
 	                                      console.log("2222!: " + vPriceImpact);
 	                                      //var minrec=parseFloat($("#txtToToken").val()-($("#txtToToken").val()*vLiqProviderFee)).toFixed(5);
 	                                    }
-	                                    if(parseFloat(vPriceImpact)<0)
+	                                    if(parseFloat(vPriceImpact)<=0.01)
 	                                    {
 	                                    	$("#priceimpact").html('<0.01%');
 	                                    }
@@ -1405,6 +1411,7 @@ $(document).ready(function(){
         }
         else 
         {
+        	console.log(" eeeeeeeeeellllssssssssseeeeeeeeeeeeee");
                       var contractABI1,contractAddress1,devide_to1;
                       var contractABI2,contractAddress2,devide_to2;
                       for(i=0;i<resp.length;i++)
@@ -1659,17 +1666,17 @@ $(document).ready(function(){
                                         $("#txtFromToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(10)));
                                         //$("#txtFromToken").focus();
                                          $("#minmax").html('Maximum sold');
-                                        var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(4);
-                                          	var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
-                                          	var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(4);
+                                        var calculateMinRec = parseFloat($("#txtFromToken").val() * slipTolerance).toFixed(8);
+                                          	var divMinrec = parseFloat(calculateMinRec/100).toFixed(8);
+                                          	var minrec = parseFloat( parseFloat($("#txtFromToken").val()) +parseFloat( divMinrec)).toFixed(8);
                                       }
                                       else {
                                         $("#txtToToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(10)));
                                       //$("#txtToToken").focus();
                                        $("#minmax").html('Minimum received');
-                                      var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(4);
-                                          	var divMinrec = parseFloat(calculateMinRec/100).toFixed(4);
-                                          	var minrec = parseFloat( parseFloat($("#txtToToken").val()) -parseFloat( divMinrec)).toFixed(4);
+                                      var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(8);
+                                          	var divMinrec = parseFloat(calculateMinRec/100).toFixed(8);
+                                          	var minrec = parseFloat( parseFloat($("#txtToToken").val()) -parseFloat( divMinrec)).toFixed(8);
                                       }
 
                                       $(".firstTokenRate").html(parseFloat(forFirst/$("#txtFromToken").val()));
@@ -1721,7 +1728,7 @@ $(document).ready(function(){
                                                 console.log("vReverse2 : " +$("#txtFromToken").val()+ " :: "+  vReverse2);
                                                 console.log("vLiqProviderFee 11 = " + vLiqProviderFee);
 
-                                                var vPriceImpact=0;
+                                                var vPriceImpact=0.01;
 	                                           
 										        if(multiHops=="yes" || Insuficient==1)
                                       			{
@@ -1864,7 +1871,19 @@ $(document).ready(function(){
 
     function SetDecimalForTokenValues(vTokenVal)
     {
-    	if(vTokenVal<9)
+    	if(vTokenVal<0.009)
+    	{
+    		return ToFixedNoRounding(8,parseFloat(vTokenVal));
+    	}
+    	else if(vTokenVal<0.09)
+    	{
+    		return ToFixedNoRounding(7,parseFloat(vTokenVal));
+    	}
+    	else if(vTokenVal<0.9)
+    	{
+    		return ToFixedNoRounding(6,parseFloat(vTokenVal));
+    	}
+    	else if(vTokenVal<9)
     	{
     		return ToFixedNoRounding(5,parseFloat(vTokenVal));
     	}
@@ -1890,7 +1909,12 @@ $(document).ready(function(){
     function SetDecimalForMinMax(vMinMax)
     {
     	console.log("vMinMax = "+vMinMax);
-    	if(vMinMax>=0.01 && vMinMax<0.1)
+    	if(vMinMax>=0.001 && vMinMax<0.01)
+    	{
+    		console.log("vMinMax  11 = "+vMinMax);
+    		return parseFloat(vMinMax).toFixed(6);
+    	}
+    	else if(vMinMax>=0.01 && vMinMax<0.1)
     	{
     		console.log("vMinMax  11 = "+vMinMax);
     		return parseFloat(vMinMax).toFixed(5);
@@ -1951,27 +1975,27 @@ $(document).ready(function(){
     	{
     		if(vLiqFee<0.01)
 	    	{
-	    		return parseFloat(vLiqFee).toFixed(6);
+	    		return ToFixedNoRounding(6,parseFloat(vLiqFee));
 	    	}
 	    	else if(vLiqFee<0.1)
 	    	{
-	    		return parseFloat(vLiqFee).toFixed(5);
+	    		return ToFixedNoRounding(5,parseFloat(vLiqFee));
 	    	}
 	    	else if(vLiqFee<1)
 	    	{
-	    		return parseFloat(vLiqFee).toFixed(4);
+	    		return ToFixedNoRounding(4,parseFloat(vLiqFee));
 	    	}
 	    	else if(vLiqFee<10)
 	    	{
-	    		return parseFloat(vLiqFee).toFixed(3);
+	    		return ToFixedNoRounding(3,parseFloat(vLiqFee));
 	    	}
 	    	else if(vLiqFee<100)
 	    	{
-	    		return parseFloat(vLiqFee).toFixed(2);
+	    		return ToFixedNoRounding(2,parseFloat(vLiqFee));
 	    	}
 	    	else if(vLiqFee<1000)
 	    	{
-	    		return parseFloat(vLiqFee).toFixed(1);
+	    		return ToFixedNoRounding(1,parseFloat(vLiqFee));
 	    	}
 	    	else
 	    	{

@@ -1672,6 +1672,7 @@ $(document).ready(function(){
                                       }
                                       else {
                                         $("#txtToToken").val(SetDecimalForTokenValues(parseFloat(forFirst).toFixed(10)));
+                                        console.log("ffffffffff to token ");
                                       //$("#txtToToken").focus();
                                        $("#minmax").html('Minimum received');
                                       var calculateMinRec = parseFloat($("#txtToToken").val() * slipTolerance).toFixed(8);
@@ -1733,13 +1734,22 @@ $(document).ready(function(){
 										        if(multiHops=="yes" || Insuficient==1)
                                       			{
 	                                               if(change=='to_change') {
-	                                                 var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
-	                                                 
+
+	                                               	var trade_fee = parseFloat(vReverse2)*vLiqProviderFee;
+													var token_reserv= parseFloat(vReverse2) + parseFloat(trade_fee);
+													var vPriceImpact=parseFloat(($("#txtFromToken").val()*100/token_reserv)).toFixed(2);
+
+	                                                 //var vPriceImpact=parseFloat(($("#txtFromToken").val()/vReverse2)*100).toFixed(4);
 	                                                 console.log("111111  !: " + vPriceImpact);
 	                                               }
 	                                               else {
-	                                                 var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(4);
-	                                                 console.log("2222!: " + vPriceImpact);
+
+	                                               		var trade_fee = parseFloat(vReverse1)*vLiqProviderFee;
+														 var token_reserv= parseFloat(vReverse1) + parseFloat(trade_fee);
+														 var vPriceImpact=parseFloat(($("#txtToToken").val()*100/token_reserv)).toFixed(2);
+
+	                                                 //var vPriceImpact=parseFloat(($("#txtToToken").val()/vReverse1)*100).toFixed(4);
+	                                                 console.log("2222 !!!: " + vPriceImpact);
 	                                               }
 	                                           }
 
@@ -1871,6 +1881,7 @@ $(document).ready(function(){
 
     function SetDecimalForTokenValues(vTokenVal)
     {
+    	console.log(" vTokenVal = "+vTokenVal);
     	if(vTokenVal<0.009)
     	{
     		return ToFixedNoRounding(8,parseFloat(vTokenVal));
@@ -1902,6 +1913,10 @@ $(document).ready(function(){
     	else if(vTokenVal>9999 && vTokenVal<99999)
     	{
     		return ToFixedNoRounding(1,parseFloat(vTokenVal));
+    	}
+    	else
+    	{
+    		return Math.floor(vTokenVal);
     	}
     	
     }
@@ -1961,15 +1976,24 @@ $(document).ready(function(){
     	console.log(" vLiqFee = "+vLiqFee);
     	if(vInsuficient==1)
     	{
-    		var vFirstDigitAfterDecimal = vLiqFee.toString().split('.')[1][0];
-    		if(vFirstDigitAfterDecimal>0)
+    		// var vFirstDigitAfterDecimal = parseFloat(vLiqFee).toString().split('.')[1][0];
+    		// alert(vFirstDigitAfterDecimal);
+    		console.log(" aaa :" + vLiqFee.toString().split('.')[1]);
+    		if(vLiqFee.toString().split('.')[1]==undefined)
     		{
-    			return Math.floor(vLiqFee)+ "."+vFirstDigitAfterDecimal;
+    			return vLiqFee;
     		}
-    		else
-    		{
-    			return  Math.floor(vLiqFee);
-    		}
+    		else{
+    			var vFirstDigitAfterDecimal = parseFloat(vLiqFee).toString().split('.')[1][0];
+	    		if(vFirstDigitAfterDecimal>0)
+	    		{
+	    			return Math.floor(vLiqFee)+ "."+vFirstDigitAfterDecimal;
+	    		}
+	    		else
+	    		{
+	    			return  Math.floor(vLiqFee);
+	    		}
+	    	}
     	}
     	else
     	{

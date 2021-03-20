@@ -761,21 +761,24 @@ async function getSetReserveValues(_reserve0, _reserve1, txtPoolFromToken, chang
         if(manual == ''){
 
             if (change == 'from_change') {
-                forFirst = (txtPoolFromToken * token0Price);
+                forFirst = parseFloat(txtPoolFromToken * token0Price);
+                forFirst = forFirst.toLocaleString('fullwide', {useGrouping: false});
                 if (forFirst > 0) {
-                    forFirst = parseFloat(forFirst); //.toFixed(8)
+                    forFirst = (forFirst); //.toFixed(8)
                     $("#txtPoolToToken").val(forFirst);
                 }
             } else if (change == 'to_change') {
-                forSecond = (txtPoolFromToken * token1Price);
+                forSecond = parseFloat(txtPoolFromToken * token1Price);
+                forSecond = forSecond.toLocaleString('fullwide', {useGrouping: false});
                 if (forSecond > 0) {
-                    forSecond = parseFloat(forSecond); //.toFixed(8)
+                    forSecond = (forSecond); //.toFixed(8)
                     $("#txtPoolFromToken").val(forSecond);
                 }
             } else {
-                forFirst = (txtPoolFromToken * token0Price);
+                forFirst = parseFloat(txtPoolFromToken * token0Price);
+                forFirst = forFirst.toLocaleString('fullwide', {useGrouping: false});
                 if (forFirst > 0) {
-                    forFirst = parseFloat(forFirst); // .toFixed(8)
+                    forFirst = (forFirst); // .toFixed(8)
                     $("#txtPoolToToken").val(forFirst);
                 }
             }
@@ -1883,7 +1886,7 @@ async function createPairBtnClick() {
                                 console.log('==================');
 
                                 var addLiqETH = routerContract.methods.addLiquidityETH(token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline).send({
-                                    gasLimit: web3.utils.toHex(560000),
+                                    gasLimit: web3.utils.toHex(9500000),
                                     gasPrice: web3.utils.toHex(10000000000),
                                     value: addLiquidityETH});
 
